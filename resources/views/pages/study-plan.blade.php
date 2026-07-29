@@ -1,0 +1,200 @@
+@extends('layouts.app')
+
+@section('title', 'الخطة الدراسية — NextStep AI')
+
+@section('css')
+<link href="{{ asset('NextStepAi-front/css/study-plan.css') }}" rel="stylesheet">
+@endsection
+
+@section('content')
+<!-- ======================= STUDY PLAN ======================= -->
+<div class="plan-wrap">
+  <div class="plan-inner">
+
+    <div class="plan-head">
+      <span class="plan-eyebrow">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        خطتك الدراسية
+      </span>
+      <h1>الخطة الدراسية المقترحة لك</h1>
+      <p>خطة مبنية على التخصص اللي اخترته، موزّعة على الفصول الدراسية عشان تخلّصي المتطلبات براحتك</p>
+    </div>
+
+    <!-- Major selector -->
+    <div class="major-select-row">
+      <label for="majorSelect">التخصص:</label>
+      <select class="major-select" id="majorSelect">
+        <option>علوم الحاسوب</option>
+        <option>هندسة البرمجيات</option>
+        <option>نظم المعلومات</option>
+        <option>الأمن السيبراني</option>
+      </select>
+    </div>
+
+    <!-- Tabs -->
+    <div class="plan-tabs" role="tablist">
+      <button class="plan-tab active" data-tab="required" type="button">الخطة الدراسية</button>
+      <button class="plan-tab" data-tab="elective" type="button">المواد الاختيارية</button>
+      <button class="plan-tab" data-tab="major" type="button">المواد التخصصية</button>
+    </div>
+
+    <!-- Main layout -->
+    <div class="plan-layout">
+
+      <!-- Left: stats -->
+      <div class="plan-stats">
+        <div class="stat-card">
+          <div class="stat-value">45<span>/140</span></div>
+          <div class="stat-label">ساعة معتمدة مكتملة</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:32%;"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">3.2</div>
+          <div class="stat-label">المعدل التراكمي المتوقع</div>
+        </div>
+        <button class="btn-download-pdf" id="btnDownloadPdf" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+          تحميل الخطة PDF
+        </button>
+      </div>
+
+      <!-- Center: table -->
+      <div class="plan-table-wrap">
+
+        <!-- الخطة الدراسية (required courses) -->
+        <div class="tab-panel" data-panel="required">
+          <div class="semesters-grid">
+            <div class="semester-block">
+              <h3>الفصل الأول</h3>
+              <div class="course-row"><span class="course-name">مقدمة في البرمجة</span><span class="course-meta"><span class="course-code">CS101</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">رياضيات متقطعة</span><span class="course-meta"><span class="course-code">MTH110</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">مهارات اتصال</span><span class="course-meta"><span class="course-code">GEN101</span><span class="course-hours">2 س</span></span></div>
+              <div class="course-row"><span class="course-name">لغة إنجليزية 1</span><span class="course-meta"><span class="course-code">ENG101</span><span class="course-hours">3 س</span></span></div>
+            </div>
+            <div class="semester-block">
+              <h3>الفصل الثاني</h3>
+              <div class="course-row"><span class="course-name">برمجة كائنية التوجه</span><span class="course-meta"><span class="course-code">CS102</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">هياكل البيانات</span><span class="course-meta"><span class="course-code">CS201</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">جبر خطي</span><span class="course-meta"><span class="course-code">MTH120</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">لغة إنجليزية 2</span><span class="course-meta"><span class="course-code">ENG102</span><span class="course-hours">3 س</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- المواد الاختيارية (elective courses) -->
+        <div class="tab-panel" data-panel="elective" style="display:none;">
+          <div class="semesters-grid">
+            <div class="semester-block">
+              <h3>اختياري عام</h3>
+              <div class="course-row"><span class="course-name">مبادئ ريادة الأعمال</span><span class="course-meta"><span class="course-code">GEN210</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">مدخل إلى علم النفس</span><span class="course-meta"><span class="course-code">GEN220</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">تاريخ فلسطين الحديث</span><span class="course-meta"><span class="course-code">GEN230</span><span class="course-hours">3 س</span></span></div>
+            </div>
+            <div class="semester-block">
+              <h3>اختياري كلية</h3>
+              <div class="course-row"><span class="course-name">تصميم واجهات المستخدم</span><span class="course-meta"><span class="course-code">CS310</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">إدارة المشاريع التقنية</span><span class="course-meta"><span class="course-code">CS320</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">مقدمة في ريادة الأعمال التقنية</span><span class="course-meta"><span class="course-code">CS330</span><span class="course-hours">3 س</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- المواد التخصصية (major-specific courses) -->
+        <div class="tab-panel" data-panel="major" style="display:none;">
+          <div class="semesters-grid">
+            <div class="semester-block">
+              <h3>الفصل الخامس</h3>
+              <div class="course-row"><span class="course-name">قواعد البيانات</span><span class="course-meta"><span class="course-code">CS301</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">أنظمة التشغيل</span><span class="course-meta"><span class="course-code">CS302</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">هندسة البرمجيات</span><span class="course-meta"><span class="course-code">CS303</span><span class="course-hours">3 س</span></span></div>
+            </div>
+            <div class="semester-block">
+              <h3>الفصل السادس</h3>
+              <div class="course-row"><span class="course-name">شبكات الحاسوب</span><span class="course-meta"><span class="course-code">CS304</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">الذكاء الاصطناعي</span><span class="course-meta"><span class="course-code">CS305</span><span class="course-hours">3 س</span></span></div>
+              <div class="course-row"><span class="course-name">أمن المعلومات</span><span class="course-meta"><span class="course-code">CS306</span><span class="course-hours">3 س</span></span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: vertical progress track -->
+      <div class="progress-track">
+        <h4>مسار تقدّمك</h4>
+        <div class="level-item done">
+          <div class="level-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div class="level-info">
+            <div class="level-name">المستوى الأول</div>
+            <div class="level-sub">مكتمل بالكامل</div>
+          </div>
+        </div>
+        <div class="level-item active">
+          <div class="level-dot">2</div>
+          <div class="level-info">
+            <div class="level-name">المستوى الثاني</div>
+            <div class="level-sub">قيد الدراسة الآن</div>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="level-dot">3</div>
+          <div class="level-info">
+            <div class="level-name">المستوى الثالث</div>
+            <div class="level-sub">لسا ما بدأ</div>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="level-dot">4</div>
+          <div class="level-info">
+            <div class="level-name">المستوى الرابع</div>
+            <div class="level-sub">لسا ما بدأ</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Weekly schedule -->
+    <div class="schedule-section">
+      <div class="section-title"><span class="dot"></span>الجدول الزمني الأسبوعي</div>
+      <div class="schedule-row">
+        <div class="day-card">
+          <div class="day-name">الأحد</div>
+          <div class="day-slot">مقدمة في البرمجة</div>
+          <div class="day-slot">رياضيات متقطعة</div>
+        </div>
+        <div class="day-card">
+          <div class="day-name">الاثنين</div>
+          <div class="day-slot">هياكل البيانات</div>
+          <div class="day-empty">—</div>
+        </div>
+        <div class="day-card">
+          <div class="day-name">الثلاثاء</div>
+          <div class="day-slot">مهارات اتصال</div>
+          <div class="day-slot">لغة إنجليزية 1</div>
+        </div>
+        <div class="day-card">
+          <div class="day-name">الأربعاء</div>
+          <div class="day-slot">مقدمة في البرمجة</div>
+          <div class="day-empty">—</div>
+        </div>
+        <div class="day-card">
+          <div class="day-name">الخميس</div>
+          <div class="day-empty">يوم راحة</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compare button -->
+    <div class="plan-compare-wrap">
+      <button class="btn-compare" id="btnCompare" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+        أضف تخصص للمقارنة
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======================= FOOTER ======================= -->
+@endsection

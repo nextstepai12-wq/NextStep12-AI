@@ -1,0 +1,96 @@
+/* =====================================================================
+   header.css
+   الهيدر الموحّد لكل صفحات الموقع (نفس هيدر صفحة إنشاء الحساب)
+   يعتمد على المتغيرات المعرّفة بـ app.css — حمّل app.css قبله
+   ===================================================================== */
+
+header.site-header{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.nav-inner{
+  max-width:1240px;
+  margin:0 auto;
+  padding:14px 32px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.brand-mark{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.brand-mark .brand-logo{width:32px;height:32px;object-fit:contain;flex-shrink:0;}
+.brand-mark .brand-text{
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:17px;
+  color:var(--navy);
+}
+.brand-mark .brand-text span{color:var(--mint);}
+
+nav.main-nav ul{
+  display:flex;
+  gap:26px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--dark);
+}
+nav.main-nav a{transition:color .2s ease;}
+nav.main-nav a:hover{color:var(--blue);}
+
+.search-box{
+  flex:1;
+  max-width:340px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--light);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:9px 14px;
+}
+.search-box svg{width:16px;height:16px;color:var(--gray);flex-shrink:0;}
+.search-box input{
+  border:none;
+  background:transparent;
+  outline:none;
+  font-family:'Cairo',sans-serif;
+  font-size:13.5px;
+  color:var(--dark);
+  width:100%;
+}
+.search-box input::placeholder{color:#9AA6B5;}
+
+.nav-actions{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.icon-btn{
+  width:36px;height:36px;
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gray);
+  background:var(--light);
+  border:1px solid var(--border);
+  position:relative;
+  transition:border-color .2s ease, color .2s ease;
+}
+.icon-btn svg{width:16px;height:16px;}
+.icon-btn:hover{border-color:var(--blue);color:var(--blue);}
+.icon-btn .dot{
+  position:absolute;top:-3px;left:-3px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--mint);
+  border:2px solid #fff;
+}
+.btn-signin{
+  padding:9px 22px;
+  border-radius:999px;
+  border:1.5px solid var(--navy);
+  color:var(--navy);
+  font-weight:700;
+  font-size:13.5px;
+  transition:background .2s ease, color .2s ease;
+}
+.btn-signin:hover{background:var(--navy);color:#fff;}
+
+@media (max-width:960px){
+  nav.main-nav, .search-box{display:none;}
+}

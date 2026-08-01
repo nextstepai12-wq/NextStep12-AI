@@ -1,0 +1,267 @@
+/* =====================================================================
+   university-specializations.css
+   صفحة "التخصصات الخاصة بجامعة ..."
+   يعتمد بالكامل على متغيرات app.css (--navy --blue --cyan --mint --light
+   --gray --dark --border) وخط Cairo. حمّل app.css قبل هاد الملف بكل صفحة.
+   ===================================================================== */
+
+/* ---------- إعدادات إضافية مبنية فوق متغيرات app.css ---------- */
+:root{
+  --radius:16px;
+  --shadow:0 10px 26px -16px rgba(23,59,115,.35);
+}
+
+/* ---------- نافبار وفوتر بسيطين (لو الصفحة ما حمّلت home.css) ---------- */
+.site-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;border-bottom:1px solid var(--border);
+}
+.site-nav__brand{font-weight:800;color:var(--navy);font-size:1.1rem;}
+.site-nav__links{display:flex;gap:26px;font-size:.9rem;color:var(--gray);}
+.site-nav__links a:hover{color:var(--blue);}
+.site-nav__cta{display:flex;gap:10px;}
+.btn{padding:9px 18px;border-radius:999px;font-size:.85rem;font-weight:700;border:1px solid transparent;}
+.btn-ghost{border-color:var(--border);color:var(--dark);}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
+.btn-solid{background:var(--blue);color:#fff;}
+.btn-solid:hover{background:var(--navy);}
+@media (max-width:760px){.site-nav__links{display:none;}}
+
+.site-footer{
+  margin-top:auto;
+  padding:20px 24px;
+  text-align:center;
+  font-size:.82rem;
+  color:var(--gray);
+  border-top:1px solid var(--border);
+}
+
+/* ---------- هيدر الجامعة ---------- */
+.uni-hero{
+  background:linear-gradient(135deg,var(--navy),var(--blue) 85%);
+  color:#fff;
+  padding:44px 24px 56px;
+  position:relative;
+  overflow:hidden;
+}
+.uni-hero::after{
+  content:"";
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 88% 15%, rgba(53,208,255,.35), transparent 50%);
+}
+.uni-hero__crumb{
+  position:relative;
+  font-size:.85rem;
+  opacity:.85;
+  display:flex;gap:6px;align-items:center;
+  margin-bottom:18px;
+}
+.uni-hero__crumb a{opacity:.9;}
+.uni-hero__crumb a:hover{text-decoration:underline;}
+
+.uni-hero__top{
+  position:relative;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  flex-wrap:wrap;gap:20px;
+}
+.uni-hero__id{display:flex;align-items:center;gap:14px;}
+.uni-hero__logo{
+  width:60px;height:60px;border-radius:14px;
+  background:#fff;color:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1.3rem;flex-shrink:0;
+}
+.uni-hero__title h1{
+  margin:0 0 4px;
+  font-size:1.7rem;
+  font-weight:700;
+}
+.uni-hero__title p{
+  margin:0;
+  font-size:.9rem;
+  opacity:.85;
+}
+
+.uni-hero__stats{
+  position:relative;
+  display:flex;gap:32px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+.uni-hero__stats b{
+  display:block;font-size:1.4rem;font-weight:700;
+}
+.uni-hero__stats span{font-size:.8rem;opacity:.8;}
+
+/* ---------- عنوان قسم التخصصات ---------- */
+.specs-section{
+  max-width:1100px;
+  margin:0 auto;
+  padding:48px 24px 64px;
+}
+.specs-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  flex-wrap:wrap;gap:12px;
+  margin-bottom:26px;
+}
+.specs-head h2{
+  margin:0 0 6px;
+  font-size:1.35rem;
+  color:var(--navy);
+  font-weight:700;
+}
+.specs-head p{
+  margin:0;
+  color:var(--gray);
+  font-size:.9rem;
+}
+.specs-count{
+  background:#EAF1FF;
+  color:var(--blue);
+  font-weight:700;
+  font-size:.85rem;
+  padding:6px 16px;
+  border-radius:999px;
+}
+
+/* ---------- ألوان إضافية تكميلية (بجانب navy/blue/cyan/mint من app.css) ---------- */
+:root{
+  --amber:#E29A2E;
+}
+
+/* ---------- شبكة كروت الكليات ---------- */
+.college-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:16px;
+  align-items:start;
+}
+
+/* ---------- كرت الكلية (ناعم، بأيقونة وصندوق داخلي) ---------- */
+.college-card{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:#fff;
+  padding:16px 16px 14px;
+  transition:.2s;
+}
+.college-card:hover{
+  box-shadow:var(--shadow);
+  transform:translateY(-2px);
+}
+.college-card--featured{
+  border-color:var(--mint);
+  background:linear-gradient(180deg,#F2FBF8,#fff 40%);
+}
+
+.college-card__badge{
+  position:absolute;
+  top:14px; right:14px;
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--mint);
+  color:#fff;
+  font-size:.65rem;font-weight:700;
+  padding:4px 10px;
+  border-radius:999px;
+}
+
+.college-card__icon{
+  width:36px;height:36px;
+  border-radius:12px;
+  background:var(--light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+  margin-bottom:10px;
+}
+.college-card--c1 .college-card__icon{background:#EAF1FF;}
+.college-card--c2 .college-card__icon{background:#E7F7F1;}
+.college-card--c3 .college-card__icon{background:#FCEFDC;}
+.college-card--c4 .college-card__icon{background:#F7E6EC;}
+.college-card--c5 .college-card__icon{background:#E9EDF6;}
+.college-card--c6 .college-card__icon{background:#EDE7FA;}
+
+.college-card__title{
+  margin:0 0 3px;
+  font-size:.95rem;
+  font-weight:800;
+  color:var(--navy);
+}
+.college-card__subtitle{
+  margin:0 0 12px;
+  font-size:.72rem;
+  color:var(--gray);
+}
+
+/* الصندوق الداخلي (اختر التخصص) */
+.college-card__panel{
+  background:var(--light);
+  border-radius:12px;
+  padding:10px;
+}
+.college-card__panel-head{
+  display:flex;align-items:center;gap:5px;
+  font-size:.7rem;
+  font-weight:700;
+  color:var(--dark);
+  margin-bottom:8px;
+}
+
+.college-card__list{
+  display:flex;flex-direction:column;gap:6px;
+}
+.college-card__row{
+  display:flex;align-items:center;gap:8px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:8px 10px;
+  transition:.15s;
+}
+.college-card__row:hover{border-color:var(--blue);}
+.college-card__row-chevron{
+  color:var(--border);
+  font-weight:700;
+  flex-shrink:0;
+  font-size:.8rem;
+}
+.college-card__row-badge{
+  flex-shrink:0;
+  font-size:.65rem;
+  font-weight:800;
+  padding:3px 8px;
+  border-radius:999px;
+  background:#EAF1FF;
+  color:var(--blue);
+  white-space:nowrap;
+}
+.college-card__row-badge.mint{background:#E7F7F1;color:var(--mint);}
+.college-card__row-badge.amber{background:#FCEFDC;color:var(--amber);}
+
+.college-card__row-text{flex-grow:1;min-width:0;}
+.college-card__row-name{
+  display:block;
+  font-size:.78rem;
+  font-weight:700;
+  color:var(--dark);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.college-card__row-meta{
+  display:block;
+  font-size:.68rem;
+  color:var(--gray);
+  margin-top:1px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* ---------- استجابة الموبايل ---------- */
+@media (max-width:600px){
+  .uni-hero{padding:32px 18px 44px;}
+  .uni-hero__title h1{font-size:1.4rem;}
+  .specs-section{padding:36px 18px 48px;}
+  .college-grid{grid-template-columns:1fr;}
+}

@@ -239,7 +239,7 @@ nav.main-nav a:hover{color:var(--blue);}
   color:#fff;
   font-weight:700;
   font-size:14px;
-  box-shadow:0 10px 22px rgba(31,163,122,0.28);
+  box-shadow:0 10px 22px rgba(72,230,176,0.28);
   transition:transform .2s ease;
   border:none;
   font-family:'Cairo',sans-serif;
@@ -254,7 +254,7 @@ nav.main-nav a:hover{color:var(--blue);}
 .quiz-done .done-icon{
   width:64px;height:64px;
   border-radius:50%;
-  background:rgba(31,163,122,0.12);
+  background:rgba(72,230,176,0.12);
   color:var(--mint);
   display:flex;align-items:center;justify-content:center;
   margin:0 auto 18px;

@@ -120,7 +120,7 @@ nav.main-nav a:hover{color:var(--blue);}
 .skills-row{display:flex;flex-wrap:wrap;gap:8px;}
 .skill-tag{
   padding:7px 14px;border-radius:999px;
-  background:rgba(31,163,122,0.1);
+  background:rgba(72,230,176,0.1);
   color:var(--mint);
   font-size:12px;font-weight:700;
 }
@@ -136,8 +136,8 @@ nav.main-nav a:hover{color:var(--blue);}
   display:flex;align-items:center;justify-content:center;
 }
 .qstat-icon svg{width:20px;height:20px;}
-.qstat-card:nth-child(1) .qstat-icon{background:rgba(47,107,255,0.1);color:var(--blue);}
-.qstat-card:nth-child(2) .qstat-icon{background:rgba(31,163,122,0.12);color:var(--mint);}
+.qstat-card:nth-child(1) .qstat-icon{background:rgba(72,230,176,0.14);color:var(--mint);}
+.qstat-card:nth-child(2) .qstat-icon{background:rgba(47,107,255,0.1);color:var(--blue);}
 .qstat-card:nth-child(3) .qstat-icon{background:rgba(53,208,255,0.12);color:var(--cyan);}
 .qstat-value{font-family:'Poppins',sans-serif;font-weight:800;font-size:19px;color:var(--navy);}
 .qstat-label{font-size:11px;color:var(--gray);font-weight:600;}

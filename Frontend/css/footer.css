@@ -7,12 +7,11 @@
 footer.site-footer{
   width:100%;
   position:relative;
-  background:#fff;              /* بدل linear-gradient(180deg, var(--dark) 0%, var(--navy) 100%) */
-  color:var(--dark);            /* بدل #E9EDF3 */
+  background:linear-gradient(180deg, var(--dark) 0%, var(--navy) 100%);
+  color:#E9EDF3;
   overflow:hidden;
   margin-top:auto;
   flex-shrink:0;
-  border-top:1px solid var(--border);
 }
 footer.site-footer::before{
   content:"";
@@ -57,7 +56,7 @@ footer .brand-mark .brand-text{
   font-family:'Poppins',sans-serif;
   font-weight:700;
   font-size:20px;
-  color:var(--navy);   /* كان #fff — هاد السطر لازم يتغير */
+  color:#fff;
   display:flex;
   align-items:center;
   gap:6px;

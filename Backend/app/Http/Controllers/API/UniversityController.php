@@ -13,8 +13,6 @@ class UniversityController extends Controller
      * دالة ثابتة (static) بتتحقق إذا الأعمدة الاختيارية موجودة فعلياً
      * بجدول universities، وبترجع بس اللي موجود منها.
      *
-     * لما تضيفي عمود جديد بالمستقبل، بس زيديه هون بالمصفوفة —
-     * ما في داعي تلمسي أي كود تاني.
      */
     protected static function optionalUniversityColumns(): array
     {

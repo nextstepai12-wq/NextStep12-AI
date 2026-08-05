@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التحقق من الكود — NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
+<link href="../css/signup.css" rel="stylesheet">
+<link href="../css/footer.css" rel="stylesheet">
+
+<!-- ستايل خاص بخانات الكود (OTP) — لو عندك ألوان براند محددة بـ app.css بدّل المتغيرات تحت -->
+<style>
+  .otp-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    direction: ltr; /* الأرقام دايماً LTR حتى بصفحة RTL */
+    margin-bottom: 8px;
+  }
+  .otp-box {
+    width: 48px;
+    height: 56px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    border: 1.5px solid #E1E4E8;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .otp-box:focus {
+    border-color: #1C8F63;
+    box-shadow: 0 0 0 3px rgba(28,143,99,0.12);
+  }
+  .otp-box.filled {
+    border-color: #1C8F63;
+  }
+  .otp-timer {
+    text-align: center;
+    font-size: 13px;
+    color: #6B7280;
+    margin-bottom: 20px;
+  }
+  .otp-timer span {
+    font-weight: 700;
+    color: #1C8F63;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-outline-full:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<div id="header-placeholder"></div>
+
+<!-- ======================= AUTH CARD (التحقق من الكود) ======================= -->
+<div class="auth-wrap">
+  <div class="auth-card auth-card-center">
+
+    <div class="auth-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      التحقق من الكود
+    </div>
+
+    <h1 class="auth-title">تحقق من بريدك الإلكتروني</h1>
+    <p class="auth-subtitle" id="codeSubtitle">أرسلنا كود مكوّن من 6 أرقام إلى بريدك الإلكتروني، يرجى إدخاله بالأسفل</p>
+
+    <form id="verifyForm">
+      <div class="otp-group" id="otpGroup">
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="0">
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="1">
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="2">
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="3">
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="4">
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="5">
+      </div>
+
+      <p class="otp-timer" id="otpTimer">الكود صالح لمدة <span id="timerDisplay">02:00</span></p>
+
+      <button type="submit" class="btn-submit" id="verifyBtn" style="margin-bottom:12px;">
+        تحقق من الكود
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </form>
+
+    <button type="button" class="btn-outline-full" id="resendBtn" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      إعادة إرسال الكود
+    </button>
+
+    <p class="auth-footer-text">لم يصلك الكود؟ تأكد من مجلد الرسائل غير الهامة (Spam)</p>
+  </div>
+</div>
+
+<script>
+  // ==========================================================================
+  // إعدادات عامة
+  // ==========================================================================
+  const API_BASE_URL = 'http://127.0.0.1:8000/api';
+  const CODE_VALIDITY_SECONDS = 120; // دقيقتين — لازم تطابق مدة الصلاحية بالباك اند
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const email = urlParams.get('email');
+
+  const codeSubtitle = document.getElementById('codeSubtitle');
+  if (email) {
+    codeSubtitle.textContent = `أرسلنا كود مكوّن من 6 أرقام إلى ${email}، يرجى إدخاله بالأسفل`;
+  }
+
+  if (!email) {
+    // ما في إيميل بالرابط، رجّعه لصفحة نسيت كلمة المرور
+    // window.location.href = 'forgot-password.html';
+  }
+
+  // ==========================================================================
+  // Alert box
+  // ==========================================================================
+  const verifyForm = document.getElementById('verifyForm');
+  const alertBox = document.createElement('div');
+  alertBox.id = 'verifyAlert';
+  alertBox.style.cssText = 'display:none;margin-bottom:16px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;';
+  verifyForm.prepend(alertBox);
+
+  function showAlert(message, type) {
+    alertBox.textContent = message;
+    alertBox.style.display = 'block';
+    if (type === 'error') {
+      alertBox.style.background = '#FDEDEE';
+      alertBox.style.color = '#C62828';
+    } else {
+      alertBox.style.background = 'rgba(72,230,176,0.12)';
+      alertBox.style.color = '#1C8F63';
+    }
+  }
+
+  // ==========================================================================
+  // منطق خانات الكود (OTP boxes)
+  // ==========================================================================
+  const otpBoxes = Array.from(document.querySelectorAll('.otp-box'));
+
+  otpBoxes.forEach((box, i) => {
+    box.addEventListener('input', () => {
+      box.value = box.value.replace(/[^0-9]/g, '').slice(0, 1);
+      box.classList.toggle('filled', box.value !== '');
+      if (box.value && i < otpBoxes.length - 1) {
+        otpBoxes[i + 1].focus();
+      }
+    });
+
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !box.value && i > 0) {
+        otpBoxes[i - 1].focus();
+      }
+    });
+
+    box.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
+      if (!pasted) return;
+      pasted.split('').forEach((digit, idx) => {
+        if (otpBoxes[idx]) {
+          otpBoxes[idx].value = digit;
+          otpBoxes[idx].classList.add('filled');
+        }
+      });
+      const nextIndex = Math.min(pasted.length, otpBoxes.length - 1);
+      otpBoxes[nextIndex].focus();
+    });
+  });
+
+  function getCode() {
+    return otpBoxes.map(b => b.value).join('');
+  }
+
+  // ==========================================================================
+  // العداد التنازلي (2 دقيقة)
+  // ==========================================================================
+  const timerDisplay = document.getElementById('timerDisplay');
+  const otpTimer = document.getElementById('otpTimer');
+  const resendBtn = document.getElementById('resendBtn');
+  const verifyBtn = document.getElementById('verifyBtn');
+
+  let remaining = CODE_VALIDITY_SECONDS;
+  let intervalId = null;
+
+  function formatTime(sec) {
+    const m = String(Math.floor(sec / 60)).padStart(2, '0');
+    const s = String(sec % 60).padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  function startTimer() {
+    remaining = CODE_VALIDITY_SECONDS;
+    resendBtn.disabled = true;
+    otpTimer.style.display = 'block';
+    timerDisplay.textContent = formatTime(remaining);
+
+    clearInterval(intervalId);
+    intervalId = setInterval(() => {
+      remaining--;
+      timerDisplay.textContent = formatTime(remaining);
+      if (remaining <= 0) {
+        clearInterval(intervalId);
+        otpTimer.innerHTML = 'انتهت صلاحية الكود، اضغط "إعادة إرسال الكود"';
+        resendBtn.disabled = false;
+      }
+    }, 1000);
+  }
+
+  startTimer();
+
+  // ==========================================================================
+  // إعادة إرسال الكود
+  // ==========================================================================
+  resendBtn.addEventListener('click', async function () {
+    if (!email) {
+      showAlert('تعذر تحديد الإيميل، رجعي لصفحة "نسيت كلمة المرور" وحاول مرة ثانية', 'error');
+      return;
+    }
+
+    resendBtn.disabled = true;
+    const originalContent = resendBtn.innerHTML;
+    resendBtn.textContent = 'جارٍ إعادة الإرسال...';
+    alertBox.style.display = 'none';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+
+      if (response.ok && data.status === 'success') {
+        showAlert('تم إعادة إرسال الكود بنجاح', 'success');
+        otpBoxes.forEach(b => { b.value = ''; b.classList.remove('filled'); });
+        otpBoxes[0].focus();
+        otpTimer.style.display = 'block';
+        startTimer();
+      } else {
+        showAlert(data.message || 'تعذر إعادة إرسال الكود، حاول لاحقاً', 'error');
+        resendBtn.disabled = false;
+      }
+    } catch (err) {
+      showAlert('تعذر الاتصال بالسيرفر. تأكد إنه الباك اند شغال.', 'error');
+      console.error('Resend code error:', err);
+      resendBtn.disabled = false;
+    } finally {
+      resendBtn.innerHTML = originalContent;
+    }
+  });
+
+  // ==========================================================================
+  // إرسال الكود للتحقق
+  // ==========================================================================
+  verifyForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const code = getCode();
+    if (code.length !== 6) {
+      showAlert('يرجى إدخال الكود كاملاً (6 أرقام)', 'error');
+      return;
+    }
+
+    verifyBtn.disabled = true;
+    const originalContent = verifyBtn.innerHTML;
+    verifyBtn.textContent = 'جارٍ التحقق...';
+    alertBox.style.display = 'none';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/verify-reset-code`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email, code }),
+      });
+
+      const data = await response.json();
+
+      // ملاحظة: عدّل هالسطر حسب شكل الـ response يلي رح يرجعه الباك اند فعلياً
+      const resetToken = data.token || (data.data && data.data.token);
+
+      if (response.ok && data.status === 'success' && resetToken) {
+        showAlert('تم التحقق من الكود بنجاح! جارٍ تحويلك...', 'success');
+        clearInterval(intervalId);
+        setTimeout(() => {
+          window.location.href = `reset-password.html?token=${encodeURIComponent(resetToken)}&email=${encodeURIComponent(email)}`;
+        }, 1000);
+      } else {
+        showAlert(data.message || 'الكود غير صحيح أو منتهي الصلاحية', 'error');
+        verifyBtn.disabled = false;
+      }
+    } catch (err) {
+      showAlert('تعذر الاتصال بالسيرفر. تأكد إنه الباك اند شغال.', 'error');
+      console.error('Verify code error:', err);
+      verifyBtn.disabled = false;
+    } finally {
+      verifyBtn.innerHTML = originalContent;
+    }
+  });
+</script>
+
+<!-- ======================= FOOTER ======================= -->
+<div id="footer-placeholder"></div>
+
+<script src="../js/include-partials.js"></script>
+</body>
+</html>

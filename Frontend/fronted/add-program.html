@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إضافة برنامج جديد — NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/admin-dashboard.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ======================= TOP BAR (خاص بالإدارة) ======================= -->
+<header class="admin-topbar">
+  <div class="admin-topbar-inner">
+    <a href="../index.html" class="admin-brand">
+      <span class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+      </span>
+      <span class="brand-text">NextStep AI</span>
+    </a>
+
+    <nav class="admin-nav">
+      <ul>
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li><a href="universities.html">الجامعات</a></li>
+        <li><a href="#">المقارنة</a></li>
+        <li><a href="admin-dashboard.html" class="active">لوحة التحكم</a></li>
+      </ul>
+    </nav>
+
+    <div class="admin-user-actions">
+      <img src="../assets/admin-avatar.png" alt="صورة المستخدم" class="admin-avatar" onerror="this.style.display='none'">
+      <button type="button" class="admin-icon-btn" aria-label="الإعدادات">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button type="button" class="admin-icon-btn" aria-label="الإشعارات">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= LAYOUT ======================= -->
+<div class="admin-layout">
+
+  <!-- ======================= MAIN CONTENT ======================= -->
+  <main class="admin-main">
+
+    <div class="admin-breadcrumb">
+      <a href="admin-dashboard.html">البرامج الأكاديمية</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      <span class="current">إضافة برنامج جديد</span>
+    </div>
+
+    <div class="admin-page-head">
+      <div>
+        <h1>إضافة برنامج أكاديمي جديد</h1>
+        <p>عبّي تفاصيل البرنامج. الذكاء الاصطناعي بيستخدم هالبيانات لمطابقة الطلاب المناسبين حسب مهاراتهم وطموحاتهم.</p>
+      </div>
+    </div>
+
+    <div class="form-layout">
+
+      <!-- ======================= Sticky Stepper (تنقّل سريع بين الأقسام) ======================= -->
+      <aside class="form-stepper">
+        <h3>خطوات الإضافة</h3>
+        <ul id="stepperList">
+          <li class="stepper-item active" data-target="sectionBasic">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div>
+              <h4>المعلومات الأساسية</h4>
+              <p>الاسم، العمادة، الدرجة</p>
+            </div>
+          </li>
+          <li class="stepper-item" data-target="sectionContent">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div>
+              <h4>المحتوى الوصفي</h4>
+              <p>الأهداف، المؤهلات</p>
+            </div>
+          </li>
+          <li class="stepper-item" data-target="sectionSkills">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div>
+              <h4>المهارات والتعليم</h4>
+              <p>مهارات مفصّلة للطالب</p>
+            </div>
+          </li>
+          <li class="stepper-item" data-target="sectionAi">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div>
+              <h4>التوافق الذكي (AI)</h4>
+              <p>مهارات مستهدفة، مسارات مهنية</p>
+            </div>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- ======================= Form Canvas ======================= -->
+      <form class="form-canvas" id="programForm">
+
+        <!-- ======================= بيانات أساسية ======================= -->
+        <div class="admin-panel" id="sectionBasic">
+          <div class="form-section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            المعلومات الأساسية
+          </div>
+
+          <div class="field-group">
+            <label for="progName">اسم التخصص</label>
+            <input type="text" id="progName" name="name" placeholder="مثال: علوم الحاسوب" required>
+          </div>
+
+          <div class="form-row-2">
+            <div class="field-group">
+              <label for="progDegree">الدرجة العلمية</label>
+              <select id="progDegree" name="degree" required>
+                <option value="">-- اختر الدرجة --</option>
+                <option value="diploma">دبلوم</option>
+                <option value="bachelor">بكالوريوس</option>
+                <option value="master">ماجستير</option>
+                <option value="phd">دكتوراة</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="progDeanship">العمادة</label>
+              <select id="progDeanship" name="deanship_id" required>
+                <option value="">-- اختر العمادة --</option>
+                <option value="1">عمادة كلية الهندسة وتكنولوجيا المعلومات</option>
+                <option value="2">عمادة كلية العلوم</option>
+                <option value="3">عمادة كلية الطب</option>
+                <option value="4">عمادة كلية الأعمال والاقتصاد</option>
+                <option value="5">عمادة كلية الآداب</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="field-group">
+              <label for="progDuration">مدة الدراسة (بالسنوات)</label>
+              <input type="number" id="progDuration" name="duration_years" placeholder="4" min="1" max="8" required>
+            </div>
+            <div class="field-group">
+              <label for="progSalary">متوسط الراتب الشهري المتوقع <span class="optional">(اختياري)</span></label>
+              <div class="input-suffix-wrap">
+                <input type="number" id="progSalary" name="avg_salary" placeholder="2500" min="0">
+                <span class="input-suffix">$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======================= المحتوى الوصفي ======================= -->
+        <div class="admin-panel" id="sectionContent">
+          <div class="form-section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+            المحتوى الوصفي
+          </div>
+
+          <div class="field-group">
+            <label for="progGoals">أهداف التخصص</label>
+            <textarea id="progGoals" name="goals" placeholder="إعداد كوادر قادرة على..." required></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="progQualifications">مؤهلات يجب أن يمتلكها الطالب</label>
+            <textarea id="progQualifications" name="qualifications" placeholder="تفكير منطقي وحل مشكلات، ..." required></textarea>
+          </div>
+        </div>
+
+        <!-- ======================= المهارات المفصّلة (تظهر للطالب بصفحة التخصص) ======================= -->
+        <div class="admin-panel" id="sectionSkills">
+          <div class="form-section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+            المهارات والتعليم الأساسي
+          </div>
+          <p class="field-hint" style="margin-bottom:14px;">هاي المهارات بتظهر كبطاقات مفصّلة بصفحة التخصص للطالب.</p>
+
+          <div class="skills-repeater" id="skillsRepeater"></div>
+
+          <button type="button" class="add-skill-btn" id="addSkillBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+            إضافة مهارة
+          </button>
+        </div>
+
+        <!-- ======================= التوافق الذكي (AI) ======================= -->
+        <div class="ai-panel" id="sectionAi">
+          <div class="ai-panel-head">
+            <div class="title-group">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 0-5 5c0 2 1 3 1 5v2h8v-2c0-2 1-3 1-5a5 5 0 0 0-5-5z"/><path d="M9 21h6M10 18h4"/></svg>
+              <h3>التوافق الذكي (AI Matching)</h3>
+            </div>
+            <span class="ai-panel-badge">مُعزز بالذكاء الاصطناعي</span>
+          </div>
+          <p class="ai-panel-hint">هاي البيانات بتُستخدم لتدريب نموذج التوصية لمطابقة الطلاب الأنسب لهذا البرنامج — كوني دقيقة قدر الإمكان.</p>
+
+          <div class="ai-panel-grid">
+            <!-- المهارات المستهدفة (Tags) -->
+            <div class="ai-tag-box">
+              <label>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.5" fill="currentColor"/></svg>
+                المهارات المستهدفة
+              </label>
+              <p class="tag-desc">المهارات يلي هالبرنامج بيطوّرها بالطالب.</p>
+              <div class="tag-chips" id="skillTags"></div>
+              <div class="tag-input-row">
+                <input type="text" id="skillTagInput" placeholder="أضيفي مهارة... (مثال: التفكير التحليلي)">
+                <button type="button" class="tag-add-btn" data-target="skillTags" data-input="skillTagInput">إضافة</button>
+              </div>
+            </div>
+
+            <!-- المسارات المهنية (Tags) -->
+            <div class="ai-tag-box">
+              <label>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1z"/></svg>
+                المسارات المهنية (سوق العمل)
+              </label>
+              <p class="tag-desc">الوظائف المتوقعة لخريجي هالبرنامج.</p>
+              <div class="tag-chips" id="careerTags"></div>
+              <div class="tag-input-row">
+                <input type="text" id="careerTagInput" placeholder="مثال: مهندس بيانات...">
+                <button type="button" class="tag-add-btn" data-target="careerTags" data-input="careerTagInput">إضافة</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======================= أزرار الحفظ ======================= -->
+        <div class="form-actions">
+          <button type="submit" class="btn-save-primary" id="saveBtn">
+            نشر البرنامج
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+          <button type="button" class="btn-cancel-outline" id="draftBtn">حفظ كمسودة</button>
+          <button type="button" class="btn-cancel-outline" onclick="window.location.href='admin-dashboard.html'">إلغاء</button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- ======================= SIDEBAR ======================= -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-head">
+      <h3>بوابة الإدارة</h3>
+      <p>نظام إدارة المعلومات</p>
+    </div>
+
+    <nav class="admin-sidebar-nav">
+      <a href="admin-dashboard.html" class="admin-sidebar-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        نظرة عامة
+      </a>
+      <a href="admin-dashboard.html" class="admin-sidebar-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+        طلبات الالتحاق
+      </a>
+      <a href="#" class="admin-sidebar-link active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+        البرامج الأكاديمية
+      </a>
+      <a href="#" class="admin-sidebar-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+        إحصائيات
+      </a>
+      <a href="#" class="admin-sidebar-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        الإعدادات
+      </a>
+    </nav>
+  </aside>
+
+</div>
+
+<script>
+  // ==========================================================================
+  // Stepper: تمييز القسم النشط أثناء السكرول + سكرول ناعم عند الضغط
+  // ==========================================================================
+  const stepperItems = document.querySelectorAll('.stepper-item');
+  const sections = Array.from(stepperItems).map(item => document.getElementById(item.dataset.target));
+
+  stepperItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = document.getElementById(item.dataset.target);
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  function updateActiveStepper() {
+    const scrollPos = window.scrollY + 140;
+    let activeIndex = 0;
+    sections.forEach((sec, i) => {
+      if (sec && sec.offsetTop <= scrollPos) activeIndex = i;
+    });
+    stepperItems.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
+  }
+  window.addEventListener('scroll', updateActiveStepper);
+  updateActiveStepper();
+
+  // ==========================================================================
+  // صفوف المهارات المفصّلة (إضافة / حذف)
+  // ==========================================================================
+  const skillsRepeater = document.getElementById('skillsRepeater');
+  const addSkillBtn = document.getElementById('addSkillBtn');
+
+  function addSkillRow(title = '', description = '') {
+    const row = document.createElement('div');
+    row.className = 'skill-row';
+    row.innerHTML = `
+      <div class="skill-row-fields">
+        <input type="text" placeholder="اسم المهارة (مثال: البرمجة والتطوير)" class="skill-title" value="${title}">
+        <textarea placeholder="وصف مختصر للمهارة..." class="skill-desc">${description}</textarea>
+      </div>
+      <button type="button" class="skill-row-remove" aria-label="حذف المهارة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    `;
+    row.querySelector('.skill-row-remove').addEventListener('click', () => row.remove());
+    skillsRepeater.appendChild(row);
+  }
+  addSkillBtn.addEventListener('click', () => addSkillRow());
+  addSkillRow(); // صف واحد فاضي جاهز بالبداية
+
+  // ==========================================================================
+  // Tag Chips (المهارات المستهدفة / المسارات المهنية)
+  // ==========================================================================
+  function addTag(containerId, value) {
+    const val = value.trim();
+    if (!val) return;
+    const container = document.getElementById(containerId);
+
+    const chip = document.createElement('span');
+    chip.className = 'tag-chip';
+    chip.innerHTML = `${val} <button type="button" aria-label="حذف"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>`;
+    chip.querySelector('button').addEventListener('click', () => chip.remove());
+    container.appendChild(chip);
+  }
+
+  document.querySelectorAll('.tag-add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.input);
+      addTag(btn.dataset.target, input.value);
+      input.value = '';
+      input.focus();
+    });
+  });
+
+  ['skillTagInput', 'careerTagInput'].forEach(inputId => {
+    const input = document.getElementById(inputId);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const targetId = inputId === 'skillTagInput' ? 'skillTags' : 'careerTags';
+        addTag(targetId, input.value);
+        input.value = '';
+      }
+    });
+  });
+
+  // ==========================================================================
+  // جمع الـ Tags كمصفوفة نصوص
+  // ==========================================================================
+  function collectTags(containerId) {
+    return Array.from(document.getElementById(containerId).querySelectorAll('.tag-chip'))
+      .map(chip => chip.firstChild.textContent.trim());
+  }
+
+  // ==========================================================================
+  // إرسال النموذج — POST /api/admin/programs
+  // ==========================================================================
+  const API_BASE_URL = 'http://127.0.0.1:8000/api';
+  const programForm = document.getElementById('programForm');
+  const saveBtn = document.getElementById('saveBtn');
+  const draftBtn = document.getElementById('draftBtn');
+
+  const alertBox = document.createElement('div');
+  alertBox.id = 'programAlert';
+  alertBox.style.cssText = 'display:none;margin-bottom:4px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;';
+  programForm.prepend(alertBox);
+
+  function showAlert(message, type) {
+    alertBox.textContent = message;
+    alertBox.style.display = 'block';
+    alertBox.style.background = type === 'error' ? '#FDEDEE' : 'rgba(72,230,176,0.12)';
+    alertBox.style.color = type === 'error' ? '#C62828' : '#1C8F63';
+  }
+
+  function buildPayload(status) {
+    const skills = Array.from(skillsRepeater.querySelectorAll('.skill-row')).map(row => ({
+      title: row.querySelector('.skill-title').value,
+      description: row.querySelector('.skill-desc').value,
+    })).filter(s => s.title.trim() !== '');
+
+    return {
+      status, // 'published' أو 'draft'
+      name: document.getElementById('progName').value,
+      degree: document.getElementById('progDegree').value,
+      deanship_id: document.getElementById('progDeanship').value,
+      duration_years: document.getElementById('progDuration').value,
+      avg_salary: document.getElementById('progSalary').value || null,
+      goals: document.getElementById('progGoals').value,
+      qualifications: document.getElementById('progQualifications').value,
+      skills: skills,
+      target_skills: collectTags('skillTags'),
+      career_paths: collectTags('careerTags'),
+    };
+  }
+
+  async function submitProgram(status, triggerBtn) {
+    const payload = buildPayload(status);
+
+    triggerBtn.disabled = true;
+    const originalContent = triggerBtn.innerHTML;
+    triggerBtn.textContent = status === 'draft' ? 'جارٍ الحفظ...' : 'جارٍ النشر...';
+    alertBox.style.display = 'none';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/admin/programs`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+
+      if (response.ok && data.status === 'success') {
+        showAlert(status === 'draft' ? 'تم حفظ المسودة بنجاح.' : 'تم نشر البرنامج بنجاح! جارٍ التحويل...', 'success');
+        if (status !== 'draft') {
+          setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 1200);
+        }
+      } else {
+        showAlert(data.message || 'تعذر الحفظ، تأكدي من البيانات وحاولي مرة ثانية', 'error');
+      }
+    } catch (err) {
+      showAlert('تعذر الاتصال بالسيرفر. تأكدي إنه الباك اند شغال.', 'error');
+      console.error('Save program error:', err);
+    } finally {
+      triggerBtn.disabled = false;
+      triggerBtn.innerHTML = originalContent;
+    }
+  }
+
+  programForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitProgram('published', saveBtn);
+  });
+
+  draftBtn.addEventListener('click', () => {
+    submitProgram('draft', draftBtn);
+  });
+</script>
+
+</body>
+</html>

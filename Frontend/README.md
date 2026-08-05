@@ -1,4 +1,3 @@
-﻿# NextStepAi
 <div align="center">
 
 # 🎨 NextStep AI — Frontend

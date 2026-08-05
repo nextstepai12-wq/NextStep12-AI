@@ -1,59 +1,165 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="260" alt="Laravel Logo">
 </p>
 
-## About Laravel
+<div align="center">
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# ⚙️ NextStep AI — Backend
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### الخادم الخلفي (API) لمنصة NextStep AI للإرشاد الأكاديمي والمهني بالذكاء الاصطناعي
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+[![Laravel](https://img.shields.io/badge/Laravel-FF2D20?logo=laravel&logoColor=white)](https://laravel.com)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)](#)
+[![Status](https://img.shields.io/badge/Status-Pilot%20Phase-orange)](#)
 
-## Learning Laravel
+</div>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📌 عن هذا المجلد
 
-## Laravel Sponsors
+هذا المجلد يحتوي على **الخادم الخلفي (Backend API)** لمنصة **NextStep AI**، المبني باستخدام **Laravel**، وهو المسؤول عن:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- 🔐 **المصادقة وإدارة الحسابات** — تسجيل الطلاب، الجامعات، والمشرفين
+- 🎓 **إدارة بيانات الطلاب** — الملف الشخصي، نتائج AI Assessment
+- 🏛️ **إدارة الجامعات والتخصصات** — الكليات، الأقسام، الخطط الدراسية
+- 🔗 **الربط مع خدمة الذكاء الاصطناعي (FastAPI)** — تمرير بيانات الاستبيان واستقبال التوصيات
+- 📊 **لوحة الإدارة (Admin System)** — إدارة المحتوى والتحكم الكامل بالنظام
 
-### Premium Partners
+> يُستخدم Laravel كـ API خلفي (Headless) يخدم الواجهة الأمامية (Next.js)، بينما تُفصل خدمات الذكاء الاصطناعي في خدمة مستقلة (Python FastAPI) — راجع [الوثيقة الرئيسية للمشروع](../README.md) للتفاصيل الكاملة.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🛠️ التقنيات المستخدمة
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| التقنية | الاستخدام |
+|---|---|
+| **Laravel** | إطار عمل الـ API الخلفي |
+| **PostgreSQL** | قاعدة البيانات الرئيسية |
+| **Laravel Sanctum / Passport** | مصادقة الـ API |
+| **Python FastAPI** *(خدمة منفصلة)* | محرك التوصية والمساعد الأكاديمي (AI) |
+| **Railway / Render** | استضافة ونشر الخادم |
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📂 المكونات الأساسية (Modules)
 
-## Security Vulnerabilities
+```
+Backend/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── Auth/              # تسجيل الدخول وإنشاء الحساب
+│   │   ├── StudentController.php
+│   │   ├── UniversityController.php
+│   │   ├── MajorController.php        # التخصصات
+│   │   ├── AssessmentController.php   # ربط نتائج الاستبيان بالـ AI Service
+│   │   ├── RecommendationController.php
+│   │   └── AdminController.php
+│   ├── Models/
+│   │   ├── Student.php
+│   │   ├── University.php
+│   │   ├── Major.php
+│   │   └── Recommendation.php
+│   └── Services/
+│       └── AiServiceClient.php        # الاتصال بخدمة FastAPI
+├── database/
+│   ├── migrations/
+│   └── seeders/
+├── routes/
+│   └── api.php
+├── .env.example
+└── README.md
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+> ⚠️ عدّل هذا القسم ليطابق الهيكلية الفعلية داخل مجلد `Backend/` في حال اختلفت.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🚀 التشغيل محليًا
+
+### المتطلبات الأساسية
+
+- PHP 8.2+
+- Composer
+- PostgreSQL
+- Node.js (لبناء الأصول إن وُجدت)
+
+### خطوات التثبيت
+
+```bash
+# 1. الانتقال إلى مجلد الباكند
+cd Backend
+
+# 2. تثبيت الحزم
+composer install
+
+# 3. إعداد ملف البيئة
+cp .env.example .env
+php artisan key:generate
+
+# 4. إعداد قاعدة البيانات في .env ثم تشغيل الهجرات
+php artisan migrate --seed
+
+# 5. تشغيل الخادم محليًا
+php artisan serve
+```
+
+الخادم سيعمل افتراضيًا على:
+```
+http://localhost:8000
+```
+
+---
+
+## 🔑 متغيرات البيئة الأساسية
+
+```env
+APP_NAME="NextStep AI"
+APP_ENV=local
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=nextstep_ai
+DB_USERNAME=postgres
+DB_PASSWORD=
+
+AI_SERVICE_URL=http://localhost:8001
+```
+
+---
+
+## 🔗 الربط مع باقي أجزاء المشروع
+
+| الخدمة | الوصف |
+|---|---|
+| **Frontend (Next.js)** | يستهلك الـ API عبر REST endpoints |
+| **AI Service (FastAPI)** | يستقبل بيانات الاستبيان ويُعيد التوصيات ونتائج محرك الـ Weighted Matching |
+| **Database (PostgreSQL)** | تخزين الطلاب، الجامعات، التخصصات، والتوصيات |
+
+---
+
+## 👥 المسؤولون عن هذا الجزء
+
+| الاسم | الدور |
+|---|---|
+| **عمر حمدي** | Backend Engineer |
+| **عيد أبو بيض** | CTO / AI Engineer |
+| **نداء المدهون** | Information Security / Full Stack Developer |
+
+---
+
+## 🔒 الأمان
+
+- جميع نقاط الوصول الحساسة محمية عبر مصادقة Token-based (Sanctum/Passport).
+- بيانات الطلاب والجامعات تُخزّن في قاعدة بيانات مُدارة مع نسخ احتياطي تلقائي.
+- في حال اكتشاف ثغرة أمنية، الرجاء التواصل المباشر مع فريق المشروع قبل الإفصاح العلني.
+
+---
+
+<div align="center">
+
+جزء من مشروع **[NextStep AI](../README.md)** — راجع الوثيقة الرئيسية للمشروع لمزيد من التفاصيل حول الرؤية، النموذج، وخارطة الطريق.
+
+</div>

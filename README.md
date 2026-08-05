@@ -204,7 +204,7 @@ Ahmed Profile:
 | **أحمد الحايك** | CEO / AI Product Lead | قيادة المشروع، Product Management، Business Development، AI Architecture، التواصل مع الجامعات |
 | **عيد أبو بيض** | CTO / AI Engineer | تصميم النظام، AI Services، RAG، Integration، Deployment |
 | **مريم تابيل** | Frontend Engineer | تصميم الواجهات، Web Application، Student Dashboard، University Pages |
-| **مرح الزنط** | Data Analyst / AI | جمع وتحليل البيانات، تصميم الاستبيانات، Analytics، Recommendation Logic |
+| **نداء المدهون** | Information Security / Full Stack Developer | تأمين المنصة وحماية بيانات الطلاب والجامعات، تطوير الواجهات الأمامية والخلفية، دعم فريق الـ Backend والـ Frontend عند الحاجة |
 | **عمر حمدي** | Backend Engineer | Laravel Backend، Database، APIs، Authentication، Admin System |
 
 ---

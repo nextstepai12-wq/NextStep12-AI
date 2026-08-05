@@ -20,11 +20,19 @@ use App\Http\Controllers\API\LookupController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// routes/api.php
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/verify-reset-code', [AuthController::class, 'verifyResetCode']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+
+
+
+
 // مسارات البيانات المرجعية (Lookups)
 Route::prefix('lookups')->group(function () {
     Route::get('/branches', [LookupController::class, 'branches']);
     Route::get('/universities/{id}/majors', [LookupController::class, 'universityMajors']);
-    
+
 });
 
 Route::get('/universities', [UniversityController::class, 'index']);

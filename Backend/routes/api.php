@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\LookupController;
-
+  use App\Http\Controllers\API\UniversityController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,10 +23,12 @@ Route::post('/login', [AuthController::class, 'login']);
 // مسارات البيانات المرجعية (Lookups)
 Route::prefix('lookups')->group(function () {
     Route::get('/branches', [LookupController::class, 'branches']);
-    Route::get('/universities', [LookupController::class, 'universities']);
     Route::get('/universities/{id}/majors', [LookupController::class, 'universityMajors']);
+    
 });
 
+Route::get('/universities', [UniversityController::class, 'index']);
+Route::get('/universities/{id}', [UniversityController::class, 'show']);
 // المسارات التي تتطلب تسجيل دخول
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
@@ -34,5 +36,10 @@ Route::middleware('auth:sanctum')->group(function () {
             'status' => 'success',
             'data' => $request->user()->load('profile')
         ]);
+
+
     });
+
+
+
 });

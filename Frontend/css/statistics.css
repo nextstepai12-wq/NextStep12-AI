@@ -1,0 +1,207 @@
+/* ===== STATISTICS.CSS ===== */
+/* ستايلات إضافية مخصصة لصفحة الإحصائيات فقط */
+
+/* --- تحسينات للبطاقات --- */
+.kpi-card:first-child .kpi-value {
+  color: var(--blue);
+}
+
+.kpi-card:nth-child(2) .kpi-value {
+  color: var(--navy);
+}
+
+.kpi-card:nth-child(3) .kpi-value {
+  color: var(--green);
+}
+
+.kpi-card:last-child .kpi-value {
+  color: var(--gold);
+}
+
+/* --- أنيميشن دخول البطاقات --- */
+.kpi-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.kpi-card:nth-child(1) { animation-delay: 0.05s; }
+.kpi-card:nth-child(2) { animation-delay: 0.12s; }
+.kpi-card:nth-child(3) { animation-delay: 0.19s; }
+.kpi-card:nth-child(4) { animation-delay: 0.26s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- admin-panel أنيميشن --- */
+.admin-panel {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.admin-panel:nth-child(1) { animation-delay: 0.1s; }
+.admin-panel:nth-child(2) { animation-delay: 0.2s; }
+.admin-panel:nth-child(3) { animation-delay: 0.3s; }
+.admin-panel:nth-child(4) { animation-delay: 0.4s; }
+
+/* --- تحسينات الجدول --- */
+.top-programs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- تحسينات الـ Legend --- */
+.legend-row .legend-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- تحسينات الـ Filter --- */
+.stats-filter-bar select option {
+  padding: 8px;
+}
+
+/* --- شريط التقدم التفاعلي (للبطاقات العائمة) --- */
+.kpi-delta {
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-delta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  to { transform: translateX(100%); }
+}
+
+/* --- تحسينات خاصة للـ Donut --- */
+.donut-wrap canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* --- تحسينات للطباعة --- */
+@media print {
+  .admin-topbar,
+  .admin-sidebar,
+  .stats-filter-bar,
+  .stats-export-btn,
+  .admin-sidebar-cta,
+  .chart-tabs {
+    display: none !important;
+  }
+
+  .admin-layout {
+    display: block;
+    padding: 0;
+  }
+
+  .admin-panel {
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+    page-break-inside: avoid;
+    margin-bottom: 24px;
+  }
+
+  .kpi-card {
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+  }
+}
+
+/* --- تحسينات للوضع المظلم (جاهز للتوسع) --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --gray-bg: #111827;
+    --white: #1F2937;
+    --gray-dark: #E5E7EB;
+    --gray: #9CA3AF;
+    --shadow: 0 8px 32px rgba(0,0,0,0.3);
+    --shadow-hover: 0 16px 48px rgba(0,0,0,0.4);
+  }
+
+  .admin-topbar {
+    background: rgba(31,41,55,0.92);
+    border-color: rgba(47,107,255,0.12);
+  }
+
+  .admin-search {
+    background: #374151;
+  }
+
+  .admin-search input {
+    color: #E5E7EB;
+  }
+
+  .admin-search input::placeholder {
+    color: #9CA3AF;
+  }
+
+  .admin-sidebar {
+    background: #1F2937;
+    border-color: rgba(47,107,255,0.08);
+  }
+
+  .admin-panel {
+    background: #1F2937;
+    border-color: rgba(47,107,255,0.08);
+  }
+
+  .kpi-card {
+    background: #1F2937;
+    border-color: rgba(47,107,255,0.08);
+  }
+
+  .stats-filter-bar {
+    background: #1F2937;
+    border-color: rgba(47,107,255,0.08);
+  }
+
+  .stats-filter-bar select {
+    background: #374151;
+    color: #E5E7EB;
+    border-color: #374151;
+  }
+
+  .admin-icon-btn:hover {
+    background: #374151;
+  }
+
+  .chart-tabs {
+    background: #374151;
+  }
+
+  .chart-tab-btn.active {
+    background: #1F2937;
+    color: #E5E7EB;
+  }
+
+  .admin-sidebar-link:hover {
+    background: #374151;
+  }
+
+  .top-programs-table tbody tr:hover {
+    background: #374151;
+  }
+
+  .top-programs-table thead th {
+    border-color: #374151;
+  }
+
+  .top-programs-table tbody td {
+    border-color: #374151;
+  }
+
+  .rank-badge {
+    background: #374151;
+    color: #9CA3AF;
+  }
+}

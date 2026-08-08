@@ -18,7 +18,7 @@
 
 <!-- ======================= AUTH CARD ======================= -->
 <div class="auth-wrap">
-  <div class="auth-card">
+  <div class="auth-card auth-card--form">
 
     <div class="auth-logo">
       <img src="../assets/logo.png" alt="NextStep AI" class="brand-logo">
@@ -47,15 +47,14 @@
         <input type="hidden" id="track" name="track" value="new_student">
       </div>
 
-      <div class="form-group">
-        <label for="name">الاسم الكامل</label>
-        <div class="input-icon-wrap">
-          <input type="text" class="form-control" id="name" name="name" placeholder="أدخل اسمك الكامل" required>
-          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-        </div>
-      </div>
-
       <div class="form-row-2">
+        <div class="form-group">
+          <label for="name">الاسم الكامل</label>
+          <div class="input-icon-wrap">
+            <input type="text" class="form-control" id="name" name="name" placeholder="أدخل اسمك الكامل" required>
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          </div>
+        </div>
         <div class="form-group">
           <label for="email">البريد الإلكتروني</label>
           <div class="input-icon-wrap">
@@ -63,6 +62,9 @@
             <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
           </div>
         </div>
+      </div>
+
+      <div class="form-row-2">
         <div class="form-group">
           <label for="phone">رقم الهاتف</label>
           <div class="input-icon-wrap">
@@ -70,17 +72,16 @@
             <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.62a16 16 0 0 0 6 6l1.19-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg>
           </div>
         </div>
-      </div>
-
-      <div class="form-group">
-        <label for="password">كلمة المرور الجديدة</label>
-        <div class="input-icon-wrap">
-          <input type="password" class="form-control" id="password" name="password" placeholder="كلمة المرور الجديدة" required minlength="8">
-          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <button type="button" class="toggle-password" data-target="password" aria-label="إظهار كلمة المرور">
-            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-            <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.6 20.6 0 0 1 5.06-5.94M9.9 4.24A10.9 10.9 0 0 1 12 4c7 0 11 7 11 7a20.6 20.6 0 0 1-2.19 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-          </button>
+        <div class="form-group">
+          <label for="password">كلمة المرور الجديدة</label>
+          <div class="input-icon-wrap">
+            <input type="password" class="form-control" id="password" name="password" placeholder="كلمة المرور الجديدة" required minlength="8">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <button type="button" class="toggle-password" data-target="password" aria-label="إظهار كلمة المرور">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.6 20.6 0 0 1 5.06-5.94M9.9 4.24A10.9 10.9 0 0 1 12 4c7 0 11 7 11 7a20.6 20.6 0 0 1-2.19 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -116,20 +117,22 @@
           </div>
         </div>
 
-        <!-- الفرع الدراسي — يُجلب ديناميكياً من API -->
-        <div class="form-group">
-          <label for="high_school_branch_id">الفرع الدراسي</label>
-          <select class="form-control" id="high_school_branch_id" name="high_school_branch_id" required>
-            <option value="">-- اختر الفرع --</option>
-          </select>
-        </div>
+        <div class="form-row-2">
+          <!-- الفرع الدراسي — يُجلب ديناميكياً من API -->
+          <div class="form-group">
+            <label for="high_school_branch_id">الفرع الدراسي</label>
+            <select class="form-control" id="high_school_branch_id" name="high_school_branch_id" required>
+              <option value="">-- اختر الفرع --</option>
+            </select>
+          </div>
 
-        <!-- الميول — يُجلب ديناميكياً من API (id/name مختلفان الآن عن الفرع) -->
-        <div class="form-group">
-          <label for="inclination_id">الميول</label>
-          <select class="form-control" id="inclination_id" name="inclination_id" required>
-            <option value="">-- اختر الميول --</option>
-          </select>
+          <!-- الميول — يُجلب ديناميكياً من API (id/name مختلفان الآن عن الفرع) -->
+          <div class="form-group">
+            <label for="inclination_id">الميول</label>
+            <select class="form-control" id="inclination_id" name="inclination_id" required>
+              <option value="">-- اختر الميول --</option>
+            </select>
+          </div>
         </div>
 
       </div>

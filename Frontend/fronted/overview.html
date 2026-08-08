@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نظرة عامة — لوحة تحكم الإدارة | NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/admin-shell.css" rel="stylesheet">
+<link href="../css/overview.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ======================= TOP BAR ======================= -->
+<header class="admin-topbar">
+  <div class="admin-topbar-inner">
+    <a href="../index.html" class="admin-brand">
+      <span class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+      </span>
+      <span class="brand-text">NextStep AI</span>
+    </a>
+
+    <div class="admin-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="ابحثي عن طالب، برنامج، أو طلب...">
+    </div>
+
+    <div class="admin-user-actions">
+      <button type="button" class="admin-icon-btn" aria-label="المساعدة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
+      </button>
+      <button type="button" class="admin-icon-btn" aria-label="الإشعارات">
+        <span class="dot"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <img src="../assets/admin-avatar.png" alt="صورة المستخدم" class="admin-avatar" onerror="this.style.display='none'">
+    </div>
+  </div>
+</header>
+
+<!-- ======================= LAYOUT ======================= -->
+<div class="admin-layout">
+
+  <!-- ======================= MAIN CONTENT ======================= -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-head">
+      <h3>بوابة الإدارة</h3>
+      <p>نظام إدارة المعلومات</p>
+    </div>
+
+    <nav class="admin-sidebar-nav">
+      <a href="overview.html" class="admin-sidebar-link active">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          نظرة عامة
+        </span>
+      </a>
+      <a href="statistics.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+          الطلاب
+        </span>
+      </a>
+      <a href="programs.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+          البرامج الأكاديمية
+        </span>
+      </a>
+      <a href="statistics.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+          إحصائيات
+        </span>
+      </a>
+      <a href="settings-dashboard.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          الإعدادات
+        </span>
+      </a>
+    </nav>
+
+    <button type="button" class="admin-sidebar-cta" onclick="window.location.href='add-program.html'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+      إضافة برنامج جديد
+    </button>
+  </aside>
+
+  <!-- ======================= SIDEBAR ======================= -->
+  <main class="admin-main">
+
+    <div class="admin-page-head">
+      <div>
+        <h1>نظرة عامة على الكلية</h1>
+        <p>مرحباً بك في لوحة تحكم الإدارة الأكاديمية — ملخص الأداء والإحصائيات الحالية.</p>
+      </div>
+      <span class="ai-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg>
+        بواسطة AI
+      </span>
+    </div>
+
+    <div class="overview-toolbar">
+      <span class="pill-btn ai-live">
+        <span class="dot-live"></span>
+        محدّث بالذكاء الاصطناعي
+      </span>
+      <button type="button" class="pill-btn" id="exportBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        تصدير التقرير
+      </button>
+    </div>
+
+    <!-- ======================= STAT CARDS ======================= -->
+    <div class="stat-grid">
+
+      <div class="stat-card">
+        <div class="stat-card-top">
+          <span class="stat-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+          </span>
+          <span class="trend-badge flat">0%</span>
+        </div>
+        <div class="stat-label">الطلبات المعلقة</div>
+        <div class="stat-value">324</div>
+        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:38%"></div></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card-top">
+          <span class="stat-icon mint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          </span>
+          <span class="trend-badge up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17l9-9M8 8h8v8"/></svg>
+            5%
+          </span>
+        </div>
+        <div class="stat-label">معدل التخرج</div>
+        <div class="stat-value">88.5%</div>
+        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:88%"></div></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card-top">
+          <span class="stat-icon amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+          </span>
+          <span class="trend-badge up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17l9-9M8 8h8v8"/></svg>
+            12%
+          </span>
+        </div>
+        <div class="stat-label">البرامج الأكاديمية النشطة</div>
+        <div class="stat-value">48</div>
+        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:60%"></div></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card-top">
+          <span class="stat-icon navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <span class="trend-badge up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17l9-9M8 8h8v8"/></svg>
+            8%
+          </span>
+        </div>
+        <div class="stat-label">إجمالي الطلاب</div>
+        <div class="stat-value">12,450</div>
+        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:74%"></div></div>
+      </div>
+
+    </div>
+
+    <!-- ======================= CHARTS ======================= -->
+    <div class="chart-row">
+
+      <div class="admin-panel">
+        <div class="chart-card-title">حالة طلبات القبول</div>
+        <div class="donut-wrap">
+          <canvas id="admissionDonut"></canvas>
+          <div class="donut-center">
+            <strong id="donutCenterValue">65%</strong>
+            <span>مقبول</span>
+          </div>
+        </div>
+        <div class="legend-list" id="donutLegend"></div>
+      </div>
+
+      <div class="admin-panel">
+        <div class="chart-card-title">توزيع الطلاب حسب القسم</div>
+        <div class="bar-chart-holder">
+          <canvas id="deptBarChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================= ACTIVITY TABLE ======================= -->
+    <div class="admin-panel">
+      <div class="activity-head">
+        <div class="chart-card-title" style="margin-bottom:0;">النشاط الأخير</div>
+        <a href="#" class="link-view-all">عرض الكل</a>
+      </div>
+
+      <table class="activity-table">
+        <thead>
+          <tr>
+            <th>الطالب / الموظف</th>
+            <th>النشاط</th>
+            <th>التاريخ</th>
+            <th>الحالة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="person-cell">
+                <span class="avatar-chip" style="background:#2F6BFF;">أم</span>
+                <strong>أحمد محمود</strong>
+              </div>
+            </td>
+            <td>تقديم طلب تسجيل جديد</td>
+            <td>10 أكت 2026</td>
+            <td><span class="status-pill review"><span class="dot"></span> قيد المراجعة</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="person-cell">
+                <span class="avatar-chip" style="background:#16C088;">سخ</span>
+                <strong>سارة خالد</strong>
+              </div>
+            </td>
+            <td>تحديث ملف الخريج</td>
+            <td>09 أكت 2026</td>
+            <td><span class="status-pill done"><span class="dot"></span> مكتمل</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="person-cell">
+                <span class="avatar-chip" style="background:#B4790C;">عع</span>
+                <strong>عمر عبدالله</strong>
+              </div>
+            </td>
+            <td>طلب استثناء أكاديمي</td>
+            <td>08 أكت 2026</td>
+            <td><span class="status-pill rejected"><span class="dot"></span> مرفوض</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="person-cell">
+                <span class="avatar-chip" style="background:#16233D;">د.م</span>
+                <strong>د. أحمد محمود</strong>
+              </div>
+            </td>
+            <td>رفع خطة دراسية جديدة</td>
+            <td>07 أكت 2026</td>
+            <td><span class="status-pill done"><span class="dot"></span> مكتمل</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+</div>
+
+<!-- ======================= Chart.js ======================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script>
+  // ==========================================================================
+  // بيانات وهمية (Mock) — بدون باك اند، اربطيها لاحقاً بـ API حقيقي
+  // ==========================================================================
+  const admissionData = [
+    { label: 'مقبول',        value: 65, color: '#16233D' },
+    { label: 'قيد الانتظار', value: 25, color: '#2F6BFF' },
+    { label: 'مرفوض',        value: 10, color: '#D9DFE7' },
+  ];
+
+  const deptData = [
+    { label: 'الأمن السيبراني',   value: 620,  color: '#5B6B79' },
+    { label: 'علوم البيانات',     value: 980,  color: '#2F6BFF' },
+    { label: 'هندسة البرمجيات',   value: 1450, color: '#16233D' },
+    { label: 'إدارة الأعمال',     value: 860,  color: '#16C088' },
+  ];
+
+  const cairoFont = { family: "'Cairo', sans-serif", weight: '600' };
+
+  // ---- Donut chart: حالة طلبات القبول ----
+  new Chart(document.getElementById('admissionDonut'), {
+    type: 'doughnut',
+    data: {
+      labels: admissionData.map(d => d.label),
+      datasets: [{
+        data: admissionData.map(d => d.value),
+        backgroundColor: admissionData.map(d => d.color),
+        borderWidth: 0,
+        cutout: '72%',
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: { legend: { display: false }, tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont } },
+      animation: { animateRotate: true, duration: 900 }
+    }
+  });
+
+  // شرح الألوان تحت الرسم (Legend مخصّص بنفس هوية الصفحة)
+  const legendHost = document.getElementById('donutLegend');
+  admissionData.forEach(d => {
+    const row = document.createElement('div');
+    row.className = 'legend-row';
+    row.innerHTML = `
+      <span class="legend-label">
+        <span class="legend-dot" style="background:${d.color}"></span>
+        ${d.label}
+      </span>
+      <span class="legend-value">${d.value}%</span>
+    `;
+    legendHost.appendChild(row);
+  });
+
+  // ---- Bar chart: توزيع الطلاب حسب القسم ----
+  new Chart(document.getElementById('deptBarChart'), {
+    type: 'bar',
+    data: {
+      labels: deptData.map(d => d.label),
+      datasets: [{
+        data: deptData.map(d => d.value),
+        backgroundColor: deptData.map(d => d.color),
+        borderRadius: 8,
+        maxBarThickness: 64,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: cairoFont, color: '#5B6B79' } },
+        y: { grid: { color: '#F0F2F5' }, ticks: { font: cairoFont, color: '#5B6B79' }, beginAtZero: true }
+      },
+      animation: { duration: 900, easing: 'easeOutQuart' }
+    }
+  });
+
+  // ==========================================================================
+  // زر تصدير التقرير — placeholder بدون باك اند
+  // ==========================================================================
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    alert('هاي محاكاة محلية — لسا ما فيه ربط فعلي بتصدير PDF/Excel.');
+  });
+</script>
+
+<footer class="admin-footer">
+  <div class="admin-footer-inner">
+    <span>© 2026 NextStep AI — جميع الحقوق محفوظة</span>
+    <nav class="admin-footer-links">
+      <a href="#">الدعم الفني</a>
+      <a href="#">سياسة الخصوصية</a>
+      <a href="#">الشروط والأحكام</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

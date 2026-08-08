@@ -1,61 +1,65 @@
 /* =====================================================================
    app.css
-   المتغيرات والإعدادات المشتركة بين كل صفحات الموقع
-   الألوان معتمدة من دليل الهوية البصرية الرسمي (Brand Guide)
-   حمّل هاد الملف قبل أي ملف CSS خاص بصفحة (home.css, login.css...)
+   نظام التصميم الأساسي المشترك — NextStep AI
+   ملاحظة: هاد ملف مُعاد بناؤه بالاعتماد على القيم المستخدمة فعلياً بالمشروع
+   (admin-dashboard.css و add-program.html). إذا في نسخة أصلية عندك، بلشي فيها.
    ===================================================================== */
 
 :root{
-  --navy:#173873;   /* Deep Navy */
-  --blue:#2F6BFF;   /* Electric Blue */
-  --cyan:#35D0FF;   /* Cyan */
-  --mint:#48E6B0;   /* Emerald */
-  --light:#F7FAFC;  /* Light Gray */
-  --gray:#687280;
-  --dark:#1F2937;
-  --border:#E7ECF2;
-  --orange:#F5A623;
-  --red:#E5484D;
+  /* ---- ألوان الهوية ---- */
+  --navy:#16233D;        /* نص أساسي / عناوين / برند */
+  --dark:#1F2937;        /* نص محتوى داكن */
+  --blue:#2F6BFF;        /* اللون الأساسي (أزرار، روابط فعّالة) */
+  --blue-dark:#1E4FD1;
+  --cyan:#35D0FF;        /* لون مساعد للـ gradients (نفس المستخدم بلوحة الإدارة) */
+  --mint:#16C088;        /* نجاح / إيجابي */
+  --mint-soft:#48E6B0;
+  --red:#C62828;         /* خطأ / سلبي */
+  --amber:#B4790C;       /* تنبيه / قيد المراجعة */
+  --gray:#5B6B79;        /* نص ثانوي */
+  --light:#F5F7FA;       /* خلفية الصفحة */
+  --border:#E4E9F0;      /* حدود عامة */
+  --white:#FFFFFF;
 
-  /* لون خلفية موحّد لكل الموقع — نفس لون صفحة "من نحن" */
-  --bg-page:#F6F9FF;
+  /* ---- خلفيات ذات مستويات (تُستخدم بصفحات auth وغيرها) ---- */
+  --bg-page:var(--light);   /* خلفية الصفحة العامة */
+  --bg-deep:#EEF2F7;        /* خلفية "غاطسة" للعناصر الداخلية: بادجات، toggle، حقول readonly */
 
-  /* ارتفاع الهيدر — قيمة افتراضية؛ header.js يحدّثها ديناميكياً بعد القياس */
-  --header-height: 6.625rem; /* ~106px — fallback قبل تحميل JS */
-  --footer-height: 60px;
+  --radius-sm:10px;
+  --radius-md:14px;
+  --radius-lg:18px;
+  --shadow-card:0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.04);
 }
 
-*{box-sizing:border-box;margin:0;padding:0;}
-html, body{height:100%;}
-
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
 body{
-    font-family:'Cairo',sans-serif;
-    background:var(--bg-page);
-    color:var(--dark);
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
+  font-family:'Cairo',sans-serif;
+  background:var(--light);
+  color:var(--dark);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+ul{list-style:none;margin:0;padding:0;}
+img{max-width:100%;display:block;}
+h1,h2,h3,h4{margin:0;}
+p{margin:0;}
+
+::selection{background:rgba(47,107,255,0.18);}
+
+/* focus visibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible{
+  outline:2px solid var(--blue);
+  outline-offset:2px;
 }
 
-a{text-decoration:none;color:inherit;}
-ul{list-style:none;}
-img{display:block;max-width:100%;}
-
-/* ======================= Compatibility tier utilities =======================
-   نظام ألوان دلالي موحّد لنسب التوافق بكل الموقع:
-   عالي (80%+) = مينت | جيد (60-79%) = أزرق | متوسط (40-59%) = برتقالي | منخفض (<40%) = أحمر
-   ================================================================================ */
-.tier-high{color:var(--mint) !important;}
-.tier-good{color:var(--blue) !important;}
-.tier-medium{color:var(--orange) !important;}
-.tier-low{color:var(--red) !important;}
-
-.tier-high-bg{background:var(--mint) !important;}
-.tier-good-bg{background:var(--blue) !important;}
-.tier-medium-bg{background:var(--orange) !important;}
-.tier-low-bg{background:var(--red) !important;}
-
-.tier-high-border{border-color:var(--mint) !important;}
-.tier-good-border{border-color:var(--blue) !important;}
-.tier-medium-border{border-color:var(--orange) !important;}
-.tier-low-border{border-color:var(--red) !important;}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+}

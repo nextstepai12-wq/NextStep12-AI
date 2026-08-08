@@ -1,49 +1,41 @@
 /* ==========================================================================
    signup.css — ستايل صفحات الـ Auth (إنشاء حساب / تسجيل دخول / إعادة تعيين)
-   يعتمد على خط Cairo وألوان الهوية: أزرق #2563eb وتركواز #48E6B0
    ========================================================================== */
 
-:root{
-  --auth-primary: var(--blue);
-  --auth-primary-dark: var(--navy);
-  --auth-accent: var(--cyan-about);
-
-  --auth-text: var(--ink);
-  --auth-muted: var(--ink-soft);
-
-  --auth-border: var(--line);
-  --auth-bg: var(--bg-deep);
-
-  --auth-error-bg:#FDEDEE;
-  --auth-error-text:#C62828;
-
-  --auth-success-bg:rgba(34,230,214,.12);
-  --auth-success-text:#0F8D82;
+/* ---------- إعدادات الصفحة كاملة ---------- */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-
-/* ---------- تخطيط الصفحة ---------- */
-.auth-wrap{
-  min-height: calc(100vh - 160px);
+body {
   display: flex;
-  align-items: center;
-  justify-content: center;
- padding-top: calc(var(--header-height) + 32px);
-      padding-bottom:120px;
+  flex-direction: column;
+  min-height: 100vh;
   background: var(--bg-page);
   font-family: 'Cairo', sans-serif;
 }
 
+/* ---------- تخطيط صفحة التسجيل ---------- */
+.auth-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background: var(--bg-page);
+}
 
-.auth-card{
-  width:100%;
- width:min(480px, 100%);
-  margin-bottom:80px;
-   background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:36px 32px;
-  box-shadow:0 12px 32px rgba(11,27,52,.08);
+.auth-card {
+  width: min(480px, 100%);
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 12px 32px rgba(11,27,52,.08);
+  margin: 0;
 }
 
 /* ---------- شعار أعلى البطاقة ---------- */
@@ -62,10 +54,10 @@
 .auth-logo .brand-text{
   font-weight: 800;
   font-size: 18px;
-  color: var(--auth-text);
+  color: var(--dark);
 }
 .auth-logo .brand-text span{
-  color: var(--auth-primary);
+  color: var(--blue);
 }
 
 /* ---------- بادج نوع الحساب ---------- */
@@ -76,18 +68,13 @@
   gap: 6px;
   margin: 0 auto 16px;
   width: fit-content;
-  background:var(--bg-deep);
-  color:var(--blue);
-  border: 1px solid #bfdbfe;
+  background: var(--bg-deep);
+  color: var(--blue);
   font-size: 12.5px;
   font-weight: 700;
   padding: 6px 14px;
-  border:1px solid var(--line);
+  border: 1px solid var(--border);
 }
-
-
-
-
 .auth-badge svg{
   width: 15px;
   height: 15px;
@@ -98,13 +85,13 @@
   text-align: center;
   font-size: 24px;
   font-weight: 800;
-  color: var(--auth-text);
+  color: var(--dark);
   margin: 0 0 6px;
 }
 .auth-subtitle{
   text-align: center;
   font-size: 13.5px;
-  color: var(--auth-muted);
+  color: var(--gray);
   margin: 0 0 28px;
 }
 
@@ -112,8 +99,8 @@
 .type-toggle{
   display: flex;
   gap: 8px;
-  background: var(--auth-bg);
-  border: 1px solid var(--auth-border);
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 5px;
 }
@@ -130,7 +117,7 @@
   font-family: 'Cairo', sans-serif;
   font-size: 13.5px;
   font-weight: 700;
-  color: var(--auth-muted);
+  color: var(--gray);
   cursor: pointer;
   transition: background .15s, color .15s;
 }
@@ -140,7 +127,7 @@
 }
 .type-btn.active{
   background: #fff;
-  color: var(--auth-primary);
+  color: var(--blue);
   box-shadow: 0 2px 6px rgba(30, 64, 175, 0.12);
 }
 
@@ -152,12 +139,12 @@
   display: block;
   font-size: 13px;
   font-weight: 700;
-  color: var(--auth-text);
+  color: var(--dark);
   margin-bottom: 6px;
 }
 .form-group label .optional{
   font-weight: 500;
-  color: var(--auth-muted);
+  color: var(--gray);
   font-size: 12px;
 }
 
@@ -173,28 +160,28 @@
 }
 .form-control{
   width: 100%;
-    max-width:100%;
+  max-width: 100%;
   box-sizing: border-box;
-  padding: 12px 42px 12px 14px; /* مساحة يمين للأيقونة (RTL) */
-  border: 1px solid var(--auth-border);
+  padding: 12px 42px 12px 14px;
+  border: 1px solid var(--border);
   border-radius: 11px;
   font-family: 'Cairo', sans-serif;
   font-size: 14px;
-  color: var(--auth-text);
+  color: var(--dark);
   background: #fff;
   transition: border-color .15s, box-shadow .15s;
 }
 .form-control:focus{
   outline: none;
-  border-color: var(--auth-primary);
+  border-color: var(--blue);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 .form-control::placeholder{
   color: #b8c2d0;
 }
 .form-control:read-only{
-  background: var(--auth-bg);
-  color: var(--auth-muted);
+  background: var(--bg-deep);
+  color: var(--gray);
   cursor: not-allowed;
 }
 
@@ -246,7 +233,7 @@ select.form-control{
   transition: color .15s, background .15s;
 }
 .toggle-password:hover{
-  color: var(--auth-primary);
+  color: var(--blue);
   background: #eff6ff;
 }
 .toggle-password svg{
@@ -256,14 +243,22 @@ select.form-control{
 
 /* ---------- زر الإرسال ---------- */
 .btn-submit{
-  background:linear-gradient(
-      135deg,
-      var(--navy),
-      var(--blue) 60%,
-      var(--cyan-about)
-  );
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--navy), var(--blue) 60%, var(--cyan));
+  color: #fff;
+  font-family: 'Cairo', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity .2s, transform .15s;
 }
-
 .btn-submit:hover{
   opacity: 0.92;
 }
@@ -284,10 +279,10 @@ select.form-control{
   text-align: center;
   margin-top: 20px;
   font-size: 13.5px;
-  color: var(--auth-muted);
+  color: var(--gray);
 }
 .auth-footer-text a{
-  color: var(--auth-primary);
+  color: var(--blue);
   font-weight: 700;
   text-decoration: none;
 }
@@ -310,8 +305,8 @@ select.form-control{
    Checklist متطلبات كلمة المرور — مستخدمة بصفحة reset-password
    ========================================================================== */
 .requirements-box{
-  background: var(--auth-bg);
-  border: 1px solid var(--auth-border);
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 16px;
   margin-bottom: 16px;
@@ -319,7 +314,7 @@ select.form-control{
 .requirements-box .req-title{
   font-size: 12px;
   font-weight: 700;
-  color: var(--auth-muted);
+  color: var(--gray);
   margin-bottom: 8px;
 }
 .requirement-item{
@@ -327,7 +322,7 @@ select.form-control{
   align-items: center;
   gap: 6px;
   font-size: 12.5px;
-  color: var(--auth-muted);
+  color: var(--gray);
   margin-bottom: 6px;
 }
 .requirement-item:last-child{
@@ -341,10 +336,10 @@ select.form-control{
   transition: color .15s;
 }
 .requirement-item.met{
-  color: var(--auth-success-text);
+  color: #0F8D82;
 }
 .requirement-item.met svg{
-  color: var(--auth-accent);
+  color: var(--cyan);
 }
 
 /* ==========================================================================
@@ -369,8 +364,9 @@ select.form-control{
   color: #1C8F63;
 }
 .auth-card-center .btn-submit{
-  display: flex;
-  align-items: center;
+  display: inline-flex;
+  width: auto;
+  min-width: 200px;
   justify-content: center;
 }
 
@@ -382,10 +378,10 @@ select.form-control{
   justify-content: center;
   gap: 8px;
   padding: 12px 16px;
-  border: 1.5px solid var(--auth-primary);
+  border: 1.5px solid var(--blue);
   border-radius: 12px;
   background: #fff;
-  color: var(--auth-primary);
+  color: var(--blue);
   font-family: 'Cairo', sans-serif;
   font-size: 14px;
   font-weight: 700;

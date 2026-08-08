@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>البرامج الأكاديمية — لوحة تحكم الإدارة | NextStep AI</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- ====== CSS ====== -->
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="../css/admin-shell.css">
+  <link rel="stylesheet" href="../css/programs.css">
+</head>
+<body>
+
+<!-- ======================= TOP BAR ======================= -->
+<header class="admin-topbar" id="adminTopbar">
+  <div class="admin-topbar-inner">
+    <a href="../index.html" class="admin-brand">
+      <span class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+          <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+        </svg>
+      </span>
+      <span class="brand-text">NextStep AI</span>
+    </a>
+
+    <div class="admin-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input type="text" placeholder="ابحث عن طالب، برنامج، أو طلب...">
+    </div>
+
+    <div class="admin-user-actions">
+      <button type="button" class="admin-icon-btn" aria-label="المساعدة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/>
+          <path d="M12 17h.01"/>
+        </svg>
+      </button>
+      <button type="button" class="admin-icon-btn" aria-label="الإشعارات">
+        <span class="dot"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </button>
+      <img src="../assets/admin-avatar.png" alt="صورة المستخدم" class="admin-avatar" onerror="this.style.display='none'">
+    </div>
+  </div>
+</header>
+
+<!-- ======================= LAYOUT ======================= -->
+<div class="admin-layout">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-head">
+      <h3>بوابة الإدارة</h3>
+      <p>نظام إدارة المعلومات</p>
+    </div>
+
+    <nav class="admin-sidebar-nav">
+      <a href="overview.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+          نظرة عامة
+        </span>
+      </a>
+      <a href="#" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+            <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+          </svg>
+          الطلاب
+        </span>
+      </a>
+      <a href="programs.html" class="admin-sidebar-link active">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6M9 13h6M9 17h6"/>
+          </svg>
+          البرامج الأكاديمية
+        </span>
+      </a>
+      <a href="statistics.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 20V10M12 20V4M20 20v-7"/>
+          </svg>
+          إحصائيات
+        </span>
+      </a>
+      <a href="settings-dashboard.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          الإعدادات
+        </span>
+      </a>
+    </nav>
+
+    <button type="button" class="admin-sidebar-cta" onclick="window.location.href='add-program.html'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      إضافة برنامج جديد
+    </button>
+  </aside>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="admin-main">
+
+    <!-- ====== PAGE HEADER ====== -->
+    <div class="admin-page-head">
+      <div>
+        <h1>إدارة البرامج الأكاديمية</h1>
+        <p>ارفع الخطط الدراسية (PDF أو Excel أو CSV) وسيحوّلها الذكاء الاصطناعي تلقائياً إلى بيانات هيكلية جاهزة للربط بالعمادة والتخصص.</p>
+      </div>
+      <span class="ai-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13 2L3 14h7v8l10-12h-7z"/>
+        </svg>
+        بواسطة AI
+      </span>
+    </div>
+
+    <!-- ====== STEPPER ====== -->
+    <div class="admin-steps" id="stepsRow">
+      <button type="button" class="admin-step-card active" data-step="1">
+        <span class="step-label">تحديد العمادة<br><small>الخطوة الأولى</small></span>
+        <span class="step-num">1</span>
+      </button>
+      <button type="button" class="admin-step-card" data-step="2">
+        <span class="step-label">تحديد التخصص<br><small>الخطوة الثانية</small></span>
+        <span class="step-num">2</span>
+      </button>
+      <button type="button" class="admin-step-card" data-step="3">
+        <span class="step-label">رفع ومعالجة الملف<br><small>الخطوة الثالثة</small></span>
+        <span class="step-num">3</span>
+      </button>
+    </div>
+
+    <!-- ====== UPLOAD PANEL ====== -->
+    <div class="admin-panel">
+
+      <div class="panel-selects">
+        <div class="panel-select-group">
+          <label for="deanship">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/>
+            </svg>
+            العمادة المستهدفة
+          </label>
+          <select id="deanship" name="deanship">
+            <option value="">-- اختر العمادة --</option>
+            <option value="1">عمادة كلية الهندسة وتكنولوجيا المعلومات</option>
+            <option value="2">عمادة كلية العلوم</option>
+            <option value="3">عمادة كلية الطب</option>
+            <option value="4">عمادة كلية الأعمال والاقتصاد</option>
+            <option value="5">عمادة كلية الآداب</option>
+          </select>
+        </div>
+        <div class="panel-select-group">
+          <label for="major">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+              <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+            </svg>
+            التخصص الدراسي
+          </label>
+          <select id="major" name="major" disabled>
+            <option value="">-- اختار العمادة أولاً --</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ====== DROPZONE ====== -->
+      <label class="dropzone" id="dropzone" for="planFile">
+        <div class="dropzone-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <path d="M17 8l-5-5-5 5"/>
+            <path d="M12 3v12"/>
+          </svg>
+        </div>
+        <h4>اسحب الملف هنا أو انقر للاختيار</h4>
+        <p>ندعم ملفات PDF, Excel, و CSV (الحد الأقصى 20 ميجابايت)</p>
+        <input type="file" id="planFile" accept=".pdf,.xlsx,.xls,.csv">
+      </label>
+
+      <!-- ====== FILE PREVIEW ====== -->
+      <div class="dropzone-file" id="fileRow">
+        <div class="file-info">
+          <span class="file-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+          </span>
+          <div>
+            <div class="file-name" id="fileName">—</div>
+            <div class="file-size" id="fileSize">—</div>
+          </div>
+        </div>
+        <button type="button" class="file-remove" id="removeFile" aria-label="إزالة الملف">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- ====== PROCESS BUTTON ====== -->
+      <button type="button" class="panel-submit" id="processBtn" disabled>
+        معالجة الملف بالذكاء الاصطناعي
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- ====== PROGRAMS TABLE ====== -->
+    <div class="admin-panel" style="margin-top:24px;">
+      <div class="programs-table-head">
+        <h3>البرامج الحالية</h3>
+        <button type="button" class="admin-sidebar-cta" style="width:auto;padding:10px 20px;" onclick="window.location.href='add-program.html'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          إضافة برنامج
+        </button>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="programs-table">
+          <thead>
+            <tr>
+              <th>اسم التخصص</th>
+              <th>العمادة</th>
+              <th>الدرجة</th>
+              <th>عدد المواد</th>
+              <th>آخر تحديث</th>
+            </tr>
+          </thead>
+          <tbody id="programsTableBody">
+            <!-- البيانات تتحمّل عن طريق JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ======================= MODAL ======================= -->
+<div class="app-modal-overlay" id="appModalOverlay">
+  <div class="app-modal" role="alertdialog" aria-modal="true" aria-labelledby="appModalTitle" aria-describedby="appModalMsg">
+    <div class="app-modal-icon" id="appModalIcon"></div>
+    <h3 class="app-modal-title" id="appModalTitle"></h3>
+    <p class="app-modal-msg" id="appModalMsg"></p>
+    <div class="app-modal-actions" id="appModalActions"></div>
+  </div>
+</div>
+
+<!-- ======================= SCRIPTS ======================= -->
+<script>
+  (function() {
+    'use strict';
+
+    // ========================================================================
+    // 1. STEPPER - تبديل الخطوة النشطة
+    // ========================================================================
+    const stepCards = document.querySelectorAll('.admin-step-card');
+    stepCards.forEach(card => {
+      card.addEventListener('click', function() {
+        stepCards.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // ========================================================================
+    // 2. MODAL - نافذة منبثقة موحدة
+    // ========================================================================
+    const modalOverlay = document.getElementById('appModalOverlay');
+    const modalIcon = document.getElementById('appModalIcon');
+    const modalTitle = document.getElementById('appModalTitle');
+    const modalMsg = document.getElementById('appModalMsg');
+    const modalActions = document.getElementById('appModalActions');
+
+    const MODAL_ICONS = {
+      success: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>`,
+      error: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>`,
+      confirm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 9v4M12 17h.01M10.29 3.86l-8.18 14.18A2 2 0 0 0 3.82 21h16.36a2 2 0 0 0 1.71-2.96L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>`
+    };
+
+    function openModal({ type = 'success', title, message, confirmText = 'تمام', cancelText = 'إلغاء', onConfirm = null }) {
+      modalIcon.className = `app-modal-icon ${type}`;
+      modalIcon.innerHTML = MODAL_ICONS[type] || MODAL_ICONS.success;
+      modalTitle.textContent = title;
+      modalMsg.textContent = message;
+      modalActions.innerHTML = '';
+
+      if (onConfirm) {
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'app-modal-btn-outline';
+        cancelBtn.textContent = cancelText;
+        cancelBtn.type = 'button';
+        cancelBtn.addEventListener('click', closeModal);
+
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = `app-modal-btn-primary ${type === 'error' ? 'danger' : ''}`;
+        confirmBtn.textContent = confirmText;
+        confirmBtn.type = 'button';
+        confirmBtn.addEventListener('click', function() {
+          closeModal();
+          if (typeof onConfirm === 'function') onConfirm();
+        });
+
+        modalActions.appendChild(cancelBtn);
+        modalActions.appendChild(confirmBtn);
+      } else {
+        const okBtn = document.createElement('button');
+        okBtn.className = 'app-modal-btn-primary';
+        okBtn.textContent = confirmText;
+        okBtn.type = 'button';
+        okBtn.addEventListener('click', closeModal);
+        modalActions.appendChild(okBtn);
+      }
+
+      modalOverlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    // إغلاق المودال عند الضغط على الخلفية أو زر Escape
+    modalOverlay.addEventListener('click', function(e) {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('is-open')) closeModal();
+    });
+
+    // ========================================================================
+    // 3. CASCADING SELECTS - العمادة → التخصص
+    // ========================================================================
+    const USE_MOCK_DATA = true;
+
+    const MOCK_MAJORS_BY_DEANSHIP = {
+      1: [
+        { id: 101, name: 'علوم الحاسوب' },
+        { id: 102, name: 'هندسة البرمجيات' },
+        { id: 103, name: 'هندسة الحاسوب' },
+        { id: 104, name: 'الأمن السيبراني' },
+        { id: 105, name: 'الذكاء الاصطناعي' },
+      ],
+      2: [
+        { id: 201, name: 'الفيزياء' },
+        { id: 202, name: 'الكيمياء' },
+        { id: 203, name: 'الرياضيات' },
+        { id: 204, name: 'الأحياء' },
+      ],
+      3: [
+        { id: 301, name: 'الطب البشري' },
+        { id: 302, name: 'طب الأسنان' },
+        { id: 303, name: 'الصيدلة' },
+        { id: 304, name: 'التمريض' },
+      ],
+      4: [
+        { id: 401, name: 'إدارة الأعمال' },
+        { id: 402, name: 'المحاسبة' },
+        { id: 403, name: 'الاقتصاد' },
+        { id: 404, name: 'التسويق' },
+      ],
+      5: [
+        { id: 501, name: 'اللغة العربية' },
+        { id: 502, name: 'اللغة الإنجليزية' },
+        { id: 503, name: 'تأهيل ذوي الإعاقة' },
+        { id: 504, name: 'علم النفس' },
+      ],
+    };
+
+    const deanshipSelect = document.getElementById('deanship');
+    const majorSelect = document.getElementById('major');
+
+    deanshipSelect.addEventListener('change', async function() {
+      const deanshipId = this.value;
+      majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+
+      if (!deanshipId) {
+        majorSelect.disabled = true;
+        majorSelect.innerHTML = '<option value="">-- اختار العمادة أولاً --</option>';
+        return;
+      }
+
+      majorSelect.disabled = true;
+      majorSelect.innerHTML = '<option value="">جاري تحميل التخصصات...</option>';
+
+      if (USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        const majors = MOCK_MAJORS_BY_DEANSHIP[deanshipId] || [];
+        majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+        majors.forEach(major => {
+          const opt = document.createElement('option');
+          opt.value = major.id;
+          opt.textContent = major.name;
+          majorSelect.appendChild(opt);
+        });
+        majorSelect.disabled = false;
+        return;
+      }
+
+      // TODO: ربط الباك اند الحقيقي هنا
+      // const response = await fetch(`${API_BASE_URL}/majors?deanship_id=${deanshipId}`);
+      // const data = await response.json();
+      // ...
+    });
+
+    // ========================================================================
+    // 4. DROPZONE - رفع الملفات
+    // ========================================================================
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('planFile');
+    const fileRow = document.getElementById('fileRow');
+    const fileNameEl = document.getElementById('fileName');
+    const fileSizeEl = document.getElementById('fileSize');
+    const removeFileBtn = document.getElementById('removeFile');
+    const processBtn = document.getElementById('processBtn');
+
+    const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
+
+    function formatFileSize(bytes) {
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' كيلوبايت';
+      return (bytes / (1024 * 1024)).toFixed(1) + ' ميجابايت';
+    }
+
+    function showFile(file) {
+      if (file.size > MAX_FILE_SIZE) {
+        openModal({
+          type: 'error',
+          title: 'حجم الملف كبير',
+          message: 'الحد الأقصى المسموح 20 ميجابايت. اختاري ملف أصغر.'
+        });
+        fileInput.value = '';
+        return;
+      }
+      fileNameEl.textContent = file.name;
+      fileSizeEl.textContent = formatFileSize(file.size);
+      fileRow.classList.add('show');
+      processBtn.disabled = false;
+    }
+
+    // اختيار الملف عن طريق النقر
+    fileInput.addEventListener('change', function() {
+      if (this.files.length) showFile(this.files[0]);
+    });
+
+    // سحب وإفلات
+    ['dragover', 'dragenter'].forEach(evt => {
+      dropzone.addEventListener(evt, function(e) {
+        e.preventDefault();
+        this.classList.add('dragover');
+      });
+    });
+    ['dragleave', 'drop'].forEach(evt => {
+      dropzone.addEventListener(evt, function() {
+        this.classList.remove('dragover');
+      });
+    });
+    dropzone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      this.classList.remove('dragover');
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        showFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    // إزالة الملف
+    removeFileBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      fileInput.value = '';
+      fileRow.classList.remove('show');
+      processBtn.disabled = true;
+    });
+
+    // ========================================================================
+    // 5. PROCESS - معالجة الملف
+    // ========================================================================
+    processBtn.addEventListener('click', async function() {
+      if (!fileInput.files.length) return;
+
+      const deanshipVal = deanshipSelect.value;
+      const majorVal = majorSelect.value;
+
+      if (!deanshipVal) {
+        openModal({
+          type: 'error',
+          title: 'اختاري العمادة',
+          message: 'لازم تحددي العمادة قبل رفع الخطة الدراسية.'
+        });
+        return;
+      }
+      if (!majorVal) {
+        openModal({
+          type: 'error',
+          title: 'اختاري التخصص',
+          message: 'لازم تحددي التخصص قبل رفع الخطة الدراسية.'
+        });
+        return;
+      }
+
+      const originalContent = this.innerHTML;
+      this.disabled = true;
+      this.textContent = 'جارٍ المعالجة...';
+
+      if (USE_MOCK_DATA) {
+        console.log('📦 رفع الخطة الدراسية (محاكاة):', {
+          fileName: fileInput.files[0].name,
+          fileSize: fileInput.files[0].size,
+          deanship_id: deanshipVal,
+          major_id: majorVal,
+        });
+
+        await new Promise(resolve => setTimeout(resolve, 1200));
+
+        openModal({
+          type: 'success',
+          title: 'تمت معالجة الملف بنجاح 🎉',
+          message: 'هاي محاكاة محلية بدون باك اند — تفاصيل الملف طلعت بالـ Console.',
+        });
+
+        // إعادة تعيين الحقول
+        fileInput.value = '';
+        fileRow.classList.remove('show');
+        this.disabled = false;
+        this.innerHTML = originalContent;
+        return;
+      }
+
+      // TODO: ربط الباك اند الحقيقي هنا
+      // const formData = new FormData();
+      // formData.append('file', fileInput.files[0]);
+      // formData.append('deanship_id', deanshipVal);
+      // formData.append('major_id', majorVal);
+      // const response = await fetch(`${API_BASE_URL}/upload-plan`, { method: 'POST', body: formData });
+      // ...
+    });
+
+    // ========================================================================
+    // 6. PROGRAMS TABLE - جدول البرامج الحالية (بيانات وهمية)
+    // ========================================================================
+    const MOCK_PROGRAMS = [
+      { name: 'علوم الحاسوب', deanship: 'الهندسة وتكنولوجيا المعلومات', degree: 'بكالوريوس', courses: 42, updated: '10 أكت 2026' },
+      { name: 'هندسة البرمجيات', deanship: 'الهندسة وتكنولوجيا المعلومات', degree: 'بكالوريوس', courses: 45, updated: '08 أكت 2026' },
+      { name: 'إدارة الأعمال', deanship: 'الأعمال والاقتصاد', degree: 'بكالوريوس', courses: 38, updated: '02 أكت 2026' },
+      { name: 'الطب البشري', deanship: 'الطب', degree: 'بكالوريوس', courses: 96, updated: '28 سبت 2026' },
+      { name: 'الأمن السيبراني', deanship: 'الهندسة وتكنولوجيا المعلومات', degree: 'بكالوريوس', courses: 40, updated: '25 سبت 2026' },
+      { name: 'الصيدلة', deanship: 'الطب', degree: 'بكالوريوس', courses: 52, updated: '20 سبت 2026' },
+    ];
+
+    const programsBody = document.getElementById('programsTableBody');
+    MOCK_PROGRAMS.forEach(p => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong>${p.name}</strong></td>
+        <td><span class="deanship-chip">${p.deanship}</span></td>
+        <td>${p.degree}</td>
+        <td>${p.courses}</td>
+        <td>${p.updated}</td>
+      `;
+      programsBody.appendChild(tr);
+    });
+
+    // ========================================================================
+    // 7. TOP BAR - تأثير التمرير
+    // ========================================================================
+    const topbar = document.getElementById('adminTopbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        topbar?.classList.add('scrolled');
+      } else {
+        topbar?.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+  })();
+</script>
+
+<footer class="admin-footer">
+  <div class="admin-footer-inner">
+    <span>© 2026 NextStep AI — جميع الحقوق محفوظة</span>
+    <nav class="admin-footer-links">
+      <a href="#">الدعم الفني</a>
+      <a href="#">سياسة الخصوصية</a>
+      <a href="#">الشروط والأحكام</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

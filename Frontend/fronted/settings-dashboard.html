@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الإعدادات — Settings Dashboard | NextStep AI</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- ====== CSS ====== -->
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="../css/admin-shell.css">
+  <link rel="stylesheet" href="../css/settings-dashboard.css">
+</head>
+<body>
+
+<!-- ======================= TOP BAR ======================= -->
+<header class="admin-topbar" id="adminTopbar">
+  <div class="admin-topbar-inner">
+    <a href="../index.html" class="admin-brand">
+      <span class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+          <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+        </svg>
+      </span>
+      <span class="brand-text">NextStep AI</span>
+    </a>
+
+    <div class="admin-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input type="text" placeholder="ابحث عن إعدادات...">
+    </div>
+
+    <div class="admin-user-actions">
+      <button type="button" class="admin-icon-btn" aria-label="المساعدة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/>
+          <path d="M12 17h.01"/>
+        </svg>
+      </button>
+      <button type="button" class="admin-icon-btn" aria-label="الإشعارات">
+        <span class="dot"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </button>
+      <img src="../assets/admin-avatar.png" alt="صورة المستخدم" class="admin-avatar" onerror="this.style.display='none'">
+    </div>
+  </div>
+</header>
+
+<!-- ======================= LAYOUT ======================= -->
+<div class="admin-layout">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-head">
+      <h3>بوابة الإدارة</h3>
+      <p>نظام إدارة المعلومات</p>
+    </div>
+
+    <nav class="admin-sidebar-nav">
+      <a href="overview.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+          نظرة عامة
+        </span>
+      </a>
+      <a href="statistics.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+            <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+          </svg>
+          الطلاب
+        </span>
+      </a>
+      <a href="programs.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6M9 13h6M9 17h6"/>
+          </svg>
+          البرامج الأكاديمية
+        </span>
+      </a>
+      <a href="statistics.html" class="admin-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 20V10M12 20V4M20 20v-7"/>
+          </svg>
+          إحصائيات
+        </span>
+      </a>
+      <a href="settings-dashboard.html" class="admin-sidebar-link active">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          الإعدادات
+        </span>
+      </a>
+    </nav>
+
+    <button type="button" class="admin-sidebar-cta" onclick="window.location.href='add-program.html'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      إضافة برنامج جديد
+    </button>
+  </aside>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="admin-main">
+
+    <!-- ====== PAGE HEADER ====== -->
+    <div class="admin-page-head">
+      <div>
+        <h1>لوحة الإعدادات</h1>
+        <p>إدارة شاملة لإعدادات المنصة، الجامعات، العمادات، الذكاء الاصطناعي، والأمان.</p>
+      </div>
+      <span class="ai-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13 2L3 14h7v8l10-12h-7z"/>
+        </svg>
+        بواسطة AI
+      </span>
+    </div>
+
+    <!-- ====== SETTINGS GRID ====== -->
+    <div class="settings-dashboard-grid">
+
+      <!-- ====== CARD 1: الإعدادات العامة ====== -->
+      <div class="settings-card" onclick="window.location.href='settings-general.html'">
+        <div class="settings-card-icon" style="background:rgba(47,107,255,0.08);color:#2F6BFF;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </div>
+        <h3>الإعدادات العامة</h3>
+        <p>اسم المنصة، الشعار، اللغة، المنطقة الزمنية، والتفضيلات الأساسية.</p>
+        <span class="settings-card-status">✓ محدّثة</span>
+        <span class="settings-card-arrow">→</span>
+      </div>
+
+      <!-- ====== CARD 2: الجامعات والعمادات ====== -->
+      <div class="settings-card" onclick="window.location.href='settings-universities.html'">
+        <div class="settings-card-icon" style="background:rgba(22,192,136,0.08);color:#16C088;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3L2 9l10 6 10-6-10-6z"/>
+            <path d="M2 15l10 6 10-6"/>
+            <path d="M2 21l10-6 10 6"/>
+          </svg>
+        </div>
+        <h3>الجامعات والعمادات</h3>
+        <p>إدارة الجامعات، الكليات، والعمادات المسجلة في المنصة.</p>
+        <span class="settings-card-status">3 جامعات</span>
+        <span class="settings-card-arrow">→</span>
+      </div>
+
+      <!-- ====== CARD 3: الذكاء الاصطناعي ====== -->
+      <div class="settings-card" onclick="window.location.href='settings-ai.html'">
+        <div class="settings-card-icon" style="background:rgba(53,208,255,0.08);color:#35D0FF;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.27A7.01 7.01 0 0 1 14 23h-4a7.01 7.01 0 0 1-5.73-3H3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+            <circle cx="9" cy="15" r="1"/>
+            <circle cx="15" cy="15" r="1"/>
+            <path d="M9 19c.83.6 2 1 3 1s2.17-.4 3-1"/>
+          </svg>
+        </div>
+        <h3>الذكاء الاصطناعي</h3>
+        <p>إعدادات نماذج AI، درجة الإبداع، التوصيات المخصصة، وتحليل الشخصية.</p>
+        <span class="settings-card-status">GPT-4</span>
+        <span class="settings-card-arrow">→</span>
+      </div>
+
+      <!-- ====== CARD 4: الإشعارات ====== -->
+      <div class="settings-card" onclick="window.location.href='settings-notifications.html'">
+        <div class="settings-card-icon" style="background:rgba(180,121,12,0.08);color:#B4790C;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </div>
+        <h3>الإشعارات</h3>
+        <p>إعدادات التنبيهات، الإشعارات الفورية، وتفضيلات البريد الإلكتروني.</p>
+        <span class="settings-card-status">3 مفعّلة</span>
+        <span class="settings-card-arrow">→</span>
+      </div>
+
+      <!-- ====== CARD 5: الأمان ====== -->
+      <div class="settings-card" onclick="window.location.href='settings-security.html'">
+        <div class="settings-card-icon" style="background:rgba(198,40,40,0.08);color:#C62828;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <h3>الأمان</h3>
+        <p>كلمات المرور، المصادقة الثنائية، صلاحيات المستخدمين، وسجلات الدخول.</p>
+        <span class="settings-card-status">🔒 آمن</span>
+        <span class="settings-card-arrow">→</span>
+      </div>
+
+      <!-- ====== CARD 6: المظهر ====== -->
+      <div class="settings-card" onclick="window.location.href='settings-appearance.html'">
+        <div class="settings-card-icon" style="background:rgba(91,107,121,0.08);color:#5B6B79;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3a6 6 0 0 0 9 9 6 6 0 0 1-9 9 6 6 0 0 1 0-12z"/>
+            <path d="M19 3a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4z"/>
+          </svg>
+        </div>
+        <h3>المظهر</h3>
+        <p>الوضع المظلم، ألوان الواجهة، تخصيص شكل المنصة وتجربة المستخدم.</p>
+        <span class="settings-card-status">🌙 مظلم</span>
+        <span class="settings-card-arrow">→</span>
+      </div>
+
+      <!-- ====== CARD 7: التكاملات ====== -->
+      <div class="settings-card" onclick="window.location.href='settings-integrations.html'">
+        <div class="settings-card-icon" style="background:rgba(47,107,255,0.08);color:#2F6BFF;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+        </div>
+        <h3>التكاملات</h3>
+        <p>ربط المنصة مع أنظمة خارجية، APIs، وأدوات الطرف الثالث.</p>
+        <span class="settings-card-status">2 متصلة</span>
+        <span class="settings-card-arrow">→</span>
+      </div>
+
+      <!-- ====== CARD 8: النسخ الاحتياطي ====== -->
+      <div class="settings-card" onclick="window.location.href='settings-backup.html'">
+        <div class="settings-card-icon" style="background:rgba(22,192,136,0.08);color:#16C088;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <path d="M7 10l5 5 5-5"/>
+            <path d="M12 15V3"/>
+          </svg>
+        </div>
+        <h3>النسخ الاحتياطي</h3>
+        <p>إدارة نسخ احتياطية للبيانات، استعادة، وجدولة النسخ التلقائية.</p>
+        <span class="settings-card-status">آخر نسخ: اليوم</span>
+        <span class="settings-card-arrow">→</span>
+      </div>
+
+    </div>
+
+    <!-- ====== QUICK STATS ====== -->
+    <div class="settings-stats">
+      <div class="settings-stat">
+        <span class="stat-icon">⚙️</span>
+        <div>
+          <span class="stat-number">8</span>
+          <span class="stat-label">أقسام الإعدادات</span>
+        </div>
+      </div>
+      <div class="settings-stat">
+        <span class="stat-icon">🔄</span>
+        <div>
+          <span class="stat-number">12</span>
+          <span class="stat-label">خيارات قابلة للتخصيص</span>
+        </div>
+      </div>
+      <div class="settings-stat">
+        <span class="stat-icon">✅</span>
+        <div>
+          <span class="stat-number">6</span>
+          <span class="stat-label">مفعّلة حالياً</span>
+        </div>
+      </div>
+      <div class="settings-stat">
+        <span class="stat-icon">📅</span>
+        <div>
+          <span class="stat-number">2</span>
+          <span class="stat-label">تغييرات معلّقة</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ======================= SCRIPTS ======================= -->
+<script>
+  (function() {
+    'use strict';
+
+    // ========================================================================
+    // 1. TOP BAR - تأثير التمرير
+    // ========================================================================
+    const topbar = document.getElementById('adminTopbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        topbar?.classList.add('scrolled');
+      } else {
+        topbar?.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // ========================================================================
+    // 2. SETTINGS CARDS - تأثير hover إضافي
+    // ========================================================================
+    const cards = document.querySelectorAll('.settings-card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-6px)';
+        this.style.boxShadow = 'var(--shadow-hover)';
+      });
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = 'var(--shadow)';
+      });
+    });
+
+    // ========================================================================
+    // 3. SIMPLE ANALYTICS (اختياري)
+    // ========================================================================
+    console.log('📊 Settings Dashboard loaded successfully!');
+    console.log('🔧 Total settings cards:', cards.length);
+
+  })();
+</script>
+
+<footer class="admin-footer">
+  <div class="admin-footer-inner">
+    <span>© 2026 NextStep AI — جميع الحقوق محفوظة</span>
+    <nav class="admin-footer-links">
+      <a href="#">الدعم الفني</a>
+      <a href="#">سياسة الخصوصية</a>
+      <a href="#">الشروط والأحكام</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

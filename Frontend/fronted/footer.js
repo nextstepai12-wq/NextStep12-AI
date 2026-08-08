@@ -1,6 +1,7 @@
+// footer.js
+// يكتب الفوتر مباشرة بالصفحة بدون أي طلب شبكة (fetch) — يشتغل حتى بفتح الملف بضغطة دوس (file://)
 
-
-
+document.write(`
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
@@ -61,7 +62,7 @@
       <div class="footer-col">
         <h4>معلومات</h4>
         <ul>
-          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>من نحن</a></li>
+          <li><a href="about.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>من نحن</a></li>
           <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>سياسة الخصوصية</a></li>
           <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>الشروط والأحكام</a></li>
           <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5M12 17h.01"/></svg>الأسئلة الشائعة</a></li>
@@ -80,3 +81,4 @@
     </div>
   </div>
 </footer>
+`);

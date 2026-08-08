@@ -11,10 +11,6 @@
 <link href="../css/universities.css" rel="stylesheet">
 <link href="../css/footer.css" rel="stylesheet">
 <style>
-/* ==========================================================================
-   ستايلات إضافية خاصة بعناصر التصميم الجديد (بادج الترتيب/القطاع + الإحصائيات)
-   ملاحظة: لو حابة، انقليهم لملف universities.css بدل ما يضلوا هون داخل الصفحة
-   ========================================================================== */
 .filters-bar-new{
   display:flex; align-items:center; justify-content:space-between;
   flex-wrap:wrap; gap:12px; margin-bottom:20px;
@@ -26,19 +22,16 @@
   background:#fff; font-family:'Cairo',sans-serif; font-size:13px; color:#334155;
   cursor:pointer;
 }
-
 .uni-card-new{
   background:#fff; border:1px solid #eef1f6; border-radius:16px;
   padding:20px; display:flex; flex-direction:column; gap:14px;
   transition:box-shadow .2s, transform .2s;
 }
 .uni-card-new:hover{ box-shadow:0 8px 24px rgba(30,64,175,.08); transform:translateY(-2px); }
-
 .uni-card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
 .uni-card-top h3{ font-size:16px; font-weight:800; color:#1e293b; margin:0 0 4px; }
 .uni-card-loc{ display:flex; align-items:center; gap:5px; font-size:12.5px; color:#64748b; }
 .uni-card-loc svg{ width:13px; height:13px; flex-shrink:0; }
-
 .uni-avatar-sq{
   width:44px; height:44px; border-radius:12px; flex-shrink:0;
   background:linear-gradient(135deg,#2563eb,#1e3a8a);
@@ -47,21 +40,6 @@
 }
 .uni-avatar-sq svg{ width:22px; height:22px; }
 .uni-avatar-sq img{ width:100%; height:100%; object-fit:cover; }
-
-.uni-badges-row{ display:flex; gap:8px; flex-wrap:wrap; }
-.badge-rank{
-  display:inline-flex; align-items:center; gap:4px;
-  background:#fff7ed; color:#c2410c; border:1px solid #fed7aa;
-  font-size:12px; font-weight:700; padding:4px 10px; border-radius:999px;
-}
-.badge-sector{
-  background:#ecfdf5; color:#047857; border:1px solid #a7f3d0;
-  font-size:12px; font-weight:700; padding:4px 10px; border-radius:999px;
-}
-.badge-sector.private{
-  background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe;
-}
-
 .uni-stats-mini{
   display:flex; gap:10px; border-top:1px solid #f1f5f9; padding-top:14px;
 }
@@ -75,8 +53,7 @@
 <body>
 
 <!-- ======================= HEADER ======================= -->
-<div id="header-placeholder"></div>
-
+<script src="header.js?v=2"></script>
 <!-- ======================= HERO + SEARCH ======================= -->
 <div class="uni-hero">
   <h1>دليل الجامعات</h1>
@@ -93,28 +70,14 @@
 <div class="uni-wrap">
   <div class="uni-inner">
 
-    <!-- Filters / results bar (بدون فلتر مدن، فقط قطاع وترتيب) -->
     <div class="filters-bar-new">
       <span class="results-count" id="resultsCount">جارٍ التحميل...</span>
-      <div class="filters-selects">
-        <select id="sectorFilter">
-          <option value="">القطاع: الكل</option>
-          <option value="حكومية">حكومية</option>
-          <option value="خاصة">خاصة</option>
-        </select>
-        <select id="sortFilter">
-          <option value="">بدون ترتيب</option>
-          <option value="ranking">الأعلى تصنيفاً</option>
-        </select>
-      </div>
     </div>
 
-    <!-- University cards grid -->
     <div class="uni-grid-list" id="uniGrid">
       <div class="no-results" id="loadingMsg">جارٍ تحميل الجامعات...</div>
     </div>
 
-    <!-- ======================= ARTICLES SECTION (محتوى تعريفي ثابت) ======================= -->
     <div class="section-title"><span class="dot"></span>مقالات تهمك</div>
     <div class="articles-grid">
       <div class="article-card">
@@ -155,7 +118,6 @@
       </div>
     </div>
 
-    <!-- ======================= FAQ SECTION (محتوى ثابت) ======================= -->
     <div class="section-title"><span class="dot"></span>أسئلة شائعة</div>
     <div class="faq-list" id="faqList">
       <div class="faq-item">
@@ -178,33 +140,72 @@
 </div>
 
 <!-- ======================= FOOTER ======================= -->
-<div id="footer-placeholder"></div>
+<script src="footer.js"></script>
 
 <script>
 /* ==========================================================================
-   ربط صفحة الجامعات بـ API الحقيقي — GET /api/universities
+   🔌 عقد الربط مع الباك اند (API Contract) — صفحة دليل الجامعات
+   ==========================================================================
+   Endpoint:  GET {API_BASE_URL}/universities
+   Response المتوقع (JSON):
+   {
+     "status": "success",
+     "data": [
+       {
+         "id": 1,                       // رقم | مطلوب | يُستخدم برابط صفحة التفاصيل
+         "name": "جامعة النجاح الوطنية",  // نص | مطلوب
+         "location": "نابلس",            // نص | اختياري (بيبين "غير محدد" إذا فاضي)
+         "students_count": 22000,        // رقم أو null | اختياري
+         "majors_count": 74              // رقم أو null | اختياري
+       }
+     ]
+   }
+
+   ملاحظات مهمة للمهندس بالباك اند:
+   - الفلترة والبحث كلها بتصير بالفرونت إند بعد التحميل (مو query params)،
+     يعني الـ endpoint لازم يرجّع كل الجامعات دفعة وحدة بدون pagination.
+   - لوجو كل جامعة بينجلب تلقائياً من: /assets/universities/{id}/logo.(png|jpg|jpeg|webp)
+     (شوفي دالة setLogoAuto بالأسفل) — ما في داعي ترجعي رابط صورة بالـ response أصلاً.
+   - رابط صفحة تفاصيل الجامعة جاهز ومربوط: university-details.html?id={id}
+   - ✋ ما في تصنيف قطاع (حكومية/خاصة) ولا ترتيب على هاي الصفحة — تم إلغاؤهم، ما في داعي
+     ترجعي حقول sector أو ranking أصلاً.
+
+   ---------- طريقة التفعيل لما يجهز الـ API الحقيقي ----------
+   1) بدّلي القيمة تحت USE_MOCK_DATA من true إلى false.
+   2) عدّلي API_BASE_URL إذا لزم (حالياً معمول على السيرفر المحلي).
+   هيك بس، الصفحة بتحوّل تلقائياً على الجلب من الباك اند.
    ========================================================================== */
 
+const USE_MOCK_DATA = true; // ⬅️ بدّليها إلى false لما يجهز الـ endpoint الحقيقي
 const API_BASE_URL = 'http://127.0.0.1:8000/api';
-const ASSETS_BASE = '../assets/universities'; // نفس مجلد الصور المستخدم بصفحة التفاصيل
+
+const ASSETS_BASE = '../assets/universities';
+
+const MOCK_UNIVERSITIES = [
+  { id: 1, name: 'جامعة النجاح الوطنية', location: 'نابلس', students_count: 22000, majors_count: 74 },
+  { id: 2, name: 'جامعة بيرزيت', location: 'رام الله', students_count: 15000, majors_count: 68 },
+  { id: 3, name: 'جامعة بوليتكنك فلسطين', location: 'الخليل', students_count: 8000, majors_count: 41 },
+  { id: 4, name: 'جامعة القدس', location: 'القدس', students_count: 13000, majors_count: 60 },
+  { id: 5, name: 'جامعة الخليل', location: 'الخليل', students_count: 9500, majors_count: 45 },
+  { id: 6, name: 'جامعة فلسطين التقنية - خضوري', location: 'طولكرم', students_count: 7000, majors_count: 38 },
+  { id: 7, name: 'جامعة العربية الأمريكية', location: 'جنين', students_count: 10500, majors_count: 52 },
+  { id: 8, name: 'جامعة القدس المفتوحة', location: 'رام الله', students_count: 40000, majors_count: 30 },
+  { id: 9, name: 'كلية العلوم التطبيقية الجامعية', location: 'رام الله', students_count: 3200, majors_count: 22 },
+];
 
 const uniGrid = document.getElementById('uniGrid');
 const resultsCount = document.getElementById('resultsCount');
 const searchInput = document.getElementById('uniSearchInput');
 const searchBtn = document.getElementById('uniSearchBtn');
-const sectorFilter = document.getElementById('sectorFilter');
-const sortFilter = document.getElementById('sortFilter');
 
-let allUniversities = []; // نخزن هون كل الجامعات بعد ما تجي من الـ API، وعليهم بنفلتر محلياً
+let allUniversities = [];
 
-/* تنسيق عدد الطلاب الكبير (مثلاً 15000 → 15K) */
 function formatCount(n) {
   if (n === null || n === undefined) return '—';
   if (n >= 1000) return '+' + Math.round(n / 1000) + 'K';
   return String(n);
 }
 
-/* يتحقق إذا صورة معينة موجودة فعلياً قبل ما نستخدمها */
 function imageExists(url) {
   return new Promise(resolve => {
     const img = new Image();
@@ -214,9 +215,6 @@ function imageExists(url) {
   });
 }
 
-/* يجرب كل التركيبات الممكنة من (اسم أساسي × امتداد) لحتى يلاقي شعار الجامعة.
-   السبب: الملفات عندنا مسمّاة بشكل غير موحّد بين الجامعات
-   (مثلاً logo.png.png بجامعة، وlogo.png.jpg بجامعة تانية). */
 async function setLogoAuto(uniId) {
   const img = document.getElementById(`uniLogoImg-${uniId}`);
   const fallback = document.getElementById(`uniLogoFallback-${uniId}`);
@@ -237,20 +235,15 @@ async function setLogoAuto(uniId) {
       }
     }
   }
-  // ما لقيناش صورة بأي تركيبة → تضل الأيقونة الاحتياطية ظاهرة (زي ما هي أصلاً)
 }
 
-/* حماية بسيطة من XSS لما نحط نصوص جاية من السيرفر جوا innerHTML */
 function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
 }
 
-/* بناء بطاقة جامعة واحدة كـ HTML — بنفس تصميم الصورة (بادج ترتيب/قطاع + إحصائيات) */
 function buildCard(uni) {
-  const sectorClass = uni.sector === 'خاصة' ? 'badge-sector private' : 'badge-sector';
-
   return `
     <div class="uni-card-new">
       <div class="uni-card-top">
@@ -267,11 +260,6 @@ function buildCard(uni) {
         </div>
       </div>
 
-      <div class="uni-badges-row">
-        ${uni.ranking ? `<span class="badge-rank">🏆 ترتيب #${uni.ranking}</span>` : ''}
-        ${uni.sector ? `<span class="${sectorClass}">${escapeHtml(uni.sector)}</span>` : ''}
-      </div>
-
       <div class="uni-stats-mini">
         <div><b>${formatCount(uni.students_count)}</b><span>طالب</span></div>
         <div><b>${uni.majors_count ?? 0}</b><span>تخصص</span></div>
@@ -285,7 +273,6 @@ function buildCard(uni) {
   `;
 }
 
-/* عرض قائمة الجامعات (بعد فلترة أو بدون) */
 function renderUniversities(list) {
   if (list.length === 0) {
     uniGrid.innerHTML = '<div class="no-results">ما في نتائج مطابقة.</div>';
@@ -294,45 +281,35 @@ function renderUniversities(list) {
   }
   uniGrid.innerHTML = list.map(buildCard).join('');
   resultsCount.textContent = list.length + ' جامعة';
-
-  // بعد ما ترسم الكاردز، نحمّل شعار كل جامعة بشكل منفصل وغير متزامن
   list.forEach(uni => setLogoAuto(uni.id));
 }
 
-/* تطبيق البحث + فلتر القطاع + الترتيب سوا (محلياً، بدون طلب جديد للسيرفر) */
 function applyFilters() {
   const q = searchInput.value.trim().toLowerCase();
-  const sector = sectorFilter.value;
-  const sortBy = sortFilter.value;
 
-  let result = allUniversities.filter(uni => {
-    const matchesSearch = !q || uni.name.toLowerCase().includes(q);
-    const matchesSector = !sector || uni.sector === sector;
-    return matchesSearch && matchesSector;
+  const result = allUniversities.filter(uni => {
+    return !q || uni.name.toLowerCase().includes(q);
   });
-
-  if (sortBy === 'ranking') {
-    result = [...result].sort((a, b) => {
-      if (!a.ranking) return 1;
-      if (!b.ranking) return -1;
-      return a.ranking - b.ranking;
-    });
-  }
 
   renderUniversities(result);
 }
 
 searchBtn.addEventListener('click', applyFilters);
 searchInput.addEventListener('input', applyFilters);
-sectorFilter.addEventListener('change', applyFilters);
-sortFilter.addEventListener('change', applyFilters);
 
-/* جلب الجامعات فعلياً من الـ API عند تحميل الصفحة */
-async function loadUniversities() {
+/* ---------- تحميل بيانات وهمية (تجربة بدون سيرفر) ---------- */
+function loadMockUniversities() {
+  setTimeout(() => {
+    allUniversities = MOCK_UNIVERSITIES;
+    renderUniversities(allUniversities);
+  }, 300);
+}
+
+/* ---------- تحميل من الباك اند الحقيقي ---------- */
+async function loadUniversitiesFromAPI() {
   try {
     const response = await fetch(`${API_BASE_URL}/universities`);
     const data = await response.json();
-
     if (response.ok && data.status === 'success') {
       allUniversities = data.data;
       renderUniversities(allUniversities);
@@ -347,9 +324,17 @@ async function loadUniversities() {
   }
 }
 
+/* ---------- نقطة الدخول: بتختار المصدر حسب USE_MOCK_DATA بالأعلى ---------- */
+function loadUniversities() {
+  if (USE_MOCK_DATA) {
+    loadMockUniversities();
+  } else {
+    loadUniversitiesFromAPI();
+  }
+}
+
 loadUniversities();
 
-/* ======================= FAQ toggle ======================= */
 document.querySelectorAll('.faq-question').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq-item');
@@ -368,5 +353,5 @@ document.querySelectorAll('.faq-question').forEach(btn => {
   });
 });
 </script>
-<script src="../js/include-partials.js"></script></body>
+<script src="footer.js"></script>
 </html>

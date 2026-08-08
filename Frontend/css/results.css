@@ -6,21 +6,6 @@
 
 body{background:var(--light);}
 
-/* ======================= HEADER (same as site) ======================= */
-header.site-header{background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;}
-.nav-inner{max-width:1240px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
-.brand-mark{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.brand-mark .brand-logo{width:32px;height:32px;object-fit:contain;flex-shrink:0;}
-.brand-mark .brand-text{font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;color:var(--navy);}
-.brand-mark .brand-text span{color:var(--mint);}
-nav.main-nav ul{display:flex;gap:26px;font-size:14px;font-weight:600;color:var(--dark);}
-nav.main-nav a{transition:color .2s ease;}
-nav.main-nav a:hover{color:var(--blue);}
-.nav-actions{display:flex;align-items:center;gap:14px;flex-shrink:0;}
-.btn-nav-primary{padding:8px 20px;border-radius:10px;background:var(--blue);color:#fff;font-weight:700;font-size:13.5px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 6px 14px rgba(47,107,255,0.32);transition:transform .2s ease;}
-.btn-nav-primary svg{width:14px;height:14px;}
-.btn-nav-primary:hover{transform:translateY(-2px);}
-
 /* ======================= RESULTS PAGE ======================= */
 .results-wrap{flex:1;padding:48px 16px 90px;}
 .results-inner{max-width:920px;margin:0 auto;}
@@ -159,7 +144,6 @@ nav.main-nav a:hover{color:var(--blue);}
 .btn-continue svg{width:16px;height:16px;}
 
 @media (max-width:760px){
-  nav.main-nav{display:none;}
   .uni-grid{grid-template-columns:1fr;}
   .top-match{flex-direction:column;text-align:center;padding:30px 26px;}
   .top-match-desc{max-width:100%;}

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة تحكم الإدارة — NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/admin-dashboard.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ======================= TOP BAR (خاص بالإدارة) ======================= -->
+<header class="admin-topbar">
+  <div class="admin-topbar-inner">
+    <a href="../index.html" class="admin-brand">
+      <span class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+      </span>
+      <span class="brand-text">NextStep AI</span>
+    </a>
+
+    <nav class="admin-nav">
+      <ul>
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li><a href="universities.html">الجامعات</a></li>
+        <li><a href="#">المقارنة</a></li>
+        <li><a href="#" class="active">لوحة التحكم</a></li>
+      </ul>
+    </nav>
+
+    <div class="admin-user-actions">
+      <img src="../assets/admin-avatar.png" alt="صورة المستخدم" class="admin-avatar" onerror="this.style.display='none'">
+      <button type="button" class="admin-icon-btn" aria-label="الإعدادات">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button type="button" class="admin-icon-btn" aria-label="الإشعارات">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= LAYOUT ======================= -->
+<div class="admin-layout">
+
+  <!-- ======================= MAIN CONTENT ======================= -->
+  <main class="admin-main">
+
+    <div class="admin-page-head">
+      <div>
+        <h1>إدارة الخطط الدراسية</h1>
+        <p>ارفع الخطط الدراسية (PDF أو Excel أو CSV) وسيحوّلها الذكاء الاصطناعي تلقائياً إلى بيانات هيكلية جاهزة للربط بالعمادة والتخصص.</p>
+      </div>
+      <span class="ai-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg>
+        بواسطة AI
+      </span>
+    </div>
+
+    <!-- ======================= STEPPER ======================= -->
+    <div class="admin-steps" id="stepsRow">
+      <button type="button" class="admin-step-card active" data-step="1">
+        <span class="step-label">تحديد العمادة<br>الخطوة الأولى</span>
+        <span class="step-num">1</span>
+      </button>
+      <button type="button" class="admin-step-card" data-step="2">
+        <span class="step-label">تحديد التخصص<br>الخطوة الثانية</span>
+        <span class="step-num">2</span>
+      </button>
+      <button type="button" class="admin-step-card" data-step="3">
+        <span class="step-label">رفع ومعالجة الملف<br>الخطوة الثالثة</span>
+        <span class="step-num">3</span>
+      </button>
+    </div>
+
+    <!-- ======================= PANEL ======================= -->
+    <div class="admin-panel">
+
+      <div class="panel-selects">
+        <div class="panel-select-group">
+          <label for="deanship">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+            العمادة المستهدفة
+          </label>
+          <!-- ======= فلترة التخصصات حسب العمادة: هاد الـ select هو أساس الفلتر المطلوب (اختيار عمادة الهندسة = تخصصات الهندسة فقط بالأسفل) ======= -->
+          <select id="deanship" name="deanship">
+            <option value="">-- اختر العمادة --</option>
+            <option value="1">عمادة كلية الهندسة وتكنولوجيا المعلومات</option>
+            <option value="2">عمادة كلية العلوم</option>
+            <option value="3">عمادة كلية الطب</option>
+            <option value="4">عمادة كلية الأعمال والاقتصاد</option>
+            <option value="5">عمادة كلية الآداب</option>
+          </select>
+        </div>
+        <div class="panel-select-group">
+          <label for="major">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+            التخصص الدراسي
+          </label>
+          <!-- بيتعبى تلقائياً حسب العمادة المختارة فوق -->
+          <select id="major" name="major" disabled>
+            <option value="">-- اختار العمادة أولاً --</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="dropzone" id="dropzone" for="planFile">
+        <div class="dropzone-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+        </div>
+        <h4>اسحب الملف هنا أو انقر للاختيار</h4>
+        <p>ندعم ملفات PDF, Excel, و CSV (الحد الأقصى 20 ميجابايت)</p>
+        <input type="file" id="planFile" accept=".pdf,.xlsx,.xls,.csv">
+      </label>
+
+      <div class="dropzone-file" id="fileRow">
+        <div class="file-info">
+          <span class="file-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          </span>
+          <div>
+            <div class="file-name" id="fileName">—</div>
+            <div class="file-size" id="fileSize">—</div>
+          </div>
+        </div>
+        <button type="button" class="file-remove" id="removeFile" aria-label="إزالة الملف">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <button type="button" class="panel-submit" id="processBtn" disabled>
+        معالجة الملف بالذكاء الاصطناعي
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+
+    </div>
+  </main>
+
+  <!-- ======================= SIDEBAR ======================= -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-head">
+      <h3>بوابة الإدارة</h3>
+      <p>نظام إدارة المعلومات</p>
+    </div>
+
+    <nav class="admin-sidebar-nav">
+      <a href="#" class="admin-sidebar-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        نظرة عامة
+      </a>
+      <a href="#" class="admin-sidebar-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+        طلبات الالتحاق
+      </a>
+      <a href="#" class="admin-sidebar-link active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+        البرامج الأكاديمية
+      </a>
+      <a href="#" class="admin-sidebar-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+        إحصائيات
+      </a>
+      <a href="#" class="admin-sidebar-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        الإعدادات
+      </a>
+    </nav>
+
+    <button type="button" class="admin-sidebar-cta" onclick="window.location.href='add-program.html'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+      إضافة برنامج جديد
+    </button>
+  </aside>
+
+</div>
+
+<!-- ======================= MODAL: نجاح / خطأ / تأكيد (نفس نمط صفحة إضافة برنامج) ======================= -->
+<div class="app-modal-overlay" id="appModalOverlay">
+  <div class="app-modal" role="alertdialog" aria-modal="true" aria-labelledby="appModalTitle" aria-describedby="appModalMsg">
+    <div class="app-modal-icon" id="appModalIcon"></div>
+    <h3 class="app-modal-title" id="appModalTitle"></h3>
+    <p class="app-modal-msg" id="appModalMsg"></p>
+    <div class="app-modal-actions" id="appModalActions"></div>
+  </div>
+</div>
+
+<style>
+  .app-modal-overlay{
+    display:none; /* الافتراضي: مخفي دايماً */
+    position:fixed; inset:0; background:rgba(15,23,32,0.45);
+    align-items:center; justify-content:center;
+    z-index:999; padding:16px; backdrop-filter: blur(2px);
+  }
+  /* الإظهار بيصير فقط عن طريق كلاس JS، مش عن طريق [hidden]
+     (لأن أي display: مكتوب بستايل المبرمج بيلغي [hidden] الافتراضي من المتصفح) */
+  .app-modal-overlay.is-open{ display:flex; }
+  .app-modal{
+    background:#fff; border-radius:16px; padding:28px 26px 22px;
+    max-width:380px; width:100%; text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,0.18);
+    animation:appModalPop .18s ease-out;
+  }
+  @keyframes appModalPop{ from{ transform:scale(.94); opacity:0 } to{ transform:scale(1); opacity:1 } }
+  .app-modal-icon{
+    width:56px; height:56px; border-radius:50%; margin:0 auto 14px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .app-modal-icon svg{ width:28px; height:28px; }
+  .app-modal-icon.success{ background:rgba(72,230,176,0.14); color:#1C8F63; }
+  .app-modal-icon.error{ background:#FDEDEE; color:#C62828; }
+  .app-modal-icon.confirm{ background:rgba(255,177,27,0.14); color:#B4790C; }
+  .app-modal-title{ margin:0 0 6px; font-size:17px; font-weight:800; color:#16202A; }
+  .app-modal-msg{ margin:0 0 20px; font-size:13.5px; color:#5B6B79; line-height:1.6; }
+  .app-modal-actions{ display:flex; gap:10px; justify-content:center; }
+  .app-modal-actions button{
+    flex:1; padding:11px 16px; border-radius:10px; font-size:13.5px; font-weight:700;
+    border:none; cursor:pointer; font-family:inherit;
+  }
+  .app-modal-btn-primary{ background:#1C8F63; color:#fff; }
+  .app-modal-btn-primary.danger{ background:#C62828; }
+  .app-modal-btn-outline{ background:#F1F4F7; color:#39434D; }
+.admin-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  direction: rtl;
+}
+
+.admin-breadcrumb svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  display: block;
+}
+</style>
+
+<script>
+  // ==========================================================================
+  // تبديل الخطوة النشطة بالـ Stepper (واجهة فقط، بدون منطق فعلي بعد)
+  // ==========================================================================
+  const stepCards = document.querySelectorAll('.admin-step-card');
+  stepCards.forEach(card => {
+    card.addEventListener('click', () => {
+      stepCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+
+  // ==========================================================================
+  // Modal موحّد (نجاح / خطأ / تأكيد) — بديل alert()، نفس نمط صفحة إضافة برنامج
+  // ==========================================================================
+  const appModalOverlay = document.getElementById('appModalOverlay');
+  const appModalIcon = document.getElementById('appModalIcon');
+  const appModalTitle = document.getElementById('appModalTitle');
+  const appModalMsg = document.getElementById('appModalMsg');
+  const appModalActions = document.getElementById('appModalActions');
+
+  const MODAL_ICONS = {
+    success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>',
+    error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>',
+    confirm: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 9v4M12 17h.01M10.29 3.86l-8.18 14.18A2 2 0 0 0 3.82 21h16.36a2 2 0 0 0 1.71-2.96L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>'
+  };
+
+  function openModal({ type = 'success', title, message, confirmText = 'تمام', cancelText = 'إلغاء', onConfirm = null }) {
+    appModalIcon.className = `app-modal-icon ${type}`;
+    appModalIcon.innerHTML = MODAL_ICONS[type] || MODAL_ICONS.success;
+    appModalTitle.textContent = title;
+    appModalMsg.textContent = message;
+    appModalActions.innerHTML = '';
+
+    if (onConfirm) {
+      const cancelBtn = document.createElement('button');
+      cancelBtn.className = 'app-modal-btn-outline';
+      cancelBtn.textContent = cancelText;
+      cancelBtn.type = 'button';
+      cancelBtn.addEventListener('click', closeModal);
+
+      const confirmBtn = document.createElement('button');
+      confirmBtn.className = `app-modal-btn-primary ${type === 'error' ? 'danger' : ''}`;
+      confirmBtn.textContent = confirmText;
+      confirmBtn.type = 'button';
+      confirmBtn.addEventListener('click', () => { closeModal(); onConfirm(); });
+
+      appModalActions.appendChild(cancelBtn);
+      appModalActions.appendChild(confirmBtn);
+    } else {
+      const okBtn = document.createElement('button');
+      okBtn.className = 'app-modal-btn-primary';
+      okBtn.textContent = confirmText;
+      okBtn.type = 'button';
+      okBtn.addEventListener('click', closeModal);
+      appModalActions.appendChild(okBtn);
+    }
+
+    appModalOverlay.classList.add('is-open');
+  }
+
+  function closeModal() { appModalOverlay.classList.remove('is-open'); }
+
+  appModalOverlay.addEventListener('click', (e) => { if (e.target === appModalOverlay) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && appModalOverlay.classList.contains('is-open')) closeModal(); });
+
+  // ==========================================================================
+  // العمادة → التخصص (Cascading select) — هاد هو الفلتر المطلوب:
+  // اختيار عمادة الهندسة يعبّي قائمة "التخصص" بتخصصات الهندسة فقط
+  // ==========================================================================
+  // ⚙️ وضع STATIC مؤقت — بدون باك اند: التخصصات محلية حسب رقم العمادة.
+  // لما يجهز الباك اند، حطي USE_MOCK_DATA = false (كود الـ fetch الأصلي متروك بالتعليق تحت).
+  const USE_MOCK_DATA = true;
+  const API_BASE_URL = 'http://127.0.0.1:8000/api';
+
+  // عدّلي/زيدي هالتخصصات حسب اللي عندك، أو خليها متل ما هي للتجربة
+  const MOCK_MAJORS_BY_DEANSHIP = {
+    1: [ // عمادة كلية الهندسة وتكنولوجيا المعلومات
+      { id: 101, name: 'علوم الحاسوب' },
+      { id: 102, name: 'هندسة البرمجيات' },
+      { id: 103, name: 'هندسة الحاسوب' },
+      { id: 104, name: 'الأمن السيبراني' },
+    ],
+    2: [ // عمادة كلية العلوم
+      { id: 201, name: 'الفيزياء' },
+      { id: 202, name: 'الكيمياء' },
+      { id: 203, name: 'الرياضيات' },
+    ],
+    3: [ // عمادة كلية الطب
+      { id: 301, name: 'الطب البشري' },
+      { id: 302, name: 'طب الأسنان' },
+      { id: 303, name: 'الصيدلة' },
+    ],
+    4: [ // عمادة كلية الأعمال والاقتصاد
+      { id: 401, name: 'إدارة الأعمال' },
+      { id: 402, name: 'المحاسبة' },
+      { id: 403, name: 'الاقتصاد' },
+    ],
+    5: [ // عمادة كلية الآداب
+      { id: 501, name: 'اللغة العربية' },
+      { id: 502, name: 'اللغة الإنجليزية' },
+      { id: 503, name: 'تأهيل ذوي الإعاقة' },
+    ],
+  };
+
+  const deanshipSelect = document.getElementById('deanship');
+  const majorSelect = document.getElementById('major');
+
+  deanshipSelect.addEventListener('change', async function () {
+    const deanshipId = this.value;
+    majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+
+    if (!deanshipId) {
+      majorSelect.disabled = true;
+      majorSelect.innerHTML = '<option value="">-- اختار العمادة أولاً --</option>';
+      return;
+    }
+
+    majorSelect.disabled = true;
+    majorSelect.innerHTML = '<option value="">جاري تحميل التخصصات...</option>';
+
+    if (USE_MOCK_DATA) {
+      // فلترة محلية فورية حسب العمادة المختارة — بدون أي طلب شبكة
+      await new Promise(resolve => setTimeout(resolve, 200)); // محاكاة تأخير بسيط
+      const majors = MOCK_MAJORS_BY_DEANSHIP[deanshipId] || [];
+      majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+      majors.forEach(major => {
+        majorSelect.innerHTML += `<option value="${major.id}">${major.name}</option>`;
+      });
+      majorSelect.disabled = false;
+      return;
+    }
+
+    /* ======= كود الربط الحقيقي بالباك اند — فعّليه وحطي USE_MOCK_DATA = false =======
+    try {
+      // هاد الطلب بيرجع بس تخصصات العمادة المختارة (فلترة من الباك اند حسب deanshipId)
+      const response = await fetch(`${API_BASE_URL}/lookups/deanships/${deanshipId}/majors`, {
+        headers: { 'Accept': 'application/json' }
+      });
+      const result = await response.json();
+
+      if (response.ok && result.status === 'success') {
+        majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+        result.data.forEach(major => {
+          majorSelect.innerHTML += `<option value="${major.id}">${major.title || major.name}</option>`;
+        });
+        majorSelect.disabled = false;
+      } else {
+        majorSelect.innerHTML = '<option value="">فشل جلب التخصصات</option>';
+        openModal({
+          type: 'error',
+          title: 'تعذّر جلب التخصصات',
+          message: 'صار في مشكلة أثناء جلب تخصصات هاي العمادة من الباك اند. جرّبي تختاري العمادة مرة ثانية.',
+        });
+      }
+    } catch (err) {
+      console.error('خطأ في جلب التخصصات:', err);
+      majorSelect.innerHTML = '<option value="">خطأ في الاتصال</option>';
+      openModal({
+        type: 'error',
+        title: 'تعذّر الاتصال بالسيرفر',
+        message: 'تأكدي إنه الباك اند شغال وحاولي مرة ثانية.',
+      });
+    }
+    ================================================================================= */
+  });
+
+  // ==========================================================================
+  // رفع الملف — سحب وإفلات + اختيار عادي
+  // ==========================================================================
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('planFile');
+  const fileRow = document.getElementById('fileRow');
+  const fileNameEl = document.getElementById('fileName');
+  const fileSizeEl = document.getElementById('fileSize');
+  const removeFileBtn = document.getElementById('removeFile');
+  const processBtn = document.getElementById('processBtn');
+
+  const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 ميجابايت
+
+  function formatFileSize(bytes) {
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' كيلوبايت';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' ميجابايت';
+  }
+
+  function showFile(file) {
+    if (file.size > MAX_FILE_SIZE) {
+      openModal({
+        type: 'error',
+        title: 'حجم الملف كبير',
+        message: 'الحد الأقصى المسموح 20 ميجابايت. اختاري ملف أصغر.',
+      });
+      fileInput.value = '';
+      return;
+    }
+    fileNameEl.textContent = file.name;
+    fileSizeEl.textContent = formatFileSize(file.size);
+    fileRow.classList.add('show');
+    processBtn.disabled = false;
+  }
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length) showFile(fileInput.files[0]);
+  });
+
+  ['dragover', 'dragenter'].forEach(evt => {
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+  });
+  ['dragleave', 'drop'].forEach(evt => {
+    dropzone.addEventListener(evt, () => dropzone.classList.remove('dragover'));
+  });
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.files.length) {
+      fileInput.files = e.dataTransfer.files;
+      showFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  removeFileBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    fileInput.value = '';
+    fileRow.classList.remove('show');
+    processBtn.disabled = true;
+  });
+
+  // ==========================================================================
+  // معالجة الملف — POST /api/admin/study-plans/upload (multipart/form-data)
+  // ==========================================================================
+  processBtn.addEventListener('click', async () => {
+    if (!fileInput.files.length) return;
+
+    if (!deanshipSelect.value) {
+      openModal({ type: 'error', title: 'اختاري العمادة', message: 'لازم تحددي العمادة قبل رفع الخطة الدراسية.' });
+      return;
+    }
+    if (!majorSelect.value) {
+      openModal({ type: 'error', title: 'اختاري التخصص', message: 'لازم تحددي التخصص قبل رفع الخطة الدراسية.' });
+      return;
+    }
+
+    const originalContent = processBtn.innerHTML;
+    processBtn.disabled = true;
+    processBtn.textContent = 'جارٍ المعالجة...';
+
+    if (USE_MOCK_DATA) {
+      // ⚙️ وضع STATIC: محاكاة معالجة AI محلياً بدون أي رفع فعلي أو باك اند
+      console.log('📦 Study plan upload (mock):', {
+        fileName: fileInput.files[0].name,
+        deanship_id: deanshipSelect.value,
+        major_id: majorSelect.value,
+      });
+      await new Promise(resolve => setTimeout(resolve, 900)); // محاكاة وقت معالجة AI
+
+      openModal({
+        type: 'success',
+        title: 'تمت معالجة الملف بنجاح (محلي)',
+        message: 'هاي محاكاة محلية بدون باك اند — تفاصيل الملف طلعت بالـ Console.',
+      });
+      fileInput.value = '';
+      fileRow.classList.remove('show');
+
+      processBtn.disabled = false;
+      processBtn.innerHTML = originalContent;
+      return;
+    }
+
+    /* ======= كود الربط الحقيقي بالباك اند — فعّليه وحطي USE_MOCK_DATA = false =======
+    try {
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+      formData.append('deanship_id', deanshipSelect.value);
+      formData.append('major_id', majorSelect.value);
+
+      const response = await fetch(`${API_BASE_URL}/admin/study-plans/upload`, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' }, // ملاحظة: ما منحدد Content-Type يدوياً مع FormData
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (response.ok && data.status === 'success') {
+        openModal({
+          type: 'success',
+          title: 'تمت معالجة الملف بنجاح',
+          message: 'حوّل الذكاء الاصطناعي الخطة الدراسية إلى بيانات جاهزة، وصارت مرتبطة بالعمادة والتخصص المحددين.',
+        });
+        fileInput.value = '';
+        fileRow.classList.remove('show');
+      } else {
+        openModal({
+          type: 'error',
+          title: 'تعذّرت معالجة الملف',
+          message: data.message || 'صار في مشكلة أثناء معالجة الملف، تأكدي من صيغته وحاولي مرة ثانية.',
+        });
+      }
+    } catch (err) {
+      console.error('Upload study plan error:', err);
+      openModal({
+        type: 'error',
+        title: 'تعذّر الاتصال بالسيرفر',
+        message: 'تأكدي إنه الباك اند شغال وحاولي مرة ثانية.',
+      });
+    } finally {
+      processBtn.disabled = false;
+      processBtn.innerHTML = originalContent;
+    }
+    ================================================================================= */
+  });
+</script>
+
+</body>
+</html>

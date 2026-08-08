@@ -1,32 +1,42 @@
 /* =====================================================================
    app.css
    المتغيرات والإعدادات المشتركة بين كل صفحات الموقع
+   الألوان معتمدة من دليل الهوية البصرية الرسمي (Brand Guide)
    حمّل هاد الملف قبل أي ملف CSS خاص بصفحة (home.css, login.css...)
    ===================================================================== */
 
 :root{
-  --navy:#173B73;
-  --blue:#2F6BFF;
-  --cyan:#35D0FF;
-  --mint: #48E6B0;
-  --light:#F7FAFC;
-  --gray:#6B7280;
+  --navy:#173873;   /* Deep Navy */
+  --blue:#2F6BFF;   /* Electric Blue */
+  --cyan:#35D0FF;   /* Cyan */
+  --mint:#48E6B0;   /* Emerald */
+  --light:#F7FAFC;  /* Light Gray */
+  --gray:#687280;
   --dark:#1F2937;
   --border:#E7ECF2;
   --orange:#F5A623;
   --red:#E5484D;
+
+  /* لون خلفية موحّد لكل الموقع — نفس لون صفحة "من نحن" */
+  --bg-page:#F6F9FF;
+
+  /* ارتفاع الهيدر — قيمة افتراضية؛ header.js يحدّثها ديناميكياً بعد القياس */
+  --header-height: 6.625rem; /* ~106px — fallback قبل تحميل JS */
+  --footer-height: 60px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
-html{height:100%;}
+html, body{height:100%;}
+
 body{
-  font-family:'Cairo',sans-serif;
-  background:#fff;
-  color:var(--dark);
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
+    font-family:'Cairo',sans-serif;
+    background:var(--bg-page);
+    color:var(--dark);
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
 }
+
 a{text-decoration:none;color:inherit;}
 ul{list-style:none;}
 img{display:block;max-width:100%;}

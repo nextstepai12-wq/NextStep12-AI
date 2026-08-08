@@ -13,9 +13,10 @@
 </head>
 <body>
 
-<!-- ======================= HEADER ======================= -->
-<div id="header-placeholder"></div>
 
+
+<!-- ======================= HEADER ======================= -->
+<script src="header.js?v=2"></script>
 <!-- ======================= BACK LINK ======================= -->
 <div class="back-link-row">
   <a href="universities.html" class="back-link">
@@ -45,7 +46,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
           <a id="uniWebsiteLink" href="#" target="_blank" rel="noopener">الموقع الإلكتروني</a>
         </span>
-        <span id="uniRankingBadge" style="display:none;">🏆 <span id="uniRankingValue"></span></span>
       </div>
     </div>
   </div>
@@ -164,14 +164,67 @@
 </div>
 
 <!-- ======================= FOOTER ======================= -->
-<div id="footer-placeholder"></div>
-
 <script>
 /* ==========================================================================
    إعدادات عامة
    ========================================================================== */
+const USE_MOCK_DATA = true; // ⬅️ بدّليها إلى false لما تبدّي تربطي الصفحة بالباك اند من جديد
 const API_BASE_URL = 'http://127.0.0.1:8000/api';
 const ASSETS_BASE = '../assets/universities'; // مجلد الصور المحلي بالفرونت
+
+/* ==========================================================================
+   بيانات وهمية (Mock) — تجربة الصفحة بدون أي اتصال بالباك اند
+   المفتاح هو id الجامعة (نفس الـ id يلي بيوصل ?id=.. من صفحة قائمة الجامعات)
+   ========================================================================== */
+const MOCK_UNIVERSITY_DETAILS = {
+  1: {
+    name: 'جامعة النجاح الوطنية',
+    location: 'نابلس',
+    sector: 'حكومية',
+    students_count: 22000,
+    majors_count: 74,
+    deanships_count: 12,
+    description: 'جامعة النجاح الوطنية من أعرق وأكبر الجامعات الفلسطينية، بتأسست سنة 1918 وبتضم عشرات الكليات والبرامج الأكاديمية على مستوى البكالوريوس والدراسات العليا.',
+    vision_mission: 'الريادة والتميز بالتعليم والبحث العلمي خدمةً للمجتمع الفلسطيني.',
+    website_url: 'https://www.najah.edu',
+    deanships_faculties: [
+      { id: 1, type: 'faculty', name: 'كلية الهندسة وتكنولوجيا المعلومات', description: 'برامج بالحاسوب والهندسة والاتصالات.', dean_name: 'د. أحمد سلامة', email: 'eng@najah.edu', cover_image: '' },
+      { id: 2, type: 'faculty', name: 'كلية الطب والعلوم الصحية', description: 'برامج الطب والتمريض والصيدلة.', dean_name: 'د. ليلى حمدان', email: 'medicine@najah.edu', cover_image: '' },
+      { id: 3, type: 'faculty', name: 'كلية الاقتصاد والعلوم الإدارية', description: 'برامج إدارة الأعمال والمحاسبة والاقتصاد.', dean_name: 'د. سامر عودة', email: 'business@najah.edu', cover_image: '' },
+    ],
+  },
+  2: {
+    name: 'جامعة بيرزيت',
+    location: 'رام الله',
+    sector: 'حكومية',
+    students_count: 15000,
+    majors_count: 68,
+    deanships_count: 9,
+    description: 'جامعة بيرزيت من الجامعات الفلسطينية الرائدة، معروفة بمستواها الأكاديمي العالي وبرامجها المتنوعة بالعلوم والهندسة والآداب.',
+    vision_mission: 'تعليم أكاديمي متميز يخدم المجتمع الفلسطيني ويرتقي بالبحث العلمي.',
+    website_url: 'https://www.birzeit.edu',
+    deanships_faculties: [
+      { id: 1, type: 'faculty', name: 'كلية العلوم', description: 'برامج الرياضيات والفيزياء والكيمياء.', dean_name: 'د. رنا خليل', email: 'science@birzeit.edu', cover_image: '' },
+      { id: 2, type: 'faculty', name: 'كلية الآداب', description: 'برامج اللغات والتاريخ والإعلام.', dean_name: 'د. مازن أبو غوش', email: 'arts@birzeit.edu', cover_image: '' },
+    ],
+  },
+};
+
+/* ---------- بيانات افتراضية لأي id مش موجود بالـ mock فوق (عشان الصفحة ما توقف) ---------- */
+function getFallbackMockUniversity(id) {
+  return {
+    name: 'جامعة تجريبية #' + id,
+    location: 'فلسطين',
+    sector: 'حكومية',
+    students_count: 5000,
+    majors_count: 20,
+    deanships_count: 4,
+    description: 'هاي بيانات تجريبية (mock) لعرض شكل الصفحة بدون اتصال بالباك اند.',
+    vision_mission: '',
+    website_url: '',
+    deanships_faculties: [],
+  };
+}
 
 /* ==========================================================================
    Tabs (زي ما كانت)
@@ -278,16 +331,34 @@ async function loadUniversityDetails() {
     return;
   }
 
-  try {
-    const response = await fetch(`${API_BASE_URL}/universities/${id}`);
-    const result = await response.json();
+  let uni;
 
-    if (!response.ok || result.status !== 'success') {
-      document.getElementById('uniName').textContent = 'تعذر تحميل بيانات الجامعة';
+  if (USE_MOCK_DATA) {
+    /* ---------- وضع البيانات الوهمية: بدون أي اتصال بالسيرفر ---------- */
+    uni = MOCK_UNIVERSITY_DETAILS[id] || getFallbackMockUniversity(id);
+  } else {
+    /* ---------- وضع الباك اند الحقيقي ---------- */
+    try {
+      const response = await fetch(`${API_BASE_URL}/universities/${id}`);
+      const result = await response.json();
+
+      if (!response.ok || result.status !== 'success') {
+        document.getElementById('uniName').textContent = 'تعذر تحميل بيانات الجامعة';
+        return;
+      }
+
+      uni = result.data;
+    } catch (err) {
+      document.getElementById('uniName').textContent = 'تعذر الاتصال بالسيرفر';
+      console.error('Load university details error:', err);
       return;
     }
+  }
 
-    const uni = result.data;
+  renderUniversityDetails(uni, id);
+}
+
+function renderUniversityDetails(uni, id) {
     document.title = `${uni.name} — NextStep AI`;
 
     /* ---- الاسم والوصف والموقع ---- */
@@ -311,12 +382,6 @@ async function loadUniversityDetails() {
       link.href = uni.website_url;
       document.getElementById('uniWebsiteRow').style.display = 'inline-flex';
       document.getElementById('contactWebsite').textContent = uni.website_url;
-    }
-
-    /* ---- الترتيب ---- */
-    if (uni.ranking) {
-      document.getElementById('uniRankingValue').textContent = `ترتيب #${uni.ranking}`;
-      document.getElementById('uniRankingBadge').style.display = 'inline-flex';
     }
 
     /* ---- الإحصائيات ---- */
@@ -345,16 +410,10 @@ async function loadUniversityDetails() {
     grid.querySelectorAll('.btn-view-majors').forEach(btn => {
       btn.addEventListener('click', () => activateTab('majors'));
     });
-
-  } catch (err) {
-    document.getElementById('uniName').textContent = 'تعذر الاتصال بالسيرفر';
-    console.error('Load university details error:', err);
-  }
 }
 
 loadUniversityDetails();
 </script>
 
-<script src="../js/include-partials.js"></script>
 </body>
 </html>

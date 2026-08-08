@@ -14,7 +14,7 @@
 <body>
 
 <!-- ======================= HEADER ======================= -->
-<div id="header-placeholder"></div>
+<script src="header.js?v=2"></script>
 
 <!-- ======================= AUTH CARD ======================= -->
 <div class="auth-wrap">
@@ -386,9 +386,9 @@
       majorSelect.innerHTML = '<option value="">خطأ في الاتصال</option>';
     }
   });
-
+/**
   // تشغيل الجلب الأولي عند فتح الصفحة
-  document.addEventListener('DOMContentLoaded', loadInitialLookups);
+  //document.addEventListener('DOMContentLoaded', loadInitialLookups);
 
   signupForm.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -452,12 +452,12 @@
       submitBtn.disabled = false;
       submitBtn.innerHTML = 'إنشاء الحساب <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
     }
-  });
+  }); **/
 </script>
 
 <!-- ======================= FOOTER ======================= -->
-<div id="footer-placeholder"></div>
 
-<script src="../js/include-partials.js"></script>
+<script src="footer.js"></script>
+
 </body>
 </html>

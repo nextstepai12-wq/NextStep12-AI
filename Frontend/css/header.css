@@ -1,96 +1,140 @@
 /* =====================================================================
    header.css
-   الهيدر الموحّد لكل صفحات الموقع (نفس هيدر صفحة إنشاء الحساب)
-   يعتمد على المتغيرات المعرّفة بـ app.css — حمّل app.css قبله
+   الهيدر الموحّد لكل صفحات الموقع — المصدر الوحيد لتنسيقات الهيدر
+   يعتمد على المتغيرات في app.css — حمّل app.css قبله
    ===================================================================== */
 
 header.site-header{
+  position:fixed;
+  inset-block-start:0;
+  inset-inline:0;
+  width:100%;
+  z-index:1000;
   background:#fff;
   border-bottom:1px solid var(--border);
+  direction:ltr;
+}
+
+/* فاصل يمنع تغطية المحتوى — الارتفاع يُحدَّث ديناميكياً عبر header.js */
+.header-spacer{
+  height:var(--header-height);
   flex-shrink:0;
 }
+
 .nav-inner{
-  max-width:1240px;
+  max-width:1520px;
   margin:0 auto;
-  padding:14px 32px;
+  padding:0.75rem 2rem;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:24px;
+  direction:ltr;
 }
-.brand-mark{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.brand-mark .brand-logo{width:32px;height:32px;object-fit:contain;flex-shrink:0;}
+
+.brand-mark{
+  display:flex;
+  align-items:center;
+  gap:0.625rem;
+  padding-inline-start:0.25rem;
+  flex-shrink:0;
+}
+.brand-mark .brand-logo{
+  width:5.125rem;
+  height:5.125rem;
+  object-fit:contain;
+  flex-shrink:0;
+}
 .brand-mark .brand-text{
-  font-family:'Poppins',sans-serif;
+  font-family:'Cairo',sans-serif;
   font-weight:700;
-  font-size:17px;
+  font-size:clamp(1.5rem, 3vw, 2.5rem);
   color:var(--navy);
+  transition:transform 0.3s ease;
 }
-.brand-mark .brand-text span{color:var(--mint);}
+.brand-mark .brand-text span{color:var(--cyan);}
+.brand-mark .brand-text:hover{transform:translateY(-0.5rem);}
 
 nav.main-nav ul{
   display:flex;
-  gap:26px;
-  font-size:14px;
-  font-weight:600;
-  color:var(--dark);
+  gap:3.75rem;
+  font-size:16px;
+  font-weight:800;
+  color:var(--navy);
 }
 nav.main-nav a{transition:color .2s ease;}
 nav.main-nav a:hover{color:var(--blue);}
 
-.search-box{
-  flex:1;
-  max-width:340px;
+.nav-actions{
   display:flex;
   align-items:center;
-  gap:8px;
-  background:var(--light);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:9px 14px;
+  gap:0.75rem;
+  flex-shrink:0;
 }
-.search-box svg{width:16px;height:16px;color:var(--gray);flex-shrink:0;}
-.search-box input{
-  border:none;
-  background:transparent;
-  outline:none;
-  font-family:'Cairo',sans-serif;
-  font-size:13.5px;
-  color:var(--dark);
-  width:100%;
-}
-.search-box input::placeholder{color:#9AA6B5;}
 
-.nav-actions{display:flex;align-items:center;gap:14px;flex-shrink:0;}
-.icon-btn{
-  width:36px;height:36px;
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--gray);
-  background:var(--light);
-  border:1px solid var(--border);
-  position:relative;
-  transition:border-color .2s ease, color .2s ease;
+.start-btn{
+  padding:0.5625rem 1.375rem;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  background-color:#0F9F8D;
+  color:#fff;
+  border:none;
+  font-size:18px;
+  font-weight:800;
+  cursor:pointer;
+  transition:background-color 0.3s ease, transform 0.2s ease;
+  font-family:'Cairo', sans-serif;
 }
-.icon-btn svg{width:16px;height:16px;}
-.icon-btn:hover{border-color:var(--blue);color:var(--blue);}
-.icon-btn .dot{
-  position:absolute;top:-3px;left:-3px;
-  width:8px;height:8px;border-radius:50%;
-  background:var(--mint);
-  border:2px solid #fff;
+.start-btn:hover{
+  background-color:#15803d;
+  transform:scale(1.05);
 }
+.start-btn svg{width:1.125rem;height:1.125rem;}
+
 .btn-signin{
-  padding:9px 22px;
+  padding:0.5625rem 1.375rem;
   border-radius:999px;
   border:1.5px solid var(--navy);
   color:var(--navy);
-  font-weight:700;
-  font-size:13.5px;
+  font-weight:800;
+  font-size:18px;
   transition:background .2s ease, color .2s ease;
 }
 .btn-signin:hover{background:var(--navy);color:#fff;}
 
+/* زر الملف الشخصي في الهيدر (صفحات المستخدم المسجّل) */
+.nav-avatar-btn{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:5px 12px 5px 5px;
+  border-radius:999px;
+  border:1.5px solid var(--border);
+  background:#fff;
+  transition:border-color .2s ease;
+}
+.nav-avatar-btn:hover{border-color:var(--blue);}
+.nav-avatar-btn .avatar-circle{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:var(--navy);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:800;
+  flex-shrink:0;
+}
+.nav-avatar-btn span{font-size:12.5px;font-weight:700;color:var(--navy);}
+
 @media (max-width:960px){
-  nav.main-nav, .search-box{display:none;}
+  nav.main-nav{display:none;}
+}
+@media (max-width:560px){
+  .brand-mark .brand-logo{width:3.25rem;height:3.25rem;}
+  .brand-mark .brand-text{font-size:1.5rem;}
+  .header-spacer{height:5rem;}
 }

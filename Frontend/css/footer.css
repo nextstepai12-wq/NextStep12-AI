@@ -44,7 +44,6 @@ footer.site-footer::after{
   padding-bottom:36px;
 }
 
-/* Brand column */
 .footer-brand .brand-mark{
   display:flex;
   align-items:center;
@@ -93,7 +92,6 @@ footer .brand-mark .brand-text span{color:var(--cyan);}
 }
 .social-row svg{width:16px;height:16px;}
 
-/* Column headings + links */
 .footer-col h4{
   font-family:'Cairo',sans-serif;
   font-weight:700;
@@ -127,7 +125,6 @@ footer .brand-mark .brand-text span{color:var(--cyan);}
 }
 .footer-col ul li a svg{width:14px;height:14px;opacity:.7;flex-shrink:0;}
 
-/* Contact column specifics */
 .contact-item{
   display:flex;
   align-items:flex-start;
@@ -147,7 +144,6 @@ footer .brand-mark .brand-text span{color:var(--cyan);}
 .contact-item a{color:#B7C2D0;text-decoration:none;transition:color .2s;}
 .contact-item a:hover{color:var(--cyan);}
 
-/* Bottom bar */
 .footer-bottom{
   border-top:1px solid rgba(255,255,255,0.08);
   padding-top:22px;

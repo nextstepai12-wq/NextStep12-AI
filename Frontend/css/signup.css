@@ -4,18 +4,23 @@
    ========================================================================== */
 
 :root{
-  --auth-primary: #2563eb;
-  --auth-primary-dark: #1e3a8a;
-  --auth-accent: #48E6B0;
-  --auth-text: #1e293b;
-  --auth-muted: #64748b;
-  --auth-border: #e2e8f0;
-  --auth-bg: #f8fafc;
-  --auth-error-bg: #FDEDEE;
-  --auth-error-text: #C62828;
-  --auth-success-bg: rgba(72,230,176,0.12);
-  --auth-success-text: #1C8F63;
+  --auth-primary: var(--blue);
+  --auth-primary-dark: var(--navy);
+  --auth-accent: var(--cyan-about);
+
+  --auth-text: var(--ink);
+  --auth-muted: var(--ink-soft);
+
+  --auth-border: var(--line);
+  --auth-bg: var(--bg-deep);
+
+  --auth-error-bg:#FDEDEE;
+  --auth-error-text:#C62828;
+
+  --auth-success-bg:rgba(34,230,214,.12);
+  --auth-success-text:#0F8D82;
 }
+
 
 /* ---------- تخطيط الصفحة ---------- */
 .auth-wrap{
@@ -23,19 +28,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 16px;
-  background: #ffffff;
+ padding-top: calc(var(--header-height) + 32px);
+      padding-bottom:120px;
+  background: var(--bg-page);
   font-family: 'Cairo', sans-serif;
 }
 
+
 .auth-card{
-  width: 100%;
-  max-width: 480px;
-  background: #fff;
-  border: 1px solid var(--auth-border);
-  border-radius: 20px;
-  padding: 36px 32px;
-  box-shadow: 0 8px 28px rgba(30, 64, 175, 0.10);
+  width:100%;
+ width:min(480px, 100%);
+  margin-bottom:80px;
+   background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:36px 32px;
+  box-shadow:0 12px 32px rgba(11,27,52,.08);
 }
 
 /* ---------- شعار أعلى البطاقة ---------- */
@@ -68,14 +76,18 @@
   gap: 6px;
   margin: 0 auto 16px;
   width: fit-content;
-  background: #eff6ff;
-  color: var(--auth-primary);
+  background:var(--bg-deep);
+  color:var(--blue);
   border: 1px solid #bfdbfe;
   font-size: 12.5px;
   font-weight: 700;
   padding: 6px 14px;
-  border-radius: 999px;
+  border:1px solid var(--line);
 }
+
+
+
+
 .auth-badge svg{
   width: 15px;
   height: 15px;
@@ -161,6 +173,7 @@
 }
 .form-control{
   width: 100%;
+    max-width:100%;
   box-sizing: border-box;
   padding: 12px 42px 12px 14px; /* مساحة يمين للأيقونة (RTL) */
   border: 1px solid var(--auth-border);
@@ -243,23 +256,14 @@ select.form-control{
 
 /* ---------- زر الإرسال ---------- */
 .btn-submit{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
-  padding: 13px 16px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--auth-primary), var(--auth-primary-dark));
-  color: #fff;
-  font-family: 'Cairo', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: opacity .15s, transform .1s;
+  background:linear-gradient(
+      135deg,
+      var(--navy),
+      var(--blue) 60%,
+      var(--cyan-about)
+  );
 }
+
 .btn-submit:hover{
   opacity: 0.92;
 }

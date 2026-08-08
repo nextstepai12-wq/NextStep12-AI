@@ -6,36 +6,6 @@
 
 body{background:var(--light);}
 
-/* ======================= HEADER (same as site) ======================= */
-header.site-header{background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;}
-.nav-inner{max-width:1240px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
-.brand-mark{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.brand-mark .brand-logo{width:32px;height:32px;object-fit:contain;flex-shrink:0;}
-.brand-mark .brand-text{font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;color:var(--navy);}
-.brand-mark .brand-text span{color:var(--mint);}
-nav.main-nav ul{display:flex;gap:26px;font-size:14px;font-weight:600;color:var(--dark);}
-nav.main-nav a{transition:color .2s ease;}
-nav.main-nav a:hover{color:var(--blue);}
-.nav-actions{display:flex;align-items:center;gap:14px;flex-shrink:0;}
-
-/* Header profile avatar button (used across all logged-in pages) */
-.nav-avatar-btn{
-  display:flex;align-items:center;gap:8px;
-  padding:5px 12px 5px 5px;
-  border-radius:999px;
-  border:1.5px solid var(--border);
-  background:#fff;
-  transition:border-color .2s ease;
-}
-.nav-avatar-btn:hover{border-color:var(--blue);}
-.nav-avatar-btn .avatar-circle{
-  width:30px;height:30px;border-radius:50%;
-  background:var(--navy);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;flex-shrink:0;
-}
-.nav-avatar-btn span{font-size:12.5px;font-weight:700;color:var(--navy);}
-
 /* ======================= PROFILE PAGE ======================= */
 .profile-wrap{flex:1;padding:40px 16px 90px;}
 .profile-inner{max-width:1080px;margin:0 auto;}
@@ -143,7 +113,6 @@ nav.main-nav a:hover{color:var(--blue);}
 .qstat-label{font-size:11px;color:var(--gray);font-weight:600;}
 
 @media (max-width:860px){
-  nav.main-nav{display:none;}
   .profile-layout{grid-template-columns:1fr;}
   .info-grid{grid-template-columns:1fr 1fr;}
   .quick-stats{grid-template-columns:1fr;}

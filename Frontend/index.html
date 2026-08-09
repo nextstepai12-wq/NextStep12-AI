@@ -12,9 +12,48 @@
 <link href="css/home.css" rel="stylesheet">
 <link href="css/footer.css" rel="stylesheet">
 </head>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const counters = document.querySelectorAll(".stat-number");
+
+    counters.forEach(counter => {
+      const target = +counter.getAttribute("data-target");
+      const isK = counter.textContent.includes("K");
+      let current = 0;
+      const increment = target / 80; // سرعة العدّ (كل ما زاد الرقم كل ما بطيء)
+
+      const updateCounter = () => {
+        if (current < target) {
+          current += increment;
+          if (current > target) current = target;
+
+          if (isK) {
+            counter.textContent = Math.ceil(current) + "K+";
+          } else {
+            counter.textContent = Math.ceil(current) + "+";
+          }
+          requestAnimationFrame(updateCounter);
+        } else {
+          // تثبيت الرقم النهائي
+          if (isK) {
+            counter.textContent = target + "K+";
+          } else {
+            counter.textContent = target + "+";
+          }
+        }
+      };
+
+      updateCounter();
+    });
+  });
+</script>
 <body>
 
-
+ <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline poster="assets/5.jpg">
+      <source src="assets/vedio-hero.mp4" type="video/mp4">
+    </video>
+  </div>
 <!-- ======================= HEADER ======================= -->
 <header class="site-header">
   <div class="nav-inner">
@@ -25,10 +64,10 @@
 
     <nav class="main-nav">
       <ul>
-        <li><a href="index.html" class="active">الرئيسية</a></li>
-        <li><a href="fronted/quiz.html">الاختبار الذكي</a></li>
-        <li><a href="fronted/universities.html">الجامعات</a></li>
-        <li><a href="fronted/about.html">عن المنصة</a></li>
+<li><a href="fronted/about.html">عن المنصة</a></li>
+<li><a href="fronted/universities.html">الجامعات</a></li>
+<li><a href="fronted/quiz.html">الاختبار الذكي</a></li>
+<li><a href="index.html" class="active">الرئيسية</a></li>
       </ul>
     </nav>
 
@@ -46,11 +85,7 @@
 
 <!-- ======================= HERO ======================= -->
 <section class="hero">
-  <div class="hero-media" aria-hidden="true">
-    <video autoplay muted loop playsinline poster="assets/5.jpg">
-      <source src="assets/vedio-hero.mp4" type="video/mp4">
-    </video>
-  </div>
+  
   <div class="hero-overlay" aria-hidden="true"></div>
 
   <div class="hero-inner">
@@ -66,11 +101,27 @@
         </a>
         <a href="fronted/universities.html" class="btn-outline">استكشف الجامعات</a>
       </div>
-      <div class="hero-quickstats" aria-label="مؤشرات سريعة">
-        <span>✓ 50+ جامعة</span>
-        <span>✓ 2000+ تخصص</span>
-        <span>✓ 100K+ طالب</span>
-      </div>
+      <div class="stats-container">
+<div class="stats-container">
+  <div class="stat-item">
+    <div class="stat-number" data-target="50">50 <span>+</span></div>
+    <div class="stat-label">جامعة</div>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="stat-item">
+    <div class="stat-number" data-target="2000">100<span>+</span></div>
+    <div class="stat-label">تخصص</div>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="stat-item">
+    <div class="stat-number" data-target="1000">1000K<span>+</span></div>
+    <div class="stat-label">طالب</div>
+  </div>
+</div>
     </div>
   </div>
 </section>
@@ -118,27 +169,64 @@
 </section>
 
 <!-- ======================= STATS BAR ======================= -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat">
-      <div class="num" data-target="50" data-suffix="">+<span>50</span></div>
-      <div class="lbl">جامعة</div>
-    </div>
-    <div class="stat">
-      <div class="num" data-target="2000" data-suffix="">+<span>2000</span></div>
-      <div class="lbl">تخصص</div>
-    </div>
-    <div class="stat">
-      <div class="num" data-target="100" data-suffix="K">+<span>100K</span></div>
-      <div class="lbl">طالب</div>
-    </div>
-    <div class="stat tagline">كل ما تحتاجه في مكان واحد</div>
-  </div>
-</div>
+<section class="steps-section">
+        <!-- شارة العنوان العلوية -->
+        <div class="section-badge">
+            <span class="icon">⚡</span> كيف تعمل المنصة
+        </div>
+
+        <!-- العنوان الرئيسي -->
+        <h2 class="section-title">ثلاث خطوات تفصلك عن قرارك</h2>
+        <p class="section-subtitle">.رحلة بسيطة وواضحة من التسجيل إلى الخطة الدراسية المخصصة</p>
+        <!-- حاوية البطاقات -->
+        <div class="cards-container">
+            
+            <!-- البطاقة الأولى (3) -->
+            <div class="step-card">
+                <div class="step-badge">٣</div>
+                <div class="card-icon">
+                    <!-- أيقونة تعبيرية أو SVG -->
+                    📊
+                </div>
+                <h3>احصل على خطتك</h3>
+                <p>استلم توصيات التخصصات والجامعات المناسبة مع خطة دراسية واضحة الخطوات.</p>
+            </div>
+
+            <!-- البطاقة الثانية (2) -->
+            <div class="step-card">
+                <div class="step-badge">٢</div>
+                <div class="card-icon">
+                    📅
+                </div>
+                <h3>أكمل الاختبار الذكي</h3>
+                <p>أجب عن أسئلة تفاعلية تقيس ميولك وقدراتك، ويحللها الذكاء الاصطناعي فوراً.</p>
+            </div>
+
+            <!-- البطاقة الثالثة (1) -->
+            <div class="step-card">
+                <div class="step-badge">١</div>
+                <div class="card-icon">
+                    👤
+                </div>
+                <h3>أنشئ حسابك</h3>
+                <p>سجل بياناتك واختر مسارك: طالب جديد يبحث عن تخصص، أو طالب جامعي يطور مساره.</p>
+            </div>
+
+        </div>
+    </section>
 
 <!-- ======================= FOOTER ======================= -->
 
-
+<section class="cta-section">
+    <div class="cta-banner">
+        <h2>جاهز لاتخاذ خطوتك الذكية؟</h2>
+        <p>انضم إلى آلاف الطلاب الذين اكتشفوا مسارهم الجامعي المناسب مع NextStep AI.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn-primary">أنشئ حسابك مجاناً ←</a>
+            <a href="#" class="btn-outline">لدي حساب بالفعل</a>
+        </div>
+    </div>
+</section>
 
 <footer class="site-footer">
   <div class="footer-inner">

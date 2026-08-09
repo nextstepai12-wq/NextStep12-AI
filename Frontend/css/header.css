@@ -22,10 +22,9 @@ header.site-header{
   overflow:hidden;
   isolation:isolate;
 }
-header.site-header:hover,
+
 header.site-header.scrolled{
-  background:transparent;
-  transform:none;
+position: static !important;   /* أهم سطر عشان يلغي الـ fixed/sticky */  transform:none;
   box-shadow:none;
 }
 header.site-header.ready{
@@ -87,7 +86,7 @@ brand-mark .brand-text:hover{transform:translateY(-0.35rem);}
 nav.main-nav ul{
   display:flex;
   gap:2.25rem;
-  font-size:16px;
+  font-size:18px;
   font-weight:800;
   color:#f7fbff;
 }
@@ -95,6 +94,23 @@ nav.main-nav a{
   position:relative;
   transition:color .25s ease, transform .25s ease, text-shadow .25s ease;
   padding-block:0.2rem;
+  
+}
+.main-nav ul li a:hover {
+    color: var(--cyan); /* يتغير للون السماوي من هويتك البصرية */
+    transform: translateY(-2px); /* حركة خفيفة للأعلى */
+}
+
+/* تأثير الضغط الفعلي على الرابط (Active/Click) */
+.main-nav ul li a:active {
+    transform: translateY(0); /* يعود لمكانه عند الضغط عليه */
+    opacity: 0.8;
+}
+
+/* تنسيق الصفحة الحالية (Active Class الموجودة في الـ HTML) */
+.main-nav ul li a.active {
+    color: var(--cyan);
+    font-weight: 700;
 }
 nav.main-nav a::after{
   content:"";

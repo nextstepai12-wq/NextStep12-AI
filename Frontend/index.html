@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NextStep AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
 <link href="css/app.css" rel="stylesheet">
 <link href="css/header.css" rel="stylesheet">
 <link href="css/home.css" rel="stylesheet">
@@ -13,20 +14,21 @@
 </head>
 <body>
 
+
 <!-- ======================= HEADER ======================= -->
 <header class="site-header">
   <div class="nav-inner">
     <a href="index.html" class="brand-mark">
       <img src="assets/logo.png" alt="NextStep AI" class="brand-logo">
-      <div class="brand-text">NextStep <span>AI</span></div>
+      <div class="brand-text">NextStep<span>AI</span> </div>
     </a>
 
     <nav class="main-nav">
       <ul>
-        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="index.html" class="active">الرئيسية</a></li>
         <li><a href="fronted/quiz.html">الاختبار الذكي</a></li>
         <li><a href="fronted/universities.html">الجامعات</a></li>
-        <li><a href="#">عن المنصة</a></li>
+        <li><a href="fronted/about.html">عن المنصة</a></li>
       </ul>
     </nav>
 
@@ -44,44 +46,16 @@
 
 <!-- ======================= HERO ======================= -->
 <section class="hero">
-  <div class="hero-bg">
-  <img src="assets/hero-bg-1400x700.jpg" alt="" style="width:100%;height:100%;object-fit:cover;">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#2F6BFF"/>
-          <stop offset="100%" stop-color="#173B73"/>
-        </linearGradient>
-      </defs>
-      <rect width="1400" height="700" fill="url(#sky)"/>
-      <rect x="60" y="320" width="140" height="270" fill="#1F2937" opacity="0.5"/>
-      <rect x="220" y="260" width="110" height="330" fill="#1F2937" opacity="0.4"/>
-      <rect x="980" y="290" width="150" height="300" fill="#1F2937" opacity="0.45"/>
-      <rect x="1150" y="340" width="90" height="250" fill="#1F2937" opacity="0.35"/>
-      <rect x="1260" y="300" width="110" height="290" fill="#1F2937" opacity="0.4"/>
-      <g fill="#48E6B0" opacity="0.3">
-        <rect x="80" y="345" width="14" height="16"/><rect x="105" y="345" width="14" height="16"/><rect x="130" y="345" width="14" height="16"/>
-        <rect x="80" y="385" width="14" height="16"/><rect x="105" y="385" width="14" height="16"/><rect x="130" y="385" width="14" height="16"/>
-        <rect x="1010" y="320" width="14" height="16"/><rect x="1035" y="320" width="14" height="16"/><rect x="1060" y="320" width="14" height="16"/>
-        <rect x="1010" y="360" width="14" height="16"/><rect x="1035" y="360" width="14" height="16"/><rect x="1060" y="360" width="14" height="16"/>
-      </g>
-      <rect x="0" y="590" width="1400" height="110" fill="#0F2547"/>
-      <path d="M0 590 L1400 590 L1400 615 Q700 645 0 615 Z" fill="#122E5D"/>
-      <path d="M560 700 L640 590 L760 590 L840 700 Z" fill="#173B73" opacity="0.55"/>
-      <g transform="translate(980,400)">
-        <ellipse cx="30" cy="18" rx="19" ry="21" fill="#0B1B2C"/>
-        <path d="M6 44 Q4 32 30 32 Q56 32 54 44 L61 145 Q61 162 50 165 L11 165 Q0 162 0 145 Z" fill="#16324F"/>
-        <rect x="15" y="62" width="30" height="50" rx="9" fill="#0B1B2C"/>
-        <path d="M0 145 Q-2 168 9 184 L18 165 Z" fill="#0B1B2C"/>
-        <path d="M61 145 Q63 168 52 184 L43 165 Z" fill="#0B1B2C"/>
-        <rect x="19" y="168" width="13" height="68" fill="#16324F"/>
-        <rect x="36" y="168" width="13" height="68" fill="#122A45"/>
-      </g>
-      <circle cx="1250" cy="150" r="130" fill="#48E6B0" opacity="0.08"/>
-    </svg>
+  <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline poster="assets/5.jpg">
+      <source src="assets/vedio-hero.mp4" type="video/mp4">
+    </video>
   </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
 
   <div class="hero-inner">
     <div class="hero-copy">
+      <div class="hero-badge">منصة الذكاء الاصطناعي للطلاب</div>
       <h1>NextStep <span>AI</span></h1>
       <h2>خطوتك الذكية نحو مستقبلك</h2>
       <p class="lead">منصة ذكية تساعدك على اكتشاف التخصص المناسب واختيار الجامعة الأفضل لك من خلال الذكاء الاصطناعي.</p>
@@ -91,6 +65,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
         <a href="fronted/universities.html" class="btn-outline">استكشف الجامعات</a>
+      </div>
+      <div class="hero-quickstats" aria-label="مؤشرات سريعة">
+        <span>✓ 50+ جامعة</span>
+        <span>✓ 2000+ تخصص</span>
+        <span>✓ 100K+ طالب</span>
       </div>
     </div>
   </div>
@@ -142,15 +121,15 @@
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat">
-      <div class="num">+<span>50</span></div>
+      <div class="num" data-target="50" data-suffix="">+<span>50</span></div>
       <div class="lbl">جامعة</div>
     </div>
     <div class="stat">
-      <div class="num">+<span>2000</span></div>
+      <div class="num" data-target="2000" data-suffix="">+<span>2000</span></div>
       <div class="lbl">تخصص</div>
     </div>
     <div class="stat">
-      <div class="num">+<span>100K</span></div>
+      <div class="num" data-target="100" data-suffix="K">+<span>100K</span></div>
       <div class="lbl">طالب</div>
     </div>
     <div class="stat tagline">كل ما تحتاجه في مكان واحد</div>
@@ -168,7 +147,7 @@
       <!-- Brand -->
       <div class="footer-col footer-brand">
         <div class="brand-mark">
-          <img src="../assets/logo.png" alt="NextStep AI" class="brand-logo">
+          <img src="../Frontend/assets/logo.png" alt="NextStep AI" class="brand-logo">
           <div class="brand-text">NextStep <span>AI</span></div>
         </div>
         <p class="tagline">خطوتك الذكية لمستقبلك الجامعي. منصة ذكية تساعد الطلاب على اكتشاف التخصص الجامعي الأنسب لهم.</p>
@@ -241,4 +220,60 @@
   </div>
 </footer>
 </body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.site-header');
+    const counters = document.querySelectorAll('.stat .num');
+    const navLinks = document.querySelectorAll('.main-nav a');
+
+    const toggleHeaderState = () => {
+      if (!header) return;
+      const scrolled = window.scrollY > 20;
+      header.classList.toggle('scrolled', scrolled);
+
+      navLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href && href !== '#' && window.location.pathname.endsWith(href)) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    };
+
+    if (header) {
+      requestAnimationFrame(() => {
+        header.classList.add('ready');
+      });
+    }
+
+    window.addEventListener('scroll', toggleHeaderState, { passive: true });
+    toggleHeaderState();
+
+    counters.forEach((counter, index) => {
+      const span = counter.querySelector('span');
+      const target = parseInt(counter.dataset.target || span.textContent, 10);
+      const suffix = counter.dataset.suffix || '';
+      const duration = 1400 + index * 180;
+      const startTime = performance.now();
+
+      const animate = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(eased * target);
+        span.textContent = `${value}${suffix}`;
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          span.textContent = `${target}${suffix}`;
+        }
+      };
+
+      requestAnimationFrame(animate);
+    });
+  });
+</script>
 </html>

@@ -5,6 +5,7 @@
    ===================================================================== */
 
 /* ======================= HERO (full-bleed background photo) ======================= */
+
 section.hero{
   position:relative;
   display:flex;
@@ -322,6 +323,7 @@ section.hero{
     font-size: 32px;
     color: #2563eb;
     margin-bottom: 20px;
+    
 }
 
 /* النصوص داخل البطاقة */

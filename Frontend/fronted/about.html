@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/app.css">
   <style>
     /* --- RESET & BASE (مدمج لضمان عرض فوري) --- */
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -31,6 +33,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 16px;
+      direction: ltr;
     }
     .sim-header .logo {
       font-weight: 800;
@@ -235,20 +238,223 @@
     .reveal.is-visible { opacity:1; transform: translateY(0); }
 
     /* FOOTER (مضمن) */
-    .sim-footer {
-      background: #0b1a33;
-      color: #cdd9f0;
-      padding: 40px 0 20px;
-      margin-top: 40px;
-      border-radius: 40px 40px 0 0;
-    }
-    .sim-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
-    .sim-footer small { opacity:0.7; }
-    @media(max-width:600px){
-      .sim-header { flex-direction: column; align-items: stretch; text-align: center; }
-      .sim-header nav { justify-content: center; flex-wrap: wrap; }
-      .facts { flex-direction: column; align-items: center; border-radius: 32px; }
-    }
+   /* =====================================================================
+   footer.css (معدل ليكون أفتح وأكثر إشراقاً)
+   ===================================================================== */
+
+footer.site-footer{
+  width:100%;
+  position:relative;
+  /* جعلنا التدرج يبدأ بدرجة أفتح قليلاً ومريحة للعين */
+background: linear-gradient(180deg, #3d5677 0%, #7d8da7 100%);  color:#F1F5F9;
+  overflow:hidden;
+  margin-top:auto;
+  flex-shrink:0;
+  direction: ltr;
+}
+
+footer.site-footer::before{
+  content:"";
+  position:absolute;
+  top:0; right:0; left:0;
+  height:4px;
+  background:linear-gradient(90deg, var(--navy), var(--blue), var(--cyan), var(--mint));
+}
+
+footer.site-footer::after{
+  content:"";
+  position:absolute;
+  width:520px; height:520px;
+  /* زيادة إضاءة التوهج الخلفي ليصبح الفوتر أكثر حيوية */
+  background:radial-gradient(circle, rgba(53,208,255,0.2) 0%, rgba(53,208,255,0) 70%);
+  top:-220px; left:-160px;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.footer-inner{
+  position:relative;
+  max-width:1100px;
+  margin:0 auto;
+  padding:56px 32px 28px;
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr 1fr;
+  gap:40px;
+  padding-bottom:36px;
+}
+
+.footer-brand .brand-mark{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+footer .brand-mark .brand-logo{width: 59px;
+  height: 58px;object-fit:contain;flex-shrink:0;}
+
+footer .brand-mark .brand-text{
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:20px;
+  color:#ffffff;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size: clamp(-2.5rem, 31px, 46px);
+}
+
+footer .brand-mark .brand-text span{color:var(--cyan);}
+
+.footer-brand .tagline{
+  font-size:14px;
+  line-height:1.9;
+  /* تفتيح لون النص التوضيحي لتحسين القراءة */
+  color:#cbd5e1;
+  max-width:280px;
+}
+
+.social-row{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.social-row a{
+  width:36px; height:36px;
+  border-radius:12px;
+  /* خلفية أفتح قليلاً للأيقونات */
+  background:rgba(255,255,255,0.09);
+  border:1px solid rgba(255,255,255,0.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#e2e8f0;
+  text-decoration:none;
+  transition:all .2s ease;
+}
+
+.social-row a:hover{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+  transform:translateY(-2px);
+}
+
+.social-row svg{width:16px;height:16px;}
+
+.footer-col h4{
+  font-family:'Cairo',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  color:#ffffff;
+  margin-bottom:18px;
+  position:relative;
+  padding-bottom:10px;
+}
+
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+
+.footer-col ul li a{
+  /* تفتيح ألوان الروابط لتكون واضحة على الخلفية الجديدة */
+  color:#cbd5e1;
+  text-decoration:none;
+  font-size:14px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:color .2s ease, transform .2s ease;
+  
+}
+
+.footer-col ul li a:hover{
+  color:var(--cyan);
+  transform:translateX(-4px);
+}
+
+.footer-col ul li a svg{width:14px;height:14px;opacity:.8;flex-shrink:0;}
+
+.contact-item{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:14px;
+  color:#cbd5e1;
+  margin-bottom:14px;
+   display: flex;
+  width: 100%;
+}
+
+.contact-item .icon-wrap{
+  width:30px; height:30px;
+  border-radius:9px;
+  background:rgba(53,208,255,0.18);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+
+.contact-item .icon-wrap svg{width:15px;height:15px;color:var(--cyan);}
+.contact-item a{color:#cbd5e1;text-decoration:none;transition:color .2s;}
+.contact-item a:hover{color:var(--cyan);}
+
+.contact-item a[href^="tel:"] {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.12);
+  padding-top:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.footer-bottom p{
+  font-size:13px;
+  color: #F1F5F9;
+  margin-left: 371px;
+}
+
+.footer-bottom .legal-links{
+  display:flex;
+  gap:18px;
+  font-size:13px;
+}
+
+.footer-bottom .legal-links a{
+  color:#94a3b8;
+  text-decoration:none;
+  transition:color .2s;
+}
+
+.footer-bottom .legal-links a:hover{color:var(--mint);}
+
+
+.logo2 span{
+font-size: 16px;
+font-weight: 700;
+margin-left: 45px;
+}
+.logo2 p{
+  font-size: 14px;
+  text-align: right;
+  direction: rtl;
+margin-right: 24px;
+}
+@media (max-width:860px){
+  .footer-top{grid-template-columns:1fr 1fr;row-gap:32px;}
+  .footer-brand{grid-column:1 / -1;}
+}
+
+@media (max-width:520px){
+  .footer-top{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+}
   </style>
 </head>
 <body>
@@ -265,7 +471,10 @@
   <a href="#" class="btn-outline">دخول</a>
 </header>
 
-<main>
+
+
+
+ 
   <!-- ===== HERO ===== -->
   <section class="hero no-border">
     <div class="wrap">
@@ -273,8 +482,12 @@
       <p class="sub">NextStep AI منصة ذكية تستخدم الذكاء الاصطناعي لمساعدة طلاب الثانوية والجامعات في فلسطين على اتخاذ قرارات أكاديمية ومهنية مبنية على تحليل حقيقي لشخصيتهم ومهاراتهم واهتماماتهم، بدل الاعتماد على العشوائية أو آراء الآخرين.</p>
       <a class="btn-signin hero-cta" href="#join">ابدأ رحلتك الآن</a>
     </div>
-    <div class="flow-band wrap">
+   <div class="flow-band">
       <canvas id="logoFlock" aria-hidden="true"></canvas>
+      <div class="flow-caption">
+    
+     
+      </div>
     </div>
   </section>
 
@@ -374,33 +587,151 @@
       </div>
     </div>
   </section>
-</main>
+
 
 <!-- ===== FOOTER ===== -->
-<footer class="sim-footer">
-  <div class="wrap">
-    <div>© 2026 NextStep AI — كل الحقوق محفوظة</div>
-    <small>نسعد بأسئلتك واستفساراتك</small>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+
+      <!-- Brand -->
+      <div class="footer-col footer-brand">
+        <div class="brand-mark">
+          <img src="../assets/logo.png" alt="NextStep AI" class="brand-logo">
+          <div class="brand-text">NextStep <span>AI</span></div>
+        </div>
+        <div class="logo2">   
+       <span>خطوتك الذكية نحو مستقبلك</span>
+      <p class="lead">منصة ذكية تساعدك على اكتشاف التخصص المناسب واختيار الجامعة الأفضل لك من خلال الذكاء الاصطناعي.</p>
+        </div>
+              <div class="social-row">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter/X">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="7" r="0.5" fill="currentColor"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/><line x1="11" y1="10" x2="11" y2="17"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Site pages -->
+      <div class="footer-col">
+        <h4>روابط الموقع</h4>
+        <ul>
+          <li><a href="../Frontend/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>الرئيسية</a></li>
+          <li><a href="../Frontend/fronted/student-signup.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>اختبار الاستكشاف</a></li>
+          <li><a href="../Frontend/fronted/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>الخطة الدراسية</a></li>
+          <li><a href="../Frontend/fronted/universities.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>الجامعات</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact us -->
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <div class="contact-item">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>
+          <a href="mailto:info@nextstepai.com">nextstepai12@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.62a16 16 0 0 0 6 6l1.19-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg></div>
+          <a href="tel:+970000000">+970 59 796 7157</a>
+        </div>
+        <div class="contact-item">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <span>غزة، فلسطين</span>
+        </div>
+      </div>
+
+      <!-- Information -->
+      <div class="footer-col">
+        <h4>معلومات</h4>
+        <ul>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>من نحن</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>سياسة الخصوصية</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>الشروط والأحكام</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5M12 17h.01"/></svg>الأسئلة الشائعة</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 NextStep AI. جميع الحقوق محفوظة.</p>
+      
+    </div>
   </div>
 </footer>
 
 <!-- ===== SCRIPTS ===== -->
 <script>
-  (function(){
-    // ----- SCROLL REVEAL -----
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
-      });
-    }, {threshold:0.15});
-    revealEls.forEach(el=>io.observe(el));
+(function () {
 
-    // ----- LOGO FLOCK (نسخة محسنة الأداء) -----
+    // =====================================================
+    // SCROLL REVEAL
+    // =====================================================
+
+    const revealEls = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+
+        const io = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add('is-visible');
+
+                    io.unobserve(entry.target);
+                }
+
+            });
+
+        }, {
+            threshold: 0.15
+        });
+
+        revealEls.forEach(el => io.observe(el));
+
+    } else {
+
+        revealEls.forEach(el => {
+            el.classList.add('is-visible');
+        });
+
+    }
+
+
+    // =====================================================
+    // LOGO FLOCK BACKGROUND
+    // =====================================================
+
     const canvas = document.getElementById('logoFlock');
-    if(!canvas) return;
+
+    if (!canvas) return;
+
     const ctx = canvas.getContext('2d');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!ctx) return;
+
+
+    // =====================================================
+    // REDUCE MOTION
+    // =====================================================
+
+    const reduceMotion =
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+    // =====================================================
+    // YOUR LOGO PATH
+    // =====================================================
 
     const LOGO_D = `M9400 7708 c-664 -266 -821 -331 -818 -338 2 -5 72 -53 156 -109
     l153 -101 -69 -68 c-113 -110 -193 -248 -238 -415 -39 -144 -44 -226 -44 -804
@@ -414,130 +745,715 @@
     -420 0 -420 0 0 -180z M5500 3888 c-1 -2 -2 -81 -3 -176 l-2 -172 408 0 407 0
     0 175 0 175 -405 0 c-223 0 -405 -1 -405 -2z M5080 3280 l0 -180 410 0 410 0
     0 180 0 180 -410 0 -410 0 0 -180z`;
-    const LOGO_PATH = new Path2D(LOGO_D);
-    const VBW = 1492, VBH = 1022;
 
-    function buildLogoBitmap(){
-      const rw = 260, rh = Math.round(rw * (VBH/VBW));
-      const off = document.createElement('canvas');
-      off.width = rw; off.height = rh;
-      const octx = off.getContext('2d');
-      const scale = rw / VBW;
-      octx.scale(scale, scale);
-      octx.translate(0, VBH);
-      octx.scale(0.1, -0.1);
-      const grad = octx.createLinearGradient(0, VBH*10, VBW*10, 0);
-      grad.addColorStop(0, '#173B94');
-      grad.addColorStop(0.55, '#2F6BFF');
-      grad.addColorStop(1, '#22E6D6');
-      octx.fillStyle = grad;
-      octx.fill(LOGO_PATH);
-      return off;
+
+    const LOGO_PATH = new Path2D(LOGO_D);
+
+    const VBW = 1492;
+    const VBH = 1022;
+
+
+    // =====================================================
+    // CREATE LOGO BITMAP
+    // =====================================================
+
+    function buildLogoBitmap() {
+
+        const rw = 260;
+        const rh = Math.round(rw * (VBH / VBW));
+
+        const offscreen = document.createElement('canvas');
+
+        offscreen.width = rw;
+        offscreen.height = rh;
+
+        const octx = offscreen.getContext('2d');
+
+        const scale = rw / VBW;
+
+        octx.scale(scale, scale);
+
+        octx.translate(0, VBH);
+
+        octx.scale(0.1, -0.1);
+
+
+        // Gradient الخاص بالشعار
+        const gradient = octx.createLinearGradient(
+            0,
+            VBH * 10,
+            VBW * 10,
+            0
+        );
+
+        gradient.addColorStop(0, '#173B94');
+        gradient.addColorStop(0.55, '#2F6BFF');
+        gradient.addColorStop(1, '#22E6D6');
+
+
+        octx.fillStyle = gradient;
+
+        octx.fill(LOGO_PATH);
+
+        return offscreen;
     }
+
+
     const logoBitmap = buildLogoBitmap();
+
     const LOGO_ASPECT = VBH / VBW;
 
-    let W, H, dpr;
-    function resize(){
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = canvas.clientWidth; H = canvas.clientHeight;
-      canvas.width = W*dpr; canvas.height = H*dpr;
-      ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    // =====================================================
+    // CANVAS SIZE
+    // =====================================================
+
+    let W = 0;
+    let H = 0;
+    let dpr = 1;
+
+
+    function resize() {
+
+        dpr = Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+
+
+        // لأن canvas أصبح خلفية Full Screen
+        W = window.innerWidth;
+        H = window.innerHeight;
+
+
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+
+
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+
+
+        ctx.setTransform(
+            dpr,
+            0,
+            0,
+            dpr,
+            0,
+            0
+        );
     }
-    window.addEventListener('resize', resize);
+
+
+    window.addEventListener(
+        'resize',
+        resize,
+        { passive: true }
+    );
+
+
     resize();
 
-    const COUNT = 28;
+
+    // =====================================================
+    // NUMBER OF LOGOS
+    // =====================================================
+
+    function getLogoCount() {
+
+        const width = window.innerWidth;
+
+        if (width < 480) {
+            return 10;
+        }
+
+        if (width < 768) {
+            return 14;
+        }
+
+        if (width < 1200) {
+            return 20;
+        }
+
+        return 28;
+    }
+
+
     const logos = [];
-    for(let i=0;i<COUNT;i++){
-      logos.push({
-        x: Math.random()*W,
-        y: Math.random()*H,
-        vx: (Math.random()-0.5)*1.1,
-        vy: (Math.random()-0.5)*1.1,
-        size: 18 + Math.random()*22
-      });
-    }
 
-    const mouse = {x:-9999, y:-9999, active:false};
-    canvas.addEventListener('mousemove', e=>{
-      const r = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - r.left;
-      mouse.y = e.clientY - r.top;
-      mouse.active = true;
-    });
-    canvas.addEventListener('mouseleave', ()=>{ mouse.active = false; });
 
-    function step(){
-      const perception = 85;
-      const maxSpeed = 1.25;
-      for(const b of logos){
-        let ax=0, ay=0, cx=0, cy=0, sx=0, sy=0, n=0;
-        for(const o of logos){
-          if(o===b) continue;
-          const dx = o.x-b.x, dy = o.y-b.y;
-          const d = Math.hypot(dx,dy);
-          if(d < perception && d > 0){
-            ax += o.vx; ay += o.vy;
-            cx += o.x; cy += o.y;
-            const minDist = (b.size+o.size)*0.4;
-            if(d < minDist){ sx -= dx/d; sy -= dy/d; }
-            n++;
-          }
+    // =====================================================
+    // CREATE LOGOS
+    // =====================================================
+
+    function createLogos() {
+
+        logos.length = 0;
+
+        const COUNT = getLogoCount();
+
+
+        for (let i = 0; i < COUNT; i++) {
+
+            const size =
+                window.innerWidth < 768
+                    ? 14 + Math.random() * 16
+                    : 18 + Math.random() * 22;
+
+
+            logos.push({
+
+                x: Math.random() * W,
+
+                y: Math.random() * H,
+
+                vx: (Math.random() - 0.5) * 0.8,
+
+                vy: (Math.random() - 0.5) * 0.8,
+
+                size: size,
+
+                opacity:
+                    0.18 + Math.random() * 0.35,
+
+                rotation:
+                    (Math.random() - 0.5) * 0.15
+
+            });
         }
-        if(n>0){
-          ax/=n; ay/=n;
-          cx = cx/n - b.x; cy = cy/n - b.y;
-          b.vx += (ax*0.02) + (cx*0.0005) + (sx*0.06);
-          b.vy += (ay*0.02) + (cy*0.0005) + (sy*0.06);
-        }
-        if(mouse.active){
-          const dx = b.x-mouse.x, dy = b.y-mouse.y;
-          const d = Math.hypot(dx,dy);
-          if(d < 90 && d>0){ b.vx += dx/d*0.08; b.vy += dy/d*0.08; }
-        }
-        const sp = Math.hypot(b.vx,b.vy);
-        if(sp > maxSpeed){ b.vx = b.vx/sp*maxSpeed; b.vy = b.vy/sp*maxSpeed; }
-        b.x += b.vx; b.y += b.vy;
-        const pad = b.size;
-        if(b.x < -pad) b.x = W+pad;
-        if(b.x > W+pad) b.x = -pad;
-        if(b.y < -pad) b.y = H+pad;
-        if(b.y > H+pad) b.y = -pad;
-      }
     }
 
-    function drawLogo(b){
-      const w = b.size, h = w*LOGO_ASPECT;
-      ctx.drawImage(logoBitmap, b.x - w/2, b.y - h/2, w, h);
-    }
 
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-      ctx.strokeStyle = 'rgba(23,59,148,0.10)';
-      ctx.lineWidth = 1.2;
-      for(let i=0;i<logos.length;i++){
-        for(let j=i+1;j<logos.length;j++){
-          const dx = logos[i].x-logos[j].x, dy = logos[i].y-logos[j].y;
-          const d = Math.hypot(dx,dy);
-          if(d < 70){
-            ctx.beginPath();
-            ctx.moveTo(logos[i].x, logos[i].y);
-            ctx.lineTo(logos[j].x, logos[j].y);
-            ctx.stroke();
-          }
+    createLogos();
+
+
+    // =====================================================
+    // MOUSE
+    // =====================================================
+
+    const mouse = {
+
+        x: -9999,
+
+        y: -9999,
+
+        active: false
+
+    };
+
+
+    // استخدمنا window لأن الـ canvas أصبح خلفية ثابتة
+    window.addEventListener(
+        'mousemove',
+        function (event) {
+
+            mouse.x = event.clientX;
+
+            mouse.y = event.clientY;
+
+            mouse.active = true;
+
+        },
+        { passive: true }
+    );
+
+
+    window.addEventListener(
+        'mouseleave',
+        function () {
+
+            mouse.active = false;
+
         }
-      }
-      for(const b of logos) drawLogo(b);
+    );
+
+
+    // =====================================================
+    // TOUCH SUPPORT
+    // =====================================================
+
+    window.addEventListener(
+        'touchmove',
+        function (event) {
+
+            if (!event.touches.length) return;
+
+            const touch = event.touches[0];
+
+            mouse.x = touch.clientX;
+
+            mouse.y = touch.clientY;
+
+            mouse.active = true;
+
+        },
+        { passive: true }
+    );
+
+
+    window.addEventListener(
+        'touchend',
+        function () {
+
+            mouse.active = false;
+
+        },
+        { passive: true }
+    );
+
+
+    // =====================================================
+    // UPDATE LOGOS
+    // =====================================================
+
+    function step() {
+
+        const perception = 100;
+
+        const maxSpeed = 1.15;
+
+
+        for (const b of logos) {
+
+            let ax = 0;
+            let ay = 0;
+
+            let cx = 0;
+            let cy = 0;
+
+            let sx = 0;
+            let sy = 0;
+
+            let n = 0;
+
+
+            // -------------------------------------------------
+            // FLOCKING
+            // -------------------------------------------------
+
+            for (const o of logos) {
+
+                if (o === b) continue;
+
+
+                const dx = o.x - b.x;
+
+                const dy = o.y - b.y;
+
+                const distance =
+                    Math.hypot(dx, dy);
+
+
+                if (
+                    distance < perception &&
+                    distance > 0
+                ) {
+
+                    // Alignment
+                    ax += o.vx;
+                    ay += o.vy;
+
+
+                    // Cohesion
+                    cx += o.x;
+                    cy += o.y;
+
+
+                    // Separation
+                    const minDist =
+                        (b.size + o.size) * 0.4;
+
+
+                    if (distance < minDist) {
+
+                        sx -= dx / distance;
+
+                        sy -= dy / distance;
+
+                    }
+
+
+                    n++;
+
+                }
+            }
+
+
+            if (n > 0) {
+
+                ax /= n;
+
+                ay /= n;
+
+
+                cx = cx / n - b.x;
+
+                cy = cy / n - b.y;
+
+
+                b.vx +=
+                    ax * 0.018 +
+                    cx * 0.0005 +
+                    sx * 0.055;
+
+
+                b.vy +=
+                    ay * 0.018 +
+                    cy * 0.0005 +
+                    sy * 0.055;
+
+            }
+
+
+            // -------------------------------------------------
+            // MOUSE INTERACTION
+            // -------------------------------------------------
+
+            if (mouse.active) {
+
+                const dx = b.x - mouse.x;
+
+                const dy = b.y - mouse.y;
+
+                const distance =
+                    Math.hypot(dx, dy);
+
+
+                const mouseRadius = 140;
+
+
+                if (
+                    distance < mouseRadius &&
+                    distance > 0
+                ) {
+
+                    const force =
+                        (mouseRadius - distance) /
+                        mouseRadius;
+
+
+                    b.vx +=
+                        (dx / distance) *
+                        force *
+                        0.06;
+
+
+                    b.vy +=
+                        (dy / distance) *
+                        force *
+                        0.06;
+
+                }
+
+            }
+
+
+            // -------------------------------------------------
+            // LIMIT SPEED
+            // -------------------------------------------------
+
+            const speed =
+                Math.hypot(b.vx, b.vy);
+
+
+            if (speed > maxSpeed) {
+
+                b.vx =
+                    (b.vx / speed) *
+                    maxSpeed;
+
+
+                b.vy =
+                    (b.vy / speed) *
+                    maxSpeed;
+
+            }
+
+
+            // -------------------------------------------------
+            // MOVE
+            // -------------------------------------------------
+
+            b.x += b.vx;
+
+            b.y += b.vy;
+
+
+            // -------------------------------------------------
+            // ROTATION
+            // -------------------------------------------------
+
+            b.rotation +=
+                (b.vx * 0.002);
+
+
+            // -------------------------------------------------
+            // WRAP AROUND SCREEN
+            // -------------------------------------------------
+
+            const padding = b.size;
+
+
+            if (b.x < -padding) {
+
+                b.x = W + padding;
+
+            }
+
+
+            if (b.x > W + padding) {
+
+                b.x = -padding;
+
+            }
+
+
+            if (b.y < -padding) {
+
+                b.y = H + padding;
+
+            }
+
+
+            if (b.y > H + padding) {
+
+                b.y = -padding;
+
+            }
+
+        }
+
     }
 
-    function loop(){
-      step();
-      draw();
-      if(!reduceMotion) requestAnimationFrame(loop);
+
+    // =====================================================
+    // DRAW LOGO
+    // =====================================================
+
+    function drawLogo(b) {
+
+        const width = b.size;
+
+        const height =
+            width * LOGO_ASPECT;
+
+
+        ctx.save();
+
+
+        ctx.translate(
+            b.x,
+            b.y
+        );
+
+
+        ctx.rotate(
+            b.rotation
+        );
+
+
+        ctx.globalAlpha =
+            b.opacity;
+
+
+        ctx.drawImage(
+            logoBitmap,
+            -width / 2,
+            -height / 2,
+            width,
+            height
+        );
+
+
+        ctx.restore();
+
+
+        ctx.globalAlpha = 1;
+
     }
-    if(reduceMotion){ draw(); } else { loop(); }
-  })();
+
+
+    // =====================================================
+    // DRAW CONNECTION LINES
+    // =====================================================
+
+    function drawConnections() {
+
+        const connectionDistance = 95;
+
+
+        for (
+            let i = 0;
+            i < logos.length;
+            i++
+        ) {
+
+            for (
+                let j = i + 1;
+                j < logos.length;
+                j++
+            ) {
+
+                const a = logos[i];
+
+                const b = logos[j];
+
+
+                const dx =
+                    a.x - b.x;
+
+                const dy =
+                    a.y - b.y;
+
+
+                const distance =
+                    Math.hypot(dx, dy);
+
+
+                if (
+                    distance <
+                    connectionDistance
+                ) {
+
+                    const opacity =
+                        (1 - distance / connectionDistance) *
+                        0.12;
+
+
+                    ctx.beginPath();
+
+
+                    ctx.strokeStyle =
+                        `rgba(47,107,255,${opacity})`;
+
+
+                    ctx.lineWidth = 1;
+
+
+                    ctx.moveTo(
+                        a.x,
+                        a.y
+                    );
+
+
+                    ctx.lineTo(
+                        b.x,
+                        b.y
+                    );
+
+
+                    ctx.stroke();
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    // =====================================================
+    // DRAW
+    // =====================================================
+
+    function draw() {
+
+        ctx.clearRect(
+            0,
+            0,
+            W,
+            H
+        );
+
+
+        // خطوط الربط
+        drawConnections();
+
+
+        // الشعارات
+        for (const logo of logos) {
+
+            drawLogo(logo);
+
+        }
+
+    }
+
+
+    // =====================================================
+    // ANIMATION
+    // =====================================================
+
+    let animationId;
+
+
+    function loop() {
+
+        step();
+
+        draw();
+
+
+        if (!reduceMotion) {
+
+            animationId =
+                requestAnimationFrame(loop);
+
+        }
+
+    }
+
+
+    // =====================================================
+    // START
+    // =====================================================
+
+    if (reduceMotion) {
+
+        draw();
+
+    } else {
+
+        loop();
+
+    }
+
+
+    // =====================================================
+    // VISIBILITY OPTIMIZATION
+    // =====================================================
+
+    document.addEventListener(
+        'visibilitychange',
+        function () {
+
+            if (
+                document.hidden &&
+                animationId
+            ) {
+
+                cancelAnimationFrame(
+                    animationId
+                );
+
+                animationId = null;
+
+            } else if (
+                !document.hidden &&
+                !reduceMotion &&
+                !animationId
+            ) {
+
+                loop();
+
+            }
+
+        }
+    );
+
+
+})();
 </script>
 </body>
 </html>

@@ -9,122 +9,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- ====== CSS ====== -->
-  <link rel="stylesheet" href="../css/app.css">
-  <link rel="stylesheet" href="../css/admin-shell.css">
-  <link rel="stylesheet" href="../css/programs.css">
+  <link rel="stylesheet" href="../../css/app.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/programs.css">
 </head>
 <body>
 
 <!-- ======================= TOP BAR ======================= -->
-<header class="admin-topbar" id="adminTopbar">
-  <div class="admin-topbar-inner">
-    <a href="../index.html" class="admin-brand">
-      <span class="brand-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
-          <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
-        </svg>
-      </span>
-      <span class="brand-text">NextStep AI</span>
-    </a>
-
-    <div class="admin-search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="7"/>
-        <path d="M21 21l-4.35-4.35"/>
-      </svg>
-      <input type="text" placeholder="ابحث عن طالب، برنامج، أو طلب...">
-    </div>
-
-    <div class="admin-user-actions">
-      <button type="button" class="admin-icon-btn" aria-label="المساعدة">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/>
-          <path d="M12 17h.01"/>
-        </svg>
-      </button>
-      <button type="button" class="admin-icon-btn" aria-label="الإشعارات">
-        <span class="dot"></span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-        </svg>
-      </button>
-      <img src="../assets/admin-avatar.png" alt="صورة المستخدم" class="admin-avatar" onerror="this.style.display='none'">
-    </div>
-  </div>
-</header>
+<header class="admin-topbar" id="adminTopbar"></header>
 
 <!-- ======================= LAYOUT ======================= -->
 <div class="admin-layout">
 
   <!-- ====== SIDEBAR ====== -->
-  <aside class="admin-sidebar">
-    <div class="admin-sidebar-head">
-      <h3>بوابة الإدارة</h3>
-      <p>نظام إدارة المعلومات</p>
-    </div>
-
-    <nav class="admin-sidebar-nav">
-      <a href="overview.html" class="admin-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
-          </svg>
-          نظرة عامة
-        </span>
-      </a>
-      <a href="#" class="admin-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
-            <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
-          </svg>
-          الطلاب
-        </span>
-      </a>
-      <a href="programs.html" class="admin-sidebar-link active">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <path d="M14 2v6h6M9 13h6M9 17h6"/>
-          </svg>
-          البرامج الأكاديمية
-        </span>
-      </a>
-      <a href="statistics.html" class="admin-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 20V10M12 20V4M20 20v-7"/>
-          </svg>
-          إحصائيات
-        </span>
-      </a>
-      <a href="settings-dashboard.html" class="admin-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-          </svg>
-          الإعدادات
-        </span>
-      </a>
-    </nav>
-
-    <button type="button" class="admin-sidebar-cta" onclick="window.location.href='add-program.html'">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-        <path d="M12 5v14M5 12h14"/>
-      </svg>
-      إضافة برنامج جديد
-    </button>
-  </aside>
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
 
   <!-- ====== MAIN CONTENT ====== -->
-  <main class="admin-main">
+  <main class="admin-main admin-main-content">
 
     <!-- ====== PAGE HEADER ====== -->
     <div class="admin-page-head">
@@ -594,28 +495,11 @@
     // ========================================================================
     // 7. TOP BAR - تأثير التمرير
     // ========================================================================
-    const topbar = document.getElementById('adminTopbar');
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 20) {
-        topbar?.classList.add('scrolled');
-      } else {
-        topbar?.classList.remove('scrolled');
-      }
-    }, { passive: true });
-
   })();
 </script>
 
-<footer class="admin-footer">
-  <div class="admin-footer-inner">
-    <span>© 2026 NextStep AI — جميع الحقوق محفوظة</span>
-    <nav class="admin-footer-links">
-      <a href="#">الدعم الفني</a>
-      <a href="#">سياسة الخصوصية</a>
-      <a href="#">الشروط والأحكام</a>
-    </nav>
-  </div>
-</footer>
+  <div id="admin-footer-slot"></div>
+  <script src="../../js/admin-shell.js"></script>
 
 </body>
 </html>

@@ -1,45 +1,30 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تسجيل الدخول — NextStep AI</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="../css/app.css" rel="stylesheet">
-<link href="../css/header.css" rel="stylesheet">
-<link href="../css/home.css" rel="stylesheet">
-<link href="../css/footer.css" rel="stylesheet">
-<link rel="stylesheet" href="../css/signup.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173B73">
+  <meta name="description" content="أنشئ حسابك على NextStep AI وابدأ رحلتك نحو تخصّصك الجامعي المناسب.">
+  <title>إنشاء حساب — NextStep AI</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="../css/app.css" rel="stylesheet">
+  <link href="../css/header.css" rel="stylesheet">
+  <link href="../css/footer.css" rel="stylesheet">
+  <link href="../css/auth.css" rel="stylesheet">
 </head>
 <body>
 
-<!-- ======================= HEADER (يتحمّل تلقائياً من header.html) ======================= -->
-<header class="site-header">
+<!-- ======================= HEADER ======================= -->
+<header class="site-header header-solid">
   <div class="nav-inner">
-    <a href="index.html" class="brand-mark">
-      <img src="assets/logo.png" alt="NextStep AI" class="brand-logo">
+    <a href="../index.html" class="brand-mark">
+      <img src="../assets/logo.png" alt="NextStep AI" class="brand-logo">
       <div class="brand-text">NextStep<span>AI</span> </div>
     </a>
-
-    <nav class="main-nav">
-      <ul>
-<li><a href="fronted/about.html">عن المنصة</a></li>
-<li><a href="fronted/universities.html">الجامعات</a></li>
-<li><a href="fronted/quiz.html">الاختبار الذكي</a></li>
-<li><a href="index.html" class="active">الرئيسية</a></li>
-      </ul>
-    </nav>
-
-  
-
-    <div class="nav-actions">
-     
-      <a href="fronted/login.html" class="btn-signin">تسجيل دخول</a>
-    </div>
-  </div>
-</header>
 
     <nav class="main-nav">
       <ul>
@@ -85,28 +70,28 @@
 
   <div class="auth-wrap">
 
-    <!-- ---------------------- لوحة العلامة ---------------------- -->
+    <!-- ---------------------- لوحة العلامة (نفس بانل اللوج، بمحتوى مختلف) ---------------------- -->
     <aside class="auth-aside">
       <div class="aside-brand">
         <img src="../assets/logo.png" alt="">
         <span class="brand-text">NextStep <span>AI</span></span>
       </div>
-      <h2>أهلاً بعودتك إلى <span>رحلتك</span> الذكية</h2>
+      <h2>ابدأ <span>رحلتك</span> الذكية اليوم</h2>
       <p class="aside-lead">
-        تابع من حيث توقفت — نتائج اختبارك، توصياتك، وخطتك الدراسية كلها بانتظارك.
+        أنشئ حسابك بدقيقتين، خذ اختبار الاستكشاف، واحصل على توصيات تخصصات مبنية على بياناتك الفعلية.
       </p>
       <div class="aside-points">
         <div class="aside-point">
           <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <span class="txt"><strong>توصياتك محفوظة</strong><span>ارجع لتخصصاتك المقترحة في أي وقت.</span></span>
+          <span class="txt"><strong>اختبار ذكي مجاني</strong><span>يحلل ميولك ونقاط قوتك بدقائق معدودة.</span></span>
         </div>
         <div class="aside-point">
           <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <span class="txt"><strong>خطة تتطور معك</strong><span>حدّث بياناتك لتحصل على توجيه أدق.</span></span>
+          <span class="txt"><strong>توصيات مخصصة لك</strong><span>تخصصات وجامعات تناسب قدراتك واهتماماتك.</span></span>
         </div>
         <div class="aside-point">
           <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <span class="txt"><strong>مرشد ذكي دائم</strong><span>اسأل مساعدك في أي مرحلة من رحلتك.</span></span>
+          <span class="txt"><strong>خطة دراسية واضحة</strong><span>خطوات عملية توصلك لقرارك الجامعي بثقة.</span></span>
         </div>
       </div>
     </aside>
@@ -121,13 +106,38 @@
         </div>
 
         <span class="auth-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/></svg>
-          تسجيل الدخول
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          حساب جديد
         </span>
-        <h1 class="auth-title">أهلاً بعودتك</h1>
-        <p class="auth-subtitle">سجّل دخولك للمتابعة إلى حسابك.</p>
+        <h1 class="auth-title">أنشئ حسابك</h1>
+        <p class="auth-subtitle">خطوة وحدة تفصلك عن اكتشاف تخصصك المناسب.</p>
 
-        <form id="loginForm" novalidate>
+        <form id="signupForm" novalidate>
+
+          <!-- مبدّل نوع الحساب -->
+          <div class="form-group">
+            <label>نوع الحساب</label>
+            <div class="type-toggle" role="tablist">
+              <button type="button" class="type-btn active" data-type="school" aria-selected="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg>
+                طالب ثانوي
+              </button>
+              <button type="button" class="type-btn" data-type="university" aria-selected="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+                طالب جامعي
+              </button>
+            </div>
+            <input type="hidden" id="accountType" name="accountType" value="school">
+          </div>
+
+          <div class="form-group">
+            <label for="fullname">الاسم الكامل</label>
+            <div class="input-icon-wrap">
+              <input type="text" class="form-control" id="fullname" name="fullname" placeholder="اكتب اسمك الكامل" autocomplete="name" required>
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="email">البريد الإلكتروني</label>
             <div class="input-icon-wrap">
@@ -136,29 +146,36 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="password">كلمة المرور</label>
-            <div class="input-icon-wrap">
-              <input type="password" class="form-control" id="password" name="password" placeholder="أدخل كلمة المرور" autocomplete="current-password" required>
-              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <button type="button" class="toggle-password" data-target="password" aria-label="إظهار كلمة المرور">
-                <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-                <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.6 20.6 0 0 1 5.06-5.94M9.9 4.24A10.9 10.9 0 0 1 12 4c7 0 11 7 11 7a20.6 20.6 0 0 1-2.19 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-              </button>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="password">كلمة المرور</label>
+              <div class="input-icon-wrap">
+                <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" autocomplete="new-password" required>
+                <button type="button" class="toggle-password" data-target="password" aria-label="إظهار كلمة المرور">
+                  <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.6 20.6 0 0 1 5.06-5.94M9.9 4.24A10.9 10.9 0 0 1 12 4c7 0 11 7 11 7a20.6 20.6 0 0 1-2.19 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">تأكيد كلمة المرور</label>
+              <div class="input-icon-wrap">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="••••••••" autocomplete="new-password" required>
+                <button type="button" class="toggle-password" data-target="confirmPassword" aria-label="إظهار كلمة المرور">
+                  <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.6 20.6 0 0 1 5.06-5.94M9.9 4.24A10.9 10.9 0 0 1 12 4c7 0 11 7 11 7a20.6 20.6 0 0 1-2.19 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div class="form-meta">
-            <a href="forgot-password.html">نسيت كلمة المرور؟</a>
-          </div>
-
           <button type="submit" class="btn-submit">
-            تسجيل الدخول
+            إنشاء الحساب
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
         </form>
 
-        <p class="auth-footer-text">ليس لديك حساب؟ <a href="signup.html">أنشئ واحداً</a></p>
+        <p class="auth-footer-text">عندك حساب مسبقاً؟ <a href="login.html">سجّل دخولك</a></p>
       </div>
     </main>
   </div>
@@ -232,21 +249,44 @@
 
   <script src="../js/auth.js"></script>
   <script>
+    // مبدّل نوع الحساب (طالب ثانوي / طالب جامعي)
+    document.querySelectorAll('.type-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.type-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+        document.getElementById('accountType').value = this.dataset.type;
+      });
+    });
+
+    // زر إظهار/إخفاء كلمة المرور: منطقها موجود مركزياً بـ auth.js
+    // (event delegation على .toggle-password) — ما تكرريه هون، هيك كنت
+    // مضاعفة الـ toggle مرتين بكل ضغطة (بيرجع كلمة المرور لحالتها الأصلية فوراً).
+
     // ملاحظة: نقطة ربط الـ API الحقيقية موجودة أدناه. حالياً نعرض توست تجريبي.
-    var loginForm = document.getElementById('loginForm');
-    loginForm.addEventListener('submit', function (e) {
+    var signupForm = document.getElementById('signupForm');
+    signupForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      var fullname = document.getElementById('fullname').value.trim();
       var email = document.getElementById('email').value.trim();
       var password = document.getElementById('password').value;
+      var confirmPassword = document.getElementById('confirmPassword').value;
 
-      if (!email || !password) {
-        showToast('يرجى إدخال البريد الإلكتروني وكلمة المرور', 'error');
+      if (!fullname || !email || !password || !confirmPassword) {
+        showToast('يرجى تعبئة كل الحقول', 'error');
+        return;
+      }
+      if (password !== confirmPassword) {
+        showToast('كلمتا المرور غير متطابقتين', 'error');
         return;
       }
 
       // TODO: استبدل هذا الجزء بطلب الـ API الفعلي
-      // fetch('http://127.0.0.1:8000/api/login', { ... })
-      showToast('تم تسجيل الدخول بنجاح!', 'success');
+      // fetch('http://127.0.0.1:8000/api/signup', { ... })
+      showToast('تم إنشاء الحساب بنجاح!', 'success');
     });
   </script>
 </body>

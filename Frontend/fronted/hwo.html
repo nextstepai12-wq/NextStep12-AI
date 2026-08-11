@@ -11,13 +11,32 @@
 <link href="../css/header.css" rel="stylesheet">
 <link href="../css/about.css" rel="stylesheet">
 <link href="../css/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/app.css">
+
 </head>
 <body class="about-page">
 
 <!-- ======================= HEADER (نفس هيدر باقي الموقع) ======================= -->
-<script src="header.js?v=2"></script>
 
-<main>
+
+
+  <header class="sim-header">
+        <a href="index.html" class="brand-mark">
+      <img src="../assets/logo.png" alt="NextStep AI" class="brand-logo">
+      <div class="brand-text">NextStep<span>AI</span> </div>
+    </a>
+<nav class="main-nav">
+      <ul>
+<li><a href="../Frontend/fronted/how.html">عن المنصة</a></li>
+<li><a href="../Frontend/fronted/universities.html">الجامعات</a></li>
+<li><a href="../Frontend/fronted/quiz.html">الاختبار الذكي</a></li>
+<li><a href="index.html" class="active">الرئيسية</a></li>
+      </ul>
+    </nav>
+ <div class="nav-actions">
+     
+      <a href="fronted/login.html" class="btn-signin">تسجيل دخول</a>
+    </div></header>
   <section class="hero no-border">
     <div class="wrap">
       <h1>نساعد كل طالب يختار طريقه الصح <span class="grad">بالبيانات، لا بالصدفة</span></h1>
@@ -27,10 +46,7 @@
     </div>
     <div class="flow-band">
       <canvas id="logoFlock" aria-hidden="true"></canvas>
-      <div class="flow-caption">
-    
-     
-      </div>
+   
     </div>
   </section>
 
@@ -235,7 +251,7 @@
     </div>
   </section>
 
-</main>
+
 
 <!-- ======================= FOOTER (نفس فوتر باقي الموقع) ======================= -->
 <script src="footer.js"></script>

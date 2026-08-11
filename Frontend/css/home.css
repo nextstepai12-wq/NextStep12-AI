@@ -15,7 +15,6 @@ section.hero{
   min-height:800px;
   padding:clamp(6rem, 8vw, 8rem) 2rem 4rem;
   background:transparent;
-  background-color: #1e1b4b;
 }
 .hero-media,
 .hero-overlay{

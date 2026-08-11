@@ -6,8 +6,7 @@ footer.site-footer{
   width:100%;
   position:relative;
   /* جعلنا التدرج يبدأ بدرجة أفتح قليلاً ومريحة للعين */
-  background:linear-gradient(180deg, #1e3a60 0%, #152b4f 100%);
-  color:#F1F5F9;
+background: linear-gradient(180deg, #3d5677 0%, #7d8da7 100%);  color:#F1F5F9;
   overflow:hidden;
   margin-top:auto;
   flex-shrink:0;
@@ -53,7 +52,8 @@ footer.site-footer::after{
   margin-bottom:14px;
 }
 
-footer .brand-mark .brand-logo{width:38px;height:38px;object-fit:contain;flex-shrink:0;}
+footer .brand-mark .brand-logo{width: 59px;
+  height: 58px;object-fit:contain;flex-shrink:0;}
 
 footer .brand-mark .brand-text{
   font-family:'Poppins',sans-serif;
@@ -63,6 +63,7 @@ footer .brand-mark .brand-text{
   display:flex;
   align-items:center;
   gap:6px;
+  font-size: clamp(-2.5rem, 31px, 46px);
 }
 
 footer .brand-mark .brand-text span{color:var(--cyan);}
@@ -125,6 +126,7 @@ footer .brand-mark .brand-text span{color:var(--cyan);}
   align-items:center;
   gap:6px;
   transition:color .2s ease, transform .2s ease;
+  
 }
 
 .footer-col ul li a:hover{
@@ -141,6 +143,8 @@ footer .brand-mark .brand-text span{color:var(--cyan);}
   font-size:14px;
   color:#cbd5e1;
   margin-bottom:14px;
+   display: flex;
+  width: 100%;
 }
 
 .contact-item .icon-wrap{
@@ -155,6 +159,10 @@ footer .brand-mark .brand-text span{color:var(--cyan);}
 .contact-item a{color:#cbd5e1;text-decoration:none;transition:color .2s;}
 .contact-item a:hover{color:var(--cyan);}
 
+.contact-item a[href^="tel:"] {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 .footer-bottom{
   border-top:1px solid rgba(255,255,255,0.12);
   padding-top:22px;
@@ -167,7 +175,7 @@ footer .brand-mark .brand-text span{color:var(--cyan);}
 
 .footer-bottom p{
   font-size:13px;
-  color:#94a3b8;
+  color: #F1F5F9;
 }
 
 .footer-bottom .legal-links{
@@ -184,6 +192,18 @@ footer .brand-mark .brand-text span{color:var(--cyan);}
 
 .footer-bottom .legal-links a:hover{color:var(--mint);}
 
+
+.logo2 span{
+font-size: 16px;
+font-weight: 700;
+margin-left: 45px;
+}
+.logo2 p{
+  font-size: 14px;
+  text-align: right;
+  direction: rtl;
+margin-right: 24px;
+}
 @media (max-width:860px){
   .footer-top{grid-template-columns:1fr 1fr;row-gap:32px;}
   .footer-brand{grid-column:1 / -1;}

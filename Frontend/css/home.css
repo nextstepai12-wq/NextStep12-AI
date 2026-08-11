@@ -15,6 +15,7 @@ section.hero{
   min-height:800px;
   padding:clamp(6rem, 8vw, 8rem) 2rem 4rem;
   background:transparent;
+  background-color: #1e1b4b;
 }
 .hero-media,
 .hero-overlay{
@@ -448,12 +449,12 @@ section.hero{
 
 /* الزر الشفاف */
 .cta-banner .btn-outline {
-    background-color: rgba(255, 255, 255, 0.08);
-    color: #ffffff;
+    background-color: rgba(212, 214, 223, 0.08);
+    color: #F5F7FA;
     padding: 14px 28px;
     border-radius: 12px;
-    font-weight: 600;
-    font-size: 15px;
+   font-weight: 700;
+  font-size: 16px;
     text-decoration: none;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
@@ -496,7 +497,7 @@ section.hero{
 .cta-banner {
     width: 100%;
     max-width: 1000px;
-    background: linear-gradient(135deg, #173873 0%, #2F68FF 100%);
+   background: linear-gradient(180deg, #3d5677 0%, #7d8da7 100%);
     border-radius: 24px;
     padding: 60px 40px;
     text-align: center;

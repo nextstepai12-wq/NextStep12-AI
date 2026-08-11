@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الطلاب — لوحة تحكم الإدارة | NextStep AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/app.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/students.css">
+</head>
+<body>
+
+<header class="admin-topbar" id="adminTopbar"></header>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main admin-main-content">
+
+    <!-- ====== PAGE HEADER ====== -->
+    <div class="admin-page-head">
+      <div>
+        <h1>إدارة الطلاب</h1>
+        <p id="pageSubtitle">عرض وتحليل بيانات الطلاب حسب العمادة والتخصص.</p>
+      </div>
+      <div class="page-actions">
+        <button type="button" class="pill-btn" id="changeFilterBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+          تغيير الفلتر
+        </button>
+        <span class="ai-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg>
+          بواسطة AI
+        </span>
+      </div>
+    </div>
+
+    <!-- ====== TIME FILTER ====== -->
+    <div class="time-filter-bar">
+      <span class="filter-label">الفترة الزمنية:</span>
+      <div class="time-filter-buttons">
+        <button type="button" class="time-filter-btn active" data-range="week">هذا الأسبوع</button>
+        <button type="button" class="time-filter-btn" data-range="month">هذا الشهر</button>
+        <button type="button" class="time-filter-btn" data-range="year">هذه السنة</button>
+        <button type="button" class="time-filter-btn" data-range="all">كل الوقت</button>
+      </div>
+      <span class="time-range-info" id="timeRangeInfo">آخر 7 أيام</span>
+    </div>
+
+    <!-- ====== STATS GRID ====== -->
+    <div class="student-stats-grid" id="studentStatsGrid">
+      <!-- سيتم تعبئته بواسطة JavaScript -->
+    </div>
+
+    <!-- ====== CHARTS ROW ====== -->
+    <div class="student-charts-row">
+      <div class="admin-panel chart-panel">
+        <div class="chart-card-head">
+          <h3>التوزيع حسب المستوى الدراسي</h3>
+        </div>
+        <div class="chart-holder">
+          <canvas id="levelChart"></canvas>
+        </div>
+      </div>
+      <div class="admin-panel chart-panel">
+        <div class="chart-card-head">
+          <h3>المعدل التراكمي (GPA)</h3>
+        </div>
+        <div class="chart-holder">
+          <canvas id="gpaChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== STUDENTS TABLE ====== -->
+    <div class="admin-panel">
+      <div class="students-table-head">
+        <h3>قائمة الطلاب <span id="studentCount" style="font-weight:400;color:var(--gray);font-size:0.85rem;"></span></h3>
+        <div class="table-actions">
+          <input type="text" placeholder="بحث عن طالب..." id="studentSearchInput">
+          <button type="button" class="export-btn" id="exportCsvBtn">تصدير CSV</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="students-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الاسم</th>
+              <th>المعرف الجامعي</th>
+              <th>التخصص</th>
+              <th>المستوى</th>
+              <th>المعدل</th>
+              <th>الحالة</th>
+              <th>تاريخ التسجيل</th>
+            </tr>
+          </thead>
+          <tbody id="studentsTableBody">
+            <!-- سيتم تعبئته بواسطة JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- =========================================================
+     FILTER SELECTION MODAL (يظهر أول ما تدخل الصفحة)
+========================================================= -->
+<div class="app-modal-overlay" id="filterModalOverlay" style="z-index:9999;">
+  <div class="app-modal filter-modal" role="dialog" aria-modal="true" style="max-width:520px;">
+    <div class="filter-modal-header">
+      <h3>🔍 اختيار العمادة والتخصص</h3>
+      <p style="font-size:0.85rem;color:var(--gray);font-weight:400;margin:0;">اختر العمادة والتخصص لعرض بيانات الطلاب الخاصة بهم.</p>
+    </div>
+    <div class="filter-modal-body">
+      <div class="field-group">
+        <label for="filterDeanship">العمادة</label>
+        <select id="filterDeanship">
+          <option value="">-- اختر العمادة --</option>
+          <option value="1">عمادة كلية الهندسة وتكنولوجيا المعلومات</option>
+          <option value="2">عمادة كلية العلوم</option>
+          <option value="3">عمادة كلية الطب</option>
+          <option value="4">عمادة كلية الأعمال والاقتصاد</option>
+          <option value="5">عمادة كلية الآداب</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label for="filterMajor">التخصص</label>
+        <select id="filterMajor" disabled>
+          <option value="">-- اختر التخصص --</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-modal-footer">
+      <button type="button" class="btn-cancel-outline" id="resetFilterBtn">إعادة تعيين</button>
+      <button type="button" class="btn-save-primary" id="applyFilterBtn">عرض الطلاب</button>
+    </div>
+  </div>
+</div>
+
+<div id="admin-footer-slot"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="../../js/admin-shell.js"></script>
+
+<script>
+  (function() {
+    'use strict';
+
+    // ========================================================================
+    // 1. MOCK DATA (مع تواريخ)
+    // ========================================================================
+    var MOCK_STUDENTS = [
+      { id: 1, name: 'أحمد محمود', universityId: '202310001', major: 'علوم الحاسوب', level: 'رابع', gpa: 3.8, status: 'نشط', enrolled: '2026-09-01' },
+      { id: 2, name: 'سارة خالد', universityId: '202310002', major: 'هندسة البرمجيات', level: 'ثالث', gpa: 3.5, status: 'نشط', enrolled: '2026-08-15' },
+      { id: 3, name: 'عمر عبدالله', universityId: '202310003', major: 'الأمن السيبراني', level: 'ثاني', gpa: 2.9, status: 'محتمل', enrolled: '2026-07-20' },
+      { id: 4, name: 'ليلى محمد', universityId: '202310004', major: 'علوم الحاسوب', level: 'أول', gpa: 4.0, status: 'نشط', enrolled: '2026-09-10' },
+      { id: 5, name: 'خالد يوسف', universityId: '202310005', major: 'إدارة الأعمال', level: 'رابع', gpa: 3.2, status: 'خريج', enrolled: '2026-06-01' },
+      { id: 6, name: 'منى إبراهيم', universityId: '202310006', major: 'الطب البشري', level: 'خامس', gpa: 3.9, status: 'نشط', enrolled: '2026-08-01' },
+      { id: 7, name: 'ناصر علي', universityId: '202310007', major: 'هندسة البرمجيات', level: 'ثاني', gpa: 2.5, status: 'محتمل', enrolled: '2026-07-05' },
+      { id: 8, name: 'هدى سامي', universityId: '202310008', major: 'الأمن السيبراني', level: 'ثالث', gpa: 3.7, status: 'نشط', enrolled: '2026-09-05' },
+      { id: 9, name: 'رامي نادر', universityId: '202310009', major: 'علوم الحاسوب', level: 'ثاني', gpa: 3.1, status: 'نشط', enrolled: '2026-07-25' },
+      { id: 10, name: 'دينا عصام', universityId: '202310010', major: 'إدارة الأعمال', level: 'ثالث', gpa: 3.6, status: 'نشط', enrolled: '2026-08-20' },
+      { id: 11, name: 'سامر زياد', universityId: '202310011', major: 'هندسة البرمجيات', level: 'رابع', gpa: 3.3, status: 'خريج', enrolled: '2026-05-30' },
+      { id: 12, name: 'نورا هشام', universityId: '202310012', major: 'علوم الحاسوب', level: 'ثالث', gpa: 3.9, status: 'نشط', enrolled: '2026-09-12' },
+    ];
+
+    var MOCK_MAJORS = {
+      1: ['علوم الحاسوب', 'هندسة البرمجيات', 'هندسة الحاسوب', 'الأمن السيبراني', 'الذكاء الاصطناعي'],
+      2: ['الفيزياء', 'الكيمياء', 'الرياضيات', 'الأحياء'],
+      3: ['الطب البشري', 'طب الأسنان', 'الصيدلة', 'التمريض'],
+      4: ['إدارة الأعمال', 'المحاسبة', 'الاقتصاد', 'التسويق'],
+      5: ['اللغة العربية', 'اللغة الإنجليزية', 'تأهيل ذوي الإعاقة', 'علم النفس'],
+    };
+
+    // ========================================================================
+    // 2. STATE
+    // ========================================================================
+    var state = {
+      deanshipId: '',
+      majorName: '',
+      timeRange: 'week',
+      filteredStudents: []
+    };
+
+    // ========================================================================
+    // 3. ELEMENTS
+    // ========================================================================
+    var filterModal = document.getElementById('filterModalOverlay');
+    var filterDeanship = document.getElementById('filterDeanship');
+    var filterMajor = document.getElementById('filterMajor');
+    var applyBtn = document.getElementById('applyFilterBtn');
+    var resetBtn = document.getElementById('resetFilterBtn');
+    var changeFilterBtn = document.getElementById('changeFilterBtn');
+    var statsGrid = document.getElementById('studentStatsGrid');
+    var tableBody = document.getElementById('studentsTableBody');
+    var studentCount = document.getElementById('studentCount');
+    var searchInput = document.getElementById('studentSearchInput');
+    var timeFilterBtns = document.querySelectorAll('.time-filter-btn');
+    var timeRangeInfo = document.getElementById('timeRangeInfo');
+    var pageSubtitle = document.getElementById('pageSubtitle');
+
+    // ========================================================================
+    // 4. MODAL CONTROLS
+    // ========================================================================
+    function openModal() {
+      filterModal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      filterModal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    // فتح المودال تلقائياً عند تحميل الصفحة إذا لم يختر الفلتر بعد
+    setTimeout(openModal, 400);
+
+    changeFilterBtn.addEventListener('click', openModal);
+    filterModal.addEventListener('click', function(e) {
+      if (e.target === filterModal) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && filterModal.classList.contains('is-open')) closeModal();
+    });
+
+    // ========================================================================
+    // 5. CASCADING SELECTS
+    // ========================================================================
+    filterDeanship.addEventListener('change', function() {
+      var deanshipId = this.value;
+      filterMajor.innerHTML = '<option value="">-- اختر التخصص --</option>';
+      if (deanshipId && MOCK_MAJORS[deanshipId]) {
+        MOCK_MAJORS[deanshipId].forEach(function(major) {
+          var opt = document.createElement('option');
+          opt.value = major;
+          opt.textContent = major;
+          filterMajor.appendChild(opt);
+        });
+        filterMajor.disabled = false;
+      } else {
+        filterMajor.disabled = true;
+      }
+    });
+
+    // ========================================================================
+    // 6. TIME FILTER
+    // ========================================================================
+    function getDateRange(range) {
+      var now = new Date();
+      var start = new Date(now);
+      var labels = {
+        week: 'آخر 7 أيام',
+        month: 'آخر 30 يوم',
+        year: 'آخر 12 شهر',
+        all: 'كل الوقت'
+      };
+      switch(range) {
+        case 'week': start.setDate(now.getDate() - 7); break;
+        case 'month': start.setDate(now.getDate() - 30); break;
+        case 'year': start.setFullYear(now.getFullYear() - 1); break;
+        case 'all': start = new Date(2000, 0, 1); break;
+      }
+      return { start: start, end: now, label: labels[range] || labels.week };
+    }
+
+    timeFilterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        timeFilterBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        state.timeRange = this.dataset.range;
+        var range = getDateRange(state.timeRange);
+        timeRangeInfo.textContent = range.label;
+        applyFilters();
+      });
+    });
+
+    // ========================================================================
+    // 7. FILTER STUDENTS
+    // ========================================================================
+    function filterStudents(deanshipId, majorName, timeRange, searchQuery) {
+      var filtered = MOCK_STUDENTS;
+
+      // فلتر التخصص
+      if (majorName) {
+        filtered = filtered.filter(function(s) { return s.major === majorName; });
+      }
+
+      // فلتر الزمن
+      var range = getDateRange(timeRange);
+      filtered = filtered.filter(function(s) {
+        var date = new Date(s.enrolled);
+        return date >= range.start && date <= range.end;
+      });
+
+      // فلتر البحث
+      if (searchQuery) {
+        var q = searchQuery.toLowerCase();
+        filtered = filtered.filter(function(s) {
+          return s.name.toLowerCase().includes(q) ||
+                 s.universityId.toLowerCase().includes(q) ||
+                 s.major.toLowerCase().includes(q);
+        });
+      }
+
+      return filtered;
+    }
+
+    // ========================================================================
+    // 8. RENDER FUNCTIONS
+    // ========================================================================
+    function renderStats(students) {
+      var total = students.length;
+      var newStudents = students.filter(function(s) {
+        var range = getDateRange('week');
+        var date = new Date(s.enrolled);
+        return date >= range.start;
+      }).length;
+      var graduated = students.filter(function(s) { return s.status === 'خريج'; }).length;
+      var probation = students.filter(function(s) { return s.status === 'محتمل'; }).length;
+      var avgGpa = total > 0 ? (students.reduce(function(sum, s) { return sum + s.gpa; }, 0) / total).toFixed(1) : 0;
+
+      statsGrid.innerHTML = `
+        <div class="student-stat-card">
+          <div class="stat-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <div class="stat-number" data-count="${total}">0</div>
+            <div class="stat-label">إجمالي الطلاب</div>
+          </div>
+        </div>
+        <div class="student-stat-card">
+          <div class="stat-icon mint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L2 9l10 6 10-6-10-6z"/><path d="M2 15l10 6 10-6"/><path d="M2 21l10-6 10 6"/></svg>
+          </div>
+          <div>
+            <div class="stat-number" data-count="${newStudents}">0</div>
+            <div class="stat-label">جدد (آخر 7 أيام)</div>
+          </div>
+        </div>
+        <div class="student-stat-card">
+          <div class="stat-icon amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div>
+            <div class="stat-number" data-count="${graduated}">0</div>
+            <div class="stat-label">خريجين</div>
+          </div>
+        </div>
+        <div class="student-stat-card">
+          <div class="stat-icon navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div>
+            <div class="stat-number" data-count="${probation}">0</div>
+            <div class="stat-label">على المحك</div>
+          </div>
+        </div>
+        <div class="student-stat-card">
+          <div class="stat-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M6 4l2 2M18 4l-2 2M4 10h4M16 10h4M6 16l2-2M18 16l-2-2M12 18v4"/></svg>
+          </div>
+          <div>
+            <div class="stat-number" data-count="${avgGpa}">0</div>
+            <div class="stat-label">متوسط المعدل</div>
+          </div>
+        </div>
+      `;
+
+      // تشغيل أنيميشن للأرقام
+      document.querySelectorAll('.stat-number[data-count]').forEach(function(el) {
+        var target = parseFloat(el.dataset.count);
+        var isFloat = target % 1 !== 0;
+        var current = 0;
+        var step = target / 40;
+        var timer = setInterval(function() {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          el.textContent = isFloat ? current.toFixed(1) : Math.floor(current);
+        }, 30);
+      });
+    }
+
+    function renderTable(students) {
+      studentCount.textContent = '(' + students.length + ' طالب)';
+      tableBody.innerHTML = '';
+      if (!students.length) {
+        tableBody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--gray);">لا يوجد طلاب مطابقين للفلتر</td></tr>`;
+        return;
+      }
+      students.forEach(function(s, i) {
+        var statusClass = s.status === 'نشط' ? 'done' : s.status === 'خريج' ? 'review' : 'rejected';
+        var tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${i + 1}</td>
+          <td><strong>${s.name}</strong></td>
+          <td>${s.universityId}</td>
+          <td>${s.major}</td>
+          <td>${s.level}</td>
+          <td>${s.gpa}</td>
+          <td><span class="status-pill ${statusClass}"><span class="dot"></span> ${s.status}</span></td>
+          <td>${s.enrolled}</td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    function updateCharts(students) {
+      // تحضير بيانات المستويات
+      var levels = ['أول', 'ثاني', 'ثالث', 'رابع', 'خامس'];
+      var levelCounts = levels.map(function(l) {
+        return students.filter(function(s) { return s.level === l; }).length;
+      });
+
+      // تحضير بيانات GPA
+      var gpaRanges = ['0-2', '2-2.5', '2.5-3', '3-3.5', '3.5-4'];
+      var gpaCounts = gpaRanges.map(function(range) {
+        var parts = range.split('-').map(Number);
+        return students.filter(function(s) {
+          return s.gpa >= parts[0] && s.gpa < parts[1];
+        }).length;
+      });
+
+      var colors = ['#2F6BFF', '#16C088', '#B4790C', '#5B6B79', '#35D0FF'];
+
+      // Level Chart
+      var ctx1 = document.getElementById('levelChart').getContext('2d');
+      if (window._levelChart) {
+        window._levelChart.destroy();
+      }
+      window._levelChart = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: levels,
+          datasets: [{ data: levelCounts, backgroundColor: colors, borderRadius: 8 }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+          animation: { duration: 800 }
+        }
+      });
+
+      // GPA Chart
+      var ctx2 = document.getElementById('gpaChart').getContext('2d');
+      if (window._gpaChart) {
+        window._gpaChart.destroy();
+      }
+      window._gpaChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+          labels: gpaRanges,
+          datasets: [{ data: gpaCounts, backgroundColor: ['#D9DFE7', '#B4790C', '#16C088', '#2F6BFF', '#16233D'], cutout: '65%' }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 11 } } }
+          },
+          animation: { animateRotate: true, duration: 900 }
+        }
+      });
+    }
+
+    // ========================================================================
+    // 9. APPLY FILTERS
+    // ========================================================================
+    function applyFilters() {
+      var searchQuery = searchInput.value;
+      var filtered = filterStudents(state.deanshipId, state.majorName, state.timeRange, searchQuery);
+      state.filteredStudents = filtered;
+      renderStats(filtered);
+      renderTable(filtered);
+      updateCharts(filtered);
+
+      // تحديث العنوان الفرعي
+      var deanshipName = filterDeanship.options[filterDeanship.selectedIndex]?.text || 'العمادة';
+      var majorName = state.majorName || 'جميع التخصصات';
+      pageSubtitle.textContent = 'عرض بيانات طلاب ' + majorName + ' — ' + deanshipName;
+    }
+
+    // ========================================================================
+    // 10. APPLY FILTER FROM MODAL
+    // ========================================================================
+    applyBtn.addEventListener('click', function() {
+      var deanshipId = filterDeanship.value;
+      var majorName = filterMajor.value;
+      if (!deanshipId) {
+        alert('يرجى اختيار العمادة أولاً.');
+        return;
+      }
+      state.deanshipId = deanshipId;
+      state.majorName = majorName;
+      closeModal();
+      applyFilters();
+    });
+
+    resetBtn.addEventListener('click', function() {
+      filterDeanship.value = '';
+      filterMajor.innerHTML = '<option value="">-- اختر التخصص --</option>';
+      filterMajor.disabled = true;
+      state.deanshipId = '';
+      state.majorName = '';
+      closeModal();
+      applyFilters();
+    });
+
+    // ========================================================================
+    // 11. SEARCH
+    // ========================================================================
+    searchInput.addEventListener('input', function() {
+      applyFilters();
+    });
+
+    // ========================================================================
+    // 12. EXPORT CSV
+    // ========================================================================
+    document.getElementById('exportCsvBtn').addEventListener('click', function() {
+      var students = state.filteredStudents;
+      if (!students.length) {
+        alert('لا يوجد طلاب لتصديرهم.');
+        return;
+      }
+      var headers = ['الاسم', 'المعرف الجامعي', 'التخصص', 'المستوى', 'المعدل', 'الحالة', 'تاريخ التسجيل'];
+      var rows = students.map(function(s) {
+        return [s.name, s.universityId, s.major, s.level, s.gpa, s.status, s.enrolled].join(',');
+      });
+      var csv = headers.join(',') + '\n' + rows.join('\n');
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'students_' + state.majorName + '_' + new Date().toISOString().slice(0,10) + '.csv';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+
+    // ========================================================================
+    // 13. INIT
+    // ========================================================================
+    // تحميل البيانات الافتراضية (ستظهر بعد اختيار الفلتر)
+    // المودال مفتوح بالفعل، المستخدم سيختار الفلتر
+
+  })();
+</script>
+
+</body>
+</html>

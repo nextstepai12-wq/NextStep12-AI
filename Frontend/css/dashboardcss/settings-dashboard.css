@@ -1,61 +1,105 @@
-/* ===== SETTINGS-DASHBOARD.CSS ===== */
-/* ستايلات مخصصة للوحة الإعدادات الرئيسية */
+/* =========================================================
+   SETTINGS DASHBOARD
+   لوحة الإعدادات الرئيسية
+   ========================================================= */
 
 /* ===== SETTINGS GRID ===== */
+
 .settings-dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+  /* 3 بطاقات جنب بعض */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
   gap: 24px;
   margin-bottom: 32px;
+  width: 100%;
 }
 
 /* ===== SETTINGS CARD ===== */
+
 .settings-card {
-  background: white;
+  position: relative;
+
+  min-width: 0;
+  min-height: 255px;
+
+  background: var(--white);
   border-radius: var(--radius);
+
   padding: 28px 24px;
+
   box-shadow: var(--shadow);
   border: 1px solid rgba(47,107,255,0.04);
+
   cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
   overflow: hidden;
+
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s ease;
 }
+
+/* الخط العلوي */
 
 .settings-card::before {
   content: '';
+
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
+
   height: 3px;
-  background: linear-gradient(90deg, var(--navy), var(--blue), var(--cyan));
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--navy),
+      var(--blue),
+      var(--cyan)
+    );
+
   opacity: 0;
-  transition: var(--transition);
+
+  transition: opacity 0.3s ease;
 }
 
 .settings-card:hover::before {
   opacity: 1;
 }
 
+/* Hover */
+
 .settings-card:hover {
   transform: translateY(-6px);
+
   box-shadow: var(--shadow-hover);
-  border-color: rgba(47,107,255,0.08);
+
+  border-color: rgba(47,107,255,0.10);
 }
 
+/* Click */
+
 .settings-card:active {
-  transform: scale(0.98);
+  transform: translateY(-2px) scale(0.99);
 }
+
+/* ===== ICON ===== */
 
 .settings-card-icon {
   width: 56px;
   height: 56px;
+
   border-radius: 16px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   margin-bottom: 16px;
+
   transition: var(--transition);
 }
 
@@ -68,28 +112,46 @@
   height: 28px;
 }
 
+/* ===== TITLE ===== */
+
 .settings-card h3 {
   font-size: 1.1rem;
   font-weight: 800;
+
   color: var(--navy);
-  margin-bottom: 6px;
+
+  margin: 0 0 6px;
 }
+
+/* ===== DESCRIPTION ===== */
 
 .settings-card p {
   font-size: 0.9rem;
+
   color: var(--gray);
-  line-height: 1.6;
-  margin-bottom: 14px;
+
+  line-height: 1.7;
+
+  margin: 0 0 14px;
 }
 
+/* ===== STATUS ===== */
+
 .settings-card-status {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+
   padding: 4px 14px;
+
   background: var(--gray-bg);
+
   border-radius: 60px;
+
   font-size: 0.75rem;
   font-weight: 600;
+
   color: var(--gray-dark);
+
   transition: var(--transition);
 }
 
@@ -98,38 +160,61 @@
   color: var(--blue);
 }
 
+/* ===== ARROW ===== */
+
 .settings-card-arrow {
   position: absolute;
+
   left: 20px;
   top: 50%;
+
   transform: translateY(-50%);
+
   font-size: 1.2rem;
+
   color: var(--gray-light);
+
   transition: var(--transition);
+
   opacity: 0;
 }
 
 .settings-card:hover .settings-card-arrow {
   opacity: 1;
+
   color: var(--blue);
-  transform: translateY(-50%) translateX(-4px);
+
+  transform:
+    translateY(-50%)
+    translateX(-4px);
 }
 
-/* ===== SETTINGS STATS ===== */
+/* =========================================================
+   SETTINGS STATS
+   ========================================================= */
+
 .settings-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
   gap: 16px;
-  background: white;
+
+  background: var(--white);
+
   padding: 20px 24px;
+
   border-radius: var(--radius);
+
   box-shadow: var(--shadow);
+
   border: 1px solid rgba(47,107,255,0.04);
 }
 
 .settings-stat {
   display: flex;
   align-items: center;
+
   gap: 14px;
 }
 
@@ -146,41 +231,84 @@
 .stat-number {
   font-size: 1.5rem;
   font-weight: 800;
+
   color: var(--navy);
+
   line-height: 1.2;
 }
 
 .stat-label {
   font-size: 0.8rem;
+
   color: var(--gray);
+
   font-weight: 500;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1200px) {
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+/*
+   Desktop
+   3 أعمدة
+*/
+
+@media (min-width: 1201px) {
   .settings-dashboard-grid {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
+/*
+   الشاشات المتوسطة
+   نخليها 3 أعمدة أيضاً طالما المساحة تسمح
+*/
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .settings-dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .settings-card {
+    padding: 24px 20px;
+    min-height: 240px;
+  }
+
+  .settings-card h3 {
+    font-size: 1rem;
+  }
+
+  .settings-card p {
+    font-size: 0.82rem;
+  }
+}
+
+/*
+   Tablet
+   عمودين
+*/
+
 @media (max-width: 768px) {
   .settings-dashboard-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
   }
 
   .settings-card {
     padding: 20px 18px;
+    min-height: 220px;
   }
 
   .settings-card-icon {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
   }
 
   .settings-card-icon svg {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 
   .settings-card h3 {
@@ -191,25 +319,66 @@
     font-size: 0.8rem;
   }
 
+  .settings-card-arrow {
+    display: none;
+  }
+
   .settings-stats {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     padding: 16px;
+  }
+
+  .settings-card-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .settings-card-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .settings-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .settings-card p {
+    font-size: 0.8rem;
   }
 
   .settings-card-arrow {
     display: none;
   }
+
+  .settings-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+    padding: 16px;
+  }
 }
+
+/*
+   Mobile
+   عمود واحد
+*/
 
 @media (max-width: 480px) {
   .settings-dashboard-grid {
     grid-template-columns: 1fr;
   }
 
+  .settings-card {
+    min-height: 220px;
+  }
+
   .settings-stats {
     grid-template-columns: 1fr 1fr;
+
     gap: 8px;
+
     padding: 14px;
   }
 
@@ -230,8 +399,12 @@
   }
 }
 
-/* ===== DARK MODE ===== */
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
 @media (prefers-color-scheme: dark) {
+
   .settings-card {
     background: #1F2937;
     border-color: rgba(47,107,255,0.06);
@@ -273,12 +446,19 @@
   }
 }
 
-/* ===== PRINT ===== */
+/* =========================================================
+   PRINT
+   ========================================================= */
+
 @media print {
+
   .settings-card {
     break-inside: avoid;
+
     box-shadow: none;
+
     border: 1px solid #e0e0e0;
+
     cursor: default;
   }
 
@@ -293,7 +473,9 @@
 
   .settings-stats {
     break-inside: avoid;
+
     border: 1px solid #e0e0e0;
+
     box-shadow: none;
   }
 
@@ -306,23 +488,55 @@
   }
 }
 
-/* ===== ANIMATION ===== */
+/* =========================================================
+   CARD ANIMATION
+   ========================================================= */
+
 .settings-card {
   opacity: 0;
-  transform: translateY(20px);
-  animation: cardFadeIn 0.6s ease forwards;
+
+  animation:
+    cardFadeIn 0.6s ease forwards;
 }
 
-.settings-card:nth-child(1) { animation-delay: 0.05s; }
-.settings-card:nth-child(2) { animation-delay: 0.10s; }
-.settings-card:nth-child(3) { animation-delay: 0.15s; }
-.settings-card:nth-child(4) { animation-delay: 0.20s; }
-.settings-card:nth-child(5) { animation-delay: 0.25s; }
-.settings-card:nth-child(6) { animation-delay: 0.30s; }
-.settings-card:nth-child(7) { animation-delay: 0.35s; }
-.settings-card:nth-child(8) { animation-delay: 0.40s; }
+.settings-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.settings-card:nth-child(2) {
+  animation-delay: 0.10s;
+}
+
+.settings-card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.settings-card:nth-child(4) {
+  animation-delay: 0.20s;
+}
+
+.settings-card:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.settings-card:nth-child(6) {
+  animation-delay: 0.30s;
+}
+
+.settings-card:nth-child(7) {
+  animation-delay: 0.35s;
+}
+
+.settings-card:nth-child(8) {
+  animation-delay: 0.40s;
+}
 
 @keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
   to {
     opacity: 1;
     transform: translateY(0);

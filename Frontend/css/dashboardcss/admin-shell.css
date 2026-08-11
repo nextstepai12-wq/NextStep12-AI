@@ -344,6 +344,7 @@ body {
 }
 
 /* ===== MAIN ===== */
+/* ===== MAIN ===== */
 .admin-main {
   min-width: 0;
 }
@@ -785,7 +786,7 @@ body {
     text-align: center;
   }
   .admin-footer-inner {
-    justify-content: center;
+    justify-content: end;
   }
 }
 

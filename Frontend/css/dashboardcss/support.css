@@ -393,3 +393,96 @@
   color: var(--red);
 }
 .students-table .status-pill.rejected .dot { background: var(--red); }
+
+/* =====================================================================
+   ADDITIONS — جدول تذاكر الدعم (support.html الحالي بيستخدم <table> مش
+   .ticket-item القديمة). الكلاسات تحت ناقصة بالكامل من الملف الأصلي،
+   وهاد سبب ظهور زر "إلغاء الطلب" بدون أي تنسيق.
+   ===================================================================== */
+
+.tickets-table-wrap {
+  overflow-x: auto;
+}
+
+.tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tickets-table thead th {
+  text-align: right;
+  padding: 12px 16px;
+  font-weight: 700;
+  color: var(--gray);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-bottom: 2px solid var(--gray-bg);
+}
+
+.tickets-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--gray-bg);
+  color: var(--gray-dark);
+  vertical-align: middle;
+}
+
+.tickets-table tbody tr:hover {
+  background: var(--gray-bg);
+}
+
+.ticket-title-cell strong {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+/* شارة الأولوية داخل الجدول (اسم مختلف عن .ticket-priority القديمة) */
+.priority-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 60px;
+}
+.priority-badge.medium { background: rgba(180,121,12,0.12); color: var(--gold); }
+.priority-badge.urgent { background: rgba(198,40,40,0.10); color: var(--red); }
+
+/* status-pill بس كانت معرّفة جوا .students-table — هلق بتشتغل جوا .tickets-table كمان */
+.tickets-table .status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 60px;
+}
+.tickets-table .status-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.tickets-table .status-pill.done { background: rgba(22,192,136,0.14); color: #0F9D6F; }
+.tickets-table .status-pill.done .dot { background: #0F9D6F; }
+.tickets-table .status-pill.review { background: rgba(47,107,255,0.10); color: var(--blue); }
+.tickets-table .status-pill.review .dot { background: var(--blue); }
+.tickets-table .status-pill.rejected { background: #FDEDEE; color: var(--red); }
+.tickets-table .status-pill.rejected .dot { background: var(--red); }
+
+/* الأب الفعلي بالجدول اسمه .ticket-actions-cell مش .ticket-actions —
+   عشان هيك .ticket-close-btn كان بياخد اللون بس بدون شكل الزر */
+.ticket-actions-cell {
+  display: flex;
+  gap: 8px;
+}
+.ticket-actions-cell button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--transition);
+}

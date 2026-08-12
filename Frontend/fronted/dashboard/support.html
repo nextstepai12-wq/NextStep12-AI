@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الدعم الفني — لوحة تحكم الإدارة | NextStep AI</title>
+  <title>الدعم الفني | NextStep AI</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../../css/app.css">
   <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
-  <link rel="stylesheet" href="../../css/support.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/support.css">
 </head>
 <body>
 
@@ -24,7 +24,7 @@
     <div class="admin-page-head">
       <div>
         <h1>الدعم الفني</h1>
-        <p>إدارة تذاكر الدعم والاستفسارات الفنية.</p>
+        <p>تابع تذاكر الدعم اللي فتحتها، أو افتح تذكرة جديدة.</p>
       </div>
       <span class="ai-badge">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg>
@@ -32,23 +32,23 @@
       </span>
     </div>
 
-    <!-- ====== STATS ====== -->
+    <!-- ====== STATS (تذاكري أنا بس) ====== -->
     <div class="support-stats-grid">
       <div class="support-stat-card">
         <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg></div>
-        <div><span class="stat-number" id="totalTickets">0</span><span class="stat-label">إجمالي التذاكر</span></div>
+        <div><span class="stat-number" id="totalTickets">0</span><span class="stat-label">إجمالي تذاكري</span></div>
       </div>
       <div class="support-stat-card">
         <div class="stat-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/></svg></div>
         <div><span class="stat-number" id="openTickets">0</span><span class="stat-label">مفتوحة</span></div>
       </div>
       <div class="support-stat-card">
-        <div class="stat-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <div><span class="stat-number" id="closedTickets">0</span><span class="stat-label">مغلقة</span></div>
+        <div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <div><span class="stat-number" id="inProgressTickets">0</span><span class="stat-label">قيد المعالجة</span></div>
       </div>
       <div class="support-stat-card">
-        <div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M6 4l2 2M18 4l-2 2M4 10h4M16 10h4M6 16l2-2M18 16l-2-2M12 18v4"/></svg></div>
-        <div><span class="stat-number" id="avgResponse">0</span><span class="stat-label">متوسط وقت الرد</span></div>
+        <div class="stat-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div><span class="stat-number" id="closedTickets">0</span><span class="stat-label">مغلقة</span></div>
       </div>
     </div>
 
@@ -67,11 +67,26 @@
       </button>
     </div>
 
-    <!-- ====== TICKETS LIST ====== -->
+    <!-- ====== TICKETS TABLE (تذاكري أنا بس) ====== -->
     <div class="admin-panel">
-      <div class="tickets-list" id="ticketsList">
-        <!-- سيتم تعبئته بواسطة JavaScript -->
+      <div class="tickets-table-wrap">
+        <table class="tickets-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الطلب</th>
+              <th>الأولوية</th>
+              <th>الحالة</th>
+              <th>وقت الإرسال</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="ticketsTableBody">
+            <!-- سيتم تعبئته بواسطة JavaScript -->
+          </tbody>
+        </table>
       </div>
+      <div id="ticketsEmptyState"></div>
     </div>
 
   </main>
@@ -94,10 +109,8 @@
       <div class="field-group">
         <label for="ticketPriority">الأولوية</label>
         <select id="ticketPriority">
-          <option value="low">منخفضة</option>
           <option value="medium" selected>متوسطة</option>
-          <option value="high">عالية</option>
-          <option value="critical">حرجة</option>
+          <option value="urgent">عاجلة</option>
         </select>
       </div>
       <div class="field-group">
@@ -120,17 +133,15 @@
     'use strict';
 
     // ================================================================
-    // MOCK DATA
+    // MOCK DATA — تذاكر المستخدم الحالي فقط (محاكاة، بدون user column)
     // ================================================================
     var ticketsData = [
-      { id: 1, title: 'مشكلة في تسجيل الدخول', description: 'لا أستطيع تسجيل الدخول إلى النظام منذ يومين.', priority: 'high', status: 'open', created: '2026-10-01', updated: '2026-10-02', user: 'أحمد محمود' },
-      { id: 2, title: 'استفسار عن خطة الدراسة', description: 'هل يمكن تعديل الخطة الدراسية بعد بدء الفصل؟', priority: 'medium', status: 'in-progress', created: '2026-09-28', updated: '2026-09-29', user: 'سارة خالد' },
-      { id: 3, title: 'خطأ في عرض الإحصائيات', description: 'الأرقام في صفحة الإحصائيات غير دقيقة.', priority: 'critical', status: 'open', created: '2026-09-27', updated: '2026-09-27', user: 'عمر عبدالله' },
-      { id: 4, title: 'طلب إضافة ميزة جديدة', description: 'نقترح إضافة خيار تصدير البيانات بصيغة Excel.', priority: 'low', status: 'closed', created: '2026-09-20', updated: '2026-09-25', user: 'ليلى محمد' },
-      { id: 5, title: 'مشكلة في رفع الملفات', description: 'لا يمكن رفع ملفات PDF أكبر من 5 ميجابايت.', priority: 'medium', status: 'closed', created: '2026-09-15', updated: '2026-09-18', user: 'خالد يوسف' },
+      { id: 1, title: 'مشكلة في تسجيل الدخول', description: 'لا أستطيع تسجيل الدخول إلى النظام منذ يومين.', priority: 'urgent', status: 'open', created: '2026-10-01T09:00', updated: '2026-10-02T14:00' },
+      { id: 2, title: 'استفسار عن خطة الدراسة', description: 'هل يمكن تعديل الخطة الدراسية بعد بدء الفصل؟', priority: 'medium', status: 'in-progress', created: '2026-09-28T10:00', updated: '2026-09-29T09:00' },
+      { id: 3, title: 'مشكلة في رفع الملفات', description: 'لا يمكن رفع ملفات PDF أكبر من 5 ميجابايت.', priority: 'medium', status: 'closed', created: '2026-09-15T12:00', updated: '2026-09-18T16:00' },
     ];
 
-    var ticketIdCounter = 6;
+    var ticketIdCounter = 4;
 
     // ================================================================
     // RENDER
@@ -146,20 +157,22 @@
         var q = search.toLowerCase();
         filtered = filtered.filter(function(t) {
           return t.title.toLowerCase().includes(q) ||
-                 t.description.toLowerCase().includes(q) ||
-                 t.user.toLowerCase().includes(q);
+                 t.description.toLowerCase().includes(q);
         });
       }
 
-      // تحديث الإحصائيات
+      // تحديث الإحصائيات (محسوبة من كامل تذاكري، مش من نتيجة الفلترة)
       document.getElementById('totalTickets').textContent = ticketsData.length;
-      document.getElementById('openTickets').textContent = ticketsData.filter(function(t) { return t.status === 'open' || t.status === 'in-progress'; }).length;
+      document.getElementById('openTickets').textContent = ticketsData.filter(function(t) { return t.status === 'open'; }).length;
+      document.getElementById('inProgressTickets').textContent = ticketsData.filter(function(t) { return t.status === 'in-progress'; }).length;
       document.getElementById('closedTickets').textContent = ticketsData.filter(function(t) { return t.status === 'closed'; }).length;
-      document.getElementById('avgResponse').textContent = '2.4 ساعة';
 
-      var list = document.getElementById('ticketsList');
+      var body = document.getElementById('ticketsTableBody');
+      var emptyState = document.getElementById('ticketsEmptyState');
+
       if (!filtered.length) {
-        list.innerHTML = `
+        body.innerHTML = '';
+        emptyState.innerHTML = `
           <div class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
             <h4>لا توجد تذاكر</h4>
@@ -168,77 +181,52 @@
         `;
         return;
       }
+      emptyState.innerHTML = '';
 
       var priorityMap = {
-        low: { label: 'منخفضة', class: 'low' },
         medium: { label: 'متوسطة', class: 'medium' },
-        high: { label: 'عالية', class: 'high' },
-        critical: { label: 'حرجة', class: 'critical' }
+        urgent: { label: 'عاجلة', class: 'urgent' }
       };
       var statusMap = {
-        open: { label: 'مفتوحة', class: 'open' },
-        'in-progress': { label: 'قيد المعالجة', class: 'in-progress' },
-        closed: { label: 'مغلقة', class: 'closed' }
+        open: { label: 'مفتوحة', class: 'rejected' },
+        'in-progress': { label: 'قيد المعالجة', class: 'review' },
+        closed: { label: 'مغلقة', class: 'done' }
       };
 
       var html = '';
-      filtered.forEach(function(t) {
+      filtered.forEach(function(t, i) {
         var p = priorityMap[t.priority] || priorityMap.medium;
         var s = statusMap[t.status] || statusMap.open;
+        var sentDisplay = (t.created || '').replace('T', ' — ');
         html += `
-          <div class="ticket-item">
-            <div class="ticket-main">
-              <div class="ticket-info">
-                <span class="ticket-priority ${p.class}">${p.label}</span>
-                <span class="ticket-status ${s.class}">${s.label}</span>
-                <strong class="ticket-title">${t.title}</strong>
+          <tr>
+            <td>${i + 1}</td>
+            <td class="ticket-title-cell"><strong title="${t.description.replace(/"/g, '&quot;')}">${t.title}</strong></td>
+            <td><span class="priority-badge ${p.class}">${p.label}</span></td>
+            <td><span class="status-pill ${s.class}"><span class="dot"></span> ${s.label}</span></td>
+            <td>${sentDisplay}</td>
+            <td>
+              <div class="ticket-actions-cell">
+                ${t.status !== 'closed' ? `<button type="button" class="ticket-close-btn" data-id="${t.id}">إلغاء الطلب</button>` : ''}
               </div>
-              <div class="ticket-meta">
-                <span class="ticket-user">👤 ${t.user}</span>
-                <span class="ticket-date">🕐 ${t.updated}</span>
-              </div>
-            </div>
-            <div class="ticket-details">
-              <p>${t.description}</p>
-              <div class="ticket-actions">
-                ${t.status !== 'closed' ? `<button type="button" class="ticket-close-btn" data-id="${t.id}">إغلاق التذكرة</button>` : ''}
-                <button type="button" class="ticket-delete-btn" data-id="${t.id}">حذف</button>
-              </div>
-            </div>
-          </div>
+            </td>
+          </tr>
         `;
       });
 
-      list.innerHTML = html;
+      body.innerHTML = html;
 
-      // ربط الأحداث
+      // ربط الأحداث — إلغاء الطلب فقط (المشترك ما بيقدر يلغي/يحذف تذاكر غيره)
       document.querySelectorAll('.ticket-close-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
           var id = parseInt(this.dataset.id);
+          if (!confirm('هل أنت متأكد من إلغاء هذا الطلب؟')) return;
           var ticket = ticketsData.find(function(t) { return t.id === id; });
           if (ticket) {
             ticket.status = 'closed';
-            ticket.updated = new Date().toISOString().slice(0,10);
+            ticket.updated = new Date().toISOString().slice(0, 16);
             applyFilters();
           }
-        });
-      });
-
-      document.querySelectorAll('.ticket-delete-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var id = parseInt(this.dataset.id);
-          if (confirm('هل أنت متأكد من حذف هذه التذكرة؟')) {
-            ticketsData = ticketsData.filter(function(t) { return t.id !== id; });
-            applyFilters();
-          }
-        });
-      });
-
-      // النقر على العنصر لتوسيع التفاصيل
-      document.querySelectorAll('.ticket-item').forEach(function(item) {
-        item.addEventListener('click', function(e) {
-          if (e.target.closest('.ticket-actions')) return;
-          this.classList.toggle('expanded');
         });
       });
     }
@@ -302,8 +290,7 @@
         priority: priority,
         status: 'open',
         created: new Date().toISOString().slice(0,10),
-        updated: new Date().toISOString().slice(0,10),
-        user: 'مدير النظام'
+        updated: new Date().toISOString().slice(0,10)
       });
 
       closeModalFn();

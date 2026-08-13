@@ -241,9 +241,44 @@
 }
 .students-table .status-pill.rejected .dot { background: var(--red); }
 
+/* ===== MODAL BASE (كانت ناقصة من هالملف — منسوخة من programs.css) ===== */
+.app-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11,26,51,0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.app-modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.app-modal {
+  background: white;
+  border-radius: var(--radius);
+  padding: 40px 44px 32px;
+  max-width: 440px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 32px 64px rgba(11,26,51,0.15);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+.app-modal-overlay.is-open .app-modal {
+  transform: scale(1);
+}
+
 /* ===== FILTER MODAL ===== */
 .filter-modal {
   max-width: 520px !important;
+  text-align: right; /* .app-modal بتخليها center افتراضياً، بس هاي مودال فورم مش رسالة تأكيد */
 }
 .filter-modal-header {
   display: flex;

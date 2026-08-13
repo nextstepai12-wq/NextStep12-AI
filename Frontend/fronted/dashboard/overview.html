@@ -47,6 +47,9 @@
     <!-- ======================= STAT CARDS ======================= -->
     <div class="stat-grid">
 
+      <!-- بديل "الطلبات المعلقة": ما في نظام طلبات رسمي بالمنصة (الطالب بس بيشوف
+           التوصية). البطاقة هلق بتحسب الطلاب المرشّحين لجامعتكم من recommendation_results
+           عبر majors -> deanships_faculties -> university_id -->
       <div class="stat-card">
         <div class="stat-card-top">
           <span class="stat-icon blue">
@@ -54,11 +57,14 @@
           </span>
           <span class="trend-badge flat">0%</span>
         </div>
-        <div class="stat-label">الطلبات المعلقة</div>
+        <div class="stat-label">طلاب مرشّحون لجامعتكم</div>
         <div class="stat-value">324</div>
         <div class="stat-bar-track"><div class="stat-bar-fill" style="width:38%"></div></div>
       </div>
 
+      <!-- بديل "معدل التخرج": ما في متابعة أكاديمية كاملة (فصول/تسجيل) بالمنصة
+           حالياً. البطاقة هلق بتحسب متوسط نسبة توافق التوصيات AVG(match_percentage)
+           من recommendation_results، لتخصصات هاي الجامعة -->
       <div class="stat-card">
         <div class="stat-card-top">
           <span class="stat-icon mint">
@@ -69,7 +75,7 @@
             5%
           </span>
         </div>
-        <div class="stat-label">معدل التخرج</div>
+        <div class="stat-label">متوسط نسبة التوافق</div>
         <div class="stat-value">88.5%</div>
         <div class="stat-bar-track"><div class="stat-bar-fill" style="width:88%"></div></div>
       </div>
@@ -99,97 +105,65 @@
             8%
           </span>
         </div>
-        <div class="stat-label">إجمالي الطلاب</div>
+        <!-- الطلاب المسجلين فعلياً بالجامعة: COUNT(student_profiles) WHERE
+             current_university_id = هاي الجامعة AND student_type = 'university_student' -->
+        <div class="stat-label">إجمالي الطلاب المسجّلين</div>
         <div class="stat-value">12,450</div>
         <div class="stat-bar-track"><div class="stat-bar-fill" style="width:74%"></div></div>
       </div>
 
     </div>
 
-    <!-- ======================= CHARTS ======================= -->
-    <div class="chart-row">
-
-      <div class="admin-panel">
-        <div class="chart-card-title">حالة طلبات القبول</div>
-        <div class="donut-wrap">
-          <canvas id="admissionDonut"></canvas>
-          <div class="donut-center">
-            <strong id="donutCenterValue">65%</strong>
-            <span>مقبول</span>
-          </div>
-        </div>
-        <div class="legend-list" id="donutLegend"></div>
-      </div>
-
-      <div class="admin-panel">
-        <div class="chart-card-title">توزيع الطلاب حسب القسم</div>
-        <div class="bar-chart-holder">
-          <canvas id="deptBarChart"></canvas>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ======================= ACTIVITY TABLE ======================= -->
+    <!-- ======================= أعلى 3 تخصصات إقبالاً (معاينة فقط) ======================= -->
+    <!-- بدل الرسومتين البيانيتين وجدول النشاط بالكامل: معاينة مختصرة (Top 3 بس،
+         عمودين بس) بدل نسخة كاملة، عشان نتجنب تكرار جدول "أفضل التخصصات إقبالاً"
+         الكامل الموجود بصفحة statistics.html. زر "التفاصيل الكاملة" بيوديك
+         للجدول الكامل هناك، مش نسخة ثانية منه هون. -->
     <div class="admin-panel">
       <div class="activity-head">
-        <div class="chart-card-title" style="margin-bottom:0;">النشاط الأخير</div>
-        <a href="#" class="link-view-all">عرض الكل</a>
+        <div class="chart-card-title" style="margin-bottom:0;">أعلى 3 تخصصات إقبالاً</div>
+        <a href="statistics.html" class="link-view-all">التفاصيل الكاملة</a>
       </div>
 
-      <table class="activity-table">
+      <!-- المصدر: COUNT من recommendation_results GROUP BY major_id، مرتبة تنازلياً، LIMIT 3 -->
+      <table class="top-programs-table">
         <thead>
           <tr>
-            <th>الطالب / الموظف</th>
-            <th>النشاط</th>
-            <th>التاريخ</th>
-            <th>الحالة</th>
+            <th>#</th>
+            <th>التخصص</th>
+            <th>الاتجاه</th>
           </tr>
         </thead>
         <tbody>
           <tr>
+            <td><span class="rank-badge top">1</span></td>
+            <td><strong>هندسة البرمجيات</strong></td>
             <td>
-              <div class="person-cell">
-                <span class="avatar-chip" style="background:#2F6BFF;">أم</span>
-                <strong>أحمد محمود</strong>
-              </div>
+              <span class="mini-trend up">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17l9-9M8 8h8v8"/></svg>
+                12%
+              </span>
             </td>
-            <td>تقديم طلب تسجيل جديد</td>
-            <td>10 أكت 2026</td>
-            <td><span class="status-pill review"><span class="dot"></span> قيد المراجعة</span></td>
           </tr>
           <tr>
+            <td><span class="rank-badge">2</span></td>
+            <td><strong>علوم الحاسوب</strong></td>
             <td>
-              <div class="person-cell">
-                <span class="avatar-chip" style="background:#16C088;">سخ</span>
-                <strong>سارة خالد</strong>
-              </div>
+              <span class="mini-trend up">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17l9-9M8 8h8v8"/></svg>
+                8%
+              </span>
             </td>
-            <td>تحديث ملف الخريج</td>
-            <td>09 أكت 2026</td>
-            <td><span class="status-pill done"><span class="dot"></span> مكتمل</span></td>
           </tr>
           <tr>
+            <td><span class="rank-badge">3</span></td>
+            <td><strong>إدارة الأعمال</strong></td>
             <td>
-              <div class="person-cell">
-                <span class="avatar-chip" style="background:#B4790C;">عع</span>
-                <strong>عمر عبدالله</strong>
-              </div>
+              <span class="mini-trend down">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 7l9 9M16 8v8H8"/></svg>
+                3%
+              </span>
             </td>
-            <td>طلب استثناء أكاديمي</td>
-            <td>08 أكت 2026</td>
-            <td><span class="status-pill rejected"><span class="dot"></span> مرفوض</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="person-cell">
-                <span class="avatar-chip" style="background:#16233D;">د.م</span>
-                <strong>د. أحمد محمود</strong>
-              </div>
-            </td>
-            <td>رفع خطة دراسية جديدة</td>
-            <td>07 أكت 2026</td>
-            <td><span class="status-pill done"><span class="dot"></span> مكتمل</span></td>
           </tr>
         </tbody>
       </table>
@@ -199,90 +173,8 @@
 
 </div>
 
-<!-- ======================= Chart.js ======================= -->
-<script src="../../js/chart.umd.min.js"></script>
+<!-- ما عاد في رسومات بيانية بهاي الصفحة (انتقلت لصفحة statistics.html)، فما لازمنا Chart.js هون -->
 <script>
-  // =========================================
-  // =================================
-  // بيانات وهمية (Mock) — بدون باك اند، اربطيها لاحقاً بـ API حقيقي
-  // ==========================================================================
-  const admissionData = [
-    { label: 'مقبول',        value: 65, color: '#16233D' },
-    { label: 'قيد الانتظار', value: 25, color: '#2F6BFF' },
-    { label: 'مرفوض',        value: 10, color: '#D9DFE7' },
-  ];
-
-  const deptData = [
-    { label: 'الأمن السيبراني',   value: 620,  color: '#5B6B79' },
-    { label: 'علوم البيانات',     value: 980,  color: '#2F6BFF' },
-    { label: 'هندسة البرمجيات',   value: 1450, color: '#16233D' },
-    { label: 'إدارة الأعمال',     value: 860,  color: '#16C088' },
-  ];
-
-  const cairoFont = { family: "'Cairo', sans-serif", weight: '600' };
-
-  // ---- Donut chart: حالة طلبات القبول ----
-  new Chart(document.getElementById('admissionDonut'), {
-    type: 'doughnut',
-    data: {
-      labels: admissionData.map(d => d.label),
-      datasets: [{
-        data: admissionData.map(d => d.value),
-        backgroundColor: admissionData.map(d => d.color),
-        borderWidth: 0,
-        cutout: '72%',
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      plugins: { legend: { display: false }, tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont } },
-      animation: { animateRotate: true, duration: 900 }
-    }
-  });
-
-  // شرح الألوان تحت الرسم (Legend مخصّص بنفس هوية الصفحة)
-  const legendHost = document.getElementById('donutLegend');
-  admissionData.forEach(d => {
-    const row = document.createElement('div');
-    row.className = 'legend-row';
-    row.innerHTML = `
-      <span class="legend-label">
-        <span class="legend-dot" style="background:${d.color}"></span>
-        ${d.label}
-      </span>
-      <span class="legend-value">${d.value}%</span>
-    `;
-    legendHost.appendChild(row);
-  });
-
-  // ---- Bar chart: توزيع الطلاب حسب القسم ----
-  new Chart(document.getElementById('deptBarChart'), {
-    type: 'bar',
-    data: {
-      labels: deptData.map(d => d.label),
-      datasets: [{
-        data: deptData.map(d => d.value),
-        backgroundColor: deptData.map(d => d.color),
-        borderRadius: 8,
-        maxBarThickness: 64,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
-      },
-      scales: {
-        x: { grid: { display: false }, ticks: { font: cairoFont, color: '#5B6B79' } },
-        y: { grid: { color: '#F0F2F5' }, ticks: { font: cairoFont, color: '#5B6B79' }, beginAtZero: true }
-      },
-      animation: { duration: 900, easing: 'easeOutQuart' }
-    }
-  });
-
   // ==========================================================================
   // زر تصدير التقرير — placeholder بدون باك اند
   // ==========================================================================

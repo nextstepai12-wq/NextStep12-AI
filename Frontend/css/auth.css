@@ -50,6 +50,7 @@
   position: absolute; z-index: -1;
   width: 560px; height: 560px;
   top: -240px; inset-inline-end: -180px;
+  
   background: radial-gradient(circle, rgba(53,208,255,.22) 0%, rgba(53,208,255,0) 70%);
   border-radius: 50%;
 }

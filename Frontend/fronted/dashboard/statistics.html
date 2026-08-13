@@ -80,22 +80,24 @@
         <div class="kpi-sub">مقارنة بالفصل السابق</div>
       </div>
       
+      <!-- المصدر: recommendation_results.match_percentage — نسبة الطلاب اللي أعلى توصية إلهم match_percentage >= 80 -->
       <div class="kpi-card">
-        <div class="kpi-label">نسبة القبول العامة</div>
+        <div class="kpi-label">نسبة الطلاب بتوافق مرتفع</div>
         <div class="kpi-value-row">
-          <span class="kpi-value">65%</span>
+          <span class="kpi-value">58%</span>
           <span class="kpi-delta down">▼ 2%</span>
         </div>
-        <div class="kpi-sub">من إجمالي الطلبات المقدَّمة</div>
+        <div class="kpi-sub">نسبة توافق ≥ 80% مع التخصص الموصى به</div>
       </div>
       
+      <!-- المصدر: الفرق الزمني بين آخر student_survey_responses.created_at للطالب و recommendation_results.created_at المرتبط فيه، بمعدل عام -->
       <div class="kpi-card">
-        <div class="kpi-label">متوسط زمن معالجة الطلب</div>
+        <div class="kpi-label">متوسط وقت صدور التوصية</div>
         <div class="kpi-value-row">
-          <span class="kpi-value">2.3 يوم</span>
+          <span class="kpi-value">0.4 يوم</span>
           <span class="kpi-delta up">▲ أسرع 14%</span>
         </div>
-        <div class="kpi-sub">من رفع الطلب لحد القرار</div>
+        <div class="kpi-sub">من إكمال الاستبيان لصدور التوصية</div>
       </div>
       
       <div class="kpi-card">
@@ -122,15 +124,16 @@
         </div>
       </div>
 
+      <!-- المصدر: student_profiles.student_type (new_student / university_student) -->
       <div class="admin-panel">
         <div class="chart-card-head">
-          <h3>توزيع الطلاب حسب الدرجة</h3>
+          <h3>توزيع الطلاب حسب النوع</h3>
         </div>
         <div class="donut-wrap">
           <canvas id="degreeDonut"></canvas>
           <div class="donut-center">
-            <strong id="degreeCenterValue">72%</strong>
-            <span>بكالوريوس</span>
+            <strong id="degreeCenterValue">64%</strong>
+            <span id="degreeCenterLabel">طالب جديد</span>
           </div>
         </div>
         <div class="legend-list" id="degreeLegend"></div>
@@ -148,9 +151,10 @@
         </div>
       </div>
       
+      <!-- المصدر: recommendation_results.match_percentage — موزّع على فئات -->
       <div class="admin-panel">
         <div class="chart-card-head">
-          <h3>حالة الطلبات</h3>
+          <h3>توزيع الطلاب حسب نسبة التوافق</h3>
         </div>
         <div class="chart-holder sm">
           <canvas id="statusBarChart"></canvas>
@@ -161,7 +165,11 @@
     <!-- ====== TOP PROGRAMS TABLE ====== -->
     <div class="admin-panel">
       <div class="chart-card-head">
-        <h3>أفضل التخصصات إقبالاً</h3>
+        <h3 id="topProgramsTitle">أفضل التخصصات إقبالاً</h3>
+        <div class="chart-tabs" id="programsSortTabs">
+          <button type="button" class="chart-tab-btn active" data-sort="top">الأكثر إقبالاً</button>
+          <button type="button" class="chart-tab-btn" data-sort="bottom">الأقل إقبالاً</button>
+        </div>
       </div>
       <table class="top-programs-table">
         <thead>
@@ -198,10 +206,8 @@
     };
 
     const degreeData = [
-      { label: 'بكالوريوس', value: 72, color: '#16233D' },
-      { label: 'ماجستير', value: 21, color: '#2F6BFF' },
-      { label: 'دكتوراة', value: 4, color: '#16C088' },
-      { label: 'دبلوم', value: 3, color: '#D9DFE7' },
+      { label: 'طالب جديد (ثانوية)', value: 64, color: '#16233D' },
+      { label: 'طالب جامعي', value: 36, color: '#2F6BFF' },
     ];
 
     const deanshipBarData = [
@@ -213,17 +219,26 @@
     ];
 
     const statusBarData = [
-      { label: 'مقبول', value: 65, color: '#16C088' },
-      { label: 'قيد المراجعة', value: 25, color: '#2F6BFF' },
-      { label: 'مرفوض', value: 10, color: '#C62828' },
+      { label: 'أقل من 60%', value: 18, color: '#C62828' },
+      { label: '60% - 80%', value: 24, color: '#2F6BFF' },
+      { label: 'أعلى من 80%', value: 58, color: '#16C088' },
     ];
 
+    // المصدر: recommendation_results مجمّعة حسب major_id (عدد الترشيحات لكل تخصص)
     const topPrograms = [
       { name: 'هندسة البرمجيات', students: 1450, acceptance: 71, trend: 12 },
       { name: 'علوم الحاسوب', students: 1180, acceptance: 66, trend: 8 },
       { name: 'إدارة الأعمال', students: 980, acceptance: 74, trend: -3 },
       { name: 'الطب البشري', students: 860, acceptance: 22, trend: 5 },
       { name: 'الأمن السيبراني', students: 620, acceptance: 58, trend: 19 },
+    ];
+
+    const bottomPrograms = [
+      { name: 'الفلسفة', students: 45, acceptance: 88, trend: -6 },
+      { name: 'الآثار', students: 62, acceptance: 81, trend: -2 },
+      { name: 'اللغة الفرنسية', students: 78, acceptance: 85, trend: 1 },
+      { name: 'الجغرافيا', students: 95, acceptance: 79, trend: -4 },
+      { name: 'علم الاجتماع', students: 110, acceptance: 76, trend: 3 },
     ];
 
     // ---- 1. Line Chart: نمو الطلاب ----
@@ -398,10 +413,14 @@
       });
     }
 
-    // ---- 5. جدول أفضل التخصصات ----
+    // ---- 5. جدول أفضل / أقل التخصصات إقبالاً ----
     const topBody = document.getElementById('topProgramsBody');
-    if (topBody) {
-      topPrograms.forEach((p, i) => {
+    const topProgramsTitle = document.getElementById('topProgramsTitle');
+
+    function renderPrograms(list) {
+      if (!topBody) return;
+      topBody.innerHTML = '';
+      list.forEach((p, i) => {
         const tr = document.createElement('tr');
         const trendUp = p.trend >= 0;
         tr.innerHTML = `
@@ -421,6 +440,24 @@
         topBody.appendChild(tr);
       });
     }
+
+    renderPrograms(topPrograms);
+
+    document.getElementById('programsSortTabs')?.querySelectorAll('.chart-tab-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        document.getElementById('programsSortTabs')
+          .querySelectorAll('.chart-tab-btn')
+          .forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        if (this.dataset.sort === 'bottom') {
+          topProgramsTitle.textContent = 'أقل التخصصات إقبالاً';
+          renderPrograms(bottomPrograms);
+        } else {
+          topProgramsTitle.textContent = 'أفضل التخصصات إقبالاً';
+          renderPrograms(topPrograms);
+        }
+      });
+    });
 
     // ---- زر تصدير التقرير ----
     document.getElementById('statsExportBtn')?.addEventListener('click', () => {

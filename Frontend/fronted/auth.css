@@ -12,14 +12,105 @@
    عند السكرول (عشان header-spacer يضل متوافق وما تصير فجوة فادحة).
    ملاحظة: هاد هو المكان الوحيد يلي بيحدد سلوك .scrolled لهيدر صفحات auth —
    ما تكرري هاد التعريف بملف تاني (كان فيه تعارض مع header.css قبل التنضيف). */
-.site-header.header-solid{
-  background:var(--grad-deep);
-  box-shadow:0 8px 24px rgba(15,35,71,.18);
+/* تنسيق شريط التنقل العام */
+.site-header {
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
 }
-.site-header.header-solid.scrolled{
-  position:fixed !important;
-  background:var(--grad-deep);
-  box-shadow:0 8px 24px rgba(15,35,71,.22);
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* تنسيق الشعار */
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-logo {
+  height: 40px;
+  object-fit: contain;
+}
+
+.brand-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1e293b;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.brand-text span {
+  color: #0ea5e9;
+}
+
+/* تنسيق القائمة الرئيسية */
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #64748b;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+  color: #0ea5e9;
+}
+
+/* العنصر النشط (الرئيسية) مشابه للصورة */
+.main-nav a[href="../index.html"] {
+  color: #0ea5e9;
+  font-weight: 600;
+}
+
+/* أزرار الإجراءات واليسار */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* إخفاء أيقونة الإشعارات مؤقتاً لتطابق الصورة تماماً (أو يمكنك حذف هذا السطر إذا أردت إظهارها) */
+.icon-btn {
+  display: none; 
+}
+
+/* زر تسجيل الدخول البارز */
+.btn-signin {
+  background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+  color: #ffffff;
+  padding: 10px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-signin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
 }
 
 /* ============================== التخطيط ============================== */
@@ -66,6 +157,17 @@
 .auth-aside .aside-brand .brand-text {
   font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 22px; color: #fff;
 }
+.auth-aside .aside-brand {  background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      padding: 14px 24px;
+    
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      direction: ltr;}
+
 .auth-aside .aside-brand .brand-text span { color: var(--cyan); }
 
 .auth-aside h2 {

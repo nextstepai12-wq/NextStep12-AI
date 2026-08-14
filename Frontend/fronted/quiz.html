@@ -15,37 +15,32 @@
 
 <!-- ======================= HEADER ======================= -->
 <script src="../js/header-index.js"></script>
+
 <!-- ======================= QUIZ ======================= -->
 <div class="quiz-wrap">
-  <div class="quiz-inner">
-
-    <div class="quiz-head">
-      <span class="quiz-eyebrow-top">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
-        استبيان اكتشاف الميول
-      </span>
-      <h1>الاستبيان الذكي</h1>
-      <p>أجب عن الأسئلة التالية بصدق، وخلينا نساعدك تكتشف التخصص الأنسب لشخصيتك ومهاراتك</p>
-    </div>
-
-    <!-- Stepper -->
-    <div class="quiz-stepper" id="stepper"></div>
-    <div class="quiz-progress-label">السؤال <span id="progressCurrent">1</span> من <span id="progressTotal">6</span></div>
-
-    <!-- Question card -->
+  <div class="ring-wrap" id="ringWrap">
     <div class="quiz-card" id="quizCard">
+
       <div id="questionView">
-        <div class="quiz-q-eyebrow" id="qEyebrow">السؤال 1</div>
+        <div class="card-top">
+          <div class="mini-path" id="miniPath"></div>
+          <div class="q-counter"><b id="qNum">1</b>/6</div>
+        </div>
+
         <div class="quiz-question" id="qText"></div>
         <div class="quiz-options" id="qOptions"></div>
 
         <div class="quiz-nav">
           <button class="quiz-nav-btn" id="btnPrev" type="button">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 19l-7-7 7-7"/></svg>
-            السؤال السابق
+            السابق
+          </button>
+          <button class="quiz-finish-btn" id="btnFinish" type="button" disabled>
+            إنهاء الاختبار
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
           </button>
           <button class="quiz-nav-btn primary" id="btnNext" type="button">
-            السؤال التالي
+            التالي
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
         </div>
@@ -63,16 +58,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
       </div>
-    </div>
 
-    <!-- Finish button -->
-    <div class="quiz-finish-wrap">
-      <button class="quiz-finish-btn" id="btnFinish" type="button" disabled>
-        إنهاء الاختبار
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
-      </button>
     </div>
-
   </div>
 </div>
 
@@ -107,68 +94,65 @@ const questions = [
   }
 ];
 
+/* ألوان الهوية المستخدمة بالـ burst والـ confetti */
+const brandColors = ['#2f6bff', '#48e6b0', '#173b73'];
+
 /* ======================= STATE ======================= */
 let current = 0;
 const answers = new Array(questions.length).fill(null);
 
 /* ======================= DOM ======================= */
-const stepperEl = document.getElementById('stepper');
-const qEyebrow = document.getElementById('qEyebrow');
+const ringWrap = document.getElementById('ringWrap');
+const miniPath = document.getElementById('miniPath');
+const qNum = document.getElementById('qNum');
 const qText = document.getElementById('qText');
 const qOptions = document.getElementById('qOptions');
 const btnPrev = document.getElementById('btnPrev');
 const btnNext = document.getElementById('btnNext');
 const btnFinish = document.getElementById('btnFinish');
-const progressCurrent = document.getElementById('progressCurrent');
-const progressTotal = document.getElementById('progressTotal');
 const questionView = document.getElementById('questionView');
 const doneView = document.getElementById('doneView');
+const quizCard = document.getElementById('quizCard');
 
-progressTotal.textContent = questions.length;
-
-/* Build stepper dots + connecting lines */
-function buildStepper(){
-  stepperEl.innerHTML = '';
+/* Build the tiny dot path in the card header */
+function buildMiniPath(){
+  miniPath.innerHTML = '';
   questions.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'step-dot';
-    dot.textContent = i + 1;
+    const dot = document.createElement('span');
+    dot.className = 'mini-dot';
     dot.dataset.index = i;
-    stepperEl.appendChild(dot);
-    if (i < questions.length - 1){
-      const line = document.createElement('div');
-      line.className = 'step-line';
-      stepperEl.appendChild(line);
-    }
+    miniPath.appendChild(dot);
   });
 }
 
-function updateStepper(){
-  const dots = stepperEl.querySelectorAll('.step-dot');
-  const lines = stepperEl.querySelectorAll('.step-line');
+function updateMiniPath(){
+  const dots = miniPath.querySelectorAll('.mini-dot');
   dots.forEach((dot, i) => {
     dot.classList.remove('done', 'active');
     if (i < current) dot.classList.add('done');
     else if (i === current) dot.classList.add('active');
   });
-  lines.forEach((line, i) => {
-    line.classList.toggle('done', i < current);
-  });
+}
+
+/* الحلقة المضيئة حوالين الكرت بتمتلئ حسب نسبة التقدم */
+function updateRing(){
+  const pct = Math.round(((current + 1) / questions.length) * 100);
+  ringWrap.style.setProperty('--progress', pct);
 }
 
 function renderQuestion(){
   const q = questions[current];
-  qEyebrow.textContent = 'السؤال ' + (current + 1);
+  qNum.textContent = current + 1;
   qText.textContent = q.text;
-  progressCurrent.textContent = current + 1;
 
   qOptions.innerHTML = '';
   q.options.forEach((opt, i) => {
     const el = document.createElement('div');
     el.className = 'quiz-option' + (answers[current] === i ? ' selected' : '');
-    el.innerHTML = '<span class="opt-radio"></span><span>' + opt + '</span>';
-    el.addEventListener('click', () => {
+    el.innerHTML = '<span>' + opt + '</span><span class="opt-check"></span>';
+    el.addEventListener('click', (e) => {
       answers[current] = i;
+      spawnBurst(el);
       renderQuestion();
       updateFinishState();
     });
@@ -178,12 +162,55 @@ function renderQuestion(){
   btnPrev.disabled = current === 0;
   btnNext.style.display = current === questions.length - 1 ? 'none' : 'inline-flex';
 
-  updateStepper();
+  updateMiniPath();
+  updateRing();
 }
 
 function updateFinishState(){
   const allAnswered = answers.every(a => a !== null);
   btnFinish.disabled = !allAnswered;
+}
+
+/* مكافأة بصرية صغيرة عند كل اختيار: نقاط بتتطاير من مركز الخيار المختار */
+function spawnBurst(targetEl){
+  const rect = targetEl.getBoundingClientRect();
+  const cardRect = quizCard.getBoundingClientRect();
+  const originX = rect.left - cardRect.left + rect.width / 2;
+  const originY = rect.top - cardRect.top + rect.height / 2;
+
+  for (let i = 0; i < 10; i++){
+    const dot = document.createElement('span');
+    dot.className = 'burst-dot';
+    const angle = (Math.PI * 2 * i) / 10 + Math.random() * 0.4;
+    const dist = 34 + Math.random() * 26;
+    const fx = Math.cos(angle) * dist;
+    const fy = Math.sin(angle) * dist;
+    dot.style.left = originX + 'px';
+    dot.style.top = originY + 'px';
+    dot.style.background = brandColors[i % brandColors.length];
+    dot.style.setProperty('--fly', 'translate(' + fx + 'px,' + fy + 'px)');
+    quizCard.appendChild(dot);
+    dot.addEventListener('animationend', () => dot.remove());
+  }
+}
+
+/* confetti احتفالي عند إنهاء الاستبيان */
+function spawnConfetti(){
+  const cardWidth = quizCard.clientWidth;
+  for (let i = 0; i < 36; i++){
+    const piece = document.createElement('span');
+    piece.className = 'confetti-piece';
+    const startX = Math.random() * cardWidth;
+    const fallY = 220 + Math.random() * 140;
+    const driftX = (Math.random() - 0.5) * 120;
+    piece.style.left = startX + 'px';
+    piece.style.background = brandColors[i % brandColors.length];
+    piece.style.setProperty('--fall', 'translate(' + driftX + 'px,' + fallY + 'px)');
+    piece.style.setProperty('--spin', (Math.random() * 480 - 240) + 'deg');
+    piece.style.animationDelay = (Math.random() * 0.3) + 's';
+    quizCard.appendChild(piece);
+    piece.addEventListener('animationend', () => piece.remove());
+  }
 }
 
 btnPrev.addEventListener('click', () => {
@@ -196,10 +223,12 @@ btnFinish.addEventListener('click', () => {
   if (btnFinish.disabled) return;
   questionView.style.display = 'none';
   doneView.style.display = 'block';
+  ringWrap.classList.add('complete');
+  spawnConfetti();
 });
 
 /* Init */
-buildStepper();
+buildMiniPath();
 renderQuestion();
 updateFinishState();
 </script>

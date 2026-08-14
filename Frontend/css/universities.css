@@ -1,236 +1,1988 @@
-/* =====================================================================
-   universities.css
-   خاص بصفحة قائمة الجامعات (universities.html)
-   يعتمد على المتغيرات المعرّفة بـ app.css — حمّل app.css قبله
-   ===================================================================== */
+/* ============================================================
+   UNIVERSITIES PAGE
+   NextStep AI
+   University Directory
+============================================================ */
 
-body{background:var(--bg-page);}
 
-/* ======================= SEARCH HERO ======================= */
-.uni-hero{
-  background: linear-gradient(120deg, var(--navy) 0%, #1E4A8F 60%, var(--blue) 100%);
-  padding-top: calc(var(--header-height, 80px) + 24px); /* إزاحة علوية ديناميكية بحجم الهيدر */
-  padding-bottom: 44px;
-  padding-left: 16px;
-  padding-right: 16px;
-  text-align: center;
-}
-.uni-hero h1{
-  font-family:'Poppins',sans-serif;
-  font-weight:800;
-  font-size:clamp(22px,3.4vw,30px);
-  color:#fff;
-  margin-bottom:8px;
-}
-.uni-hero p{font-size:14px;color:#C7D2E0;max-width:460px;margin:0 auto 26px;line-height:1.7;}
+/* ============================================================
+   ROOT
+============================================================ */
 
-.search-hero-box{
-  max-width:620px;
-  margin:0 auto;
-  background:#fff;
-  border-radius:14px;
-  padding:6px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  box-shadow:0 16px 36px rgba(10,20,40,0.25);
-}
-.search-hero-box svg{width:18px;height:18px;color:var(--gray);flex-shrink:0;margin-right:12px;}
-.search-hero-box input{
-  flex:1;
-  border:none;
-  outline:none;
-  background:transparent;
-  font-family:'Cairo',sans-serif;
-  font-size:14px;
-  color:var(--dark);
-  padding:11px 4px;
-}
-.search-hero-box input::placeholder{color:#AAB4C2;}
-.search-hero-btn{
-  padding:11px 22px;
-  border-radius:10px;
-  background:var(--mint);
-  color:#fff;
-  font-weight:700;
-  font-size:13.5px;
-  border:none;
-  font-family:'Cairo',sans-serif;
-  cursor:pointer;
-  transition:transform .2s ease;
-  flex-shrink:0;
-}
-.search-hero-btn:hover{transform:translateY(-2px);}
+:root {
+    --uni-navy-dark: #0F172A;
+    --uni-navy: #1E3A8A;
+    --uni-navy-light: #1E40AF;
 
-.quick-chips{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:8px;
-  margin-top:18px;
-}
-.quick-chip{
-  padding:6px 16px;
-  border-radius:999px;
-  background:rgba(255,255,255,0.12);
-  color:#fff;
-  font-size:12px;
-  font-weight:700;
-  border:1px solid rgba(255,255,255,0.2);
-  cursor:pointer;
-  transition:all .2s ease;
-}
-.quick-chip:hover, .quick-chip.active{background:#fff;color:var(--navy);}
+    --uni-blue: #0284C7;
+    --uni-blue-dark: #0369A1;
 
-/* ======================= MAIN CONTENT ======================= */
-.uni-wrap{padding:36px 16px 90px;}
-.uni-inner{max-width:1180px;margin:0 auto;}
+    --uni-cyan: #38BDF8;
+    --uni-cyan-light: #E0F2FE;
 
-/* ---- Filters bar ---- */
-.filters-bar{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px 20px;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-bottom:26px;
-}
-.filters-bar .filter-group{display:flex;align-items:center;gap:8px;}
-.filters-bar label{font-size:12.5px;font-weight:700;color:var(--navy);flex-shrink:0;}
-.filters-bar select{
-  padding:8px 12px;
-  border-radius:9px;
-  border:1.5px solid var(--border);
-  font-family:'Cairo',sans-serif;
-  font-size:12.5px;
-  font-weight:600;
-  color:var(--dark);
-  background:var(--light);
-  outline:none;
-  cursor:pointer;
-}
-.filters-bar select:focus{border-color:var(--blue);}
-.results-count{margin-right:auto;font-size:12.5px;color:var(--gray);font-weight:600;}
+    --uni-white: #FFFFFF;
 
-/* ---- University cards grid ---- */
-.uni-grid-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:48px;}
-.uni-list-card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:22px;
-  transition:all .2s ease;
-}
-.uni-list-card:hover{border-color:var(--blue);box-shadow:0 14px 30px rgba(23,59,115,0.1);transform:translateY(-3px);}
-.uni-list-card-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.uni-avatar{
-  width:48px;height:48px;border-radius:14px;
-  background:linear-gradient(135deg, var(--blue), var(--cyan));
-  color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.uni-avatar svg{width:22px;height:22px;}
-.uni-list-card h3{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:2px;}
-.uni-list-card .uni-loc{font-size:12px;color:var(--gray);display:flex;align-items:center;gap:4px;}
-.uni-list-card .uni-loc svg{width:12px;height:12px;}
+    --uni-bg: #F8FAFC;
+    --uni-bg-soft: #F1F5F9;
 
-.uni-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
-.uni-tag{
-  font-size:11px;font-weight:700;
-  padding:4px 10px;border-radius:999px;
-  background:rgba(72,230,176,0.1);
-  color:var(--mint);
-}
-.uni-tag.sector{background:rgba(47,107,255,0.1);color:var(--blue);}
+    --uni-text: #0F172A;
+    --uni-text-light: #64748B;
+    --uni-muted: #94A3B8;
 
-.uni-list-stats{display:flex;justify-content:space-between;margin-bottom:16px;padding-top:14px;border-top:1px solid var(--border);}
-.uni-list-stats .stat{text-align:center;}
-.uni-list-stats .stat b{display:block;font-family:'Poppins',sans-serif;font-weight:800;font-size:15px;color:var(--navy);}
-.uni-list-stats .stat span{font-size:10.5px;color:var(--gray);}
+    --uni-border: #E2E8F0;
 
-.btn-view-uni{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  background:var(--light);
-  color:var(--navy);
-  font-weight:700;
-  font-size:13px;
-  border:1.5px solid var(--border);
-  transition:all .2s ease;
-}
-.btn-view-uni:hover{background:var(--blue);border-color:var(--blue);color:#fff;}
-.btn-view-uni svg{width:14px;height:14px;}
+    --uni-shadow:
+        0 12px 35px rgba(15, 23, 42, 0.06);
 
-.no-results{
-  grid-column:1/-1;
-  text-align:center;
-  padding:40px 20px;
-  color:var(--gray);
-  font-size:13.5px;
+    --uni-shadow-hover:
+        0 22px 55px rgba(2, 132, 199, 0.12);
+
+    --uni-radius: 22px;
+
+    /*
+     * HERO BACKGROUND IMAGE
+     * -----------------------------------------------------------
+     * Temporary stock photo (free Unsplash license) used until a
+     * real campus photo is provided. To swap it later, just
+     * replace this single URL — nothing else needs to change.
+     * Recommended: a wide (2000px+) landscape shot, well lit.
+     */
+    --uni-hero-image:
+        url("https://images.unsplash.com/photo-1731624674592-377a7cac4913?auto=format&fit=crop&w=2000&q=80");
+
+    /*
+     * ARTICLE THUMBNAIL IMAGES
+     * Same idea as the hero image — swap any of these later by
+     * changing a single line, nothing else in the CSS needs to move.
+     */
+    --article-1-image:
+        url("https://images.unsplash.com/photo-1429743305873-d4065c15f93e?auto=format&fit=crop&w=1000&q=80");
+    --article-2-image:
+        url("https://images.unsplash.com/photo-1504607798333-52a30db54a5d?auto=format&fit=crop&w=1000&q=80");
+    --article-3-image:
+        url("https://images.unsplash.com/photo-1741637335289-c99652d3155f?auto=format&fit=crop&w=1000&q=80");
 }
 
-/* ======================= ARTICLES SECTION ======================= */
-.section-title{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:20px;}
-.section-title .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);flex-shrink:0;}
 
-.articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:48px;}
-.article-card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:16px;
-  overflow:hidden;
-  transition:all .2s ease;
-}
-.article-card:hover{border-color:var(--blue);box-shadow:0 14px 30px rgba(23,59,115,0.1);transform:translateY(-3px);}
-.article-thumb{
-  height:130px;
-  background:linear-gradient(135deg, var(--navy), var(--blue));
-  display:flex;align-items:center;justify-content:center;
-  color:rgba(255,255,255,0.5);
-}
-.article-thumb svg{width:36px;height:36px;}
-.article-body{padding:16px 18px;}
-.article-body h4{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:6px;line-height:1.5;}
-.article-body p{font-size:12px;color:var(--gray);line-height:1.6;margin-bottom:10px;}
-.article-link{font-size:12px;font-weight:700;color:var(--blue);display:inline-flex;align-items:center;gap:4px;}
-.article-link svg{width:12px;height:12px;}
+/* ============================================================
+   GLOBAL
+============================================================ */
 
-/* ======================= FAQ SECTION ======================= */
-.faq-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-.faq-item{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
-.faq-question{
-  width:100%;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:16px 20px;
-  background:none;border:none;
-  font-family:'Cairo',sans-serif;
-  font-size:13.5px;font-weight:700;color:var(--navy);
-  cursor:pointer;text-align:right;
+body {
+    background-color: #F8FAFC;
+    font-family: "Cairo", sans-serif;
+    margin: 0;
+    padding: 0;
 }
-.faq-question svg{width:16px;height:16px;color:var(--gray);flex-shrink:0;transition:transform .25s ease;}
-.faq-item.open .faq-question svg{transform:rotate(180deg);color:var(--blue);}
-.faq-answer{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .3s ease;
-}
-.faq-answer p{padding:0 20px 18px;font-size:12.5px;color:var(--gray);line-height:1.8;}
 
-@media (max-width:960px){
-  .uni-grid-list{grid-template-columns:1fr 1fr;}
-  .articles-grid{grid-template-columns:1fr 1fr;}
+* {
+    box-sizing: border-box;
 }
-@media (max-width:640px){
-  .uni-grid-list{grid-template-columns:1fr;}
-  .articles-grid{grid-template-columns:1fr;}
-  .filters-bar{flex-direction:column;align-items:stretch;}
-  .results-count{margin-right:0;text-align:center;}
-  .search-hero-box{flex-wrap:wrap;}
-  .search-hero-box svg{margin-right:8px;}
+
+
+/* ============================================================
+   HERO
+============================================================ */
+
+.uni-hero {
+    position: relative;
+
+    min-height: 560px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        /* light vignette only — the photo should read clearly */
+        radial-gradient(
+            ellipse 80% 100% at 50% 40%,
+            rgba(11, 26, 51, 0.55) 0%,
+            rgba(11, 26, 51, 0.40) 45%,
+            rgba(11, 26, 51, 0.20) 75%,
+            rgba(11, 26, 51, 0.10) 100%
+        ),
+        /* subtle color accents */
+        radial-gradient(
+            circle at 15% 25%,
+            rgba(53, 208, 255, 0.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 88% 75%,
+            rgba(47, 107, 255, 0.12),
+            transparent 32%
+        ),
+        /* the actual campus photo */
+        var(--uni-hero-image)
+            center / cover no-repeat;
+
+    color: #fff;
+}
+
+/* smooth fade into the page below, instead of a hard edge */
+.uni-hero::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 140px;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(11, 26, 51, 0) 0%,
+            rgba(11, 26, 51, 0.55) 55%,
+            var(--uni-navy-dark) 100%
+        );
+}
+
+
+/* ============================================================
+   HERO DECORATIONS
+============================================================ */
+
+.uni-hero-decoration {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(1px);
+}
+
+.uni-hero-decoration-1 {
+    width: 420px;
+    height: 420px;
+
+    left: -180px;
+    top: -180px;
+
+    border: 1px solid rgba(53, 208, 255, 0.16);
+
+    box-shadow:
+        0 0 80px rgba(53, 208, 255, 0.08);
+}
+
+.uni-hero-decoration-2 {
+    width: 350px;
+    height: 350px;
+
+    right: -150px;
+    bottom: -170px;
+
+    border: 1px solid rgba(47, 107, 255, 0.2);
+
+    box-shadow:
+        0 0 100px rgba(47, 107, 255, 0.12);
+}
+
+
+/* ============================================================
+   HERO CONTENT
+============================================================ */
+
+.uni-hero-content {
+    position: relative;
+    z-index: 2;
+
+    width: min(1180px, calc(100% - 40px));
+
+    margin: 0 auto;
+
+    padding: 72px 0 64px;
+
+    text-align: center;
+}
+
+
+/* ============================================================
+   EYEBROW
+============================================================ */
+
+.uni-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 14px;
+
+    margin-bottom: 18px;
+
+    border:
+        1px solid
+        rgba(53, 208, 255, 0.25);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    color: #BDEFFF;
+
+    font-family: "Cairo", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.uni-eyebrow-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--uni-cyan);
+
+    box-shadow:
+        0 0 10px
+        rgba(53, 208, 255, 0.8);
+}
+
+
+/* ============================================================
+   HERO TITLE
+============================================================ */
+
+.uni-hero h1 {
+    margin: 0;
+
+    color: #fff;
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: clamp(
+        34px,
+        5vw,
+        58px
+    );
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    text-shadow:
+        0 6px 30px rgba(0, 0, 0, 0.35);
+}
+
+.uni-hero h1 span {
+    display: block;
+
+    margin-top: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #38BDF8,
+            #69DEFF
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+
+/* ============================================================
+   HERO PARAGRAPH
+============================================================ */
+
+.uni-hero p {
+    width: min(700px, 100%);
+
+    margin: 16px auto 28px;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 15px;
+
+    line-height: 1.9;
+
+    text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ============================================================
+   SEARCH
+============================================================ */
+
+.search-hero-box {
+    width: min(680px, 100%);
+
+    min-height: 62px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 7px;
+
+    background: rgba(255, 255, 255, 0.98);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.25);
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 20px 55px
+        rgba(0, 0, 0, 0.20);
+
+    direction: rtl;
+}
+
+.search-hero-box > svg {
+    width: 21px;
+    height: 21px;
+
+    flex-shrink: 0;
+
+    margin-right: 15px;
+
+    color: #64748B;
+}
+
+.search-hero-box input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 48px;
+
+    padding: 0 8px;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--uni-text);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 14px;
+}
+
+.search-hero-box input::placeholder {
+    color: #94A3B8;
+}
+
+.search-hero-btn {
+    height: 48px;
+
+    padding: 0 25px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0284C7,
+            #0EA5E9
+        );
+
+    color: #fff;
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.search-hero-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(47, 107, 255, 0.3);
+}
+
+
+/* ============================================================
+   HERO MINI STATS
+============================================================ */
+
+.hero-mini-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 24px;
+
+    margin-top: 34px;
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+.hero-stat strong {
+    font-family: "Poppins", sans-serif;
+
+    color: #fff;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.hero-stat span {
+    color:
+        rgba(255, 255, 255, 0.6);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 11px;
+}
+
+.hero-stat-divider {
+    width: 1px;
+    height: 30px;
+
+    background:
+        rgba(255, 255, 255, 0.18);
+}
+
+
+/* ============================================================
+   MAIN WRAPPER
+============================================================ */
+
+.uni-wrap {
+    position: relative;
+
+    padding: 70px 0 90px;
+
+    background: #F8FAFC;
+}
+
+.uni-inner {
+    width: min(
+        1180px,
+        calc(100% - 40px)
+    );
+
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   SECTION HEADER
+============================================================ */
+
+.uni-section-head {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 32px;
+}
+
+.section-kicker {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--uni-blue);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.uni-section-head h2 {
+    margin: 0;
+
+    color: var(--uni-navy-dark);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 27px;
+
+    font-weight: 800;
+
+    line-height: 1.5;
+}
+
+.uni-section-head h2 span {
+    color: var(--uni-blue);
+}
+
+.uni-section-head p {
+    margin: 6px 0 0;
+
+    color: var(--uni-text-light);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 13px;
+}
+
+.results-count-box {
+    flex-shrink: 0;
+
+    padding: 10px 17px;
+
+    border:
+        1px solid
+        var(--uni-border);
+
+    border-radius: 12px;
+
+    background: #fff;
+
+    color: var(--uni-navy);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, 0.02);
+}
+
+
+/* ============================================================
+   FILTER CHIPS
+============================================================ */
+
+.uni-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-bottom: 26px;
+}
+
+.uni-chip {
+    padding: 8px 18px;
+
+    border:
+        1px solid
+        var(--uni-border);
+
+    border-radius: 999px;
+
+    background: #fff;
+
+    color: var(--uni-text-light);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+.uni-chip:hover {
+    border-color:
+        rgba(47, 107, 255, 0.3);
+
+    color: var(--uni-blue);
+
+    transform: translateY(-1px);
+}
+
+.uni-chip.active {
+    border-color: transparent;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0284C7,
+            #0EA5E9
+        );
+
+    color: #fff;
+
+    box-shadow:
+        0 8px 18px
+        rgba(2, 132, 199, 0.25);
+}
+
+
+/* ============================================================
+   UNIVERSITY GRID
+============================================================ */
+
+.uni-grid-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 24px;
+}
+
+
+/* ============================================================
+   UNIVERSITY CARD
+============================================================ */
+
+.uni-card {
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    border:
+        1px solid
+        var(--uni-border);
+
+    border-radius:
+        var(--uni-radius);
+
+    background: #fff;
+
+    box-shadow:
+        var(--uni-shadow);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+}
+
+.uni-card:hover {
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(2, 132, 199, 0.20);
+
+    box-shadow:
+        var(--uni-shadow-hover);
+}
+
+
+/* ============================================================
+   CARD COVER
+============================================================ */
+
+.uni-card-cover {
+    position: relative;
+
+    height: 205px;
+
+    overflow: visible;
+
+    background:
+        linear-gradient(
+            135deg,
+            #10284B,
+            #1E5ACB
+        );
+
+    border-radius:
+        var(--uni-radius)
+        var(--uni-radius)
+        0
+        0;
+}
+
+
+/* ============================================================
+   COVER FALLBACK
+============================================================ */
+
+.uni-cover-fallback {
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0F172A,
+            #1E40AF
+        );
+
+    border-radius:
+        var(--uni-radius)
+        var(--uni-radius)
+        0
+        0;
+}
+
+.uni-cover-fallback > span {
+    position: relative;
+
+    color:
+        rgba(255, 255, 255, 0.18);
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+}
+
+.fallback-pattern {
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -100px;
+    top: -100px;
+
+    border:
+        1px solid
+        rgba(53, 208, 255, 0.25);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 35px rgba(53, 208, 255, 0.04),
+        0 0 0 70px rgba(53, 208, 255, 0.025);
+}
+
+
+/* ============================================================
+   COVER IMAGE
+============================================================ */
+
+.uni-cover-img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius:
+        var(--uni-radius)
+        var(--uni-radius)
+        0
+        0;
+
+    transition:
+        transform .55s ease;
+}
+
+.uni-card:hover .uni-cover-img {
+    transform:
+        scale(1.045);
+}
+
+
+/* ============================================================
+   COVER GRADIENT
+============================================================ */
+
+.uni-cover-gradient {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    border-radius:
+        var(--uni-radius)
+        var(--uni-radius)
+        0
+        0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(11, 26, 51, 0.03) 15%,
+            rgba(11, 26, 51, 0.18) 50%,
+            rgba(11, 26, 51, 0.82) 100%
+        );
+}
+
+
+/* ============================================================
+   CARD NUMBER
+============================================================ */
+
+.uni-card-number {
+    position: absolute;
+
+    top: 16px;
+    left: 17px;
+
+    color:
+        rgba(255, 255, 255, 0.72);
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    z-index: 3;
+}
+
+
+/* ============================================================
+   LOGO
+============================================================ */
+
+.uni-logo {
+    position: absolute;
+
+    right: 20px;
+    bottom: -28px;
+
+    z-index: 5;
+
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border:
+        4px solid
+        #fff;
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    color: var(--uni-blue);
+
+    box-shadow:
+        0 9px 25px
+        rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.uni-card:hover .uni-logo {
+    transform:
+        translateY(-4px)
+        rotate(-1deg);
+
+    box-shadow:
+        0 13px 30px
+        rgba(2, 132, 199, 0.20);
+}
+
+.uni-logo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    padding: 7px;
+}
+
+.uni-logo svg {
+    width: 30px;
+    height: 30px;
+}
+
+
+/* ============================================================
+   CARD BODY
+============================================================ */
+
+.uni-card-body {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+
+    padding: 42px 20px 18px;
+}
+
+
+/* ============================================================
+   CARD HEADING
+============================================================ */
+
+.uni-card-heading h3 {
+    margin: 0 0 7px;
+
+    color: var(--uni-navy-dark);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    line-height: 1.6;
+
+    transition:
+        color .2s ease;
+}
+
+.uni-card:hover
+.uni-card-heading h3 {
+    color: var(--uni-blue);
+}
+
+
+/* ============================================================
+   LOCATION
+============================================================ */
+
+.uni-location {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    color: var(--uni-text-light);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 12px;
+}
+
+.uni-location svg {
+    width: 14px;
+    height: 14px;
+
+    flex-shrink: 0;
+
+    color: var(--uni-blue);
+}
+
+
+/* ============================================================
+   CARD STATS
+============================================================ */
+
+.uni-card-stats {
+    display: flex;
+    align-items: center;
+
+    margin-top: 20px;
+
+    padding: 13px 0;
+
+    border-top:
+        1px solid
+        #F1F5F9;
+
+    border-bottom:
+        1px solid
+        #F1F5F9;
+}
+
+.uni-stat {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 2px;
+
+    text-align: center;
+}
+
+.uni-stat strong {
+    color: var(--uni-navy-dark);
+
+    font-family: "Poppins", "Cairo", sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+.uni-stat span {
+    color: var(--uni-muted);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 10.5px;
+}
+
+.uni-stat-divider {
+    width: 1px;
+    height: 28px;
+
+    background:
+        #E2E8F0;
+}
+
+
+/* ============================================================
+   CARD FOOTER
+============================================================ */
+
+.uni-card-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 16px;
+}
+
+.uni-card-hint {
+    color: var(--uni-muted);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 10.5px;
+}
+
+
+/* ============================================================
+   VIEW BUTTON
+============================================================ */
+
+.btn-view-uni {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: var(--uni-blue);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition:
+        color .2s ease;
+}
+
+.btn-view-uni:hover {
+    color: var(--uni-blue-dark);
+}
+
+.btn-arrow {
+    width: 29px;
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        var(--uni-cyan-light);
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
+
+.btn-arrow svg {
+    width: 15px;
+    height: 15px;
+}
+
+.btn-view-uni:hover
+.btn-arrow {
+    transform:
+        translateX(-4px);
+
+    background:
+        #BAE6FD;
+}
+
+
+/* ============================================================
+   LOADING
+============================================================ */
+
+.uni-loading {
+    grid-column: 1 / -1;
+
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    border:
+        1px solid
+        var(--uni-border);
+
+    border-radius:
+        var(--uni-radius);
+
+    background: #fff;
+
+    color: var(--uni-text-light);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 13px;
+}
+
+.loading-spinner {
+    width: 38px;
+    height: 38px;
+
+    border:
+        3px solid
+        #E0F2FE;
+
+    border-top-color:
+        var(--uni-blue);
+
+    border-right-color:
+        var(--uni-cyan);
+
+    border-radius: 50%;
+
+    animation:
+        uniSpin .8s linear infinite;
+}
+
+@keyframes uniSpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* ============================================================
+   NO RESULTS
+============================================================ */
+
+.no-results {
+    grid-column: 1 / -1;
+
+    min-height: 320px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    border:
+        1px solid
+        var(--uni-border);
+
+    border-radius:
+        var(--uni-radius);
+
+    background: #fff;
+
+    text-align: center;
+}
+
+.no-results-icon {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 16px;
+
+    border-radius: 18px;
+
+    background:
+        var(--uni-cyan-light);
+
+    color: var(--uni-blue);
+}
+
+.no-results-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.error-icon {
+    color: #F59E0B;
+
+    background:
+        #FEF3C7;
+}
+
+.no-results h3 {
+    margin: 0 0 6px;
+
+    color: var(--uni-navy-dark);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 17px;
+}
+
+.no-results p {
+    margin: 0;
+
+    color: var(--uni-muted);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   INFO SECTIONS
+============================================================ */
+
+.uni-info-section {
+    margin-top: 80px;
+}
+
+
+/* ============================================================
+   SECTION TITLE
+============================================================ */
+
+.section-title {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 25px;
+}
+
+.section-title-line {
+    width: 5px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--uni-blue),
+            var(--uni-cyan)
+        );
+}
+
+.section-title > div > span {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: var(--uni-blue);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+.section-title h2 {
+    margin: 0;
+
+    color: var(--uni-navy-dark);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 23px;
+
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   ARTICLES
+============================================================ */
+
+.articles-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 22px;
+}
+
+.article-card {
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    border:
+        1px solid
+        var(--uni-border);
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.02);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.article-card:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 16px 35px
+        rgba(0, 0, 0, 0.06);
+}
+
+
+/* ============================================================
+   ARTICLE THUMB
+============================================================ */
+
+.article-thumb {
+    height: 145px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background-size: cover;
+    background-position: center;
+
+    transition: transform .5s ease;
+}
+
+.article-card:hover .article-thumb {
+    transform: scale(1.04);
+}
+
+.article-thumb::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+}
+
+.article-thumb::after {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    z-index: 2;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+
+    right: -50px;
+    top: -70px;
+}
+
+.article-thumb-blue {
+    background-image: var(--article-1-image);
+}
+
+.article-thumb-blue::before {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(22, 62, 135, 0.82),
+            rgba(47, 107, 255, 0.72)
+        );
+}
+
+.article-thumb-cyan {
+    background-image: var(--article-2-image);
+}
+
+.article-thumb-cyan::before {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(8, 123, 157, 0.82),
+            rgba(53, 208, 255, 0.68)
+        );
+}
+
+.article-thumb-navy {
+    background-image: var(--article-3-image);
+}
+
+.article-thumb-navy::before {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(11, 26, 51, 0.85),
+            rgba(23, 56, 115, 0.72)
+        );
+}
+
+.article-icon {
+    position: relative;
+
+    z-index: 3;
+
+    width: 62px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.22);
+
+    border-radius: 18px;
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    color: #fff;
+
+    backdrop-filter: blur(8px);
+}
+
+.article-icon svg {
+    width: 29px;
+    height: 29px;
+}
+
+
+/* ============================================================
+   ARTICLE BODY
+============================================================ */
+
+.article-body {
+    padding: 20px;
+}
+
+.article-tag {
+    display: inline-block;
+
+    margin-bottom: 7px;
+
+    padding: 4px 9px;
+
+    border-radius: 7px;
+
+    background:
+        var(--uni-cyan-light);
+
+    color:
+        var(--uni-blue);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+.article-body h3 {
+    margin: 0 0 8px;
+
+    color: var(--uni-navy-dark);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    line-height: 1.7;
+}
+
+.article-body p {
+    min-height: 45px;
+
+    margin: 0 0 16px;
+
+    color: var(--uni-text-light);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 11.5px;
+
+    line-height: 1.8;
+}
+
+.article-link {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: var(--uni-blue);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+.article-link svg {
+    width: 15px;
+    height: 15px;
+
+    transition:
+        transform .2s ease;
+}
+
+.article-link:hover svg {
+    transform:
+        translateX(-4px);
+}
+
+
+/* ============================================================
+   FAQ
+============================================================ */
+
+.faq-section {
+    margin-top: 80px;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.faq-item {
+    overflow: hidden;
+
+    border:
+        1px solid
+        var(--uni-border);
+
+    border-radius: 14px;
+
+    background: #fff;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.faq-item.open {
+    border-color:
+        rgba(2, 132, 199, 0.20);
+
+    box-shadow:
+        0 8px 25px
+        rgba(2, 132, 199, 0.05);
+}
+
+.faq-question {
+    width: 100%;
+
+    min-height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px 20px;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--uni-navy-dark);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-align: right;
+
+    cursor: pointer;
+}
+
+.faq-arrow {
+    width: 31px;
+    height: 31px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        var(--uni-cyan-light);
+
+    color: var(--uni-blue);
+
+    transition:
+        transform .25s ease;
+}
+
+.faq-arrow svg {
+    width: 16px;
+    height: 16px;
+}
+
+.faq-item.open
+.faq-arrow {
+    transform:
+        rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+
+    overflow: hidden;
+
+    transition:
+        max-height .3s ease;
+}
+
+.faq-answer p {
+    margin: 0;
+
+    padding:
+        0 20px 20px;
+
+    color: var(--uni-text-light);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 12px;
+
+    line-height: 1.9;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 1050px) {
+
+    .uni-grid-list {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+    .articles-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+}
+
+
+@media (max-width: 760px) {
+
+    .uni-hero {
+        min-height: 470px;
+    }
+
+    .uni-hero-content {
+        width:
+            calc(100% - 30px);
+
+        padding:
+            55px 0 50px;
+    }
+
+    .uni-hero h1 {
+        font-size: 34px;
+    }
+
+    .uni-hero p {
+        font-size: 13px;
+
+        line-height: 1.8;
+    }
+
+    .search-hero-box {
+        min-height: 58px;
+
+        padding: 6px;
+    }
+
+    .search-hero-box > svg {
+        margin-right: 10px;
+    }
+
+    .search-hero-btn {
+        padding:
+            0 18px;
+    }
+
+    .hero-mini-stats {
+        gap: 13px;
+    }
+
+    .hero-stat strong {
+        font-size: 13px;
+    }
+
+    .hero-stat span {
+        font-size: 9px;
+    }
+
+    .uni-wrap {
+        padding:
+            50px 0 70px;
+    }
+
+    .uni-inner {
+        width:
+            calc(100% - 30px);
+    }
+
+    .uni-section-head {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+        margin-bottom: 25px;
+    }
+
+    .uni-section-head h2 {
+        font-size: 23px;
+    }
+
+    .results-count-box {
+        align-self: flex-start;
+    }
+
+    .uni-grid-list {
+        grid-template-columns:
+            1fr;
+
+        gap: 18px;
+    }
+
+    .articles-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .uni-info-section {
+        margin-top: 60px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .uni-hero h1 {
+        font-size: 29px;
+
+        letter-spacing: 0;
+    }
+
+    .uni-hero p {
+        font-size: 12px;
+    }
+
+    .search-hero-box input {
+        font-size: 12px;
+    }
+
+    .search-hero-btn {
+        height: 44px;
+
+        padding: 0 14px;
+
+        font-size: 11px;
+    }
+
+    .search-hero-box {
+        min-height: 54px;
+    }
+
+    .hero-mini-stats {
+        gap: 9px;
+    }
+
+    .hero-stat-divider {
+        height: 23px;
+    }
+
+    .hero-stat strong {
+        font-size: 11px;
+    }
+
+    .hero-stat span {
+        font-size: 8px;
+    }
+
+    .uni-card-cover {
+        height: 190px;
+    }
+
+    .uni-card-body {
+        padding:
+            40px 17px 17px;
+    }
+
+    .uni-logo {
+        right: 17px;
+
+        width: 64px;
+        height: 64px;
+    }
+
+    .uni-card-heading h3 {
+        font-size: 15px;
+    }
+
+    .uni-card-hint {
+        display: none;
+    }
+
+    .section-title h2 {
+        font-size: 20px;
+    }
+
+    .article-thumb {
+        height: 130px;
+    }
+
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+    }
+
 }

@@ -1,244 +1,476 @@
 /* =====================================================================
-   university-details.css
-   خاص بصفحة تفاصيل جامعة واحدة (university-details.html)
-   يعتمد على المتغيرات المعرّفة بـ app.css — حمّل app.css قبله
+   university-details.css — الملف الكامل الشامل لكل الأقسام والواجهات
    ===================================================================== */
 
-body{background:var(--light);}
+body {
+  background-color: #F8FAFC;
+  font-family: 'Cairo', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-/* ======================= BACK LINK ======================= */
-.back-link-row{
-  max-width: 1080px;
+/* ======================= HERO & COVER STRUCTURE ======================= */
+.uni-hero-wrapper {
+  max-width: 1140px;
   margin: 0 auto;
-  padding-top: calc(var(--header-height, 80px) + 18px); /* إزاحة علوية ديناميكية بحجم الهيدر */
-  padding-bottom: 0;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-.back-link{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--gray);transition:color .2s ease;}
-.back-link:hover{color:var(--blue);}
-.back-link svg{width:14px;height:14px;}
-
-/* ======================= COVER + LOGO ======================= */
-.uni-cover{
-  max-width:1080px;
-  margin:14px auto 0;
-  padding:0 16px;
-}
-.cover-img{
-  height:190px;
-  border-radius:20px;
-  background:linear-gradient(120deg, var(--navy) 0%, #1E4A8F 55%, var(--blue) 100%);
-  position:relative;
-  overflow:hidden;
-}
-.cover-img::after{
-  content:"";
-  position:absolute;inset:0;
-  background:radial-gradient(circle at 80% 20%, rgba(53,208,255,0.25), transparent 60%);
+  padding: calc(var(--header-height, 80px) + 16px) 16px 0;
+  position: relative;
 }
 
-.uni-identity{
-  display:flex;
-  align-items:flex-end;
-  gap:18px;
-  margin-top:-46px;
-  padding:0 20px;
-  position:relative;
-  z-index:2;
-  flex-wrap:wrap;
+/* زر الرجوع العلوي */
+.back-link-overlay {
+  position: absolute;
+  top: calc(var(--header-height, 80px) + 32px);
+  right: 32px;
+  z-index: 10;
 }
-.uni-logo-circle{
-  width:92px;height:92px;
-  border-radius:22px;
-  background:#fff;
-  border:4px solid #fff;
-  box-shadow:0 10px 26px rgba(23,59,115,0.18);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--blue);
-  flex-shrink:0;
+.back-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  transition: all .2s ease;
 }
-.uni-logo-circle svg{width:42px;height:42px;}
-.uni-identity-text{padding-bottom:8px;}
-.uni-identity-text h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(19px,2.6vw,25px);color:var(--navy);margin-bottom:4px;}
-.uni-identity-text .uni-meta{font-size:12.5px;color:var(--gray);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-.uni-identity-text .uni-meta span{display:flex;align-items:center;gap:5px;}
-.uni-identity-text .uni-meta svg{width:13px;height:13px;}
+.back-link-btn:hover {
+  background: #ffffff;
+  color: var(--blue, #0284C7);
+  transform: translateX(2px);
+}
+.back-link-btn svg { width: 15px; height: 15px; }
 
-/* ======================= NEW: real cover/logo images ======================= */
-.cover-img-real{
-  width:100%;height:100%;object-fit:cover;border-radius:20px;
-  position:relative;z-index:1;
+/* صورة الغلاف */
+.uni-cover {
+  width: 100%;
+  height: 320px;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
 }
-.cover-img-real:not([src]),
-.cover-img-real[src=""]{display:none;} /* لو ما في صورة، يبين الـ gradient الافتراضي بس */
-
-.uni-logo-img{width:100%;height:100%;object-fit:contain;border-radius:18px;}
-.uni-logo-img:not([src]),
-.uni-logo-img[src=""]{display:none;}
-#uniLogoFallback{display:none;}
-.uni-logo-circle:has(.uni-logo-img[src=""]) #uniLogoFallback,
-.uni-logo-circle:has(.uni-logo-img:not([src])) #uniLogoFallback{display:block;}
-
-/* رابط الموقع الإلكتروني جوا الـ meta row */
-#uniWebsiteRow a{color:var(--blue);font-weight:700;}
-#uniWebsiteRow[data-field]:empty,
-#uniWebsiteRow.hidden{display:none;}
-
-/* ======================= NEW: Vision & Mission ======================= */
-.vision-card{margin-top:18px;}
-
-/* ======================= NEW: Deanships/Faculties grid ======================= */
-.deanships-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
+.cover-img {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  position: relative;
 }
-.deanship-card{
-  background:#fff;border:1px solid var(--border);border-radius:16px;
-  overflow:hidden;transition:all .2s ease;
+.cover-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.4) 0%, transparent 60%);
 }
-.deanship-card:hover{border-color:var(--blue);box-shadow:0 12px 26px rgba(23,59,115,0.08);}
-.deanship-cover{height:120px;background:var(--light);overflow:hidden;}
-.deanship-cover img{width:100%;height:100%;object-fit:cover;}
-.deanship-body{padding:18px 20px;}
-.deanship-type-badge{
-  display:inline-block;font-size:11px;font-weight:700;color:var(--blue);
-  background:rgba(47,107,255,0.08);padding:4px 12px;border-radius:999px;margin-bottom:10px;
-}
-.deanship-body h4{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:8px;}
-.deanship-desc{font-size:12.5px;color:var(--gray);line-height:1.8;margin-bottom:14px;}
-.deanship-meta{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
-.deanship-meta span{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dark);font-weight:600;}
-.deanship-meta svg{width:14px;height:14px;color:var(--gray);flex-shrink:0;}
-.btn-view-majors{
-  width:100%;padding:10px;border-radius:10px;border:1.5px solid var(--border);
-  background:var(--light);color:var(--navy);font-weight:700;font-size:12.5px;
-  font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s ease;
-}
-.btn-view-majors:hover{border-color:var(--blue);color:var(--blue);}
-
-@media (max-width:640px){
-  .deanships-grid{grid-template-columns:1fr;}
+.cover-img-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* ======================= STATS ROW ======================= */
-.uni-stats-row{
-  max-width:1080px;
-  margin:22px auto 0;
-  padding:0 16px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
+/* HERO INFO CARD */
+.hero-card-container {
+  padding: 0 20px;
+  margin-top: -65px;
+  position: relative;
+  z-index: 5;
 }
-.uni-stat-box{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px;
-  text-align:center;
+.hero-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border: 1px solid #F1F5F9;
 }
-.uni-stat-box b{display:block;font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;color:var(--navy);}
-.uni-stat-box span{font-size:11.5px;color:var(--gray);font-weight:600;}
 
-/* ======================= TABS ======================= */
-.uni-tabs{
-  max-width:1080px;
-  margin:26px auto 0;
-  padding:0 16px;
-  display:flex;
-  gap:6px;
-  border-bottom:2px solid var(--border);
-  overflow-x:auto;
+/* الشعار */
+.uni-logo-box {
+  width: 130px;
+  height: 130px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: 12px;
 }
-.uni-tab{
-  padding:12px 20px;
-  font-size:13.5px;font-weight:700;color:var(--gray);
-  background:none;border:none;border-bottom:2px solid transparent;
-  margin-bottom:-2px;cursor:pointer;font-family:'Cairo',sans-serif;
-  white-space:nowrap;transition:color .2s ease;
+.uni-logo-img { width: 100%; height: 100%; object-fit: contain; }
+.uni-logo-box svg { width: 50px; height: 50px; color: #0284C7; }
+
+/* النصوص والـ Meta */
+.hero-card-text { flex: 1; }
+.hero-card-text h1 { font-size: 24px; font-weight: 800; color: #0F172A; margin-bottom: 12px; }
+.hero-card-text .uni-meta { display: flex; align-items: center; gap: 18px; font-size: 13px; color: #64748B; font-weight: 600; }
+.hero-card-text .uni-meta span { display: flex; align-items: center; gap: 6px; }
+.hero-card-text .uni-meta svg { width: 16px; height: 16px; color: #0284C7; }
+.hero-card-text .uni-meta a { color: #64748B; text-decoration: none; }
+
+/* الإحصائيات */
+.hero-stats-group { display: flex; gap: 12px; }
+.stat-item {
+  background: #F8FAFC;
+  border-radius: 16px;
+  padding: 12px 20px;
+  text-align: center;
+  min-width: 85px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.uni-tab:hover{color:var(--navy);}
-.uni-tab.active{color:var(--blue);border-bottom-color:var(--blue);}
-
-/* ======================= TAB CONTENT ======================= */
-.uni-content{max-width:1080px;margin:0 auto;padding:24px 16px 60px;}
-
-.about-layout{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;align-items:start;}
-.about-card, .facts-card{
-  background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;
+.stat-icon-bg {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 6px;
 }
-.about-card h3, .facts-card h3{font-size:14.5px;font-weight:800;color:var(--navy);margin-bottom:14px;}
-.about-card p{font-size:13px;color:var(--dark);line-height:1.9;}
+.stat-icon-bg svg { width: 18px; height: 18px; }
+.purple-bg { background: #F3E8FF; color: #9333EA; }
+.blue-bg { background: #E0F2FE; color: #0284C7; }
+.green-bg { background: #DCFCE7; color: #16A34A; }
 
-.fact-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--border);font-size:12.5px;}
-.fact-row:last-child{border-bottom:none;}
-.fact-row .fact-label{color:var(--gray);font-weight:600;}
-.fact-row .fact-value{color:var(--navy);font-weight:700;}
+.stat-item b { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 800; color: #0F172A; line-height: 1.2; }
+.stat-item span { font-size: 11px; color: #64748B; font-weight: 700; }
 
-/* ---- CTA row ---- */
-.uni-cta-row{display:flex;gap:14px;margin-top:20px;flex-wrap:wrap;}
-.btn-check-match{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:13px 26px;border-radius:12px;
-  background:var(--mint);color:#fff;font-weight:700;font-size:13.5px;
-  box-shadow:0 10px 22px rgba(72,230,176,0.28);transition:transform .2s ease;
+/* ======================= TABS BAR ======================= */
+.tabs-container {
+  max-width: 1140px;
+  margin: 20px auto 0;
+  padding: 0 16px;
 }
-.btn-check-match:hover{transform:translateY(-2px);}
-.btn-contact-uni{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:13px 26px;border-radius:12px;
-  background:#fff;border:1.5px solid var(--border);color:var(--navy);font-weight:700;font-size:13.5px;
-  transition:all .2s ease;
+.uni-tabs {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  border: 1px solid #F1F5F9;
 }
-.btn-contact-uni:hover{border-color:var(--navy);}
-.uni-cta-row svg{width:16px;height:16px;}
-
-/* ---- Majors tab ---- */
-.majors-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
-.majors-toolbar input{
-  padding:10px 14px;border-radius:10px;border:1.5px solid var(--border);
-  font-family:'Cairo',sans-serif;font-size:13px;color:var(--dark);outline:none;min-width:220px;
+.uni-tab {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all .2s ease;
 }
-.majors-toolbar input:focus{border-color:var(--blue);}
-.majors-count{font-size:12.5px;color:var(--gray);font-weight:600;}
-
-.majors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.major-card{
-  background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;
-  transition:all .2s ease;
+.uni-tab svg { width: 18px; height: 18px; }
+.uni-tab:hover { color: #0F172A; }
+.uni-tab.active {
+  color: #0284C7;
+  border-bottom-color: #0284C7;
+  background: rgba(2, 132, 199, 0.03);
 }
-.major-card:hover{border-color:var(--blue);box-shadow:0 10px 22px rgba(23,59,115,0.08);}
-.major-card{display:block;text-decoration:none;}
-.major-card h4{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:6px;}
-.major-card .major-college{font-size:11.5px;color:var(--gray);}
 
-/* ---- News tab ---- */
-.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.news-card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .2s ease;}
-.news-card:hover{border-color:var(--blue);box-shadow:0 10px 22px rgba(23,59,115,0.08);}
-.news-thumb{height:110px;background:linear-gradient(135deg, var(--navy), var(--blue));display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);}
-.news-thumb svg{width:28px;height:28px;}
-.news-body{padding:14px 16px;}
-.news-body .news-date{font-size:10.5px;color:var(--gray);margin-bottom:4px;}
-.news-body h4{font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.5;}
-
-/* ---- Contact tab ---- */
-.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
-.contact-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px;}
-.contact-box .c-icon{width:40px;height:40px;border-radius:12px;background:rgba(47,107,255,0.1);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.contact-box .c-icon svg{width:19px;height:19px;}
-.contact-box .c-label{font-size:11px;color:var(--gray);font-weight:600;}
-.contact-box .c-value{font-size:13px;color:var(--navy);font-weight:700;}
-
-@media (max-width:860px){
-  .about-layout{grid-template-columns:1fr;}
-  .majors-grid{grid-template-columns:1fr 1fr;}
-  .news-grid{grid-template-columns:1fr 1fr;}
-  .contact-grid{grid-template-columns:1fr;}
+/* ======================= CONTENT PANELS GENERAL ======================= */
+.uni-content {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
 }
-@media (max-width:600px){
-  .uni-stats-row{grid-template-columns:1fr 1fr 1fr;}
-  .majors-grid{grid-template-columns:1fr;}
-  .news-grid{grid-template-columns:1fr;}
+
+/* ======================= TAB 1: ABOUT LAYOUT ======================= */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+}
+
+.about-main-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid #F1F5F9;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+.section-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 12px;
+  position: relative;
+  display: inline-block;
+}
+.section-title::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 3px;
+  background: #0284C7;
+  border-radius: 99px;
+  margin-top: 6px;
+}
+.about-desc-text {
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+
+.vision-card-styled {
+  background: #F8FAFC;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #E2E8F0;
+  margin-bottom: 24px;
+}
+.vision-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.vision-title { font-size: 14px; font-weight: 800; color: #1E3A8A; }
+.vision-icon {
+  width: 28px; height: 28px;
+  background: #E0F2FE; color: #0284C7;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.vision-icon svg { width: 16px; height: 16px; }
+.vision-text { font-size: 13px; color: #475569; line-height: 1.7; }
+
+.uni-cta-row { display: flex; gap: 12px; }
+.btn-outline-contact {
+  flex: 1; padding: 12px 20px; border-radius: 12px;
+  border: 1.5px solid #0284C7; background: transparent; color: #0284C7;
+  font-weight: 700; font-size: 13.5px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all .2s ease;
+}
+.btn-outline-contact:hover { background: rgba(2, 132, 199, 0.05); }
+.btn-primary-match {
+  flex: 2; padding: 12px 20px; border-radius: 12px;
+  background: #0D9488; color: #ffffff;
+  font-weight: 700; font-size: 13.5px; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25);
+  transition: all .2s ease;
+}
+.btn-primary-match:hover { background: #0F766E; transform: translateY(-1px); }
+.uni-cta-row svg { width: 17px; height: 17px; }
+
+.quick-facts-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid #F1F5F9;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+  height: fit-content;
+}
+.quick-facts-card h3 { font-size: 15px; font-weight: 800; color: #0F172A; margin-bottom: 18px; }
+.fact-list { display: flex; flex-direction: column; gap: 16px; }
+.fact-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 12px; border-bottom: 1px dashed #E2E8F0;
+}
+.fact-item:last-child { border-bottom: none; padding-bottom: 0; }
+.fact-label-group { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: #64748B; font-weight: 600; }
+.fact-icon { color: #0284C7; display: flex; align-items: center; }
+.fact-icon svg { width: 16px; height: 16px; }
+.fact-value { font-size: 13px; font-weight: 800; color: #0F172A; }
+
+/* ======================= TAB 2: DEANSHIPS / FACULTIES GRID ======================= */
+.deanships-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.deanship-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all .25s ease;
+  display: flex;
+  flex-direction: column;
+}
+.deanship-card:hover {
+  border-color: #0284C7;
+  box-shadow: 0 12px 28px rgba(2, 132, 199, 0.08);
+  transform: translateY(-3px);
+}
+.deanship-cover {
+  height: 110px;
+  background: linear-gradient(135deg, #1E3A8A, #0284C7);
+  overflow: hidden;
+}
+.deanship-cover img { width: 100%; height: 100%; object-fit: cover; }
+.deanship-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.deanship-type-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0284C7;
+  background: #E0F2FE;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.deanship-body h4 { font-size: 16px; font-weight: 800; color: #0F172A; margin-bottom: 8px; line-height: 1.4; }
+.deanship-desc { font-size: 12.5px; color: #64748B; line-height: 1.7; margin-bottom: 16px; flex: 1; }
+.deanship-meta { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; font-size: 12px; color: #334155; font-weight: 600; }
+.btn-view-majors {
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
+  border: 1.5px solid #E2E8F0;
+  background: #F8FAFC;
+  color: #0F172A;
+  font-weight: 700;
+  font-size: 13px;
+  font-family: 'Cairo', sans-serif;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.btn-view-majors:hover {
+  border-color: #0284C7;
+  background: #0284C7;
+  color: #ffffff;
+}
+
+/* ======================= TAB 3: MAJORS ======================= */
+.majors-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.majors-toolbar input {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1.5px solid #E2E8F0;
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  color: #0F172A;
+  outline: none;
+  min-width: 260px;
+  transition: border-color .2s ease;
+}
+.majors-toolbar input:focus { border-color: #0284C7; }
+.majors-count { font-size: 13px; color: #64748B; font-weight: 700; }
+
+.majors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.major-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 20px;
+  text-decoration: none;
+  transition: all .2s ease;
+  display: block;
+}
+.major-card:hover {
+  border-color: #0284C7;
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.08);
+  transform: translateY(-2px);
+}
+.major-card h4 { font-size: 14.5px; font-weight: 800; color: #0F172A; margin-bottom: 6px; }
+.major-card .major-college { font-size: 12px; color: #64748B; font-weight: 600; }
+
+/* ======================= TAB 4: NEWS ======================= */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.news-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all .2s ease;
+}
+.news-card:hover { border-color: #0284C7; box-shadow: 0 10px 24px rgba(0,0,0,0.06); }
+.news-thumb {
+  height: 120px;
+  background: linear-gradient(135deg, #0F172A, #0284C7);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+.news-thumb svg { width: 32px; height: 32px; }
+.news-body { padding: 18px; }
+.news-body .news-date { font-size: 11px; color: #64748B; font-weight: 600; margin-bottom: 6px; }
+.news-body h4 { font-size: 13.5px; font-weight: 800; color: #0F172A; line-height: 1.5; }
+
+/* ======================= TAB 5: CONTACT ======================= */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.contact-box {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.contact-box .c-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: #E0F2FE;
+  color: #0284C7;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-box .c-icon svg { width: 22px; height: 22px; }
+.contact-box .c-label { font-size: 11.5px; color: #64748B; font-weight: 600; margin-bottom: 2px; }
+.contact-box .c-value { font-size: 13.5px; color: #0F172A; font-weight: 800; }
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #64748B;
+  font-weight: 700;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px dashed #E2E8F0;
+}
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width: 900px) {
+  .hero-card { flex-direction: column; text-align: center; gap: 16px; }
+  .hero-card-text .uni-meta { justify-content: center; }
+  .about-layout { grid-template-columns: 1fr; }
+  .hero-stats-group { width: 100%; justify-content: center; }
+  .deanships-grid { grid-template-columns: repeat(2, 1fr); }
+  .majors-grid { grid-template-columns: repeat(2, 1fr); }
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .uni-tabs { overflow-x: auto; justify-content: flex-start; }
+  .uni-tab { flex: 0 0 auto; }
+  .uni-cta-row { flex-direction: column; }
+  .deanships-grid { grid-template-columns: 1fr; }
+  .majors-grid { grid-template-columns: 1fr; }
+  .news-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
 }

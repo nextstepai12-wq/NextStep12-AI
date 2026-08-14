@@ -1,10 +1,18 @@
-/* footer.js — يحقن الفوتر الموحّد ويصحّح المسارات تلقائياً */
-(function () {
+/* footer.js — يحقن الفوتر الموحّد بشكل آمن */
+document.addEventListener('DOMContentLoaded', function () {
   var inPages = window.location.pathname.includes('/pages/');
   var root = inPages ? '../' : '';
   var pg = inPages ? '' : 'pages/';
 
-  document.write(
+  // البحث عن عنصر يحمل id="footer-placeholder" أو إنشاؤه في نهاية الصفحة تلقائياً
+  var footerContainer = document.getElementById('footer-placeholder');
+  
+  if (!footerContainer) {
+    footerContainer = document.createElement('div');
+    document.body.appendChild(footerContainer);
+  }
+
+  footerContainer.innerHTML = 
     '<footer class="site-footer">' +
       '<div class="footer-inner">' +
         '<div class="footer-top">' +
@@ -16,9 +24,13 @@
             '</a>' +
             '<p class="tagline">خطوتك الذكية لمستقبلك الجامعي. منصة تساعد الطلاب على اكتشاف التخصص الجامعي الأنسب لهم عبر اختبارات ذكية.</p>' +
             '<div class="social-row">' +
-              '<a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>' +
+
+
+
+            
+              '<a href="https://www.instagram.com/nextstepai12/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>' +
               '<a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg></a>' +
-              '<a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="7" r="0.8" fill="currentColor"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/><line x1="11" y1="10" x2="11" y2="17"/></svg></a>' +
+              '<a href="https://www.linkedin.com/in/nextstepai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="7" r="0.8" fill="currentColor"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/><line x1="11" y1="10" x2="11" y2="17"/></svg></a>' +
               '<a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a>' +
             '</div>' +
           '</div>' +
@@ -60,6 +72,5 @@
           '</div>' +
         '</div>' +
       '</div>' +
-    '</footer>'
-  );
-})();
+    '</footer>';
+});

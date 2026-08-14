@@ -5,17 +5,110 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>علوم الحاسوب — NextStep AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- المسارات النسبية للـ CSS (تعديل ../ إلى المسار الصحيح حسب مكان الملف) -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="../css/app.css" rel="stylesheet">
 <link href="../css/header.css" rel="stylesheet">
 <link href="../css/specialization-detail.css" rel="stylesheet">
 <link href="../css/footer.css" rel="stylesheet">
+<style>
+/* =====================================================================
+   🧭 هوية "البوصلة" — طبقة تصميم إضافية فوق specialization-detail.css
+   نفس فكرة صفحة الجامعات: البوصلة = الاتجاه/القرار. هون بتترجم إلى
+   مؤشر دائري (نسبة التوافق) + مسار زمني (خارطة الطريق بعد التخرج).
+   ما بتلمس أي كلاس أساسي — إضافات وتعديلات موضعية بس.
+   ===================================================================== */
+
+:root{ --spark:#f59e0b; }
+
+/* ---------- الهيرو: تحويل الصندوق الثالث إلى بوصلة دائرية ---------- */
+.spec-hero-stats{ grid-template-columns: 1fr 1fr auto; align-items:center; gap:16px; }
+@media (max-width:640px){ .spec-hero-stats{ grid-template-columns: 1fr; } }
+
+.gauge-box{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:6px; padding:8px;
+}
+.gauge-wrap{ position:relative; width:112px; height:112px; }
+.gauge-wrap svg{ width:112px; height:112px; transform:rotate(-90deg); }
+.gauge-track{ fill:none; stroke:var(--border,#e2e8f0); stroke-width:9; }
+.gauge-fill{
+  fill:none; stroke:#10b981; stroke-width:9; stroke-linecap:round;
+  stroke-dasharray:301; stroke-dashoffset:301;
+  transition:stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1);
+}
+@media (prefers-reduced-motion:reduce){ .gauge-fill{ transition:none; } }
+.gauge-center{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+}
+.gauge-center b{ font-family:'Poppins',sans-serif; font-weight:800; font-size:21px; color:#10b981; }
+.gauge-center span{ font-size:9.5px; color:var(--gray,#64748b); }
+.gauge-box > .gauge-label{ font-size:11.5px; font-weight:700; color:var(--gray,#64748b); }
+
+/* ---------- خارطة الطريق: مسار زمني من أول سنة للسوق ---------- */
+.roadmap-section{ max-width:1080px; margin:32px auto 0; padding:0 16px; }
+.roadmap-section h2{ font-size:18px; color:var(--navy,#0f172a); margin-bottom:24px; font-weight:800; }
+
+.roadmap-track{
+  position:relative; display:flex; justify-content:space-between; gap:8px;
+}
+.roadmap-track::before{
+  content:""; position:absolute; top:20px; right:5%; left:5%; height:2px;
+  background:repeating-linear-gradient(90deg, var(--border,#e2e8f0) 0 8px, transparent 8px 14px);
+  z-index:0;
+}
+.roadmap-stop{
+  position:relative; z-index:1; flex:1; display:flex; flex-direction:column; align-items:center;
+  text-align:center; gap:10px;
+}
+.roadmap-dot{
+  width:40px; height:40px; border-radius:50%;
+  background:#fff; border:2.5px solid var(--blue,#2f6bff); color:var(--blue,#2f6bff);
+  display:flex; align-items:center; justify-content:center; font-weight:800;
+  font-family:'Poppins',sans-serif; font-size:14px; flex-shrink:0;
+}
+.roadmap-stop:last-child .roadmap-dot{ background:#10b981; border-color:#10b981; color:#fff; }
+.roadmap-stop h4{ font-size:12.5px; font-weight:800; color:var(--navy,#0f172a); }
+.roadmap-stop p{ font-size:11px; color:var(--gray,#64748b); line-height:1.6; max-width:130px; }
+
+@media (max-width:700px){
+  .roadmap-track{ flex-direction:column; align-items:flex-start; gap:22px; }
+  .roadmap-track::before{ top:5%; bottom:5%; right:19px; left:auto; width:2px; height:auto; background:repeating-linear-gradient(180deg, var(--border,#e2e8f0) 0 8px, transparent 8px 14px); }
+  .roadmap-stop{ flex-direction:row; text-align:right; }
+  .roadmap-stop p{ max-width:none; }
+}
+
+/* ---------- المهارات: حلقة ملوّنة حول الأيقونة (تناغم مع البوصلة) ---------- */
+.skill-card-icon{ position:relative; }
+.skill-card-icon::after{
+  content:""; position:absolute; inset:-4px; border-radius:14px;
+  border:1.5px dashed rgba(47,107,255,.35);
+}
+.skill-card:nth-child(2) .skill-card-icon::after{ border-color:rgba(16,185,129,.4); }
+.skill-card:nth-child(3) .skill-card-icon::after{ border-color:rgba(245,158,11,.4); }
+.skill-card:nth-child(4) .skill-card-icon::after{ border-color:rgba(53,208,255,.5); }
+
+/* ---------- حركة دخول خفيفة للأقسام ---------- */
+.spec-hero-box, .info-card, .skill-card, .roadmap-stop{
+  animation:fadeUp .5s ease both;
+}
+.info-card:nth-child(2){ animation-delay:.08s; }
+.info-card:nth-child(3){ animation-delay:.16s; }
+.skill-card:nth-child(2){ animation-delay:.06s; }
+.skill-card:nth-child(3){ animation-delay:.12s; }
+.skill-card:nth-child(4){ animation-delay:.18s; }
+.roadmap-stop:nth-child(2){ animation-delay:.08s; }
+.roadmap-stop:nth-child(3){ animation-delay:.16s; }
+.roadmap-stop:nth-child(4){ animation-delay:.24s; }
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+@media (prefers-reduced-motion:reduce){
+  .spec-hero-box, .info-card, .skill-card, .roadmap-stop{ animation:none; }
+}
+</style>
 </head>
 <body>
 
 <!-- ======================= HEADER ======================= -->
-<!-- تم التغيير إلى header.js العام بدلاً من header-index.js -->
 <script src="../js/header-index.js"></script>
 
 <!-- ======================= BREADCRUMB ======================= -->
@@ -43,7 +136,16 @@
     <div class="spec-hero-stats">
       <div class="spec-stat-box"><b>4 سنوات</b><span>مدة الدراسة</span></div>
       <div class="spec-stat-box"><b>2,500$</b><span>متوسط الراتب الشهري المتوقع</span></div>
-      <div class="spec-stat-box highlight"><b>94%</b><span>نسبة توافقك مع التخصص</span></div>
+      <div class="gauge-box">
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 112 112">
+            <circle class="gauge-track" cx="56" cy="56" r="48"/>
+            <circle class="gauge-fill" id="gaugeFill" cx="56" cy="56" r="48"/>
+          </svg>
+          <div class="gauge-center"><b id="gaugeValue">0%</b><span>توافق</span></div>
+        </div>
+        <span class="gauge-label">نسبة توافقك مع التخصص</span>
+      </div>
     </div>
   </div>
 </div>
@@ -71,6 +173,33 @@
       </div>
       <h3>مؤهلات يجب أن تمتلكها</h3>
       <p>تفكير منطقي وحل مشكلات، إجادة أساسيات الرياضيات، وصبر على التعلّم الذاتي المستمر.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= ROADMAP (جديد) ======================= -->
+<div class="roadmap-section">
+  <h2>مسارك بعد الالتحاق بالتخصص</h2>
+  <div class="roadmap-track">
+    <div class="roadmap-stop">
+      <div class="roadmap-dot">1</div>
+      <h4>السنة الأولى والثانية</h4>
+      <p>أساسيات البرمجة والرياضيات ومبادئ علوم الحاسوب.</p>
+    </div>
+    <div class="roadmap-stop">
+      <div class="roadmap-dot">2</div>
+      <h4>السنة الثالثة</h4>
+      <p>تخصص أعمق: أنظمة، شبكات، قواعد بيانات، ومشاريع تطبيقية.</p>
+    </div>
+    <div class="roadmap-stop">
+      <div class="roadmap-dot">3</div>
+      <h4>التدريب العملي</h4>
+      <p>تدريب ميداني بشركة تقنية لبناء خبرة حقيقية بسوق العمل.</p>
+    </div>
+    <div class="roadmap-stop">
+      <div class="roadmap-dot">✓</div>
+      <h4>التخرج وسوق العمل</h4>
+      <p>البدء بأول وظيفة أو مشروع خاص بمجال البرمجة والتقنية.</p>
     </div>
   </div>
 </div>
@@ -122,8 +251,40 @@
 </div>
 
 <!-- ======================= FOOTER ======================= -->
-<!-- استدعاء ملف الفوتر العام للتصفح الداخلي -->
 <script src="../js/footer-index.js"></script>
+
+<script>
+/* تعبئة حلقة نسبة التوافق بشكل متحرك — رقم 94% نفس القيمة الأصلية بالصفحة.
+   لو التوافق جاي من الـ API مستقبلاً، بس بدّلي قيمة matchPercent هون. */
+(function animateGauge(){
+  const matchPercent = 94;
+  const circle = document.getElementById('gaugeFill');
+  const valueLabel = document.getElementById('gaugeValue');
+  const circumference = 2 * Math.PI * 48; // ≈ 301.6
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const offset = circumference - (matchPercent / 100) * circumference;
+
+  requestAnimationFrame(() => {
+    circle.style.strokeDashoffset = offset;
+  });
+
+  if (prefersReduced) {
+    valueLabel.textContent = matchPercent + '%';
+    return;
+  }
+
+  const duration = 1100;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    valueLabel.textContent = Math.round(matchPercent * eased) + '%';
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+})();
+</script>
 
 </body>
 </html>

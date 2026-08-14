@@ -22,7 +22,7 @@
 
         '<nav class="main-nav">' +
           '<ul>' +
-            '<li><a href="' + pg + 'how.html">عن المنصة</a></li>' +
+            '<li><a href="' + pg + 'about.html">عن المنصة</a></li>' +
             '<li><a href="' + pg + 'universities.html">الجامعات</a></li>' +
             '<li><a href="' + pg + 'quiz.html">الاختبار الذكي</a></li>' +
             '<li><a href="' + root + 'index.html" class="active">الرئيسية</a></li>' +

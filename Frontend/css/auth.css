@@ -369,4 +369,50 @@ select.form-control {
   .form-row-2 { grid-template-columns: 1fr; }
   .auth-title { font-size: 24px; }
   .auth-card--boxed{ padding: 26px 20px; border-radius: 16px; }
+}/* ضبط الجانب الأيسر/الأيمن ليكون حاضن للمجسم */
+.auth-aside {
+  position: relative;
+  background-color: #0b172a; /* لون أزرق غامق كخلفية احتياطية */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* مجسم الـ 3D في الخلفية */
+.aside-3d-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: auto; /* يجعل المجسم يتفاعل مع حركة الماوس */
+}
+
+/* طبقة تظليل خفيفة لإبراز النص العربي فوق الشكل 3D */
+.aside-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.4) 100%);
+  z-index: 2;
+  pointer-events: none; /* للسماح بحركة الماوس للوصول للمجسم خلفه */
+}
+
+/* المحتوى والنصوص فوق كل الطبقات */
+.aside-content {
+  position: relative;
+  z-index: 3;
+  padding: 3rem;
+  color: #ffffff;
+  pointer-events: none; /* لضمان تفاعل الماوس مع الـ 3D عبر الفراغات */
+}
+
+/* إرجاع التفاعل للروابط والأزرار داخل النصوص */
+.aside-content a, 
+.aside-content button {
+  pointer-events: auto;
 }

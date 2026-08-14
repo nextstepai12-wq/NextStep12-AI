@@ -1,359 +1,1474 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>دليل الجامعات — NextStep AI</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="../css/app.css" rel="stylesheet">
-<link href="../css/header.css" rel="stylesheet">
-<link href="../css/universities.css" rel="stylesheet">
-<link href="../css/footer.css" rel="stylesheet">
-<style>
-.filters-bar-new{
-  display:flex; align-items:center; justify-content:space-between;
-  flex-wrap:wrap; gap:12px; margin-bottom:20px;
-}
-.filters-bar-new .results-count{ font-weight:700; color:#1e293b; font-size:14px; }
-.filters-bar-new .filters-selects{ display:flex; gap:10px; flex-wrap:wrap; }
-.filters-bar-new select{
-  padding:9px 14px; border-radius:10px; border:1px solid #e2e8f0;
-  background:#fff; font-family:'Cairo',sans-serif; font-size:13px; color:#334155;
-  cursor:pointer;
-}
-.uni-card-new{
-  background:#fff; border:1px solid #eef1f6; border-radius:16px;
-  padding:20px; display:flex; flex-direction:column; gap:14px;
-  transition:box-shadow .2s, transform .2s;
-}
-.uni-card-new:hover{ box-shadow:0 8px 24px rgba(30,64,175,.08); transform:translateY(-2px); }
-.uni-card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
-.uni-card-top h3{ font-size:16px; font-weight:800; color:#1e293b; margin:0 0 4px; }
-.uni-card-loc{ display:flex; align-items:center; gap:5px; font-size:12.5px; color:#64748b; }
-.uni-card-loc svg{ width:13px; height:13px; flex-shrink:0; }
-.uni-avatar-sq{
-  width:44px; height:44px; border-radius:12px; flex-shrink:0;
-  background:linear-gradient(135deg,#2563eb,#1e3a8a);
-  display:flex; align-items:center; justify-content:center; color:#fff;
-  overflow:hidden;
-}
-.uni-avatar-sq svg{ width:22px; height:22px; }
-.uni-avatar-sq img{ width:100%; height:100%; object-fit:cover; }
-.uni-stats-mini{
-  display:flex; gap:10px; border-top:1px solid #f1f5f9; padding-top:14px;
-}
-.uni-stats-mini > div{
-  flex:1; text-align:center; background:#f8fafc; border-radius:10px; padding:10px 6px;
-}
-.uni-stats-mini b{ display:block; font-size:15px; font-weight:800; color:#1e293b; }
-.uni-stats-mini span{ font-size:11.5px; color:#94a3b8; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>دليل الجامعات — NextStep AI</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Global CSS -->
+    <link href="../css/app.css" rel="stylesheet">
+    <link href="../css/header.css" rel="stylesheet">
+<link href="../assets" rel="stylesheet">
+    <!-- Page CSS -->
+    <link href="../css/universities.css" rel="stylesheet">
+
+    <link href="../css/footer.css" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- ======================= HEADER ======================= -->
-<script src="../js/header-index.js"></script>
-<!-- ======================= HERO + SEARCH ======================= -->
-<div class="uni-hero">
-  <h1>دليل الجامعات</h1>
-  <p>استكشفي أكثر من 50 جامعة وكلية، وقارني بين تخصصاتها ورسومها ونسبة توافقها معك</p>
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+    <script src="../js/header-index.js"></script>
 
-  <div class="search-hero-box">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <input type="text" id="uniSearchInput" placeholder="ابحثي عن جامعة أو تخصص...">
-    <button class="search-hero-btn" id="uniSearchBtn" type="button">بحث</button>
-  </div>
-</div>
 
-<!-- ======================= MAIN CONTENT ======================= -->
-<div class="uni-wrap">
-  <div class="uni-inner">
+    <!-- =========================================================
+         HERO
+    ========================================================== -->
+    <section class="uni-hero">
 
-    <div class="filters-bar-new">
-      <span class="results-count" id="resultsCount">جارٍ التحميل...</span>
-    </div>
+        <div class="uni-hero-decoration uni-hero-decoration-1"></div>
+        <div class="uni-hero-decoration uni-hero-decoration-2"></div>
 
-    <div class="uni-grid-list" id="uniGrid">
-      <div class="no-results" id="loadingMsg">جارٍ تحميل الجامعات...</div>
-    </div>
+        <div class="uni-hero-content">
 
-    <div class="section-title"><span class="dot"></span>مقالات تهمك</div>
-    <div class="articles-grid">
-      <div class="article-card">
-        <div class="article-thumb">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span class="uni-eyebrow">
+                <span class="uni-eyebrow-dot"></span>
+                اكتشفي مستقبلك
+            </span>
+
+            <h1>
+                اكتشفي
+                <span>جامعتك القادمة</span>
+            </h1>
+
+            <p>
+                استكشفي الجامعات والتخصصات، قارني خياراتك،
+                وخذي أول خطوة نحو مستقبلك مع NextStep AI.
+            </p>
+
+            <!-- Search -->
+            <div class="search-hero-box">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    aria-hidden="true"
+                >
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="M21 21l-4.3-4.3"></path>
+                </svg>
+
+                <input
+                    type="text"
+                    id="uniSearchInput"
+                    placeholder="ابحثي عن جامعة..."
+                    autocomplete="off"
+                >
+
+                <button
+                    class="search-hero-btn"
+                    id="uniSearchBtn"
+                    type="button"
+                >
+                    بحث
+                </button>
+
+            </div>
+
+            <!-- Hero Stats -->
+            <div class="hero-mini-stats">
+
+                <div class="hero-stat">
+                    <strong>50+</strong>
+                    <span>جامعة وكلية</span>
+                </div>
+
+                <div class="hero-stat-divider"></div>
+
+                <div class="hero-stat">
+                    <strong>500+</strong>
+                    <span>تخصص جامعي</span>
+                </div>
+
+                <div class="hero-stat-divider"></div>
+
+                <div class="hero-stat">
+                    <strong>NextStep</strong>
+                    <span>خطوتك نحو المستقبل</span>
+                </div>
+
+            </div>
+
         </div>
-        <div class="article-body">
-          <h4>كيف تختارين الجامعة المناسبة؟</h4>
-          <p>دليل مبسط لأهم المعايير يلي لازم تاخديها بعين الاعتبار قبل التسجيل.</p>
-          <a href="#" class="article-link">اقرئي المزيد
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M13 5l-7 7 7 7" transform="rotate(180 12 12)"/></svg>
-          </a>
+    </section>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+    <main class="uni-wrap">
+
+        <div class="uni-inner">
+
+            <!-- =================================================
+                 SECTION HEADER
+            ================================================== -->
+            <div class="uni-section-head">
+
+                <div>
+                    <span class="section-kicker">
+                        دليل الجامعات
+                    </span>
+
+                    <h2>
+                        اختاري المكان الذي
+                        <span>يصنع خطوتك القادمة</span>
+                    </h2>
+
+                    <p>
+                        استكشفي الجامعات المتاحة وتعرفي على أهم المعلومات عنها.
+                    </p>
+                </div>
+
+                <div class="results-count-box">
+                    <span id="resultsCount">جارٍ التحميل...</span>
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 QUICK LOCATION FILTERS
+            ================================================== -->
+            <div
+                class="uni-filter-chips"
+                id="uniFilterChips"
+            ></div>
+
+
+            <!-- =================================================
+                 UNIVERSITY GRID
+            ================================================== -->
+            <div
+                class="uni-grid-list"
+                id="uniGrid"
+            >
+
+                <div class="uni-loading" id="loadingMsg">
+
+                    <div class="loading-spinner"></div>
+
+                    <span>
+                        جارٍ تحميل الجامعات...
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ARTICLES
+            ================================================== -->
+            <section class="uni-info-section">
+
+                <div class="section-title">
+
+                    <span class="section-title-line"></span>
+
+                    <div>
+                        <span>محتوى يساعدك</span>
+                        <h2>مقالات تهمك</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="articles-grid">
+
+                    <!-- Article 1 -->
+                    <article class="article-card">
+
+                        <div class="article-thumb article-thumb-blue">
+
+                            <div class="article-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                </svg>
+
+                            </div>
+
+                        </div>
+
+                        <div class="article-body">
+
+                            <span class="article-tag">
+                                دليل الطالب
+                            </span>
+
+                            <h3>
+                                كيف تختارين الجامعة المناسبة؟
+                            </h3>
+
+                            <p>
+                                أهم المعايير التي يجب أن تضعيها في اعتبارك قبل اختيار جامعتك.
+                            </p>
+
+                            <a href="#" class="article-link">
+                                اقرئي المزيد
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M5 12h14"></path>
+                                    <path d="M13 6l6 6-6 6"></path>
+                                </svg>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Article 2 -->
+                    <article class="article-card">
+
+                        <div class="article-thumb article-thumb-cyan">
+
+                            <div class="article-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+                                    <path d="M22 10v6"></path>
+                                    <path d="M2 10l10-5 10 5-10 5-10-5z"></path>
+                                    <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"></path>
+                                </svg>
+
+                            </div>
+
+                        </div>
+
+                        <div class="article-body">
+
+                            <span class="article-tag">
+                                مقارنة
+                            </span>
+
+                            <h3>
+                                الفرق بين الجامعات الحكومية والخاصة
+                            </h3>
+
+                            <p>
+                                مقارنة سريعة تساعدك على فهم أهم الفروقات بين الخيارات المتاحة.
+                            </p>
+
+                            <a href="#" class="article-link">
+                                اقرئي المزيد
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M5 12h14"></path>
+                                    <path d="M13 6l6 6-6 6"></path>
+                                </svg>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Article 3 -->
+                    <article class="article-card">
+
+                        <div class="article-thumb article-thumb-navy">
+
+                            <div class="article-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+                                    <path d="M9 18h6"></path>
+                                    <path d="M10 21h4"></path>
+                                    <path d="M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z"></path>
+                                </svg>
+
+                            </div>
+
+                        </div>
+
+                        <div class="article-body">
+
+                            <span class="article-tag">
+                                نصائح
+                            </span>
+
+                            <h3>
+                                نصائح لأول سنة جامعية
+                            </h3>
+
+                            <p>
+                                خطوات عملية تساعدك على بدء مشوارك الجامعي بثقة ووضوح.
+                            </p>
+
+                            <a href="#" class="article-link">
+                                اقرئي المزيد
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M5 12h14"></path>
+                                    <path d="M13 6l6 6-6 6"></path>
+                                </svg>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 FAQ
+            ================================================== -->
+            <section class="uni-info-section faq-section">
+
+                <div class="section-title">
+
+                    <span class="section-title-line"></span>
+
+                    <div>
+                        <span>هل لديك سؤال؟</span>
+                        <h2>أسئلة شائعة</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-list" id="faqList">
+
+                    <!-- FAQ 1 -->
+                    <div class="faq-item">
+
+                        <button
+                            class="faq-question"
+                            type="button"
+                        >
+
+                            <span>
+                                كيف بقدر أعرف التخصصات المتوفرة بجامعة معينة؟
+                            </span>
+
+                            <span class="faq-arrow">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M6 9l6 6 6-6"></path>
+                                </svg>
+
+                            </span>
+
+                        </button>
+
+                        <div class="faq-answer">
+
+                            <p>
+                                افتحي صفحة الجامعة التي تهمك واضغطي على تبويب
+                                التخصصات لتشاهدي جميع التخصصات المتوفرة فيها.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item">
+
+                        <button
+                            class="faq-question"
+                            type="button"
+                        >
+
+                            <span>
+                                هل المعلومات المعروضة عن الجامعات محدثة؟
+                            </span>
+
+                            <span class="faq-arrow">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M6 9l6 6 6-6"></path>
+                                </svg>
+
+                            </span>
+
+                        </button>
+
+                        <div class="faq-answer">
+
+                            <p>
+                                نعم، نعمل على تحديث بيانات الجامعات بشكل دوري
+                                حتى تحصلين على معلومات أكثر دقة وفائدة.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item">
+
+                        <button
+                            class="faq-question"
+                            type="button"
+                        >
+
+                            <span>
+                                كيف أقدر أشوف تفاصيل جامعة معينة؟
+                            </span>
+
+                            <span class="faq-arrow">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M6 9l6 6 6-6"></path>
+                                </svg>
+
+                            </span>
+
+                        </button>
+
+                        <div class="faq-answer">
+
+                            <p>
+                                اضغطي على زر "عرض الجامعة" الموجود داخل بطاقة
+                                الجامعة، وسيتم نقلك مباشرة إلى صفحة تفاصيلها.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
         </div>
-      </div>
-      <div class="article-card">
-        <div class="article-thumb">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
-        </div>
-        <div class="article-body">
-          <h4>الفرق بين الجامعات الحكومية والخاصة</h4>
-          <p>مقارنة سريعة تساعدك تفهمي الفروقات الأساسية بينهم.</p>
-          <a href="#" class="article-link">اقرئي المزيد
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M13 5l-7 7 7 7" transform="rotate(180 12 12)"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="article-card">
-        <div class="article-thumb">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
-        </div>
-        <div class="article-body">
-          <h4>نصائح لأول سنة جامعية</h4>
-          <p>خطوات عملية تساعدك تبدئي مشوارك الجامعي بثقة.</p>
-          <a href="#" class="article-link">اقرئي المزيد
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M13 5l-7 7 7 7" transform="rotate(180 12 12)"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
 
-    <div class="section-title"><span class="dot"></span>أسئلة شائعة</div>
-    <div class="faq-list" id="faqList">
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          كيف بقدر أعرف التخصصات المتوفرة بجامعة معينة؟
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-answer"><p>افتحي صفحة الجامعة يلي بتهمك واضغطي على تبويب "التخصصات" لتشوفي كل التخصصات المتوفرة فيها.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          هل المعلومات المعروضة محدّثة؟
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-answer"><p>نعم، بنحرص نحدّث بيانات الجامعات بشكل دوري بالتعاون مع الجهات الرسمية.</p></div>
-      </div>
-    </div>
+    </main>
 
-  </div>
-</div>
 
-<!-- ======================= FOOTER ======================= -->
-<script src="footer.js"></script>
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+    <script src="../js/footer-index.js"></script>
 
-<script>
-/* ==========================================================================
-   🔌 عقد الربط مع الباك اند (API Contract) — صفحة دليل الجامعات
-   ==========================================================================
-   Endpoint:  GET {API_BASE_URL}/universities
-   Response المتوقع (JSON):
-   {
-     "status": "success",
-     "data": [
-       {
-         "id": 1,                       // رقم | مطلوب | يُستخدم برابط صفحة التفاصيل
-         "name": "جامعة النجاح الوطنية",  // نص | مطلوب
-         "location": "نابلس",            // نص | اختياري (بيبين "غير محدد" إذا فاضي)
-         "students_count": 22000,        // رقم أو null | اختياري
-         "majors_count": 74              // رقم أو null | اختياري
-       }
-     ]
-   }
 
-   ملاحظات مهمة للمهندس بالباك اند:
-   - الفلترة والبحث كلها بتصير بالفرونت إند بعد التحميل (مو query params)،
-     يعني الـ endpoint لازم يرجّع كل الجامعات دفعة وحدة بدون pagination.
-   - لوجو كل جامعة بينجلب تلقائياً من: /assets/universities/{id}/logo.(png|jpg|jpeg|webp)
-     (شوفي دالة setLogoAuto بالأسفل) — ما في داعي ترجعي رابط صورة بالـ response أصلاً.
-   - رابط صفحة تفاصيل الجامعة جاهز ومربوط: university-details.html?id={id}
-   - ✋ ما في تصنيف قطاع (حكومية/خاصة) ولا ترتيب على هاي الصفحة — تم إلغاؤهم، ما في داعي
-     ترجعي حقول sector أو ranking أصلاً.
+    <!-- =========================================================
+         PAGE JAVASCRIPT
+    ========================================================== -->
+    <script>
 
-   ---------- طريقة التفعيل لما يجهز الـ API الحقيقي ----------
-   1) بدّلي القيمة تحت USE_MOCK_DATA من true إلى false.
-   2) عدّلي API_BASE_URL إذا لزم (حالياً معمول على السيرفر المحلي).
-   هيك بس، الصفحة بتحوّل تلقائياً على الجلب من الباك اند.
-   ========================================================================== */
+        /* =========================================================
+           API SETTINGS
+        ========================================================== */
 
-const USE_MOCK_DATA = true; // ⬅️ بدّليها إلى false لما يجهز الـ endpoint الحقيقي
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+        const USE_MOCK_DATA = true;
 
-const ASSETS_BASE = '../assets/universities';
+        const API_BASE_URL = "http://127.0.0.1:8000/api";
 
-const MOCK_UNIVERSITIES = [
-  { id: 1, name: 'جامعة النجاح الوطنية', location: 'نابلس', students_count: 22000, majors_count: 74 },
-  { id: 2, name: 'جامعة بيرزيت', location: 'رام الله', students_count: 15000, majors_count: 68 },
-  { id: 3, name: 'جامعة بوليتكنك فلسطين', location: 'الخليل', students_count: 8000, majors_count: 41 },
-  { id: 4, name: 'جامعة القدس', location: 'القدس', students_count: 13000, majors_count: 60 },
-  { id: 5, name: 'جامعة الخليل', location: 'الخليل', students_count: 9500, majors_count: 45 },
-  { id: 6, name: 'جامعة فلسطين التقنية - خضوري', location: 'طولكرم', students_count: 7000, majors_count: 38 },
-  { id: 7, name: 'جامعة العربية الأمريكية', location: 'جنين', students_count: 10500, majors_count: 52 },
-  { id: 8, name: 'جامعة القدس المفتوحة', location: 'رام الله', students_count: 40000, majors_count: 30 },
-  { id: 9, name: 'كلية العلوم التطبيقية الجامعية', location: 'رام الله', students_count: 3200, majors_count: 22 },
-];
+        /*
+         * Structure:
+         *
+         * assets/
+         *   universities/
+         *      1/
+         *         logo.png
+         *         cover.jpg
+         *
+         *      2/
+         *         logo.png
+         *         cover.jpg
+         */
 
-const uniGrid = document.getElementById('uniGrid');
-const resultsCount = document.getElementById('resultsCount');
-const searchInput = document.getElementById('uniSearchInput');
-const searchBtn = document.getElementById('uniSearchBtn');
+        const ASSETS_BASE = "../assets/universities";
 
-let allUniversities = [];
 
-function formatCount(n) {
-  if (n === null || n === undefined) return '—';
-  if (n >= 1000) return '+' + Math.round(n / 1000) + 'K';
-  return String(n);
-}
+        /* =========================================================
+           MOCK DATA
+        ========================================================== */
 
-function imageExists(url) {
-  return new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = url;
-  });
-}
+        const MOCK_UNIVERSITIES = [
 
-async function setLogoAuto(uniId) {
-  const img = document.getElementById(`uniLogoImg-${uniId}`);
-  const fallback = document.getElementById(`uniLogoFallback-${uniId}`);
-  if (!img || !fallback) return;
+            {
+                id: 1,
+                name: "جامعة النجاح الوطنية",
+                location: "نابلس",
+                students_count: 22000,
+                majors_count: 74
+            },
 
-  const baseNames = ['logo.png', 'logo.jpg', 'logo.jpeg', 'logo.webp', 'logo'];
-  const extensions = ['png', 'jpg', 'jpeg', 'webp'];
+            {
+                id: 2,
+                name: "جامعة بيرزيت",
+                location: "رام الله",
+                students_count: 15000,
+                majors_count: 68
+            },
 
-  for (const base of baseNames) {
-    for (const ext of extensions) {
-      const url = `${ASSETS_BASE}/${uniId}/${base}.${ext}`;
-      const exists = await imageExists(url);
-      if (exists) {
-        img.src = url;
-        img.style.display = '';
-        fallback.style.display = 'none';
-        return;
-      }
-    }
-  }
-}
+            {
+                id: 3,
+                name: "جامعة بوليتكنك فلسطين",
+                location: "الخليل",
+                students_count: 8000,
+                majors_count: 41
+            },
 
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
+            {
+                id: 4,
+                name: "جامعة القدس",
+                location: "القدس",
+                students_count: 13000,
+                majors_count: 60
+            },
 
-function buildCard(uni) {
-  return `
-    <div class="uni-card-new">
-      <div class="uni-card-top">
-        <div>
-          <h3>${escapeHtml(uni.name)}</h3>
-          <div class="uni-card-loc">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            ${escapeHtml(uni.location || 'غير محدد')}
-          </div>
-        </div>
-        <div class="uni-avatar-sq" id="uniLogoBox-${uni.id}">
-          <img id="uniLogoImg-${uni.id}" alt="" style="display:none;">
-          <svg id="uniLogoFallback-${uni.id}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
-        </div>
-      </div>
+            {
+                id: 5,
+                name: "جامعة الخليل",
+                location: "الخليل",
+                students_count: 9500,
+                majors_count: 45
+            },
 
-      <div class="uni-stats-mini">
-        <div><b>${formatCount(uni.students_count)}</b><span>طالب</span></div>
-        <div><b>${uni.majors_count ?? 0}</b><span>تخصص</span></div>
-      </div>
+            {
+                id: 6,
+                name: "جامعة فلسطين التقنية - خضوري",
+                location: "طولكرم",
+                students_count: 7000,
+                majors_count: 38
+            },
 
-      <a href="university-details.html?id=${uni.id}" class="btn-view-uni">
-        عرض التفاصيل
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M13 5l-7 7 7 7" transform="rotate(180 12 12)"/></svg>
-      </a>
-    </div>
-  `;
-}
+            {
+                id: 7,
+                name: "الجامعة العربية الأمريكية",
+                location: "جنين",
+                students_count: 10500,
+                majors_count: 52
+            },
 
-function renderUniversities(list) {
-  if (list.length === 0) {
-    uniGrid.innerHTML = '<div class="no-results">ما في نتائج مطابقة.</div>';
-    resultsCount.textContent = '0 جامعة';
-    return;
-  }
-  uniGrid.innerHTML = list.map(buildCard).join('');
-  resultsCount.textContent = list.length + ' جامعة';
-  list.forEach(uni => setLogoAuto(uni.id));
-}
+            {
+                id: 8,
+                name: "جامعة القدس المفتوحة",
+                location: "رام الله",
+                students_count: 40000,
+                majors_count: 30
+            },
 
-function applyFilters() {
-  const q = searchInput.value.trim().toLowerCase();
+            {
+                id: 9,
+                name: "الكلية الجامعية للعلوم التطبيقية",
+                location: "رام الله",
+                students_count: 3200,
+                majors_count: 22
+            }
 
-  const result = allUniversities.filter(uni => {
-    return !q || uni.name.toLowerCase().includes(q);
-  });
+        ];
 
-  renderUniversities(result);
-}
 
-searchBtn.addEventListener('click', applyFilters);
-searchInput.addEventListener('input', applyFilters);
+        /* =========================================================
+           DOM
+        ========================================================== */
 
-/* ---------- تحميل بيانات وهمية (تجربة بدون سيرفر) ---------- */
-function loadMockUniversities() {
-  setTimeout(() => {
-    allUniversities = MOCK_UNIVERSITIES;
-    renderUniversities(allUniversities);
-  }, 300);
-}
+        const uniGrid = document.getElementById("uniGrid");
+        const resultsCount = document.getElementById("resultsCount");
+        const searchInput = document.getElementById("uniSearchInput");
+        const searchBtn = document.getElementById("uniSearchBtn");
+        const filterChips = document.getElementById("uniFilterChips");
 
-/* ---------- تحميل من الباك اند الحقيقي ---------- */
-async function loadUniversitiesFromAPI() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/universities`);
-    const data = await response.json();
-    if (response.ok && data.status === 'success') {
-      allUniversities = data.data;
-      renderUniversities(allUniversities);
-    } else {
-      uniGrid.innerHTML = '<div class="no-results">تعذر تحميل قائمة الجامعات. حاولي لاحقاً.</div>';
-      resultsCount.textContent = '';
-    }
-  } catch (err) {
-    uniGrid.innerHTML = '<div class="no-results">تعذر الاتصال بالسيرفر. تأكدي إنه الباك اند شغال.</div>';
-    resultsCount.textContent = '';
-    console.error('Load universities error:', err);
-  }
-}
+        let allUniversities = [];
+        let activeLocation = "الكل";
 
-/* ---------- نقطة الدخول: بتختار المصدر حسب USE_MOCK_DATA بالأعلى ---------- */
-function loadUniversities() {
-  if (USE_MOCK_DATA) {
-    loadMockUniversities();
-  } else {
-    loadUniversitiesFromAPI();
-  }
-}
 
-loadUniversities();
+        /* =========================================================
+           HELPERS
+        ========================================================== */
 
-document.querySelectorAll('.faq-question').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.closest('.faq-item');
-    const answer = item.querySelector('.faq-answer');
-    const isOpen = item.classList.contains('open');
+        function escapeHtml(value) {
 
-    document.querySelectorAll('.faq-item.open').forEach(openItem => {
-      openItem.classList.remove('open');
-      openItem.querySelector('.faq-answer').style.maxHeight = null;
-    });
+            const div = document.createElement("div");
 
-    if (!isOpen) {
-      item.classList.add('open');
-      answer.style.maxHeight = answer.scrollHeight + 'px';
-    }
-  });
-});
-</script>
+            div.textContent = value ?? "";
 
-<script src="../js/footer-index.js"></script>
+            return div.innerHTML;
+        }
+
+
+        function formatCount(number) {
+
+            if (
+                number === null ||
+                number === undefined ||
+                number === ""
+            ) {
+                return "—";
+            }
+
+            if (number >= 1000) {
+
+                const formatted = number / 1000;
+
+                return "+" + (
+                    Number.isInteger(formatted)
+                        ? formatted
+                        : formatted.toFixed(1)
+                ) + "K";
+
+            }
+
+            return String(number);
+        }
+
+
+        function imageExists(url) {
+
+            return new Promise(resolve => {
+
+                const img = new Image();
+
+                img.onload = () => resolve(true);
+
+                img.onerror = () => resolve(false);
+
+                img.src = url;
+
+            });
+
+        }
+
+
+        /* =========================================================
+           FIND UNIVERSITY IMAGE
+        ========================================================== */
+
+        async function findImage(
+            universityId,
+            fileNames
+        ) {
+
+            for (const fileName of fileNames) {
+
+                const url =
+                    `${ASSETS_BASE}/${universityId}/${fileName}`;
+
+                if (await imageExists(url)) {
+                    return url;
+                }
+
+            }
+
+            return null;
+        }
+
+
+        /* =========================================================
+           LOAD COVER IMAGE
+        ========================================================== */
+
+        async function setCoverImage(universityId) {
+
+            const image =
+                document.getElementById(
+                    `uniCoverImg-${universityId}`
+                );
+
+            const fallback =
+                document.getElementById(
+                    `uniCoverFallback-${universityId}`
+                );
+
+            if (!image || !fallback) {
+                return;
+            }
+
+            const coverUrl = await findImage(
+                universityId,
+                [
+                    "cover.jpg",
+                    "cover.jpeg",
+                    "cover.png",
+                    "cover.webp",
+                    "campus.jpg",
+                    "campus.jpeg",
+                    "campus.png",
+                    "campus.webp"
+                ]
+            );
+
+            if (coverUrl) {
+
+                image.src = coverUrl;
+
+                image.style.display = "block";
+
+                fallback.style.display = "none";
+
+            }
+
+        }
+
+
+        /* =========================================================
+           LOAD LOGO
+        ========================================================== */
+
+        async function setLogoImage(universityId) {
+
+            const image =
+                document.getElementById(
+                    `uniLogoImg-${universityId}`
+                );
+
+            const fallback =
+                document.getElementById(
+                    `uniLogoFallback-${universityId}`
+                );
+
+            if (!image || !fallback) {
+                return;
+            }
+
+            const logoUrl = await findImage(
+                universityId,
+                [
+                    "logo.png",
+                    "logo.jpg",
+                    "logo.jpeg",
+                    "logo.webp"
+                ]
+            );
+
+            if (logoUrl) {
+
+                image.src = logoUrl;
+
+                image.style.display = "block";
+
+                fallback.style.display = "none";
+
+            }
+
+        }
+
+
+        /* =========================================================
+           UNIVERSITY CARD
+        ========================================================== */
+
+        function buildCard(uni, index) {
+
+            const safeName =
+                escapeHtml(uni.name);
+
+            const safeLocation =
+                escapeHtml(
+                    uni.location || "غير محدد"
+                );
+
+            const students =
+                formatCount(uni.students_count);
+
+            const majors =
+                uni.majors_count ??
+                0;
+
+            const cardNumber =
+                String(index + 1).padStart(2, "0");
+
+
+            return `
+
+                <article
+                    class="uni-card"
+                    data-university-id="${uni.id}"
+                >
+
+                    <!-- COVER -->
+                    <div class="uni-card-cover">
+
+                        <!-- Fallback -->
+                        <div
+                            class="uni-cover-fallback"
+                            id="uniCoverFallback-${uni.id}"
+                        >
+
+                            <div class="fallback-pattern"></div>
+
+                            <span>
+                                NEXTSTEP
+                            </span>
+
+                        </div>
+
+
+                        <!-- Actual Image -->
+                        <img
+                            id="uniCoverImg-${uni.id}"
+                            class="uni-cover-img"
+                            alt="${safeName}"
+                            loading="lazy"
+                            style="display:none;"
+                        >
+
+
+                        <!-- Gradient -->
+                        <div class="uni-cover-gradient"></div>
+
+
+                        <!-- Card Number -->
+                        <span class="uni-card-number">
+                            ${cardNumber}
+                        </span>
+
+
+                        <!-- University Logo -->
+                        <div
+                            class="uni-logo"
+                            id="uniLogoBox-${uni.id}"
+                        >
+
+                            <img
+                                id="uniLogoImg-${uni.id}"
+                                alt="شعار ${safeName}"
+                                style="display:none;"
+                            >
+
+                            <svg
+                                id="uniLogoFallback-${uni.id}"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+                                <path d="M3 21h18"></path>
+                                <path d="M5 21V7l7-4 7 4v14"></path>
+                                <path d="M9 9h1"></path>
+                                <path d="M14 9h1"></path>
+                                <path d="M9 13h1"></path>
+                                <path d="M14 13h1"></path>
+                                <path d="M9 17h1"></path>
+                                <path d="M14 17h1"></path>
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BODY -->
+                    <div class="uni-card-body">
+
+                        <div class="uni-card-heading">
+
+                            <h3>
+                                ${safeName}
+                            </h3>
+
+                            <div class="uni-location">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle
+                                        cx="12"
+                                        cy="10"
+                                        r="3"
+                                    ></circle>
+                                </svg>
+
+                                <span>
+                                    ${safeLocation}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Stats -->
+                        <div class="uni-card-stats">
+
+                            <div class="uni-stat">
+
+                                <strong>
+                                    ${students}
+                                </strong>
+
+                                <span>
+                                    طالب
+                                </span>
+
+                            </div>
+
+
+                            <div class="uni-stat-divider"></div>
+
+
+                            <div class="uni-stat">
+
+                                <strong>
+                                    ${majors}
+                                </strong>
+
+                                <span>
+                                    تخصص
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Footer -->
+                        <div class="uni-card-footer">
+
+                            <span class="uni-card-hint">
+                                اكتشفي الجامعة
+                            </span>
+
+                            <a
+                                href="university-details.html?id=${uni.id}"
+                                class="btn-view-uni"
+                                aria-label="عرض تفاصيل ${safeName}"
+                            >
+
+                                <span>
+                                    عرض الجامعة
+                                </span>
+
+                                <span class="btn-arrow">
+
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                    >
+                                        <path d="M5 12h14"></path>
+                                        <path d="M13 6l6 6-6 6"></path>
+                                    </svg>
+
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        }
+
+
+        /* =========================================================
+           RENDER
+        ========================================================== */
+
+        function renderUniversities(list) {
+
+            if (!list.length) {
+
+                uniGrid.innerHTML = `
+
+                    <div class="no-results">
+
+                        <div class="no-results-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+                                <circle
+                                    cx="11"
+                                    cy="11"
+                                    r="7"
+                                ></circle>
+
+                                <path
+                                    d="M21 21l-4.3-4.3"
+                                ></path>
+                            </svg>
+
+                        </div>
+
+                        <h3>
+                            ما لقينا جامعة مطابقة
+                        </h3>
+
+                        <p>
+                            جربي البحث باسم جامعة مختلف.
+                        </p>
+
+                    </div>
+
+                `;
+
+                resultsCount.textContent =
+                    "0 جامعة";
+
+                return;
+            }
+
+
+            uniGrid.innerHTML =
+                list
+                    .map((uni, index) =>
+                        buildCard(
+                            uni,
+                            index
+                        )
+                    )
+                    .join("");
+
+
+            resultsCount.textContent =
+                `${list.length} جامعة`;
+
+
+            /*
+             * Load images after rendering
+             */
+            list.forEach(uni => {
+
+                setCoverImage(uni.id);
+
+                setLogoImage(uni.id);
+
+            });
+
+        }
+
+
+        /* =========================================================
+           SEARCH
+        ========================================================== */
+
+        function applyFilters() {
+
+            const query =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const result =
+                allUniversities.filter(uni => {
+
+                    const name =
+                        String(
+                            uni.name || ""
+                        ).toLowerCase();
+
+                    const location =
+                        String(
+                            uni.location || ""
+                        );
+
+                    const matchesQuery =
+                        !query ||
+                        name.includes(query) ||
+                        location.toLowerCase().includes(query);
+
+                    const matchesLocation =
+                        activeLocation === "الكل" ||
+                        location === activeLocation;
+
+
+                    return matchesQuery && matchesLocation;
+
+                });
+
+
+            renderUniversities(result);
+
+        }
+
+
+        /* =========================================================
+           LOCATION FILTER CHIPS
+        ========================================================== */
+
+        function renderFilterChips() {
+
+            if (!filterChips) {
+                return;
+            }
+
+            const locations =
+                Array.from(
+                    new Set(
+                        allUniversities
+                            .map(uni => uni.location)
+                            .filter(Boolean)
+                    )
+                );
+
+            const chips =
+                ["الكل", ...locations];
+
+
+            filterChips.innerHTML =
+                chips
+                    .map(loc => {
+
+                        const isActive =
+                            loc === activeLocation;
+
+                        return `
+                            <button
+                                type="button"
+                                class="uni-chip${isActive ? " active" : ""}"
+                                data-location="${escapeHtml(loc)}"
+                            >
+                                ${escapeHtml(loc)}
+                            </button>
+                        `;
+
+                    })
+                    .join("");
+
+
+            filterChips
+                .querySelectorAll(".uni-chip")
+                .forEach(chip => {
+
+                    chip.addEventListener(
+                        "click",
+                        () => {
+
+                            activeLocation =
+                                chip.dataset.location;
+
+                            filterChips
+                                .querySelectorAll(".uni-chip")
+                                .forEach(c =>
+                                    c.classList.remove("active")
+                                );
+
+                            chip.classList.add("active");
+
+                            applyFilters();
+
+                        }
+                    );
+
+                });
+
+        }
+
+
+        searchBtn.addEventListener(
+            "click",
+            applyFilters
+        );
+
+
+        searchInput.addEventListener(
+            "input",
+            applyFilters
+        );
+
+
+        searchInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (event.key === "Enter") {
+
+                    applyFilters();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           MOCK DATA
+        ========================================================== */
+
+        function loadMockUniversities() {
+
+            setTimeout(() => {
+
+                allUniversities =
+                    MOCK_UNIVERSITIES;
+
+                renderFilterChips();
+
+                renderUniversities(
+                    allUniversities
+                );
+
+            }, 350);
+
+        }
+
+
+        /* =========================================================
+           REAL API
+        ========================================================== */
+
+        async function loadUniversitiesFromAPI() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/universities`
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (
+                    response.ok &&
+                    data.status === "success"
+                ) {
+
+                    allUniversities =
+                        Array.isArray(data.data)
+                            ? data.data
+                            : [];
+
+
+                    renderFilterChips();
+
+                    renderUniversities(
+                        allUniversities
+                    );
+
+                } else {
+
+                    throw new Error(
+                        "Invalid API response"
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Load universities error:",
+                    error
+                );
+
+
+                uniGrid.innerHTML = `
+
+                    <div class="no-results">
+
+                        <div class="no-results-icon error-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+                                <path
+                                    d="M12 9v4"
+                                ></path>
+
+                                <path
+                                    d="M12 17h.01"
+                                ></path>
+
+                                <path
+                                    d="M10.3 3.5L2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.5a2 2 0 0 0-3.4 0z"
+                                ></path>
+                            </svg>
+
+                        </div>
+
+                        <h3>
+                            تعذر تحميل الجامعات
+                        </h3>
+
+                        <p>
+                            تأكدي من أن الباك اند يعمل ثم حاولي مرة أخرى.
+                        </p>
+
+                    </div>
+
+                `;
+
+                resultsCount.textContent = "";
+
+            }
+
+        }
+
+
+        /* =========================================================
+           LOAD
+        ========================================================== */
+
+        function loadUniversities() {
+
+            if (USE_MOCK_DATA) {
+
+                loadMockUniversities();
+
+            } else {
+
+                loadUniversitiesFromAPI();
+
+            }
+
+        }
+
+
+        loadUniversities();
+
+
+        /* =========================================================
+           FAQ
+        ========================================================== */
+
+        document
+            .querySelectorAll(".faq-question")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const item =
+                            button.closest(
+                                ".faq-item"
+                            );
+
+
+                        const answer =
+                            item.querySelector(
+                                ".faq-answer"
+                            );
+
+
+                        const isOpen =
+                            item.classList.contains(
+                                "open"
+                            );
+
+
+                        document
+                            .querySelectorAll(
+                                ".faq-item.open"
+                            )
+                            .forEach(openItem => {
+
+                                openItem.classList.remove(
+                                    "open"
+                                );
+
+                                openItem
+                                    .querySelector(
+                                        ".faq-answer"
+                                    )
+                                    .style.maxHeight =
+                                    null;
+
+                            });
+
+
+                        if (!isOpen) {
+
+                            item.classList.add(
+                                "open"
+                            );
+
+                            answer.style.maxHeight =
+                                answer.scrollHeight +
+                                "px";
+
+                        }
+
+                    }
+                );
+
+            });
+
+    </script>
+
+</body>
 
 </html>

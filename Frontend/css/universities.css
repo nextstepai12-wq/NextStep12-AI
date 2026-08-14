@@ -8,9 +8,12 @@ body{background:var(--bg-page);}
 
 /* ======================= SEARCH HERO ======================= */
 .uni-hero{
-  background:linear-gradient(120deg, var(--navy) 0%, #1E4A8F 60%, var(--blue) 100%);
-  padding:52px 16px 44px;
-  text-align:center;
+  background: linear-gradient(120deg, var(--navy) 0%, #1E4A8F 60%, var(--blue) 100%);
+  padding-top: calc(var(--header-height, 80px) + 24px); /* إزاحة علوية ديناميكية بحجم الهيدر */
+  padding-bottom: 44px;
+  padding-left: 16px;
+  padding-right: 16px;
+  text-align: center;
 }
 .uni-hero h1{
   font-family:'Poppins',sans-serif;

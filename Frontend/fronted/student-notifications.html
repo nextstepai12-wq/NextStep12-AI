@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>مركز التنبيهات | NextStep AI</title>
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/student-notifications.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="notificationsApp()" x-init="init()">
+
+    <header class="student-notifications-header">
+        <div class="header-container">
+            <div class="nextstep-logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span class="logo-text">NextStep <span class="logo-accent">AI</span></span>
+            </div>
+            <div class="student-profile-area">
+                <div class="notification-icon">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="active-dot" x-show="unreadCount() > 0"></span>
+                </div>
+                <img src="https://via.placeholder.com/40" class="avatar-img" alt="Student">
+            </div>
+        </div>
+    </header>
+
+    <main class="notifications-wrapper">
+        <section class="filters-container">
+            <div class="chips-group">
+                <button @click="current_filter = 'all'" :class="current_filter === 'all' ? 'chip-active' : ''" class="nav-chip">الكل</button>
+                <button @click="current_filter = 'admission'" :class="current_filter === 'admission' ? 'chip-active' : ''" class="nav-chip">القبول</button>
+                <button @click="current_filter = 'ai_recommendation'" :class="current_filter === 'ai_recommendation' ? 'chip-active' : ''" class="nav-chip">توصيات AI</button>
+                <button @click="current_filter = 'reminder'" :class="current_filter === 'reminder' ? 'chip-active' : ''" class="nav-chip">تذكيرات</button>
+                <button @click="current_filter = 'document'" :class="current_filter === 'document' ? 'chip-active' : ''" class="nav-chip">مستندات</button>
+            </div>
+
+            <div class="toolbar-row">
+                <button class="mark-all-btn" @click="markAllRead()" x-show="unreadCount() > 0">
+                    <i class="fa-solid fa-check-double"></i> تحديد الكل كمقروء
+                </button>
+                <button class="simulate-btn" @click="simulateNewNotification()">
+                    <i class="fa-solid fa-bolt"></i> محاكاة إشعار جديد
+                </button>
+            </div>
+        </section>
+
+        <!-- حالة عدم وجود إشعارات -->
+        <div class="empty-state" x-show="filteredCount() === 0">
+            <i class="fa-regular fa-bell-slash"></i>
+            <h3>ما في إشعارات هنا</h3>
+            <p>ما عندك أي إشعارات ضمن هذا التصنيف حاليًا.</p>
+        </div>
+
+        <template x-for="group in groups" :key="group.key">
+            <div x-show="groupCount(group.key) > 0">
+                <h4 class="group-heading" x-text="group.label"></h4>
+
+                <div class="notifications-grid-system">
+                    <template x-for="(item, index) in visibleItems(group.key)" :key="item.id">
+                        <article
+                            class="notification-card"
+                            :class="item.borderClass"
+                            :style="'animation-delay: ' + (index * 90) + 'ms'"
+                            @click="markAsRead(item.id)"
+                            x-transition:enter="card-enter"
+                            x-transition:enter-start="card-enter-start"
+                            x-transition:enter-end="card-enter-end"
+                        >
+                            <div class="card-top">
+                                <div class="status-icon-box" :class="item.iconBg + ' ' + item.iconColor">
+                                    <i :class="'fa-solid ' + item.icon"></i>
+                                </div>
+                                <div class="card-top-meta">
+                                    <span class="unread-dot" x-show="item.unread"></span>
+                                    <time class="post-time" x-text="item.time"></time>
+                                </div>
+                            </div>
+
+                            <h3 class="notification-subject" x-text="item.title"></h3>
+                            <p class="notification-excerpt" x-text="item.excerpt"></p>
+
+                            <template x-if="item.progress !== null">
+                                <div>
+                                    <div class="match-percentage-badge" x-text="'توافق ' + item.progress + '%'"></div>
+                                    <div class="match-progress-wrapper">
+                                        <div class="match-progress-fill" :style="'width: ' + item.progress + '%'"></div>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <div class="card-actions">
+                                <button :class="item.actionClass" x-text="item.actionLabel"></button>
+                            </div>
+                        </article>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </main>
+
+    <!-- Toast -->
+    <div class="toast" x-show="toastVisible" x-transition:enter="toast-enter" x-transition:enter-start="toast-enter-start" x-transition:enter-end="toast-enter-end" x-transition:leave="toast-leave" x-transition:leave-start="toast-leave-start" x-transition:leave-end="toast-leave-end">
+        <i class="fa-solid fa-bell"></i>
+        <span x-text="toastMessage"></span>
+    </div>
+
+    <script>
+        function notificationsApp() {
+            return {
+                current_filter: 'all',
+                toastVisible: false,
+                toastMessage: '',
+                groups: [
+                    { key: 'today', label: 'اليوم' },
+                    { key: 'yesterday', label: 'أمس' },
+                    { key: 'week', label: 'الأسبوع الماضي' },
+                ],
+                notifications: [
+                    {
+                        id: 1, type: 'admission', group: 'today', unread: true,
+                        borderClass: 'admission-type', icon: 'fa-award',
+                        iconBg: 'bg-mint-soft', iconColor: 'text-mint',
+                        time: 'منذ 5 د',
+                        title: 'تم قبولك في جامعة النجاح',
+                        excerpt: 'تمت الموافقة على طلبك بناءً على معايير القبول الحالية.',
+                        progress: null, actionLabel: 'عرض التفاصيل', actionClass: 'btn-primary'
+                    },
+                    {
+                        id: 2, type: 'ai_recommendation', group: 'today', unread: true,
+                        borderClass: 'ai-type', icon: 'fa-robot',
+                        iconBg: 'bg-blue-soft', iconColor: 'text-blue',
+                        time: 'منذ 40 د',
+                        title: 'تخصص "هندسة البرمجيات"',
+                        excerpt: 'هذا التخصص يتوافق مع مهاراتك التي أظهرتها في الاستبيان.',
+                        progress: 88.5, actionLabel: 'لماذا هذا التخصص؟', actionClass: 'btn-outline-soft'
+                    },
+                    {
+                        id: 3, type: 'reminder', group: 'today', unread: false,
+                        borderClass: 'reminder-type', icon: 'fa-clock',
+                        iconBg: 'bg-cyan-soft', iconColor: 'text-cyan',
+                        time: 'منذ ساعتين',
+                        title: 'آخر موعد للتسجيل يقترب',
+                        excerpt: 'تبقّى 3 أيام فقط على إغلاق باب التسجيل في جامعة النجاح.',
+                        progress: null, actionLabel: 'أكمل التسجيل', actionClass: 'btn-primary'
+                    },
+                    {
+                        id: 4, type: 'ai_recommendation', group: 'yesterday', unread: false,
+                        borderClass: 'ai-type', icon: 'fa-robot',
+                        iconBg: 'bg-blue-soft', iconColor: 'text-blue',
+                        time: 'أمس، 6:20 م',
+                        title: 'تخصص "علم البيانات"',
+                        excerpt: 'مهاراتك التحليلية تتماشى مع متطلبات هذا التخصص بشكل جيد.',
+                        progress: 76, actionLabel: 'لماذا هذا التخصص؟', actionClass: 'btn-outline-soft'
+                    },
+                    {
+                        id: 5, type: 'document', group: 'yesterday', unread: true,
+                        borderClass: 'document-type', icon: 'fa-file-lines',
+                        iconBg: 'bg-navy-soft', iconColor: 'text-navy',
+                        time: 'أمس، 11:05 ص',
+                        title: 'مستندات ناقصة في ملفك',
+                        excerpt: 'يرجى رفع كشف العلامات الرسمي لإتمام إجراءات القبول.',
+                        progress: null, actionLabel: 'رفع المستند', actionClass: 'btn-primary'
+                    },
+                    {
+                        id: 6, type: 'admission', group: 'week', unread: false,
+                        borderClass: 'admission-type', icon: 'fa-circle-check',
+                        iconBg: 'bg-mint-soft', iconColor: 'text-mint',
+                        time: 'منذ 4 أيام',
+                        title: 'تحديث حالة طلبك في جامعة بيرزيت',
+                        excerpt: 'طلبك الآن قيد المراجعة النهائية من قِبل لجنة القبول.',
+                        progress: null, actionLabel: 'عرض التفاصيل', actionClass: 'btn-primary'
+                    },
+                ],
+                nextId: 100,
+
+                init() {},
+
+                filteredList() {
+                    if (this.current_filter === 'all') return this.notifications;
+                    return this.notifications.filter(n => n.type === this.current_filter);
+                },
+                visibleItems(groupKey) {
+                    return this.filteredList().filter(n => n.group === groupKey);
+                },
+                groupCount(groupKey) {
+                    return this.visibleItems(groupKey).length;
+                },
+                filteredCount() {
+                    return this.filteredList().length;
+                },
+                unreadCount() {
+                    return this.notifications.filter(n => n.unread).length;
+                },
+                markAsRead(id) {
+                    const item = this.notifications.find(n => n.id === id);
+                    if (item) item.unread = false;
+                },
+                markAllRead() {
+                    this.notifications.forEach(n => n.unread = false);
+                },
+                simulateNewNotification() {
+                    const samples = [
+                        { type: 'reminder', borderClass: 'reminder-type', icon: 'fa-clock', iconBg: 'bg-cyan-soft', iconColor: 'text-cyan', title: 'موعد مقابلة القبول غدًا', excerpt: 'لا تنسَ مقابلتك الساعة 10 صباحًا مع لجنة القبول.', progress: null, actionLabel: 'عرض التفاصيل', actionClass: 'btn-primary' },
+                        { type: 'ai_recommendation', borderClass: 'ai-type', icon: 'fa-robot', iconBg: 'bg-blue-soft', iconColor: 'text-blue', title: 'تخصص "الذكاء الاصطناعي"', excerpt: 'تطابق جديد وجدناه بناءً على آخر تحديث لملفك الشخصي.', progress: 91, actionLabel: 'لماذا هذا التخصص؟', actionClass: 'btn-outline-soft' },
+                        { type: 'document', borderClass: 'document-type', icon: 'fa-file-lines', iconBg: 'bg-navy-soft', iconColor: 'text-navy', title: 'تم استلام مستنداتك', excerpt: 'تم استلام كشف العلامات وجاري مراجعته من الفريق المختص.', progress: null, actionLabel: 'عرض التفاصيل', actionClass: 'btn-primary' },
+                    ];
+                    const sample = samples[Math.floor(Math.random() * samples.length)];
+                    const newItem = {
+                        id: this.nextId++,
+                        group: 'today',
+                        unread: true,
+                        time: 'الآن',
+                        ...sample
+                    };
+                    this.notifications.unshift(newItem);
+                    this.toastMessage = 'إشعار جديد: ' + newItem.title;
+                    this.toastVisible = true;
+                    setTimeout(() => { this.toastVisible = false; }, 3000);
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

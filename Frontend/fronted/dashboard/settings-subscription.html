@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الاشتراك — الإعدادات | NextStep AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/app.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/settings-dashboard.css">
+
+  <style>
+    .settings-stepper-wrapper { display: grid; grid-template-columns: 260px 1fr; gap: 2rem; align-items: start; }
+    .settings-stepper { background: var(--white); border-radius: var(--radius); padding: 1.5rem 1.25rem; box-shadow: var(--shadow); position: sticky; top: 90px; border: 1px solid rgba(47,107,255,0.04); }
+    .settings-stepper h3 { font-size: 1rem; font-weight: 700; color: var(--gray); margin-bottom: 1.5rem; padding-bottom: .75rem; border-bottom: 1px solid var(--gray-bg); }
+    .settings-stepper ul { list-style: none; display: flex; flex-direction: column; gap: .25rem; }
+    .stepper-item-settings { display: flex; align-items: center; gap: .75rem; padding: .75rem; border-radius: var(--radius-sm); cursor: pointer; border: none; background: transparent; width: 100%; text-align: right; }
+    .stepper-item-settings:hover { background: var(--gray-bg); }
+    .stepper-item-settings.active { background: rgba(47,107,255,0.06); }
+    .stepper-item-settings.active h4 { color: var(--blue); }
+    .stepper-dot { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--gray-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .stepper-item-settings.active .stepper-dot { border-color: var(--blue); background: var(--blue); }
+    .stepper-item-settings.active .stepper-dot .dot-inner { background: white; }
+    .dot-inner { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-light); }
+    .stepper-item-settings h4 { font-size: .9rem; font-weight: 600; color: var(--navy); }
+    .stepper-item-settings p { font-size: .75rem; color: var(--gray); margin-top: .1rem; }
+    .stepper-item-settings div { text-align: right; }
+
+    .settings-section { background: var(--white); border-radius: var(--radius); padding: 1.75rem 2rem; box-shadow: var(--shadow); border: 1px solid rgba(47,107,255,0.04); }
+    .settings-section-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: .75rem; padding-bottom: .75rem; border-bottom: 2px solid var(--gray-bg); margin-bottom: 1.5rem; }
+    .settings-section-title .section-hint { font-size: .8rem; font-weight: 400; color: var(--gray); margin-right: auto; }
+
+    .plan-current-box { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg,#f0f7ff,#e8f0fe); border-radius: var(--radius-sm); padding: 1.5rem 1.75rem; border: 1px solid rgba(47,107,255,0.12); margin-bottom: 1.5rem; }
+    .plan-current-name { font-size: 1.3rem; font-weight: 800; color: var(--navy); }
+    .plan-current-price { color: var(--blue); font-weight: 700; margin-top: .25rem; }
+    .plan-renew-info { text-align: left; font-size: .85rem; color: var(--gray); }
+    .plan-renew-date { font-weight: 700; color: var(--navy); font-size: 1rem; }
+
+    .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .plan-card { border: 1px solid var(--gray-bg); border-radius: var(--radius-sm); padding: 1.5rem; text-align: center; position: relative; }
+    .plan-card.current { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(47,107,255,0.1); }
+    .plan-card-badge { position: absolute; top: -10px; right: 50%; transform: translateX(50%); background: var(--blue); color: white; font-size: .7rem; font-weight: 700; padding: 3px 12px; border-radius: 40px; }
+    .plan-card h4 { font-size: 1.05rem; font-weight: 800; color: var(--navy); margin-bottom: .5rem; }
+    .plan-card .price { font-size: 1.6rem; font-weight: 800; color: var(--blue); margin-bottom: 1rem; }
+    .plan-card .price span { font-size: .75rem; color: var(--gray); font-weight: 400; }
+    .plan-card ul { list-style: none; text-align: right; font-size: .82rem; color: var(--gray-dark); margin-bottom: 1.25rem; }
+    .plan-card ul li { padding: .35rem 0; }
+    .btn-choose-plan { width: 100%; padding: .6rem; border-radius: var(--radius-sm); font-weight: 700; font-size: .85rem; cursor: pointer; font-family: 'Cairo', sans-serif; border: 1px solid var(--blue); background: white; color: var(--blue); }
+    .btn-choose-plan.current-btn { background: var(--gray-bg); color: var(--gray); border-color: var(--gray-bg); cursor: default; }
+
+    .mini-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    .mini-table thead th { text-align: right; padding: 10px 12px; font-weight: 700; color: var(--gray); font-size: .72rem; text-transform: uppercase; border-bottom: 2px solid var(--gray-bg); }
+    .mini-table tbody td { padding: 10px 12px; border-bottom: 1px solid var(--gray-bg); color: var(--gray-dark); }
+    .mini-table tbody tr:hover { background: var(--gray-bg); }
+    .invoice-status { display: inline-flex; align-items: center; gap: 5px; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 60px; }
+    .invoice-status.paid { background: rgba(22,192,136,0.14); color: #0F9D6F; }
+    .invoice-status.unpaid { background: #FDEDEE; color: var(--red); }
+    .invoice-status.refunded { background: var(--gray-bg); color: var(--gray); }
+    .row-action-btn { background: none; border: none; color: var(--blue); cursor: pointer; font-size: .8rem; font-weight: 600; }
+
+    .settings-panel { display: none; animation: settingsPanelFade .25s ease; }
+    .settings-panel.active-panel { display: block; }
+    @keyframes settingsPanelFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 1200px) {
+      .settings-stepper-wrapper { grid-template-columns: 1fr; }
+      .settings-stepper { position: relative; top: 0; }
+      .settings-stepper ul { flex-direction: row; flex-wrap: wrap; }
+      .stepper-item-settings { flex: 1; min-width: 170px; }
+      .plans-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .settings-section { padding: 1.25rem; }
+      .plan-current-box { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .plan-renew-info { text-align: right; }
+      .mini-table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="admin-topbar" id="adminTopbar"></header>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main admin-main-content">
+
+    <div class="admin-page-head">
+      <div>
+        <h1>الاشتراك</h1>
+        <p>الباقة الحالية، تاريخ التجديد، وسجل الفواتير.</p>
+      </div>
+      <button type="button" class="btn-cancel-outline" onclick="window.location.href='settings-dashboard.html'" style="background:transparent;color:var(--gray);border:1px solid var(--gray-bg);padding:.6rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;cursor:pointer;font-family:'Cairo',sans-serif;">→ رجوع للإعدادات</button>
+    </div>
+
+    <!-- ⚠️ ملاحظة: هاي الصفحة بالكامل معتمدة على subscription_plans /
+         university_subscriptions / invoices — جداول جديدة مقترحة، نظام
+         SaaS مش موجود إطلاقاً بالمايجريشنز الأصلية -->
+    <div class="settings-stepper-wrapper">
+
+      <aside class="settings-stepper">
+        <h3>أقسام الاشتراك</h3>
+        <ul id="stepperList">
+          <li class="stepper-item-settings active" data-target="panelPlan">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div><h4>الباقة الحالية</h4><p>التفاصيل والخيارات</p></div>
+          </li>
+          <li class="stepper-item-settings" data-target="panelRenewal">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div><h4>تاريخ التجديد</h4><p>موعد الدفعة القادمة</p></div>
+          </li>
+          <li class="stepper-item-settings" data-target="panelInvoices">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div><h4>الفواتير</h4><p>سجل المدفوعات</p></div>
+          </li>
+        </ul>
+      </aside>
+
+      <div>
+
+        <!-- ===== الباقة الحالية ===== -->
+        <section class="settings-section settings-panel active-panel" id="panelPlan">
+          <div class="settings-section-title">
+            الباقة الحالية
+            <span class="section-hint">من جدول university_subscriptions</span>
+          </div>
+
+          <div class="plan-current-box">
+            <div>
+              <div class="plan-current-name">الباقة الاحترافية</div>
+              <div class="plan-current-price">299 ريال / شهرياً</div>
+            </div>
+            <div class="plan-renew-info">
+              تتجدد بتاريخ
+              <div class="plan-renew-date">15 نوفمبر 2026</div>
+            </div>
+          </div>
+
+          <div class="plans-grid">
+            <div class="plan-card">
+              <h4>الأساسية</h4>
+              <div class="price">99 <span>ريال / شهرياً</span></div>
+              <ul>
+                <li>حتى 10 تخصصات</li>
+                <li>3 أعضاء فريق</li>
+                <li>دعم عبر البريد</li>
+              </ul>
+              <button type="button" class="btn-choose-plan">التبديل لهاي الباقة</button>
+            </div>
+            <div class="plan-card current">
+              <span class="plan-card-badge">باقتكم الحالية</span>
+              <h4>الاحترافية</h4>
+              <div class="price">299 <span>ريال / شهرياً</span></div>
+              <ul>
+                <li>تخصصات غير محدودة</li>
+                <li>10 أعضاء فريق</li>
+                <li>دعم عبر التذاكر (أولوية)</li>
+              </ul>
+              <button type="button" class="btn-choose-plan current-btn" disabled>باقتكم الحالية</button>
+            </div>
+            <div class="plan-card">
+              <h4>المؤسسية</h4>
+              <div class="price">تواصل معنا</div>
+              <ul>
+                <li>كل مزايا الاحترافية</li>
+                <li>أعضاء فريق غير محدودين</li>
+                <li>مدير حساب مخصص</li>
+              </ul>
+              <button type="button" class="btn-choose-plan">تواصلي معنا</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== تاريخ التجديد ===== -->
+        <section class="settings-section settings-panel" id="panelRenewal">
+          <div class="settings-section-title">تاريخ التجديد</div>
+          <table class="mini-table">
+            <thead><tr><th>البند</th><th>القيمة</th></tr></thead>
+            <tbody>
+              <tr><td>تاريخ بداية الاشتراك</td><td>15 مايو 2026</td></tr>
+              <tr><td>تاريخ التجديد القادم</td><td><strong>15 نوفمبر 2026</strong></td></tr>
+              <tr><td>حالة الاشتراك</td><td><span class="invoice-status paid">نشط</span></td></tr>
+              <tr><td>طريقة الدفع</td><td>بطاقة ائتمان تنتهي بـ 4242</td></tr>
+            </tbody>
+          </table>
+          <p class="field-hint" style="margin-top:1rem;color:var(--gray);font-size:.85rem;">التجديد تلقائي. لإلغاء التجديد التلقائي أو تغيير طريقة الدفع، تواصلي مع فريق NextStep.</p>
+        </section>
+
+        <!-- ===== الفواتير ===== -->
+        <section class="settings-section settings-panel" id="panelInvoices">
+          <div class="settings-section-title">
+            سجل الفواتير
+            <span class="section-hint">من جدول invoices</span>
+          </div>
+          <table class="mini-table">
+            <thead><tr><th>رقم الفاتورة</th><th>التاريخ</th><th>المبلغ</th><th>الحالة</th><th></th></tr></thead>
+            <tbody id="invoicesBody"></tbody>
+          </table>
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<div id="admin-footer-slot"></div>
+<script src="../../js/admin-shell.js"></script>
+
+<script>
+  (function() {
+    'use strict';
+
+    var stepperItems = document.querySelectorAll('.stepper-item-settings');
+    var panels = document.querySelectorAll('.settings-panel');
+    function showPanel(targetId) {
+      panels.forEach(function(p) { p.classList.toggle('active-panel', p.id === targetId); });
+      stepperItems.forEach(function(i) { i.classList.toggle('active', i.dataset.target === targetId); });
+    }
+    stepperItems.forEach(function(item) {
+      item.addEventListener('click', function() { showPanel(item.dataset.target); });
+    });
+
+    var statusLabels = { paid: 'مدفوعة', unpaid: 'غير مدفوعة', refunded: 'مستردّة' };
+    var MOCK_INVOICES = [
+      { id: 'INV-1042', date: '15 أكت 2026', amount: '299 ريال', status: 'paid' },
+      { id: 'INV-0981', date: '15 سبت 2026', amount: '299 ريال', status: 'paid' },
+      { id: 'INV-0925', date: '15 أغس 2026', amount: '299 ريال', status: 'paid' },
+      { id: 'INV-0872', date: '15 يول 2026', amount: '299 ريال', status: 'unpaid' },
+    ];
+
+    var body = document.getElementById('invoicesBody');
+    MOCK_INVOICES.forEach(function(inv) {
+      body.innerHTML += '<tr>' +
+        '<td><strong>' + inv.id + '</strong></td>' +
+        '<td>' + inv.date + '</td>' +
+        '<td>' + inv.amount + '</td>' +
+        '<td><span class="invoice-status ' + inv.status + '">' + statusLabels[inv.status] + '</span></td>' +
+        '<td><button type="button" class="row-action-btn">تحميل PDF</button></td>' +
+        '</tr>';
+    });
+
+    document.querySelectorAll('.btn-choose-plan:not(.current-btn)').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        alert('محاكاة محلية — لسا ما فيه ربط فعلي بنظام الدفع.');
+      });
+    });
+
+  })();
+</script>
+
+</body>
+</html>

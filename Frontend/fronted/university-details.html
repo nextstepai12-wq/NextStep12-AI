@@ -93,11 +93,11 @@
   <div class="uni-tabs" role="tablist">
     <button class="uni-tab active" data-tab="about" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-      نبذة عن الجامعة
+        الجامعة
     </button>
     <button class="uni-tab" data-tab="deanships" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"/></svg>
-      العمادات والكليات
+      العمادات 
     </button>
     <button class="uni-tab" data-tab="majors" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/></svg>
@@ -265,6 +265,19 @@
 
 </div>
 
+<!-- ======================= NAFETHA MONBATHEQA (Generic Modal) للعمادات والتخصصات ======================= -->
+<div class="modal-overlay" id="genericModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">العنوان</h3>
+      <button class="modal-close" id="modalCloseBtn" type="button" aria-label="إغلاق">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid" id="modalGrid"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ======================= FOOTER ======================= -->
 <script src="../js/footer-index.js"></script>
 
@@ -272,6 +285,10 @@
 const USE_MOCK_DATA = true;
 const API_BASE_URL = 'http://127.0.0.1:8000/api';
 const ASSETS_BASE = '../assets/universities';
+
+// عدد العناصر اللي تظهر مباشرة قبل ما يطلع زر "شاهد المزيد"
+const DEANSHIPS_PREVIEW_LIMIT = 2;
+const MAJORS_PREVIEW_LIMIT = 4;
 
 const MOCK_UNIVERSITY_DETAILS = {
   1: {
@@ -387,6 +404,96 @@ function renderDeanshipCard(d) {
     </div>`;
 }
 
+/* ======================= منطق النافذة المنبثقة (Modal) ======================= */
+const genericModal = document.getElementById('genericModal');
+const modalTitleEl = document.getElementById('modalTitle');
+const modalGridEl = document.getElementById('modalGrid');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+function openModal(title, itemsHTML) {
+  modalTitleEl.textContent = title;
+  modalGridEl.innerHTML = itemsHTML;
+  genericModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  genericModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+modalCloseBtn.addEventListener('click', closeModal);
+genericModal.addEventListener('click', (e) => {
+  if (e.target === genericModal) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+/**
+ * تعرض أول N عنصر من شبكة معينة، وتخفي الباقي، وتضيف زر "شاهد المزيد"
+ * بعرض كامل يفتح نافذة منبثقة فيها كل العناصر.
+ * containerId : id العنصر الحاوي (الشبكة)
+ * itemSelector: سيلكتور الكروت جوا الشبكة (مثلاً '.deanship-card')
+ * limit       : عدد العناصر اللي تظهر مباشرة
+ * modalTitle  : عنوان النافذة المنبثقة
+ */
+function setupShowMore(containerId, itemSelector, limit, modalTitle) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  // نشيل أي زر "شاهد المزيد" قديم (بحالة إعادة رسم الشبكة)
+  const oldBtn = container.querySelector('.show-more-btn');
+  if (oldBtn) oldBtn.remove();
+
+  const items = Array.from(container.querySelectorAll(itemSelector));
+  if (!items.length) return;
+
+  items.forEach((item, idx) => {
+    item.style.display = idx < limit ? '' : 'none';
+  });
+
+  if (items.length > limit) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'show-more-btn';
+    btn.textContent = `شاهد المزيد (${items.length - limit}+)`;
+    btn.addEventListener('click', () => {
+      const wrapper = document.createElement('div');
+      items.forEach(item => wrapper.appendChild(item.cloneNode(true)));
+      openModal(modalTitle, wrapper.innerHTML);
+    });
+    container.appendChild(btn);
+  }
+}
+
+/* ======================= ربط زر "عرض التخصصات التابعة" داخل كل كرت كلية/عمادة بالتخصصات الخاصة فيها ======================= */
+// استخدمنا event delegation لأن كروت العمادات بتترسم ديناميكيًا (innerHTML) بعد التحميل
+document.getElementById('deanshipsGrid').addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn-view-majors');
+  if (!btn) return;
+
+  const card = btn.closest('.deanship-card');
+  if (!card) return;
+
+  const collegeName = card.querySelector('h4').textContent.trim();
+
+  const allMajors = Array.from(document.querySelectorAll('#majorsGrid .major-card'));
+  const matched = allMajors.filter(m => {
+    const collegeEl = m.querySelector('.major-college');
+    return collegeEl && collegeEl.textContent.trim() === collegeName;
+  });
+
+  const wrapper = document.createElement('div');
+  if (matched.length) {
+    matched.forEach(m => wrapper.appendChild(m.cloneNode(true)));
+  } else {
+    wrapper.innerHTML = '<div class="no-results">ما في تخصصات مضافة لهاي الكلية حالياً.</div>';
+  }
+
+  openModal(`تخصصات ${collegeName}`, wrapper.innerHTML);
+});
+
 async function loadUniversityDetails() {
   const id = getUniversityIdFromUrl();
   let uni = USE_MOCK_DATA ? (MOCK_UNIVERSITY_DETAILS[id] || getFallbackMockUniversity(id)) : null;
@@ -400,6 +507,9 @@ async function loadUniversityDetails() {
   }
 
   if (uni) renderUniversityDetails(uni, id);
+
+  // التخصصات ثابتة بالـ HTML، فمنفعّل زر "شاهد المزيد" فيها مباشرة
+  setupShowMore('majorsGrid', '.major-card', MAJORS_PREVIEW_LIMIT, 'كل التخصصات');
 }
 
 function renderUniversityDetails(uni, id) {
@@ -461,6 +571,9 @@ function renderUniversityDetails(uni, id) {
   const deanships = uni.deanships_faculties || [];
   const grid = document.getElementById('deanshipsGrid');
   grid.innerHTML = deanships.length ? deanships.map(renderDeanshipCard).join('') : '<div class="no-results">ما في كليات مضافة حالياً.</div>';
+
+  // نفعّل زر "شاهد المزيد" على شبكة العمادات بعد ما نعبيها
+  setupShowMore('deanshipsGrid', '.deanship-card', DEANSHIPS_PREVIEW_LIMIT, 'كل العمادات والكليات');
 }
 
 loadUniversityDetails();

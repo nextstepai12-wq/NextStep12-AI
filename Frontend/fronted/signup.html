@@ -15,6 +15,7 @@
     >
     <link rel="stylesheet" href="../css/auth.css">
     <link rel="stylesheet" href="../css/auth-extra.css">
+    <link rel="stylesheet" href="../css/auth-updates.css">
     <link rel="stylesheet" href="../css/footer.css">
 </head>
 
@@ -31,7 +32,54 @@
 <main class="auth-shell">
 
     <!-- =====================================================
-         LEFT — SIGNUP FORM
+         RIGHT (now first) — NEXTSTEP HERO
+    ====================================================== -->
+    <section class="auth-hero">
+
+        <div class="hero-glow"></div>
+
+        <div class="hero-brand">
+            <span class="brand-name">NextStep <span class="brand-ai">AI</span></span>
+            <img src="../assets/img/logo.png" alt="NextStep AI" class="brand-mini-logo-img">
+        </div>
+
+        <div class="hero-copy">
+            <h2 class="hero-title">ابدأ رحلتك <span class="blue">نحو مستقبلك الأكاديمي</span></h2>
+            <p class="hero-description">
+                أنشئ حسابك بدقيقة وخلي NextStep AI يرافقك
+                خطوة بخطوة نحو التخصص والجامعة المناسبة.
+            </p>
+        </div>
+
+        <div class="logo-stage">
+            <img src="../assets/img/logo.png" alt="NextStep AI" class="nextstep-logo-img">
+        </div>
+
+        <div class="hero-features">
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
+                </div>
+                <span class="feature-title">مرشد ذكي دائم</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
+                </div>
+                <span class="feature-title">خطة تطور مهاراتك</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 17L17 7"/><path d="M10 7h7v7"/></svg>
+                </div>
+                <span class="feature-title">توصيات محفوظة</span>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         LEFT (now second) — SIGNUP FORM
     ====================================================== -->
     <section class="auth-form-side">
 
@@ -231,103 +279,6 @@
 
             </form>
 
-        </div>
-
-    </section>
-
-    <!-- =====================================================
-         RIGHT — NEXTSTEP HERO
-    ====================================================== -->
-    <section class="auth-hero">
-
-        <div class="hero-glow"></div>
-
-        <div class="hero-brand">
-                <defs>
-                    <linearGradient id="miniGradient2" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stop-color="#2F6BFF"/>
-                        <stop offset="100%" stop-color="#35D0FF"/>
-                    </linearGradient>
-                </defs>
-                <path d="M24 70V38 C24 28 36 23 43 30 L69 57 C76 64 86 59 86 49V27" fill="none" stroke="url(#miniGradient2)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M69 28L87 18V38Z" fill="#35D0FF"/>
-            </svg>
-        </div>
-
-        <div class="hero-copy">
-            <h2 class="hero-title">ابدأ رحلتك <span class="blue">نحو مستقبلك الأكاديمي</span></h2>
-            <p class="hero-description">
-                أنشئ حسابك بدقيقة وخلي NextStep AI يرافقك
-                خطوة بخطوة نحو التخصص والجامعة المناسبة.
-            </p>
-        </div>
-
-        <div class="logo-stage">
-            <svg class="nextstep-logo" viewBox="0 0 482 486" role="img" aria-label="NextStep AI">
-                <defs>
-                    <linearGradient id="nextstepMainGradient2" x1="105" y1="345" x2="455" y2="15" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%"  stop-color="#173873"/>
-                        <stop offset="40%" stop-color="#2F6BFF"/>
-                        <stop offset="72%" stop-color="#35D0FF"/>
-                        <stop offset="100%" stop-color="#35D0FF"/>
-                    </linearGradient>
-                    <linearGradient id="nextstepStepsGradient2" x1="5" y1="481" x2="169" y2="360" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#1F4FD1"/>
-                        <stop offset="100%" stop-color="#2F6BFF"/>
-                    </linearGradient>
-                </defs>
-
-                <g class="logo-steps">
-                    <g class="logo-step step-3">
-                        <g transform="translate(0,486) scale(0.1,-0.1)">
-                            <path d="M50 220 l0 -180 410 0 410 0 0 180 0 180 -410 0 -410 0 0 -180z" fill="url(#nextstepStepsGradient2)"/>
-                        </g>
-                    </g>
-                    <g class="logo-step step-2">
-                        <g transform="translate(0,486) scale(0.1,-0.1)">
-                            <path d="M470 655 l0 -175 405 0 405 0 0 175 0 175 -405 0 -405 0 0 -175z" fill="url(#nextstepStepsGradient2)"/>
-                        </g>
-                    </g>
-                    <g class="logo-step step-1">
-                        <g transform="translate(0,486) scale(0.1,-0.1)">
-                            <path d="M860 1080 l0 -180 420 0 420 0 0 180 0 180 -420 0 -420 0 0 -180z" fill="url(#nextstepStepsGradient2)"/>
-                        </g>
-                    </g>
-                </g>
-
-                <g class="logo-shadow">
-                    <g transform="translate(0,486) scale(0.1,-0.1)">
-                        <path d="M1047 3336 c-31 -7 -59 -10 -62 -8 -3 3 -5 -1 -5 -8 0 -7 -3 -11 -6 -7 -7 7 -64 -48 -90 -88 -18 -29 -19 -56 -19 -880 l0 -850 418 -3 417 -2 0 758 0 757 -92 91 c-51 50 -111 104 -133 121 -63 48 -182 103 -254 119 -78 16 -98 16 -174 0z" fill="#0F244B"/>
-                    </g>
-                </g>
-
-                <g class="logo-n">
-                    <g transform="translate(0,486) scale(0.1,-0.1)">
-                        <path d="M4290 4615 c-673 -270 -740 -297 -740 -304 0 -3 42 -33 93 -65 50 -33 120 -79 154 -104 l63 -43 -70 -69 c-150 -148 -239 -342 -269 -590 -7 -50 -11 -314 -11 -640 l-1 -555 -20 25 c-12 14 -73 79 -138 145 -64 66 -307 323 -541 570 -511 543 -734 767 -819 824 -189 128 -410 171 -620 121 -135 -33 -203 -71 -301 -169 -147 -146 -199 -270 -205 -485 -2 -72 -1 -118 2 -102 2 16 12 41 21 55 22 35 79 91 86 84 3 -4 6 -1 6 5 0 7 3 11 8 10 4 -1 39 4 78 11 55 9 85 10 137 1 79 -14 204 -72 279 -129 29 -22 163 -154 298 -293 396 -408 1392 -1409 1557 -1564 131 -123 164 -149 235 -182 106 -51 160 -63 275 -63 227 -1 394 108 475 310 l23 56 6 995 c5 914 7 1001 23 1065 20 78 73 197 103 234 l20 24 128 -82 c70 -46 134 -85 142 -88 11 -5 13 83 7 588 -4 327 -7 594 -8 594 0 0 -215 -85 -476 -190z" fill="url(#nextstepMainGradient2)"/>
-                    </g>
-                </g>
-            </svg>
-        </div>
-
-        <div class="hero-features">
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
-                </div>
-                <span class="feature-title">مرشد ذكي دائم</span>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
-                </div>
-                <span class="feature-title">خطة تطور مهاراتك</span>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 17L17 7"/><path d="M10 7h7v7"/></svg>
-                </div>
-                <span class="feature-title">توصيات محفوظة</span>
-            </div>
         </div>
 
     </section>

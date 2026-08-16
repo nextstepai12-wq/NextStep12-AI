@@ -6,67 +6,107 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const universities = [
         {
+            id: 1,
             name: "جامعة النجاح الوطنية",
             city: "نابلس",
             type: "حكومية",
             image: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=900&q=80",
-            logo: "🎓"
+            logo: "🎓",
+            description: "جامعة النجاح الوطنية من أعرق وأكبر الجامعات الفلسطينية، تأسست سنة 1918 وتضم عشرات الكليات والبرامج الأكاديمية على مستوى البكالوريوس والدراسات العليا.",
+            students_count: 22000,
+            majors_count: 74,
+            deanships_count: 12
         },
 
         {
+            id: 2,
             name: "جامعة بيرزيت",
             city: "رام الله",
             type: "خاصة",
             image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=900&q=80",
-            logo: "🌿"
+            logo: "🌿",
+            description: "جامعة بيرزيت من الجامعات الفلسطينية الرائدة بالبحث العلمي، وبتقدم برامج متنوعة بالعلوم والآداب والهندسة وإدارة الأعمال.",
+            students_count: 13000,
+            majors_count: 58,
+            deanships_count: 9
         },
 
         {
+            id: 3,
             name: "جامعة الخليل",
             city: "الخليل",
             type: "خاصة",
             image: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?auto=format&fit=crop&w=900&q=80",
-            logo: "U"
+            logo: "U",
+            description: "جامعة الخليل بتخدم منطقة جنوب الضفة الغربية، وبتقدم برامج أكاديمية بمجالات العلوم الإنسانية والتطبيقية والتربوية.",
+            students_count: 9500,
+            majors_count: 42,
+            deanships_count: 8
         },
 
         {
+            id: 4,
             name: "الجامعة العربية الأمريكية",
             city: "رام الله",
             type: "خاصة",
             image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=900&q=80",
-            logo: "AA"
+            logo: "AA",
+            description: "الجامعة العربية الأمريكية جامعة خاصة حديثة، معروفة ببرامج الطب والهندسة وإدارة الأعمال وشراكاتها الدولية.",
+            students_count: 11000,
+            majors_count: 51,
+            deanships_count: 10
         },
 
         {
+            id: 5,
             name: "جامعة بوليتكنك فلسطين",
             city: "الخليل",
             type: "تقنية",
             image: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=900&q=80",
-            logo: "P"
+            logo: "P",
+            description: "جامعة بوليتكنك فلسطين متخصصة بالتعليم التقني والهندسي، وبتركز على ربط التعليم بسوق العمل عبر برامج تطبيقية.",
+            students_count: 7000,
+            majors_count: 35,
+            deanships_count: 6
         },
 
         {
+            id: 6,
             name: "جامعة القدس",
             city: "القدس",
             type: "حكومية",
             image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=900&q=80",
-            logo: "Q"
+            logo: "Q",
+            description: "جامعة القدس من الجامعات الفلسطينية العريقة، وبتضم كليات بمجالات الطب والعلوم والآداب والحقوق.",
+            students_count: 12500,
+            majors_count: 60,
+            deanships_count: 11
         },
 
         {
+            id: 7,
             name: "جامعة فلسطين التقنية",
             city: "طولكرم",
             type: "تقنية",
             image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=900&q=80",
-            logo: "PT"
+            logo: "PT",
+            description: "جامعة فلسطين التقنية (خضوري) بتركز على العلوم الزراعية والهندسية والتقنية، وبتخدم منطقة شمال الضفة الغربية.",
+            students_count: 8000,
+            majors_count: 38,
+            deanships_count: 7
         },
 
         {
+            id: 8,
             name: "جامعة الاستقلال",
             city: "أريحا",
             type: "حكومية",
             image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80",
-            logo: "I"
+            logo: "I",
+            description: "جامعة الاستقلال جامعة حكومية حديثة النشأة، بتقدم برامج بمجالات الأمن والسلامة والعلوم الإدارية والتقنية.",
+            students_count: 4500,
+            majors_count: 22,
+            deanships_count: 5
         }
     ];
 
@@ -95,6 +135,91 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentFilter = "all";
     let currentData = [...universities];
+
+    const ASSETS_BASE = "../assets/universities";
+
+
+    /* =====================================================
+       QUICK VIEW MODAL
+       ===================================================== */
+
+    const modalOverlay = document.getElementById("uniModalOverlay");
+    const modalClose = document.getElementById("uniModalClose");
+    const modalImage = document.getElementById("uniModalImage");
+    const modalLogoImg = document.getElementById("uniModalLogoImg");
+    const modalLogoFallback = document.getElementById("uniModalLogoFallback");
+    const modalName = document.getElementById("uniModalName");
+    const modalLocation = document.getElementById("uniModalLocation");
+    const modalStudents = document.getElementById("uniModalStudents");
+    const modalMajors = document.getElementById("uniModalMajors");
+    const modalDeanships = document.getElementById("uniModalDeanships");
+    const modalDesc = document.getElementById("uniModalDesc");
+    const modalMoreBtn = document.getElementById("uniModalMoreBtn");
+
+    function formatModalCount(n) {
+        if (n === null || n === undefined) return "—";
+        if (n >= 1000) return Math.round(n / 1000) + "K+";
+        return String(n);
+    }
+
+    function openUniModal(uni) {
+
+        modalImage.onerror = null;
+        modalImage.src = `${ASSETS_BASE}/${uni.id}/cover.jpg`;
+        modalImage.alt = uni.name;
+
+        modalImage.onerror = () => {
+            modalImage.onerror = null;
+            modalImage.src = uni.image;
+        };
+
+        modalLogoFallback.textContent = uni.logo;
+        modalLogoImg.style.display = "none";
+        modalLogoFallback.style.display = "flex";
+
+        modalLogoImg.onload = () => {
+            modalLogoImg.style.display = "block";
+            modalLogoFallback.style.display = "none";
+        };
+
+        modalLogoImg.onerror = () => {
+            modalLogoImg.style.display = "none";
+            modalLogoFallback.style.display = "flex";
+        };
+
+        modalLogoImg.src = `${ASSETS_BASE}/${uni.id}/logo.png`;
+
+        modalName.textContent = uni.name;
+        modalLocation.textContent = uni.city;
+
+        modalStudents.textContent = formatModalCount(uni.students_count);
+        modalMajors.textContent = uni.majors_count ?? "—";
+        modalDeanships.textContent = uni.deanships_count ?? "—";
+
+        modalDesc.textContent =
+            uni.description || "ما في نبذة متوفرة حالياً عن هاي الجامعة.";
+
+        modalMoreBtn.href =
+            `university-details.html?id=${uni.id}`;
+
+        modalOverlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeUniModal() {
+        modalOverlay.classList.remove("open");
+        document.body.style.overflow = "";
+    }
+
+    modalClose.addEventListener("click", closeUniModal);
+
+    modalOverlay.addEventListener("click", (event) => {
+        if (event.target === modalOverlay) closeUniModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeUniModal();
+    });
 
 
     /* =====================================================
@@ -136,12 +261,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 `${index * 70}ms`;
 
 
+            const coverPath =
+                `${ASSETS_BASE}/${uni.id}/cover.jpg`;
+
+            const logoPath =
+                `${ASSETS_BASE}/${uni.id}/logo.png`;
+
+
             card.innerHTML = `
 
                 <div class="uni-image">
 
                     <img
-                        src="${uni.image}"
+                        class="uni-card-cover"
+                        src="${coverPath}"
+                        data-fallback="${uni.image}"
                         alt="${uni.name}"
                         loading="lazy">
 
@@ -152,10 +286,29 @@ document.addEventListener("DOMContentLoaded", () => {
                         ♡
                     </button>
 
-                    <div class="uni-logo">
-                        ${uni.logo}
-                    </div>
+                    <button
+                        class="uni-quickview-btn"
+                        type="button"
+                        aria-label="نظرة سريعة على ${uni.name}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        نظرة سريعة
+                    </button>
 
+                </div>
+
+
+                <div class="uni-logo">
+                    <img
+                        class="uni-logo-img"
+                        src="${logoPath}"
+                        alt=""
+                        style="display:none;">
+                    <span class="uni-logo-fallback">
+                        ${uni.logo}
+                    </span>
                 </div>
 
 
@@ -177,6 +330,43 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
 
+            /* الصورة المحلية أولاً، وإذا مو موجودة نرجع
+               تلقائياً لصورة الاحتياط بدون ما تنكسر الواجهة */
+
+            const coverImg =
+                card.querySelector(".uni-card-cover");
+
+            coverImg.addEventListener("error", function onCoverError() {
+
+                coverImg.removeEventListener("error", onCoverError);
+
+                coverImg.src =
+                    coverImg.dataset.fallback;
+
+            });
+
+
+            /* نفس المنطق للوجو: لو logo.png مو موجود
+               منرجع لحرف/إيموجي الاحتياط */
+
+            const logoImg =
+                card.querySelector(".uni-logo-img");
+
+            const logoFallback =
+                card.querySelector(".uni-logo-fallback");
+
+            logoImg.addEventListener("load", () => {
+                logoImg.style.display = "block";
+                logoFallback.style.display = "none";
+            });
+
+            logoImg.addEventListener("error", function onLogoError() {
+                logoImg.removeEventListener("error", onLogoError);
+                logoImg.style.display = "none";
+                logoFallback.style.display = "flex";
+            });
+
+
             const heart =
                 card.querySelector(".uni-heart");
 
@@ -195,19 +385,37 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
 
+            const quickViewBtn =
+                card.querySelector(".uni-quickview-btn");
+
+            quickViewBtn.addEventListener("click", (event) => {
+                event.stopPropagation();
+                openUniModal(uni);
+            });
+
+
             const detailsButton =
                 card.querySelector(".uni-card-btn");
 
 
             detailsButton.addEventListener("click", () => {
 
-                /*
-                    غيّر الرابط هنا لاحقاً
-                    حسب صفحة تفاصيل الجامعة
-                */
+                window.location.href =
+                    `university-details.html?id=${uni.id}`;
+
+            });
+
+
+            /* الضغط على الصورة نفسها بيوديها لصفحة
+               التفاصيل مباشرة (زي زر "عرض الجامعة") */
+
+            const imageBox =
+                card.querySelector(".uni-image");
+
+            imageBox.addEventListener("click", () => {
 
                 window.location.href =
-                    `university-details.html?name=${encodeURIComponent(uni.name)}`;
+                    `university-details.html?id=${uni.id}`;
 
             });
 

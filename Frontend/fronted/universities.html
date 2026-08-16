@@ -81,12 +81,12 @@
 
             <div class="uni-eyebrow">
                 <span class="eyebrow-dot"></span>
-                اكتشفي مستقبلك
+                اكتشف مستقبلك
                 <span class="spark">✦</span>
             </div>
 
             <h1>
-                اكتشفي
+                اكتشف
                 <span>جامعتك القادمة</span>
             </h1>
 
@@ -438,6 +438,71 @@
         </section>
 
     </main>
+
+
+    <!-- ================= QUICK VIEW MODAL ================= -->
+
+    <div class="uni-modal-overlay" id="uniModalOverlay">
+
+        <div class="uni-modal-box">
+
+            <button class="uni-modal-close" id="uniModalClose" type="button" aria-label="إغلاق">
+                &times;
+            </button>
+
+            <div class="uni-modal-cover">
+
+                <img id="uniModalImage" src="" alt="">
+
+                <div class="uni-modal-logo">
+                    <img id="uniModalLogoImg" src="" alt="" style="display:none;">
+                    <span id="uniModalLogoFallback"></span>
+                </div>
+
+            </div>
+
+            <div class="uni-modal-body">
+
+                <h3 id="uniModalName">—</h3>
+
+                <span class="uni-modal-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span id="uniModalLocation">—</span>
+                </span>
+
+                <div class="uni-modal-stats">
+
+                    <div class="uni-modal-stat">
+                        <b id="uniModalStudents">—</b>
+                        <span>طالب</span>
+                    </div>
+
+                    <div class="uni-modal-stat">
+                        <b id="uniModalMajors">—</b>
+                        <span>تخصص</span>
+                    </div>
+
+                    <div class="uni-modal-stat">
+                        <b id="uniModalDeanships">—</b>
+                        <span>كلية</span>
+                    </div>
+
+                </div>
+
+                <p id="uniModalDesc" class="uni-modal-desc">—</p>
+
+                <a href="#" id="uniModalMoreBtn" class="uni-modal-more-btn">
+                    شاهدي التفاصيل كاملة ←
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
     <script src="../js/footer-index.js"></script>

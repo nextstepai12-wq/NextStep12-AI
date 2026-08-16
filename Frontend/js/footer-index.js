@@ -1,7 +1,6 @@
 /* footer-index.js — يحقن الفوتر الخاص بصفحة index.html فقط */
 (function () {
-
-  document.write(
+  const footerHTML = 
     '<footer class="site-footer">' +
       '<div class="footer-inner">' +
         '<div class="footer-top">' +
@@ -37,11 +36,11 @@
             '<h4>تواصل معنا</h4>' +
             '<div class="contact-item">' +
               '<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>' +
-              '<a href="mailto:info@nextstepai.com?subject=استفسار من موقع NextStep AI&body=مرحباً فريق NextStep AI،">تواصل معنا</a>' +
+              '<a href="mailto:nextstepai12@gmail.com?subject=استفسار من موقع NextStep AI&body=مرحباً فريق NextStep AI،">nextstepai12@gmail.com</a>' +
             '</div>' +
             '<div class="contact-item">' +
               '<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.62a16 16 0 0 0 6 6l1.19-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg></div>' +
-              '<a href="tel:+970000000">+970 59 796 7157</a>' +
+              '<a href="tel:+970597967157">+970 59 796 7157</a>' +
             '</div>' +
             '<div class="contact-item">' +
               '<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>' +
@@ -65,7 +64,14 @@
           '<p>© 2026 NextStep AI. جميع الحقوق محفوظة.</p>' +
         '</div>' +
       '</div>' +
-    '</footer>'
-  );
+    '</footer>';
 
+  // الحقن الآمن بعد تحميل عناصر الصفحة
+  if (document.body) {
+    document.body.insertAdjacentHTML('beforeend', footerHTML);
+  } else {
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.insertAdjacentHTML('beforeend', footerHTML);
+    });
+  }
 })();

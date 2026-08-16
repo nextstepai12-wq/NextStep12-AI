@@ -1,208 +1,556 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#173B73">
-  <meta name="description" content="أنشئ حسابك على NextStep AI وابدأ رحلتك نحو تخصّصك الجامعي المناسب.">
-  <title>إنشاء حساب — NextStep AI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب طالب — NextStep AI</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
-
-  <link href="../css/app.css" rel="stylesheet">
-  <link href="../css/header.css" rel="stylesheet">
-  <link href="../css/footer.css" rel="stylesheet">
-  <link href="../css/auth.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/auth-extra.css">
+    <link rel="stylesheet" href="../css/footer.css">
 </head>
+
 <body>
 
-<!-- ======================= HEADER ======================= -->
 <script src="../js/header-index.js"></script>
 
-<div class="header-spacer"></div>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const header = document.querySelector('.site-header');
-    const spacer = document.querySelector('.header-spacer');
-    const syncSpacer = () => {
-      const h = header.offsetHeight;
-      document.documentElement.style.setProperty('--header-height', h + 'px');
-      if (spacer) spacer.style.height = h + 'px';
-    };
-    requestAnimationFrame(() => { header.classList.add('ready'); syncSpacer(); });
-    window.addEventListener('resize', syncSpacer);
-    window.addEventListener('load', syncSpacer);
-    // أهم إضافة: أعد القياس بعد ما تخلص خطوط Cairo/Poppins تحميلها فعلياً،
-    // لأنه قبل ما توصل، الهيدر بيترسم بخط احتياطي بارتفاع مختلف (font swap)
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(syncSpacer);
-    }
-    const toggleHeaderState = () => header.classList.toggle('scrolled', window.scrollY > 20);
-    window.addEventListener('scroll', toggleHeaderState, { passive: true });
-    toggleHeaderState();
-  });
-</script>
+<!-- BACKGROUND -->
+<div class="auth-background">
+    <div class="background-grid"></div>
+</div>
 
-  <div class="auth-wrap">
+<main class="auth-shell">
 
-    <!-- ---------------------- لوحة العلامة (نفس بانل اللوج، بمحتوى مختلف) ---------------------- -->
-  <aside class="auth-aside">
-  
-  
-  <div class="aside-brand">
-    
-    <span class="brand-text">NextStep <span>AI</span></span>
-  </div>
-  <h2>ابدأ <span>رحلتك</span> الذكية اليوم</h2>
-  <p class="aside-lead">
-    أنشئ حسابك بدقيقتين، خذ اختبار الاستكشاف، واحصل على توصيات تخصصات مبنية على بياناتك الفعلية.
-  </p>
-  <div class="aside-points">
-    <div class="aside-point">
-      <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-      <span class="txt"><strong>اختبار ذكي مجاني</strong><span>يحلل ميولك ونقاط قوتك بدقائق معدودة.</span></span>
-    </div>
-    <div class="aside-point">
-      <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-      <span class="txt"><strong>توصيات مخصصة لك</strong><span>تخصصات وجامعات تناسب قدراتك واهتماماتك.</span></span>
-    </div>
-    <div class="aside-point">
-      <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-      <span class="txt"><strong>خطة دراسية واضحة</strong><span>خطوات عملية توصلك لقرارك الجامعي بثقة.</span></span>
-    </div>
-  </div>
-</aside>
+   
+    <section class="auth-form-side">
 
-    <!-- ---------------------- بطاقة النموذج --------------------- -->
-    <main class="auth-panel">
-      <div class="auth-card">
+        <div class="login-content">
 
-        <div class="auth-logo-mobile">
-          <img src="../assets/logo.png" alt="">
-          <span class="brand-text">NextStep <span>AI</span></span>
+            <div class="welcome">
+                <h1>أنشئ حسابك ✨</h1>
+                <p id="trackGoal">اختر مسارك، واكتشف مسارك الجامعي أو المهني المناسب</p>
+            </div>
+
+            <form id="signupForm" class="login-form">
+
+                <!-- اختيار المسار -->
+                <div class="form-group">
+                    <label class="form-label">اختر مسارك</label>
+                    <div class="type-toggle">
+                        <button type="button" class="type-btn active" data-track="new_student">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+                            طالب جديد
+                        </button>
+                        <button type="button" class="type-btn" data-track="university_student">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+                            طالب جامعي
+                        </button>
+                    </div>
+                    <input type="hidden" id="track" name="track" value="new_student">
+                </div>
+
+                <!-- الاسم + رقم الهاتف -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="name">الاسم الكامل</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+                            </span>
+                            <input type="text" class="form-input" id="name" name="name" placeholder="أدخل اسمك الكامل" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone">رقم الهاتف</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.62a16 16 0 0 0 6 6l1.19-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg>
+                            </span>
+                            <input type="tel" class="form-input" id="phone" name="phone" placeholder="05xxxxxxxx" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الإيميل + المدينة -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="email">البريد الإلكتروني</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                            </span>
+                            <input type="email" class="form-input" id="email" name="email" placeholder="example@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="city">المدينة <span class="optional">(اختياري)</span></label>
+                        <select class="form-input" id="city" name="city">
+                            <option value="">-- اختر المدينة --</option>
+                            <option value="نابلس">نابلس</option>
+                            <option value="رام الله">رام الله</option>
+                            <option value="الخليل">الخليل</option>
+                            <option value="جنين">جنين</option>
+                            <option value="بيت لحم">بيت لحم</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- كلمة المرور + تأكيدها -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="password">كلمة المرور</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+                            </span>
+                            <input type="password" class="form-input" id="password" name="password" placeholder="كلمة المرور الجديدة" required minlength="8">
+                            <button type="button" class="password-toggle toggle-password" data-target="password" aria-label="إظهار كلمة المرور">
+                                <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                                <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="display:none;"><path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 102.8 2.8"/><path d="M9.9 5.2C10.6 5.1 11.3 5 12 5c6 0 9.5 7 9.5 7-.8 1.7-2 3.1-3.5 4.2M6.1 6.2C3.7 8 2.5 12 2.5 12c.9 1.7 2.2 3.2 3.8 4.4"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="password_confirmation">تأكيد كلمة المرور</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+                            </span>
+                            <input type="password" class="form-input" id="password_confirmation" name="password_confirmation" placeholder="أعيد كتابة كلمة المرور" required>
+                            <button type="button" class="password-toggle toggle-password" data-target="password_confirmation" aria-label="إظهار كلمة المرور">
+                                <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                                <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="display:none;"><path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 102.8 2.8"/><path d="M9.9 5.2C10.6 5.1 11.3 5 12 5c6 0 9.5 7 9.5 7-.8 1.7-2 3.1-3.5 4.2M6.1 6.2C3.7 8 2.5 12 2.5 12c.9 1.7 2.2 3.2 3.8 4.4"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======= مسار: طالب جديد ======= -->
+                <div class="conditional-fields" data-show-for="new_student">
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label class="form-label" for="age">العمر</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                                </span>
+                                <input type="number" class="form-input" id="age" name="age" placeholder="20" min="14" max="60" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="high_school_score">المعدل</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l2.9 6.3L22 9l-5 5 1.2 7L12 17.8 5.8 21 7 14 2 9l7.1-.7z"/></svg>
+                                </span>
+                                <input type="number" class="form-input" id="high_school_score" name="high_school_score" placeholder="95.0" min="0" max="100" step="0.1" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label class="form-label" for="high_school_branch_id">الفرع الدراسي</label>
+                            <select class="form-input" id="high_school_branch_id" name="high_school_branch_id" required>
+                                <option value="">-- اختر الفرع --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="inclination_id">الميول</label>
+                            <select class="form-input" id="inclination_id" name="inclination_id" required>
+                                <option value="">-- اختر الميول --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ======= مسار: طالب جامعي ======= -->
+                <div class="conditional-fields" data-show-for="university_student" style="display:none;">
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label class="form-label" for="university_id">الجامعة الحالية</label>
+                            <select class="form-input" id="university_id" name="university_id">
+                                <option value="">-- اختر الجامعة --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="major_id">التخصص الحالي</label>
+                            <select class="form-input" id="major_id" name="major_id" disabled>
+                                <option value="">-- اختر الجامعة أولاً --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label class="form-label" for="academic_level">السنة الدراسية / المستوى</label>
+                            <select class="form-input" id="academic_level" name="academic_level">
+                                <option value="">-- اختر المستوى --</option>
+                                <option value="1">السنة الأولى</option>
+                                <option value="2">السنة الثانية</option>
+                                <option value="3">السنة الثالثة</option>
+                                <option value="4">السنة الرابعة</option>
+                                <option value="5">السنة الخامسة فأكثر</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="gpa">المعدل التراكمي <span class="optional">(اختياري)</span></label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l2.9 6.3L22 9l-5 5 1.2 7L12 17.8 5.8 21 7 14 2 9l7.1-.7z"/></svg>
+                                </span>
+                                <input type="number" class="form-input" id="gpa" name="gpa" placeholder="3.2" min="0" max="4" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="login-button">
+                    <span>إنشاء الحساب <span aria-hidden="true">←</span></span>
+                </button>
+
+                <p class="signup-text">
+                    لديك حساب بالفعل؟
+                    <a href="login.html">تسجيل الدخول</a>
+                </p>
+
+            </form>
+
         </div>
 
-        <span class="auth-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-          حساب جديد
-        </span>
-        <h1 class="auth-title">أنشئ حسابك</h1>
-        <p class="auth-subtitle">خطوة وحدة تفصلك عن اكتشاف تخصصك المناسب.</p>
+    </section>
 
-        <form id="signupForm" novalidate>
+   
+    <section class="auth-hero">
 
-          <!-- مبدّل نوع الحساب -->
-          <div class="form-group">
-            <label>نوع الحساب</label>
-            <div class="type-toggle" role="tablist">
-              <button type="button" class="type-btn active" data-type="school" aria-selected="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg>
-                طالب ثانوي
-              </button>
-              <button type="button" class="type-btn" data-type="university" aria-selected="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
-                طالب جامعي
-              </button>
+        <div class="hero-glow"></div>
+
+        <div class="hero-brand">
+                <defs>
+                    <linearGradient id="miniGradient2" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#2F6BFF"/>
+                        <stop offset="100%" stop-color="#35D0FF"/>
+                    </linearGradient>
+                </defs>
+                <path d="M24 70V38 C24 28 36 23 43 30 L69 57 C76 64 86 59 86 49V27" fill="none" stroke="url(#miniGradient2)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M69 28L87 18V38Z" fill="#35D0FF"/>
+            </svg>
+        </div>
+
+        <div class="hero-copy">
+            <h2 class="hero-title">ابدأ رحلتك <span class="blue">نحو مستقبلك الأكاديمي</span></h2>
+            <p class="hero-description">
+                أنشئ حسابك بدقيقة وخلي NextStep AI يرافقك
+                خطوة بخطوة نحو التخصص والجامعة المناسبة.
+            </p>
+        </div>
+
+        <div class="logo-stage">
+            <svg class="nextstep-logo" viewBox="0 0 482 486" role="img" aria-label="NextStep AI">
+                <defs>
+                    <linearGradient id="nextstepMainGradient2" x1="105" y1="345" x2="455" y2="15" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%"  stop-color="#173873"/>
+                        <stop offset="40%" stop-color="#2F6BFF"/>
+                        <stop offset="72%" stop-color="#35D0FF"/>
+                        <stop offset="100%" stop-color="#35D0FF"/>
+                    </linearGradient>
+                    <linearGradient id="nextstepStepsGradient2" x1="5" y1="481" x2="169" y2="360" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#1F4FD1"/>
+                        <stop offset="100%" stop-color="#2F6BFF"/>
+                    </linearGradient>
+                </defs>
+
+                <g class="logo-steps">
+                    <g class="logo-step step-3">
+                        <g transform="translate(0,486) scale(0.1,-0.1)">
+                            <path d="M50 220 l0 -180 410 0 410 0 0 180 0 180 -410 0 -410 0 0 -180z" fill="url(#nextstepStepsGradient2)"/>
+                        </g>
+                    </g>
+                    <g class="logo-step step-2">
+                        <g transform="translate(0,486) scale(0.1,-0.1)">
+                            <path d="M470 655 l0 -175 405 0 405 0 0 175 0 175 -405 0 -405 0 0 -175z" fill="url(#nextstepStepsGradient2)"/>
+                        </g>
+                    </g>
+                    <g class="logo-step step-1">
+                        <g transform="translate(0,486) scale(0.1,-0.1)">
+                            <path d="M860 1080 l0 -180 420 0 420 0 0 180 0 180 -420 0 -420 0 0 -180z" fill="url(#nextstepStepsGradient2)"/>
+                        </g>
+                    </g>
+                </g>
+
+                <g class="logo-shadow">
+                    <g transform="translate(0,486) scale(0.1,-0.1)">
+                        <path d="M1047 3336 c-31 -7 -59 -10 -62 -8 -3 3 -5 -1 -5 -8 0 -7 -3 -11 -6 -7 -7 7 -64 -48 -90 -88 -18 -29 -19 -56 -19 -880 l0 -850 418 -3 417 -2 0 758 0 757 -92 91 c-51 50 -111 104 -133 121 -63 48 -182 103 -254 119 -78 16 -98 16 -174 0z" fill="#0F244B"/>
+                    </g>
+                </g>
+
+                <g class="logo-n">
+                    <g transform="translate(0,486) scale(0.1,-0.1)">
+                        <path d="M4290 4615 c-673 -270 -740 -297 -740 -304 0 -3 42 -33 93 -65 50 -33 120 -79 154 -104 l63 -43 -70 -69 c-150 -148 -239 -342 -269 -590 -7 -50 -11 -314 -11 -640 l-1 -555 -20 25 c-12 14 -73 79 -138 145 -64 66 -307 323 -541 570 -511 543 -734 767 -819 824 -189 128 -410 171 -620 121 -135 -33 -203 -71 -301 -169 -147 -146 -199 -270 -205 -485 -2 -72 -1 -118 2 -102 2 16 12 41 21 55 22 35 79 91 86 84 3 -4 6 -1 6 5 0 7 3 11 8 10 4 -1 39 4 78 11 55 9 85 10 137 1 79 -14 204 -72 279 -129 29 -22 163 -154 298 -293 396 -408 1392 -1409 1557 -1564 131 -123 164 -149 235 -182 106 -51 160 -63 275 -63 227 -1 394 108 475 310 l23 56 6 995 c5 914 7 1001 23 1065 20 78 73 197 103 234 l20 24 128 -82 c70 -46 134 -85 142 -88 11 -5 13 83 7 588 -4 327 -7 594 -8 594 0 0 -215 -85 -476 -190z" fill="url(#nextstepMainGradient2)"/>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <div class="hero-features">
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
+                </div>
+                <span class="feature-title">مرشد ذكي دائم</span>
             </div>
-            <input type="hidden" id="accountType" name="accountType" value="school">
-          </div>
-
-          <div class="form-group">
-            <label for="fullname">الاسم الكامل</label>
-            <div class="input-icon-wrap">
-              <input type="text" class="form-control" id="fullname" name="fullname" placeholder="اكتب اسمك الكامل" autocomplete="name" required>
-              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
+                </div>
+                <span class="feature-title">خطة تطور مهاراتك</span>
             </div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">البريد الإلكتروني</label>
-            <div class="input-icon-wrap">
-              <input type="email" class="form-control" id="email" name="email" placeholder="example@email.com" autocomplete="email" required>
-              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 17L17 7"/><path d="M10 7h7v7"/></svg>
+                </div>
+                <span class="feature-title">توصيات محفوظة</span>
             </div>
-          </div>
+        </div>
 
-          <div class="form-row-2">
-            <div class="form-group">
-              <label for="password">كلمة المرور</label>
-              <div class="input-icon-wrap">
-                <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" autocomplete="new-password" required>
-                <button type="button" class="toggle-password" data-target="password" aria-label="إظهار كلمة المرور">
-                  <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-                  <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.6 20.6 0 0 1 5.06-5.94M9.9 4.24A10.9 10.9 0 0 1 12 4c7 0 11 7 11 7a20.6 20.6 0 0 1-2.19 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-                </button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="confirmPassword">تأكيد كلمة المرور</label>
-              <div class="input-icon-wrap">
-                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="••••••••" autocomplete="new-password" required>
-                <button type="button" class="toggle-password" data-target="confirmPassword" aria-label="إظهار كلمة المرور">
-                  <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-                  <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.6 20.6 0 0 1 5.06-5.94M9.9 4.24A10.9 10.9 0 0 1 12 4c7 0 11 7 11 7a20.6 20.6 0 0 1-2.19 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
+    </section>
 
-          <button type="submit" class="btn-submit">
-            إنشاء الحساب
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </button>
-        </form>
+</main>
 
-        <p class="auth-footer-text">عندك حساب مسبقاً؟ <a href="login.html">سجّل دخولك</a></p>
-      </div>
-    </main>
-  </div>
+<script>
+    const trackBtns = document.querySelectorAll('.type-btn');
+    const trackInput = document.getElementById('track');
+    const trackGoalText = document.getElementById('trackGoal');
+    const newStudentFields = document.querySelector('.conditional-fields[data-show-for="new_student"]');
+    const universityFields = document.querySelector('.conditional-fields[data-show-for="university_student"]');
 
-<!-- ======================= FOOTER ======================= -->
+    const goals = {
+        new_student: 'الهدف: اختيار تخصص وجامعة مناسبة',
+        university_student: 'الهدف: تطوير المسار الأكاديمي والمهني أثناء الدراسة'
+    };
 
-
-<script src="../js/footer-index.js"></script>
-  <script>
-    // مبدّل نوع الحساب (طالب ثانوي / طالب جامعي)
-    document.querySelectorAll('.type-btn').forEach(btn => {
-      btn.addEventListener('click', function () {
-        document.querySelectorAll('.type-btn').forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-selected', 'false');
+    function setRequiredWithin(container, isRequired) {
+        container.querySelectorAll('input, select').forEach(field => {
+            if (field.id === 'gpa') return;
+            if (field.id === 'major_id') return;
+            field.required = isRequired;
         });
-        this.classList.add('active');
-        this.setAttribute('aria-selected', 'true');
-        document.getElementById('accountType').value = this.dataset.type;
-      });
+    }
+
+    trackBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            trackBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const track = btn.dataset.track;
+            trackInput.value = track;
+            trackGoalText.textContent = goals[track];
+
+            if (track === 'new_student') {
+                newStudentFields.style.display = 'block';
+                universityFields.style.display = 'none';
+                setRequiredWithin(newStudentFields, true);
+                setRequiredWithin(universityFields, false);
+            } else {
+                newStudentFields.style.display = 'none';
+                universityFields.style.display = 'block';
+                setRequiredWithin(newStudentFields, false);
+                setRequiredWithin(universityFields, true);
+            }
+        });
     });
 
-    // زر إظهار/إخفاء كلمة المرور: منطقها موجود مركزياً بـ auth.js
-    // (event delegation على .toggle-password) — ما تكرريه هون، هيك كنت
-    // مضاعفة الـ toggle مرتين بكل ضغطة (بيرجع كلمة المرور لحالتها الأصلية فوراً).
+    /* إظهار / إخفاء كلمة المرور */
+    document.querySelectorAll('.toggle-password').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetInput = document.getElementById(btn.dataset.target);
+            const eyeIcon = btn.querySelector('.icon-eye');
+            const eyeOffIcon = btn.querySelector('.icon-eye-off');
+            const isHidden = targetInput.type === 'password';
 
-    // ملاحظة: نقطة ربط الـ API الحقيقية موجودة أدناه. حالياً نعرض توست تجريبي.
-    var signupForm = document.getElementById('signupForm');
-    signupForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var fullname = document.getElementById('fullname').value.trim();
-      var email = document.getElementById('email').value.trim();
-      var password = document.getElementById('password').value;
-      var confirmPassword = document.getElementById('confirmPassword').value;
-
-      if (!fullname || !email || !password || !confirmPassword) {
-        showToast('يرجى تعبئة كل الحقول', 'error');
-        return;
-      }
-      if (password !== confirmPassword) {
-        showToast('كلمتا المرور غير متطابقتين', 'error');
-        return;
-      }
-
-      // TODO: استبدل هذا الجزء بطلب الـ API الفعلي
-      // fetch('http://127.0.0.1:8000/api/signup', { ... })
-      showToast('تم إنشاء الحساب بنجاح!', 'success');
+            targetInput.type = isHidden ? 'text' : 'password';
+            eyeIcon.style.display = isHidden ? 'none' : 'block';
+            eyeOffIcon.style.display = isHidden ? 'block' : 'none';
+            btn.setAttribute('aria-label', isHidden ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور');
+        });
     });
-  </script>
+
+    /* ربط الفورم بـ API التسجيل */
+    const API_BASE_URL = 'http://127.0.0.1:8000/api';
+
+    const signupForm = document.getElementById('signupForm');
+    const submitBtn = signupForm.querySelector('.login-button');
+
+    const alertBox = document.createElement('div');
+    alertBox.id = 'signupAlert';
+    alertBox.style.cssText = 'display:none;margin-bottom:16px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;';
+    signupForm.prepend(alertBox);
+
+    function showAlert(message, type) {
+        alertBox.textContent = message;
+        alertBox.style.display = 'block';
+        if (type === 'error') {
+            alertBox.style.background = '#FDEDEE';
+            alertBox.style.color = '#C62828';
+        } else {
+            alertBox.style.background = 'rgba(72,230,176,0.12)';
+            alertBox.style.color = '#1C8F63';
+        }
+    }
+
+    async function loadInitialLookups() {
+        try {
+            const branchesRes = await fetch(`${API_BASE_URL}/lookups/branches`, { headers: { 'Accept': 'application/json' } });
+            const branchesData = await branchesRes.json();
+            if (branchesRes.ok && branchesData.status === 'success') {
+                const branchSelect = document.getElementById('high_school_branch_id');
+                branchSelect.innerHTML = '<option value="">-- اختر الفرع --</option>';
+                branchesData.data.forEach(branch => {
+                    branchSelect.innerHTML += `<option value="${branch.id}">${branch.name}</option>`;
+                });
+            }
+
+            const inclinationsRes = await fetch(`${API_BASE_URL}/lookups/inclinations`, { headers: { 'Accept': 'application/json' } });
+            const inclinationsData = await inclinationsRes.json();
+            if (inclinationsRes.ok && inclinationsData.status === 'success') {
+                const inclSelect = document.getElementById('inclination_id');
+                inclSelect.innerHTML = '<option value="">-- اختر الميول --</option>';
+                inclinationsData.data.forEach(item => {
+                    inclSelect.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+                });
+            }
+
+            const unisRes = await fetch(`${API_BASE_URL}/universities`, { headers: { 'Accept': 'application/json' } });
+            const unisData = await unisRes.json();
+            if (unisRes.ok && unisData.status === 'success') {
+                const uniSelect = document.getElementById('university_id');
+                uniSelect.innerHTML = '<option value="">-- اختر الجامعة --</option>';
+                unisData.data.forEach(uni => {
+                    uniSelect.innerHTML += `<option value="${uni.id}">${uni.name}</option>`;
+                });
+            }
+        } catch (err) {
+            console.error('خطأ في جلب البيانات الأولية:', err);
+        }
+    }
+
+    const universitySelect = document.getElementById('university_id');
+    const majorSelect = document.getElementById('major_id');
+
+    universitySelect.addEventListener('change', async function () {
+        const universityId = this.value;
+        majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+
+        if (!universityId) {
+            majorSelect.disabled = true;
+            majorSelect.innerHTML = '<option value="">-- اختر الجامعة أولاً --</option>';
+            return;
+        }
+
+        try {
+            majorSelect.disabled = true;
+            majorSelect.innerHTML = '<option value="">جاري تحميل التخصصات...</option>';
+
+            const response = await fetch(`${API_BASE_URL}/lookups/universities/${universityId}/majors`, { headers: { 'Accept': 'application/json' } });
+            const result = await response.json();
+
+            if (response.ok && result.status === 'success') {
+                majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+                if (result.data.length === 0) {
+                    majorSelect.innerHTML = '<option value="">لا توجد تخصصات متاحة لهذه الجامعة</option>';
+                    return;
+                }
+                result.data.forEach(major => {
+                    majorSelect.innerHTML += `<option value="${major.id}">${major.title}</option>`;
+                });
+                majorSelect.disabled = false;
+            } else {
+                majorSelect.innerHTML = '<option value="">فشل جلب التخصصات</option>';
+            }
+        } catch (err) {
+            console.error('خطأ في جلب تخصصات الجامعة:', err);
+            majorSelect.innerHTML = '<option value="">خطأ في الاتصال</option>';
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadInitialLookups);
+
+    signupForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const track = document.getElementById('track').value;
+
+        const payload = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            password: document.getElementById('password').value,
+            password_confirmation: document.getElementById('password_confirmation').value,
+            student_type: track,
+            city: document.getElementById('city').value || null,
+        };
+
+        if (track === 'new_student') {
+            payload.age = document.getElementById('age').value;
+            payload.high_school_branch_id = document.getElementById('high_school_branch_id').value;
+            payload.inclination_id = document.getElementById('inclination_id').value;
+            payload.high_school_score = document.getElementById('high_school_score').value;
+        } else if (track === 'university_student') {
+            payload.university_id = document.getElementById('university_id').value;
+            payload.major_id = document.getElementById('major_id').value;
+            payload.academic_level = document.getElementById('academic_level').value;
+            const gpaVal = document.getElementById('gpa').value;
+            if (gpaVal) payload.gpa = gpaVal;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>جارٍ الإنشاء...</span>';
+        alertBox.style.display = 'none';
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.status === 'success') {
+                localStorage.setItem('auth_token', data.data.token);
+                showAlert('تم إنشاء الحساب بنجاح! جارٍ التحويل...', 'success');
+                setTimeout(() => { window.location.href = 'quiz.html'; }, 1200);
+            } else {
+                const errorMsg = data.message || 'حدث خطأ، تأكدي من البيانات وحاولي مرة ثانية';
+                showAlert(errorMsg, 'error');
+            }
+        } catch (err) {
+            showAlert('تعذر الاتصال بالسيرفر. تأكدي إنه الباك اند شغال.', 'error');
+            console.error('Register error:', err);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>إنشاء الحساب <span aria-hidden="true">←</span></span>';
+        }
+    });
+</script>
+
+
+
+
+=======
+<div id="footer-placeholder"></div>
+<script src="../js/footer-index.js"></script>
+
 </body>
 </html>

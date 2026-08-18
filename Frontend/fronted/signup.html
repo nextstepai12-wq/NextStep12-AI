@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" href="../css/header.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
         rel="stylesheet"
     >
     <link rel="stylesheet" href="../css/auth.css">
@@ -32,54 +32,10 @@
 <main class="auth-shell">
 
     <!-- =====================================================
-         RIGHT (now first) — NEXTSTEP HERO
-    ====================================================== -->
-    <section class="auth-hero">
-
-        <div class="hero-glow"></div>
-
-        <div class="hero-brand">
-            <span class="brand-name">NextStep <span class="brand-ai">AI</span></span>
-            <img src="../assets/img/logo.png" alt="NextStep AI" class="brand-mini-logo-img">
-        </div>
-
-        <div class="hero-copy">
-            <h2 class="hero-title">ابدأ رحلتك <span class="blue">نحو مستقبلك الأكاديمي</span></h2>
-            <p class="hero-description">
-                أنشئ حسابك بدقيقة وخلي NextStep AI يرافقك
-                خطوة بخطوة نحو التخصص والجامعة المناسبة.
-            </p>
-        </div>
-
-        <div class="logo-stage">
-            <img src="../assets/img/logo.png" alt="NextStep AI" class="nextstep-logo-img">
-        </div>
-
-        <div class="hero-features">
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
-                </div>
-                <span class="feature-title">مرشد ذكي دائم</span>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
-                </div>
-                <span class="feature-title">خطة تطور مهاراتك</span>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 17L17 7"/><path d="M10 7h7v7"/></svg>
-                </div>
-                <span class="feature-title">توصيات محفوظة</span>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- =====================================================
-         LEFT (now second) — SIGNUP FORM
+         LEFT (first) — SIGNUP FORM
+         نفس ترتيب صفحة تسجيل الدخول: الفورم أول عنصر بالـ DOM
+         عشان .auth-shell شغالة بـ direction:ltr، فأول عنصر
+         بيطلع عالشمال والتاني عاليمين
     ====================================================== -->
     <section class="auth-form-side">
 
@@ -283,6 +239,95 @@
 
     </section>
 
+    <!-- =====================================================
+         RIGHT (second) — NEXTSTEP HERO
+    ====================================================== -->
+           <section class="auth-hero">
+
+            <div class="hero-brand">
+
+            
+           
+
+            </div>
+
+            <div class="hero-copy">
+
+                <span class="hero-eyebrow">
+                    NEXTSTEP AI · ACADEMIC GUIDANCE
+                </span>
+
+                <h2 class="hero-title">
+                    منصتك الذكية
+                    <span class="blue">لمستقبلك الأكاديمي</span>
+                </h2>
+
+                <p class="hero-description">
+                    تابع من حيث توقفت — نتائج اختباراتك، توصياتك،
+                    وخطتك الدراسية كلها بانتتظارك .
+                </p>
+
+            </div>
+
+            <div class="logo-stage" aria-hidden="true">
+
+                <span class="orbit orbit-one"></span>
+                <span class="orbit orbit-two"></span>
+
+                <span class="podium podium-back"></span>
+                <span class="podium podium-front"></span>
+
+                <span class="logo-halo"></span>
+
+                <img
+                    src="../assets/img/logo.png"
+                    alt=""
+                    class="nextstep-logo-img"
+                >
+
+            </div>
+
+            <div class="hero-features">
+
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.7">
+                            <circle cx="12" cy="12" r="8"/>
+                            <path d="M12 8v5l3 2"/>
+                        </svg>
+                    </div>
+                    <span class="feature-title">مرشد ذكي دائم</span>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.7">
+                            <rect x="5" y="4" width="14" height="16" rx="2"/>
+                            <path d="M8 8h8"/>
+                            <path d="M8 12h8"/>
+                            <path d="M8 16h5"/>
+                        </svg>
+                    </div>
+                    <span class="feature-title">خطة تطور مهاراتك</span>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.7">
+                            <path d="M7 17L17 7"/>
+                            <path d="M10 7h7v7"/>
+                        </svg>
+                    </div>
+                    <span class="feature-title">توصيات محفوظة</span>
+                </div>
+
+            </div>
+
+        </section>
+
 </main>
 
 <script>
@@ -360,7 +405,7 @@
             alertBox.style.background = '#FDEDEE';
             alertBox.style.color = '#C62828';
         } else {
-            alertBox.style.background = 'rgba(72,230,176,0.12)';
+            alertBox.style.background = 'rgba(75,230,176,0.12)';
             alertBox.style.color = '#1C8F63';
         }
     }
@@ -406,7 +451,7 @@
 
     universitySelect.addEventListener('change', async function () {
         const universityId = this.value;
-        majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+        majorSelect.innerHTML = '<option value="">--  المطلوب اختر التخصص --</option>';
 
         if (!universityId) {
             majorSelect.disabled = true;
@@ -488,11 +533,11 @@
                 showAlert('تم إنشاء الحساب بنجاح! جارٍ التحويل...', 'success');
                 setTimeout(() => { window.location.href = 'quiz.html'; }, 1200);
             } else {
-                const errorMsg = data.message || 'حدث خطأ، تأكدي من البيانات وحاولي مرة ثانية';
+                const errorMsg = data.message || 'حدث خطأ، تأكد من البيانات وحاولي مرة ثانية';
                 showAlert(errorMsg, 'error');
             }
         } catch (err) {
-            showAlert('تعذر الاتصال بالسيرفر. تأكدي إنه الباك اند شغال.', 'error');
+            showAlert('تعذر الاتصال بالسيرفر. تأكد إنه الباك اند شغال.', 'error');
             console.error('Register error:', err);
         } finally {
             submitBtn.disabled = false;
@@ -502,7 +547,6 @@
 </script>
 
 <!-- ======================= FOOTER ======================= -->
-<div id="footer-placeholder"></div>
 <script src="../js/footer-index.js"></script>
 
 </body>

@@ -17,12 +17,16 @@
 
 body{background:var(--light);}
 
+/* .header-spacer (من header.css) بيدفع الصفحة تحت الهيدر أصلاً،
+   فـ .quiz-wrap لازم ياخد بس المساحة المتبقية من الشاشة —
+   مش 100dvh كاملة من جديد (كان هيك بيصير حساب مضاعف لارتفاع الهيدر
+   وبيطلع فراغ كبير فوق الكرت). */
 .quiz-wrap{
-  min-height:100dvh;
+  min-height: calc(100dvh - var(--header-height, 96px));
   display:flex;
   align-items:center;
   justify-content:center;
-  padding: calc(var(--header-height, 96px) + 24px) 16px 40px;
+  padding: 24px 16px 40px;
   box-sizing:border-box;
 }
 

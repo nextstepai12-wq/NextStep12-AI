@@ -20,93 +20,321 @@
 <div class="results-wrap">
   <div class="results-inner">
 
-    <div class="results-head">
-      <span class="results-eyebrow">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-        تم تحليل إجاباتك
-      </span>
-      <h1>هذه نتيجة الاختبار التي تناسبك</h1>
-      <p>بناءً على إجاباتك على الاستبيان الذكي، حللنا ميولك ومهاراتك ولقينالك أقرب التخصصات والجامعات المناسبة لك</p>
-    </div>
+    <!-- INTRO: no local header here — page relies on the shared
+         header-index.js like the rest of the site. Only a small
+         status badge marks that the test was already submitted. -->
+    <div class="results-intro">
 
-    <!-- Top match: main recommended major -->
-    <div class="top-match">
-      <div class="top-match-info">
-        <span class="top-match-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 2l9 4.5-9 4.5-9-4.5 9-4.5z"/><path d="M3 6.5v6c0 2.5 4 4.5 9 4.5s9-2 9-4.5v-6"/></svg>
-          التخصص الأول المقترح
+      <div class="results-intro-row">
+        <span class="results-eyebrow">
+          <i class="eyebrow-dot"></i>
+          قدمتِ الاختبار بنجاح
         </span>
-        <div class="top-match-name">علوم الحاسوب</div>
-        <p class="top-match-desc">تخصص يناسب تفكيرك المنطقي وشغفك بحل المشاكل باستخدام التكنولوجيا، وفيه فرص عمل واسعة ومتنوعة.</p>
+
+        <p class="results-lead">
+          أحسنتِ! لقد أكملتِ الاختبار الذكي بنجاح، وهذه نظرة شاملة على أدائك ومهاراتك وأقرب التخصصات والجامعات لك.
+        </p>
       </div>
-      <div class="match-circle">
-        <div class="pct">94<span>%</span></div>
-        <div class="pct-label">نسبة التوافق</div>
-      </div>
+
+      <!-- Signature journey strip: mirrors the path / point / destination
+           motif from the universities hero map, scaled to a dashboard header -->
+   
+
     </div>
 
-    <!-- University compatibility -->
-    <div class="section-title"><span class="dot"></span>نسبة التوافق مع الجامعة</div>
-    <div class="uni-grid">
 
-      <div class="uni-card">
-        <div class="uni-icon tier-high-bg" style="background:rgba(72,230,176,0.14);color:var(--mint);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+    <!-- ======================= DASHBOARD ======================= -->
+    <div class="results-dashboard">
+
+      <!-- ===== MAIN (LEFT) COLUMN ===== -->
+      <div class="dash-main">
+
+        <!-- Top match: main recommended major -->
+        <div class="top-match">
+
+          <div class="match-circle-wrap">
+            <svg class="match-ring" viewBox="0 0 140 140">
+              <circle class="ring-track" cx="70" cy="70" r="60"></circle>
+              <circle class="ring-fill" cx="70" cy="70" r="60"
+                stroke-dasharray="377" stroke-dashoffset="22.6"></circle>
+            </svg>
+            <div class="match-circle">
+              <div class="pct">94<span>%</span></div>
+              <div class="pct-label">نسبة التوافق</div>
+            </div>
+          </div>
+
+          <div class="top-match-info">
+            <span class="top-match-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 2l9 4.5-9 4.5-9-4.5 9-4.5z"/><path d="M3 6.5v6c0 2.5 4 4.5 9 4.5s9-2 9-4.5v-6"/></svg>
+              التخصص الأول المقترح
+            </span>
+
+            <div class="top-match-name">علوم الحاسوب</div>
+
+            <p class="top-match-desc">تخصص يناسب تفكيرك المنطقي وشغفك بحل المشاكل باستخدام التكنولوجيا، وفيه فرص عمل واسعة ومتنوعة.</p>
+
+            <div class="top-match-stars" aria-label="تقييم 5 من 5">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+          </div>
+
+          <div class="top-match-art">
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="60" r="52" fill="rgba(255,255,255,.06)"/>
+              <circle cx="60" cy="60" r="36" fill="rgba(255,255,255,.09)"/>
+              <path d="M60 40l32 16-32 16-32-16 32-16z" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linejoin="round"/>
+              <path d="M42 60v14c0 5 8 10 18 10s18-5 18-10V60" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
         </div>
-        <div class="uni-pct tier-high">92<span>%</span></div>
-        <div class="uni-bar"><div class="uni-bar-fill tier-high-bg" style="width:92%;"></div></div>
-        <div class="uni-name">جامعة النجاح الوطنية</div>
-        <div class="uni-tier-label tier-high">توافق عالي</div>
+
+        <!-- University compatibility -->
+        <div class="section-title">
+          <span class="section-title-main"><span class="dot"></span>نسبة التوافق مع الجامعات</span>
+          <span class="section-title-note">اضغطي على أي جامعة لتفاصيل التوافق</span>
+        </div>
+
+        <div class="uni-grid">
+
+          <div class="uni-card" data-uni-id="1">
+            <div class="uni-card-top">
+              <div class="uni-icon tier-high-bg" style="background:rgba(52,211,153,0.14);color:var(--uni-mint);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+              </div>
+              <div class="uni-pct tier-high">92<span>%</span></div>
+            </div>
+            <div class="uni-bar"><div class="uni-bar-fill tier-high-bg" style="width:92%;"></div></div>
+            <div class="uni-name">جامعة النجاح الوطنية</div>
+            <div class="uni-tier-label tier-high">توافق عالي</div>
+          </div>
+
+          <div class="uni-card" data-uni-id="6">
+            <div class="uni-card-top">
+              <div class="uni-icon" style="background:rgba(2,132,199,0.1);color:var(--uni-blue);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+              </div>
+              <div class="uni-pct tier-good">68<span>%</span></div>
+            </div>
+            <div class="uni-bar"><div class="uni-bar-fill tier-good-bg" style="width:68%;"></div></div>
+            <div class="uni-name">جامعة القدس</div>
+            <div class="uni-tier-label tier-good">توافق جيد</div>
+          </div>
+
+          <div class="uni-card" data-uni-id="2">
+            <div class="uni-card-top">
+              <div class="uni-icon" style="background:rgba(100,116,139,0.12);color:var(--uni-muted);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+              </div>
+              <div class="uni-pct tier-medium">45<span>%</span></div>
+            </div>
+            <div class="uni-bar"><div class="uni-bar-fill tier-medium-bg" style="width:45%;"></div></div>
+            <div class="uni-name">جامعة بيرزيت</div>
+            <div class="uni-tier-label tier-medium">توافق متوسط</div>
+          </div>
+
+        </div>
+
+
+        <!-- Skills: radar + strengths -->
+        <div class="section-title">
+          <span class="section-title-main"><span class="dot"></span>ليش هاد التوافق؟</span>
+          <span class="section-title-note">تحليل مهاراتك مقابل المتوسط العام</span>
+        </div>
+
+        <div class="skills-row">
+
+          <div class="skills-card radar-card">
+
+            <h3>مقارنة مهاراتك</h3>
+
+            <svg class="radar-chart" viewBox="0 0 240 240">
+
+              <!-- شبكة خلفية -->
+              <polygon class="radar-grid" points="120,35 193.6,77.5 193.6,162.5 120,205 46.4,162.5 46.4,77.5"></polygon>
+              <polygon class="radar-grid" points="120,77.5 156.8,98.75 156.8,141.25 120,162.5 83.2,141.25 83.2,98.75"></polygon>
+
+              <!-- محاور -->
+              <line class="radar-axis" x1="120" y1="120" x2="120" y2="35"></line>
+              <line class="radar-axis" x1="120" y1="120" x2="193.6" y2="77.5"></line>
+              <line class="radar-axis" x1="120" y1="120" x2="193.6" y2="162.5"></line>
+              <line class="radar-axis" x1="120" y1="120" x2="120" y2="205"></line>
+              <line class="radar-axis" x1="120" y1="120" x2="46.4" y2="162.5"></line>
+              <line class="radar-axis" x1="120" y1="120" x2="46.4" y2="77.5"></line>
+
+              <!-- المتوسط العام -->
+              <polygon class="radar-avg" points="120,62.2 167.1,92.8 164.2,145.5 120,169.3 71.4,148.1 68.5,90.3"></polygon>
+
+              <!-- أنت -->
+              <polygon class="radar-you" points="120,38.4 187,81.3 184.8,157.4 120,192.3 61.1,154 51.5,80.5"></polygon>
+
+              <!-- تسميات المحاور -->
+              <text class="radar-label" x="120" y="16" text-anchor="middle">التفكير التحليلي</text>
+              <text class="radar-label" x="212" y="66" text-anchor="start">حل المشكلات</text>
+              <text class="radar-label" x="212" y="176" text-anchor="start">الرياضيات</text>
+              <text class="radar-label" x="120" y="228" text-anchor="middle">البرمجة</text>
+              <text class="radar-label" x="28" y="176" text-anchor="end">الإبداع</text>
+              <text class="radar-label" x="28" y="66" text-anchor="end">الأداء الأكاديمي</text>
+
+            </svg>
+
+            <div class="radar-legend">
+              <span><i class="legend-dot legend-you"></i> أنت</span>
+              <span><i class="legend-dot legend-avg"></i> المتوسط العام</span>
+            </div>
+
+          </div>
+
+
+          <div class="skills-card strength-card">
+
+            <div class="strength-card-head">
+              <h3>نقاط القوة</h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+
+            <div class="strength-list">
+
+              <div class="strength-row">
+                <span class="strength-label">التفكير التحليلي</span>
+                <div class="strength-bar"><div class="strength-bar-fill" style="width:96%;"></div></div>
+                <span class="strength-pct">96%</span>
+              </div>
+
+              <div class="strength-row">
+                <span class="strength-label">حل المشكلات</span>
+                <div class="strength-bar"><div class="strength-bar-fill" style="width:91%;"></div></div>
+                <span class="strength-pct">91%</span>
+              </div>
+
+              <div class="strength-row">
+                <span class="strength-label">الرياضيات</span>
+                <div class="strength-bar"><div class="strength-bar-fill" style="width:88%;"></div></div>
+                <span class="strength-pct">88%</span>
+              </div>
+
+              <div class="strength-row">
+                <span class="strength-label">البرمجة</span>
+                <div class="strength-bar"><div class="strength-bar-fill" style="width:85%;"></div></div>
+                <span class="strength-pct">85%</span>
+              </div>
+
+              <div class="strength-row">
+                <span class="strength-label">الإبداع</span>
+                <div class="strength-bar"><div class="strength-bar-fill" style="width:80%;"></div></div>
+                <span class="strength-pct">80%</span>
+              </div>
+
+              <div class="strength-row">
+                <span class="strength-label">الأداء الأكاديمي</span>
+                <div class="strength-bar"><div class="strength-bar-fill" style="width:93%;"></div></div>
+                <span class="strength-pct">93%</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Other suggested majors -->
+        <div class="section-title">
+          <span class="section-title-main"><span class="dot"></span>تخصصات أخرى تناسبك</span>
+        </div>
+        <div class="majors-card">
+          <div class="majors-list">
+            <span class="major-chip">
+              <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+              الذكاء الاصطناعي
+            </span>
+            <span class="major-chip">
+              <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+              الأمن السيبراني
+            </span>
+            <span class="major-chip">
+              <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+              هندسة الحاسوب
+            </span>
+            <span class="major-chip">
+              <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+              علم البيانات
+            </span>
+            <span class="major-chip">
+              <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+              نظم المعلومات
+            </span>
+          </div>
+        </div>
+
       </div>
 
-      <div class="uni-card">
-        <div class="uni-icon" style="background:rgba(47,107,255,0.1);color:var(--blue);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
-        </div>
-        <div class="uni-pct tier-good">68<span>%</span></div>
-        <div class="uni-bar"><div class="uni-bar-fill tier-good-bg" style="width:68%;"></div></div>
-        <div class="uni-name">الجامعة الإسلامية</div>
-        <div class="uni-tier-label tier-good">توافق جيد</div>
-      </div>
 
-      <div class="uni-card">
-        <div class="uni-icon" style="background:rgba(245,166,35,0.12);color:var(--orange);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+      <!-- ===== SIDEBAR (RIGHT) COLUMN ===== -->
+      <div class="dash-side">
+
+        <div class="side-card">
+          <div class="side-card-head">
+            <h3>ملخص النتيجة</h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a1 1 0 0 1 1 1v15l-3-2-3 2-3-2-3 2-3-2-3 2V5a1 1 0 0 1 1-1z"/></svg>
+          </div>
+
+          <div class="summary-row">
+            <span>تاريخ الاختبار</span>
+            <b>16 أغسطس 2026</b>
+          </div>
+
+          <div class="summary-row">
+            <span>عدد الأسئلة</span>
+            <b>24 سؤال</b>
+          </div>
+
+          <div class="summary-row">
+            <span>الوقت المستغرق</span>
+            <b>12 دقيقة</b>
+          </div>
+
+          <div class="summary-row">
+            <span>الحالة</span>
+            <span class="status-pill">مكتمل</span>
+          </div>
         </div>
-        <div class="uni-pct tier-medium">45<span>%</span></div>
-        <div class="uni-bar"><div class="uni-bar-fill tier-medium-bg" style="width:45%;"></div></div>
-        <div class="uni-name">جامعة الأزهر</div>
-        <div class="uni-tier-label tier-medium">توافق متوسط</div>
+
+
+        <div class="side-card next-card">
+          <div class="side-card-head">
+            <h3>خطوتك التالية</h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+
+          <div class="next-art">
+            <svg viewBox="0 0 100 100" fill="none">
+              <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+              <circle cx="50" cy="50" r="27" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+              <circle cx="50" cy="50" r="12" fill="rgba(255,255,255,.9)"/>
+            </svg>
+          </div>
+
+          <p>استكشفي التخصصات والجامعات المتوافقة معك وابدئي رحلتك الجامعية من هون.</p>
+
+          <a href="universities.html" class="next-cta">استكشفي الآن ←</a>
+        </div>
+
+
+        <div class="side-card quote-card">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H4.83A2.17 2.17 0 0 1 7 9a2 2 0 0 0 .17-3zM17.17 6A5.17 5.17 0 0 0 12 11.17V18h6.83v-6.83h-4A2.17 2.17 0 0 1 17 9a2 2 0 0 0 .17-3z"/></svg>
+          <p>مستقبلك يُصنع من قراراتك اليوم، وأنتِ على الطريق الصحيح!</p>
+        </div>
+
       </div>
 
     </div>
 
-    <!-- Other suggested majors -->
-    <div class="section-title"><span class="dot"></span>تخصصات أخرى تناسبك</div>
-    <div class="majors-card">
-      <div class="majors-list">
-        <span class="major-chip">
-          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-          الذكاء الاصطناعي
-        </span>
-        <span class="major-chip">
-          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-          الأمن السيبراني
-        </span>
-        <span class="major-chip">
-          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-          هندسة الحاسوب
-        </span>
-        <span class="major-chip">
-          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-          علم البيانات
-        </span>
-        <span class="major-chip">
-          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-          نظم المعلومات
-        </span>
-      </div>
-    </div>
 
     <!-- Actions -->
     <div class="results-actions">
@@ -114,17 +342,215 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
         إعادة الاختبار
       </a>
-      <a href="student-signup.html" class="btn-continue">
-        تابع وأنشئ حسابك
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      <a href="contact-advisor.html" class="btn-continue">
+        تواصل مع مرشد
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </a>
     </div>
 
   </div>
 </div>
 
+
+<!-- ======================= MATCH PERCENTAGE MODAL (نسبة التوافق مع الجامعة) ======================= -->
+<div class="match-modal-overlay" id="resMatchModalOverlay">
+  <div class="match-modal-box">
+
+    <button class="match-modal-close" id="resMatchModalClose" type="button" aria-label="إغلاق">&times;</button>
+
+    <div class="match-modal-circle">
+      <div class="match-modal-pct" id="resMatchPct">—<span>%</span></div>
+    </div>
+
+    <span class="match-modal-tier" id="resMatchTier">—</span>
+
+    <h3 id="resMatchUniName">—</h3>
+
+    <p class="match-modal-major-label">
+      التخصص المقترح: <b id="resMatchMajor">—</b>
+    </p>
+
+    <p id="resMatchDesc">—</p>
+
+    <div class="match-modal-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16v-4M12 8h.01"/><circle cx="12" cy="12" r="10"/></svg>
+      <span>هاي النسبة محسوبة بناءً على نتيجة استبيانك الذكي</span>
+    </div>
+
+    <a href="#" id="resMatchCta" class="match-modal-retake">شاهدي صفحة الجامعة ←</a>
+
+  </div>
+</div>
+
+
 <!-- ======================= FOOTER ======================= -->
 <script src="../js/footer-index.js"></script>
+
+<script>
+/* =========================================================
+   حفظ نتيجة الاستبيان محلياً (localStorage) عشان صفحة
+   تفاصيل الجامعة تقدر تقرأها لاحقاً وتعرض نسبة التوافق.
+
+   ملاحظة: الكود هون بيقرأ القيم مباشرة من عناصر الصفحة
+   (بدل ما نكررها بمصفوفة JS منفصلة)، فمصدر الحقيقة الوحيد
+   يضل الـ HTML نفسه.
+   ========================================================= */
+
+(function saveQuizResultToStorage() {
+
+    const STORAGE_KEY = "nextstep_quiz_result";
+
+    function textOf(el) {
+        return el ? el.textContent.replace(/\s+/g, " ").trim() : "";
+    }
+
+    function numberOf(el) {
+        const text = textOf(el);
+        const match = text.match(/\d+/);
+        return match ? parseInt(match[0], 10) : null;
+    }
+
+    const topMajor = {
+        name: textOf(document.querySelector(".top-match-name")),
+        percent: numberOf(document.querySelector(".match-circle .pct")),
+        description: textOf(document.querySelector(".top-match-desc"))
+    };
+
+    const otherMajors =
+        Array.from(document.querySelectorAll(".major-chip"))
+            .map(chip => textOf(chip));
+
+    const universities =
+        Array.from(document.querySelectorAll(".uni-card")).map(card => {
+
+            const tierEl = card.querySelector(".uni-tier-label");
+
+            let tier = "medium";
+
+            if (tierEl) {
+                if (tierEl.classList.contains("tier-high")) tier = "high";
+                else if (tierEl.classList.contains("tier-good")) tier = "good";
+                else if (tierEl.classList.contains("tier-medium")) tier = "medium";
+            }
+
+            return {
+                id: card.dataset.uniId ? parseInt(card.dataset.uniId, 10) : null,
+                name: textOf(card.querySelector(".uni-name")),
+                percent: numberOf(card.querySelector(".uni-pct")),
+                tierLabel: textOf(tierEl),
+                tier
+            };
+
+        });
+
+    const result = {
+        topMajor,
+        otherMajors,
+        universities,
+        takenAt: Date.now()
+    };
+
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
+    } catch (err) {
+        console.warn("تعذر حفظ نتيجة الاستبيان محلياً:", err);
+    }
+
+})();
+
+
+/* =========================================================
+   نافذة "نسبة توافقك مع الجامعة" — بتفتح لما تضغطي
+   على أي كارت جامعة بقسم نسبة التوافق.
+   ========================================================= */
+
+(function setupResultsMatchModal() {
+
+    const overlay = document.getElementById("resMatchModalOverlay");
+    const closeBtn = document.getElementById("resMatchModalClose");
+
+    const pctEl = document.getElementById("resMatchPct");
+    const tierEl = document.getElementById("resMatchTier");
+    const uniNameEl = document.getElementById("resMatchUniName");
+    const majorEl = document.getElementById("resMatchMajor");
+    const descEl = document.getElementById("resMatchDesc");
+    const ctaEl = document.getElementById("resMatchCta");
+
+    const topMajorName =
+        (document.querySelector(".top-match-name") || {}).textContent || "—";
+
+    const topMajorDesc =
+        (document.querySelector(".top-match-desc") || {}).textContent || "";
+
+    function openModal() {
+        overlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+        overlay.classList.remove("open");
+        document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+
+    overlay.addEventListener("click", (event) => {
+        if (event.target === overlay) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
+    });
+
+    document.querySelectorAll(".uni-card").forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            const id = card.dataset.uniId;
+
+            const percentText =
+                (card.querySelector(".uni-pct") || {}).textContent || "";
+
+            const percent =
+                (percentText.match(/\d+/) || [])[0] || "—";
+
+            const tierLabelText =
+                (card.querySelector(".uni-tier-label") || {}).textContent
+                    .trim() || "—";
+
+            const tierLabelEl =
+                card.querySelector(".uni-tier-label");
+
+            let tierClass = "tier-medium";
+
+            if (tierLabelEl) {
+                if (tierLabelEl.classList.contains("tier-high")) tierClass = "tier-high";
+                else if (tierLabelEl.classList.contains("tier-good")) tierClass = "tier-good";
+            }
+
+            const uniName =
+                (card.querySelector(".uni-name") || {}).textContent
+                    .trim() || "—";
+
+            pctEl.innerHTML = `${percent}<span>%</span>`;
+            tierEl.textContent = tierLabelText;
+            tierEl.className = `match-modal-tier ${tierClass}`;
+            uniNameEl.textContent = uniName;
+            majorEl.textContent = topMajorName.trim();
+            descEl.textContent = topMajorDesc.trim();
+
+            ctaEl.href = id
+                ? `university-details.html?id=${id}`
+                : "universities.html";
+
+            openModal();
+
+        });
+
+    });
+
+})();
+</script>
 
 </body>
 </html>

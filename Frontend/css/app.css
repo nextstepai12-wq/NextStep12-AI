@@ -51,38 +51,7 @@ body{
   overflow-x:hidden;
 }
 
-body::before,
-body::after{
-  content:"";
-  position:fixed;
-  border-radius:50%;
-  pointer-events:none;
-  filter:blur(40px);
-  opacity:0.8;
-  animation:floatGlow 8s ease-in-out infinite alternate;
-}
 
-body::before{
-  width:280px;
-  height:280px;
-  background:rgba(53,208,255,0.18);
-  top:-80px;
-  left:-60px;
-}
-
-body::after{
-  width:320px;
-  height:320px;
-  background:rgba(47,107,255,0.16);
-  bottom:-120px;
-  right:-80px;
-  animation-duration:10s;
-}
-
-@keyframes floatGlow{
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(20px, 20px) scale(1.08); }
-}
 a{text-decoration:none;color:inherit;}
 button{font-family:inherit;}
 ul{list-style:none;margin:0;padding:0;}

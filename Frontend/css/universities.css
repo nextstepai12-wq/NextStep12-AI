@@ -29,6 +29,10 @@
 
     --uni-shadow-blue:
         0 15px 40px rgba(2, 132, 199, .13);
+
+    /* الهيدر شفاف بهاي الصفحة (بدون --header-bg)، بنفس
+       سلوك صفحة تفاصيل الجامعة — القيمة الافتراضية بـ
+       header.css هي transparent. */
 }
 
 
@@ -65,14 +69,14 @@ body {
 
 /* =========================================================
    HERO
-   Fills the full viewport height minus the fixed header,
-   so it's visible in one screen with no scroll needed.
+   Fills the remaining viewport height below the fixed header,
+   so it's visible in one screen with no extra scroll needed.
    Relies on .header-spacer (from header.css) to push this
    section below the fixed header — no extra padding-top here.
    ========================================================= */
 
 .uni-hero {
-    min-height: 100vh;
+    min-height: calc(100vh - var(--header-height, 96px));
 
     position: relative;
 

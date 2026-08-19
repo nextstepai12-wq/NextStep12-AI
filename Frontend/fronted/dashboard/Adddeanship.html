@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>إضافة عمادة جديدة</title>
+
+  <!-- الخطوط -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS المشترك فقط -->
+  <link rel="stylesheet" href="../../css/app.css">
+
+<link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
+  <!-- بنستخدم نفس ستايل صفحة إضافة البرنامج، ما في حاجة لملف CSS جديد -->
+<link rel="stylesheet" href="../../css/dashboardcss/add-program.css">
+
+</head>
+
+<body>
+
+<!-- =========================================================
+     TOP BAR
+========================================================= -->
+
+<header class="admin-topbar" id="adminTopbar"></header>
+
+
+<!-- =========================================================
+     PAGE
+========================================================= -->
+
+<div class="admin-layout">
+
+  <!-- ======================= SIDEBAR ======================= -->
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <!-- ======================= MAIN CONTENT ======================= -->
+  <main class="add-program-page admin-main admin-main-content">
+
+  <!-- Breadcrumb -->
+
+  <div class="admin-breadcrumb">
+
+    <a href="deanships.html">
+      العمادات
+    </a>
+
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+
+    <span class="current">
+      إضافة عمادة جديدة
+    </span>
+
+  </div>
+
+
+  <!-- Page Header -->
+
+  <div class="admin-page-head">
+
+    <div>
+      <h1>إضافة عمادة جديدة</h1>
+
+      <p>
+        اضف بيانات العمادة وتفاصيل التواصل الخاصة فيها. هذه البيانات بتُستخدم
+        لربط التخصصات الأكاديمية بالعمادة وعرضها بشكل كامل للطلاب.
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- =======================================================
+       MAIN LAYOUT
+  ======================================================== -->
+
+  <div class="form-layout">
+
+
+    <!-- =====================================================
+         STEPPER
+    ====================================================== -->
+
+    <aside class="form-stepper">
+
+      <h3>خطوات الإضافة</h3>
+
+      <ul id="stepperList">
+
+        <li
+          class="stepper-item active"
+          data-target="sectionBasic"
+        >
+          <span class="stepper-dot">
+            <span class="dot-inner"></span>
+          </span>
+
+          <div>
+            <h4>المعلومات الأساسية</h4>
+            <p>الاسم، العميد، الشعار</p>
+          </div>
+        </li>
+
+
+        <li
+          class="stepper-item"
+          data-target="sectionContact"
+        >
+          <span class="stepper-dot">
+            <span class="dot-inner"></span>
+          </span>
+
+          <div>
+            <h4>التواصل والوصف</h4>
+            <p>البريد، الهاتف، نبذة</p>
+          </div>
+        </li>
+
+
+        <li
+          class="stepper-item"
+          data-target="sectionDepartments"
+        >
+          <span class="stepper-dot">
+            <span class="dot-inner"></span>
+          </span>
+
+          <div>
+            <h4>الأقسام التابعة</h4>
+            <p>الأقسام أو الكليات الفرعية</p>
+          </div>
+        </li>
+
+      </ul>
+
+    </aside>
+
+
+    <!-- =====================================================
+         FORM
+    ====================================================== -->
+
+    <form
+      class="form-canvas"
+      id="deanshipForm"
+      novalidate
+    >
+
+
+      <!-- ===================================================
+           BASIC
+      ==================================================== -->
+
+      <section
+        class="admin-panel"
+        id="sectionBasic"
+      >
+
+        <div class="form-section-title">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="12" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+
+          المعلومات الأساسية
+
+        </div>
+
+
+        <!-- اسم العمادة -->
+
+        <div class="field-group">
+
+          <label for="deanName">
+            اسم العمادة
+          </label>
+
+          <input
+            type="text"
+            id="deanName"
+            name="name"
+            placeholder="مثال: عمادة كلية الهندسة وتكنولوجيا المعلومات"
+            required
+          >
+
+        </div>
+
+
+        <!-- اسم العميد ورمز العمادة -->
+
+        <div class="form-row-2">
+
+          <div class="field-group">
+
+            <label for="deanDeanName">
+              اسم العميد
+            </label>
+
+            <input
+              type="text"
+              id="deanDeanName"
+              name="dean_name"
+              placeholder="مثال: د. أحمد العلي"
+              required
+            >
+
+          </div>
+
+
+          <div class="field-group">
+
+            <label for="deanCode">
+              رمز العمادة
+              <span class="optional">(اختياري)</span>
+            </label>
+
+            <input
+              type="text"
+              id="deanCode"
+              name="code"
+              placeholder="مثال: ENG"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- شعار العمادة -->
+
+        <div class="field-group">
+
+          <label for="deanLogoFile">
+            شعار العمادة
+            <span class="optional">(اختياري)</span>
+          </label>
+
+          <div
+            class="study-plan-upload"
+            id="deanLogoUpload"
+          >
+
+            <input
+              type="file"
+              id="deanLogoFile"
+              name="logo"
+              accept=".png,.jpg,.jpeg,.svg,.webp"
+              hidden
+            >
+
+            <label
+              for="deanLogoFile"
+              class="study-plan-dropzone"
+            >
+
+              <span class="study-plan-icon">
+
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <path d="M14 2v6h6"/>
+                  <path d="M12 18v-6"/>
+                  <path d="M9 15l3-3 3 3"/>
+                </svg>
+
+              </span>
+
+              <span class="study-plan-text">
+
+                <strong>
+                  إضافة شعار العمادة
+                </strong>
+
+                <small>
+                  PNG أو JPG أو SVG — الحد الأقصى 5MB
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <!-- الملف المختار -->
+
+            <div
+              class="study-plan-file"
+              id="deanLogoFileRow"
+              hidden
+            >
+
+              <div class="study-plan-file-info">
+
+                <span class="study-plan-file-icon">
+
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6"/>
+                  </svg>
+
+                </span>
+
+                <div>
+
+                  <strong id="deanLogoFileName">
+                    —
+                  </strong>
+
+                  <small id="deanLogoFileSize">
+                    —
+                  </small>
+
+                </div>
+
+              </div>
+
+
+              <button
+                type="button"
+                class="study-plan-remove"
+                id="removeDeanLogo"
+                aria-label="حذف الشعار"
+              >
+
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+
+              </button>
+
+            </div>
+
+          </div>
+
+          <p class="field-hint">
+            رفع شعار العمادة اختياري، وبيظهر بجانب اسمها بصفحة العمادات وصفحات التخصصات التابعة لها.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           CONTACT
+      ==================================================== -->
+
+      <section
+        class="admin-panel"
+        id="sectionContact"
+      >
+
+        <div class="form-section-title">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6M9 13h6M9 17h6"/>
+          </svg>
+
+          التواصل والوصف
+
+        </div>
+
+
+        <div class="form-row-2">
+
+          <div class="field-group">
+
+            <label for="deanEmail">
+              البريد الإلكتروني
+            </label>
+
+            <input
+              type="email"
+              id="deanEmail"
+              name="email"
+              placeholder="engineering@university.edu"
+              required
+            >
+
+          </div>
+
+
+          <div class="field-group">
+
+            <label for="deanPhone">
+              رقم الهاتف
+              <span class="optional">(اختياري)</span>
+            </label>
+
+            <input
+              type="tel"
+              id="deanPhone"
+              name="phone"
+              placeholder="00970 XX XXX XXXX"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="field-group">
+
+          <label for="deanDescription">
+            نبذة عن العمادة
+          </label>
+
+          <textarea
+            id="deanDescription"
+            name="description"
+            placeholder="نبذة مختصرة عن رؤية العمادة وتخصصاتها..."
+            required
+          ></textarea>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           DEPARTMENTS
+      ==================================================== -->
+
+      <section
+        class="ai-panel"
+        id="sectionDepartments"
+      >
+
+        <div class="ai-panel-head">
+
+          <div class="title-group">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1z"/>
+            </svg>
+
+            <h3>
+              الأقسام التابعة
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        <p class="ai-panel-hint">
+          أضيفي أسماء الأقسام العلمية التابعة لهذه العمادة. تقدري تضيفي أو تعدّلي هذه القائمة لاحقاً.
+        </p>
+
+
+        <div class="ai-panel-grid">
+
+          <div class="ai-tag-box">
+
+            <label>
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="12" cy="12" r="0.5" fill="currentColor"/>
+              </svg>
+
+              الأقسام العلمية
+
+            </label>
+
+            <p class="tag-desc">
+              مثال: قسم هندسة البرمجيات، قسم علوم الحاسوب.
+            </p>
+
+            <div
+              class="tag-chips"
+              id="departmentTags"
+            ></div>
+
+            <div class="tag-input-row">
+
+              <input
+                type="text"
+                id="departmentTagInput"
+                placeholder="مثال: قسم هندسة البرمجيات"
+              >
+
+              <button
+                type="button"
+                class="tag-add-btn"
+                data-target="departmentTags"
+                data-input="departmentTagInput"
+              >
+                إضافة
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           ACTIONS
+      ==================================================== -->
+
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="btn-save-primary"
+          id="saveBtn"
+        >
+
+          نشر العمادة
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+          >
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-cancel-outline"
+          id="draftBtn"
+        >
+          حفظ كمسودة
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-cancel-outline"
+          onclick="window.location.href='deanships.html'"
+        >
+          إلغاء
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+  </main>
+
+</div>
+<!-- إغلاق admin-layout -->
+
+
+<!-- =========================================================
+     MODAL
+========================================================= -->
+
+<div
+  class="app-modal-overlay"
+  id="appModalOverlay"
+>
+
+  <div
+    class="app-modal"
+    role="dialog"
+    aria-modal="true"
+  >
+
+    <div
+      class="app-modal-icon"
+      id="appModalIcon"
+    ></div>
+
+    <h3 id="appModalTitle"></h3>
+
+    <p id="appModalMsg"></p>
+
+    <div
+      class="app-modal-actions"
+      id="appModalActions"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* =========================================================
+     CONFIG
+  ========================================================= */
+
+  const USE_MOCK_DATA = true;
+
+  const API_BASE_URL = 'http://127.0.0.1:8000/api';
+
+
+  /* =========================================================
+     ELEMENTS
+  ========================================================= */
+
+  const deanshipForm = document.getElementById('deanshipForm');
+
+  const saveBtn = document.getElementById('saveBtn');
+
+  const draftBtn = document.getElementById('draftBtn');
+
+
+  /* =========================================================
+     MODAL
+  ========================================================= */
+
+  const appModalOverlay =
+    document.getElementById('appModalOverlay');
+
+  const appModalIcon =
+    document.getElementById('appModalIcon');
+
+  const appModalTitle =
+    document.getElementById('appModalTitle');
+
+  const appModalMsg =
+    document.getElementById('appModalMsg');
+
+  const appModalActions =
+    document.getElementById('appModalActions');
+
+
+  function openModal({
+    type = 'success',
+    title,
+    message,
+    confirmText = 'تمام',
+    cancelText = 'إلغاء',
+    onConfirm = null
+  }) {
+
+    appModalIcon.className =
+      `app-modal-icon ${type}`;
+
+    appModalIcon.textContent =
+      type === 'success'
+        ? '✓'
+        : type === 'error'
+          ? '!'
+          : '?';
+
+    appModalTitle.textContent = title;
+
+    appModalMsg.textContent = message;
+
+    appModalActions.innerHTML = '';
+
+
+    if (onConfirm) {
+
+      const cancelBtn =
+        document.createElement('button');
+
+      cancelBtn.type = 'button';
+
+      cancelBtn.className =
+        'app-modal-btn-outline';
+
+      cancelBtn.textContent =
+        cancelText;
+
+      cancelBtn.addEventListener(
+        'click',
+        closeModal
+      );
+
+
+      const confirmBtn =
+        document.createElement('button');
+
+      confirmBtn.type = 'button';
+
+      confirmBtn.className =
+        `app-modal-btn-primary ${
+          type === 'error' ? 'danger' : ''
+        }`;
+
+      confirmBtn.textContent =
+        confirmText;
+
+      confirmBtn.addEventListener(
+        'click',
+        () => {
+          closeModal();
+          onConfirm();
+        }
+      );
+
+
+      appModalActions.appendChild(
+        cancelBtn
+      );
+
+      appModalActions.appendChild(
+        confirmBtn
+      );
+
+    } else {
+
+      const okBtn =
+        document.createElement('button');
+
+      okBtn.type = 'button';
+
+      okBtn.className =
+        'app-modal-btn-primary';
+
+      okBtn.textContent =
+        confirmText;
+
+      okBtn.addEventListener(
+        'click',
+        closeModal
+      );
+
+      appModalActions.appendChild(
+        okBtn
+      );
+
+    }
+
+
+    appModalOverlay.classList.add(
+      'is-open'
+    );
+
+  }
+
+
+  function closeModal() {
+
+    appModalOverlay.classList.remove(
+      'is-open'
+    );
+
+  }
+
+
+  appModalOverlay.addEventListener(
+    'click',
+    e => {
+
+      if (
+        e.target ===
+        appModalOverlay
+      ) {
+        closeModal();
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    'keydown',
+    e => {
+
+      if (
+        e.key === 'Escape' &&
+        appModalOverlay.classList.contains(
+          'is-open'
+        )
+      ) {
+        closeModal();
+      }
+
+    }
+  );
+
+
+  /* =========================================================
+     STEPPER
+  ========================================================= */
+
+  document
+    .querySelectorAll('.stepper-item')
+    .forEach(item => {
+
+      item.addEventListener(
+        'click',
+        () => {
+
+          const target =
+            document.getElementById(
+              item.dataset.target
+            );
+
+          if (!target) return;
+
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+
+        }
+      );
+
+    });
+
+
+  const sections = [
+    document.getElementById('sectionBasic'),
+    document.getElementById('sectionContact'),
+    document.getElementById('sectionDepartments')
+  ];
+
+
+  const stepperItems =
+    document.querySelectorAll(
+      '.stepper-item'
+    );
+
+
+  const observer =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const id =
+            entry.target.id;
+
+          stepperItems.forEach(item => {
+
+            item.classList.toggle(
+              'active',
+              item.dataset.target === id
+            );
+
+          });
+
+        });
+
+      },
+      {
+        threshold: 0.25
+      }
+    );
+
+
+  sections.forEach(section => {
+
+    if (section) {
+      observer.observe(section);
+    }
+
+  });
+
+
+  /* =========================================================
+     TAGS
+  ========================================================= */
+
+  function addTag(
+    containerId,
+    value
+  ) {
+
+    const val =
+      value.trim();
+
+    if (!val) return;
+
+
+    const container =
+      document.getElementById(
+        containerId
+      );
+
+
+    const chip =
+      document.createElement('span');
+
+    chip.className =
+      'tag-chip';
+
+
+    const text =
+      document.createElement('span');
+
+    text.textContent =
+      val;
+
+
+    const button =
+      document.createElement('button');
+
+    button.type = 'button';
+
+    button.setAttribute(
+      'aria-label',
+      'حذف'
+    );
+
+
+    button.innerHTML = `
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    `;
+
+
+    button.addEventListener(
+      'click',
+      () => chip.remove()
+    );
+
+
+    chip.appendChild(text);
+
+    chip.appendChild(button);
+
+    container.appendChild(chip);
+
+  }
+
+
+  document
+    .querySelectorAll('.tag-add-btn')
+    .forEach(btn => {
+
+      btn.addEventListener(
+        'click',
+        () => {
+
+          const input =
+            document.getElementById(
+              btn.dataset.input
+            );
+
+          addTag(
+            btn.dataset.target,
+            input.value
+          );
+
+          input.value = '';
+
+          input.focus();
+
+        }
+      );
+
+    });
+
+
+  [
+    'departmentTagInput'
+  ].forEach(inputId => {
+
+    const input =
+      document.getElementById(
+        inputId
+      );
+
+
+    input.addEventListener(
+      'keydown',
+      e => {
+
+        if (e.key !== 'Enter') {
+          return;
+        }
+
+        e.preventDefault();
+
+
+        addTag(
+          'departmentTags',
+          input.value
+        );
+
+
+        input.value = '';
+
+      }
+    );
+
+  });
+
+
+  function collectTags(
+    containerId
+  ) {
+
+    return Array
+      .from(
+        document
+          .getElementById(containerId)
+          .querySelectorAll('.tag-chip')
+      )
+      .map(
+        chip =>
+          chip
+            .querySelector('span')
+            .textContent
+            .trim()
+      );
+
+  }
+
+
+  /* =========================================================
+     LOGO UPLOAD
+  ========================================================= */
+
+  const deanLogoFile =
+    document.getElementById(
+      'deanLogoFile'
+    );
+
+  const deanLogoFileRow =
+    document.getElementById(
+      'deanLogoFileRow'
+    );
+
+  const deanLogoFileName =
+    document.getElementById(
+      'deanLogoFileName'
+    );
+
+  const deanLogoFileSize =
+    document.getElementById(
+      'deanLogoFileSize'
+    );
+
+  const removeDeanLogo =
+    document.getElementById(
+      'removeDeanLogo'
+    );
+
+
+  const MAX_FILE_SIZE =
+    5 * 1024 * 1024;
+
+
+  const allowedExtensions = [
+    'png',
+    'jpg',
+    'jpeg',
+    'svg',
+    'webp'
+  ];
+
+
+  function formatFileSize(
+    bytes
+  ) {
+
+    if (bytes < 1024) {
+      return `${bytes} B`;
+    }
+
+    if (bytes < 1024 * 1024) {
+      return `${(
+        bytes / 1024
+      ).toFixed(1)} KB`;
+    }
+
+    return `${(
+      bytes /
+      (1024 * 1024)
+    ).toFixed(1)} MB`;
+
+  }
+
+
+  function clearDeanLogo() {
+
+    deanLogoFile.value =
+      '';
+
+    deanLogoFileRow.hidden =
+      true;
+
+  }
+
+
+  deanLogoFile.addEventListener(
+    'change',
+    () => {
+
+      const file =
+        deanLogoFile.files[0];
+
+      if (!file) {
+        return;
+      }
+
+
+      const extension =
+        file.name
+          .split('.')
+          .pop()
+          .toLowerCase();
+
+
+      if (
+        !allowedExtensions
+          .includes(extension)
+      ) {
+
+        clearDeanLogo();
+
+        openModal({
+          type: 'error',
+          title: 'نوع الملف غير مدعوم',
+          message:
+            'شعار العمادة يجب أن يكون PNG أو JPG أو SVG أو WEBP.'
+        });
+
+        return;
+
+      }
+
+
+      if (
+        file.size >
+        MAX_FILE_SIZE
+      ) {
+
+        clearDeanLogo();
+
+        openModal({
+          type: 'error',
+          title: 'الملف كبير جداً',
+          message:
+            'الحد الأقصى لحجم شعار العمادة هو 5 ميجابايت.'
+        });
+
+        return;
+
+      }
+
+
+      deanLogoFileName.textContent =
+        file.name;
+
+      deanLogoFileSize.textContent =
+        formatFileSize(
+          file.size
+        );
+
+      deanLogoFileRow.hidden =
+        false;
+
+    }
+  );
+
+
+  removeDeanLogo.addEventListener(
+    'click',
+    clearDeanLogo
+  );
+
+
+  /* =========================================================
+     BUILD PAYLOAD
+  ========================================================= */
+
+  function buildData(
+    status
+  ) {
+
+    return {
+
+      status,
+
+      name:
+        document
+          .getElementById('deanName')
+          .value
+          .trim(),
+
+      dean_name:
+        document
+          .getElementById('deanDeanName')
+          .value
+          .trim(),
+
+      code:
+        document
+          .getElementById('deanCode')
+          .value
+          .trim() || null,
+
+      email:
+        document
+          .getElementById('deanEmail')
+          .value
+          .trim(),
+
+      phone:
+        document
+          .getElementById('deanPhone')
+          .value
+          .trim() || null,
+
+      description:
+        document
+          .getElementById(
+            'deanDescription'
+          )
+          .value
+          .trim(),
+
+      departments:
+        collectTags(
+          'departmentTags'
+        )
+
+    };
+
+  }
+
+
+  /* =========================================================
+     VALIDATION
+  ========================================================= */
+
+  function validateForm(
+    status
+  ) {
+
+    const requiredFields = [
+      document.getElementById('deanName'),
+      document.getElementById('deanDeanName'),
+      document.getElementById('deanEmail'),
+      document.getElementById('deanDescription')
+    ];
+
+
+    for (
+      const field of requiredFields
+    ) {
+
+      if (!field.value.trim()) {
+
+        openModal({
+          type: 'error',
+          title: 'بيانات غير كاملة',
+          message:
+            'تأكد من تعبئة جميع الحقول المطلوبة.'
+        });
+
+        field.focus();
+
+        return false;
+
+      }
+
+    }
+
+
+    const emailField =
+      document.getElementById(
+        'deanEmail'
+      );
+
+    const emailPattern =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (
+      !emailPattern.test(
+        emailField.value.trim()
+      )
+    ) {
+
+      openModal({
+        type: 'error',
+        title: 'بريد إلكتروني غير صحيح',
+        message:
+          'تأكد من إدخال بريد إلكتروني صحيح للعمادة.'
+      });
+
+      emailField.focus();
+
+      return false;
+
+    }
+
+
+    return true;
+
+  }
+
+
+  /* =========================================================
+     SUBMIT
+  ========================================================= */
+
+  async function submitDeanship(
+    status,
+    triggerBtn
+  ) {
+
+    if (
+      !validateForm(status)
+    ) {
+      return;
+    }
+
+
+    const data =
+      buildData(status);
+
+
+    const file =
+      deanLogoFile.files[0] ||
+      null;
+
+
+    triggerBtn.disabled =
+      true;
+
+
+    const originalContent =
+      triggerBtn.innerHTML;
+
+
+    triggerBtn.textContent =
+      status === 'draft'
+        ? 'جارٍ الحفظ...'
+        : 'جارٍ النشر...';
+
+
+    try {
+
+      /* =====================================================
+         MOCK
+      ==================================================== */
+
+      if (USE_MOCK_DATA) {
+
+        const mockData = {
+          ...data,
+          logo:
+            file
+              ? {
+                  name: file.name,
+                  size: file.size,
+                  type: file.type
+                }
+              : null
+        };
+
+
+        console.log(
+          '🏛️ Deanship data:',
+          mockData
+        );
+
+
+        await new Promise(
+          resolve =>
+            setTimeout(
+              resolve,
+              700
+            )
+        );
+
+
+        openModal({
+
+          type: 'success',
+
+          title:
+            status === 'draft'
+              ? 'تم حفظ المسودة'
+              : 'تم نشر العمادة بنجاح',
+
+          message:
+            status === 'draft'
+              ? 'تم حفظ العمادة محلياً. البيانات موجودة في Console.'
+              : 'تم نشر العمادة بشكل تجريبي. البيانات موجودة في Console.',
+
+          confirmText:
+            'تمام',
+
+          onConfirm:
+            status === 'published'
+              ? () => {
+                  window.location.href =
+                    'deanships.html';
+                }
+              : null
+
+        });
+
+
+        triggerBtn.disabled =
+          false;
+
+        triggerBtn.innerHTML =
+          originalContent;
+
+        return;
+
+      }
+
+
+      /* =====================================================
+         REAL BACKEND
+      ==================================================== */
+
+      const formData =
+        new FormData();
+
+
+      formData.append(
+        'status',
+        data.status
+      );
+
+      formData.append(
+        'name',
+        data.name
+      );
+
+      formData.append(
+        'dean_name',
+        data.dean_name
+      );
+
+      if (data.code) {
+
+        formData.append(
+          'code',
+          data.code
+        );
+
+      }
+
+      formData.append(
+        'email',
+        data.email
+      );
+
+      if (data.phone) {
+
+        formData.append(
+          'phone',
+          data.phone
+        );
+
+      }
+
+      formData.append(
+        'description',
+        data.description
+      );
+
+      formData.append(
+        'departments',
+        JSON.stringify(
+          data.departments
+        )
+      );
+
+
+      if (file) {
+
+        formData.append(
+          'logo',
+          file
+        );
+
+      }
+
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/admin/deanships`,
+          {
+            method: 'POST',
+            headers: {
+
+              'Accept':
+                'application/json'
+            },
+            body: formData
+          }
+        );
+
+
+      const result =
+        await response.json();
+
+
+      if (
+        response.ok &&
+        result.status === 'success'
+      ) {
+
+        openModal({
+
+          type: 'success',
+
+          title:
+            status === 'draft'
+              ? 'تم حفظ المسودة'
+              : 'تم نشر العمادة بنجاح',
+
+          message:
+            status === 'draft'
+              ? 'تم حفظ العمادة كمسودة.'
+              : 'تم إضافة العمادة بنجاح.',
+
+          onConfirm:
+            status === 'published'
+              ? () => {
+                  window.location.href =
+                    'deanships.html';
+                }
+              : null
+
+        });
+
+
+      } else {
+
+        throw new Error(
+          result.message ||
+          'حدث خطأ أثناء الحفظ.'
+        );
+
+      }
+
+
+    } catch (error) {
+
+      console.error(
+        'Save deanship error:',
+        error
+      );
+
+
+      openModal({
+
+        type: 'error',
+
+        title:
+          'تعذّر حفظ العمادة',
+
+        message:
+          error.message ||
+          'تأكدي من تشغيل الباك اند وحاولي مرة ثانية.'
+
+      });
+
+    } finally {
+
+      triggerBtn.disabled =
+        false;
+
+      triggerBtn.innerHTML =
+        originalContent;
+
+    }
+
+  }
+
+
+  /* =========================================================
+     EVENTS
+  ========================================================= */
+
+  deanshipForm.addEventListener(
+    'submit',
+    e => {
+
+      e.preventDefault();
+
+      submitDeanship(
+        'published',
+        saveBtn
+      );
+
+    }
+  );
+
+
+  draftBtn.addEventListener(
+    'click',
+    () => {
+
+      submitDeanship(
+        'draft',
+        draftBtn
+      );
+
+    }
+  );
+
+
+  });
+
+</script>
+<div id="admin-footer-slot"></div>
+<script src="../../js/admin-shell.js"></script>
+
+</body>
+</html>

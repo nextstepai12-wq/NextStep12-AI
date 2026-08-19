@@ -9,15 +9,15 @@
 <link href="../css/app.css" rel="stylesheet">
 <link href="../css/header.css" rel="stylesheet">
 <link href="../css/favorites.css" rel="stylesheet">
+<link href="../css/universities.css" rel="stylesheet">
+<link href="../css/university-details.css" rel="stylesheet">
 <link href="../css/footer.css" rel="stylesheet">
+
 </head>
 <body>
 
 <!-- ======================= HEADER ======================= -->
 <script src="../js/header-index.js"></script>
-
-<!-- ======================= SUB HEADER: breadcrumb + back + avatar ======================= -->
-
 
 <!-- ======================= FAVORITES ======================= -->
 <div class="fav-wrap">
@@ -29,7 +29,7 @@
         صفحة المفضلة
       </div>
       <h1>عناصر الطالب المفضلة</h1>
-      <p>هون بتلاقي كل الجامعات والتخصصات اللي حفظتها لترجع تراجعها بأي وقت.</p>
+      <p>هون بتلاقي كل الجامعات والتخصصات والمقالات اللي حفظتها لترجع تراجعها بأي وقت.</p>
     </div>
 
     <!-- Tabs -->
@@ -40,108 +40,204 @@
       <button class="fav-tab" data-tab="unis">
         الجامعات <span class="count" id="unisCount">3</span>
       </button>
+      <button class="fav-tab" data-tab="articles">
+        المقالات <span class="count" id="articlesCount">3</span>
+      </button>
     </div>
 
-    <!-- Majors grid -->
+    <!-- Majors grid: نفس شكل .major-card تبع صفحة تفاصيل الجامعة -->
     <div class="fav-grid" id="majorsGrid">
-      <div class="fav-card major">
-        <button class="fav-heart" aria-label="إزالة من المفضلة">
-          <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
-        </button>
-        <div class="fav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 2v4M16 2v4M8 12h8M8 16h5"/></svg>
-        </div>
-        <h3>هندسة الحاسوب</h3>
-        <p>تخصص يجمع بين البرمجة وتصميم الأنظمة الذكية.</p>
-        <div class="fav-meta"><span class="fav-match">توافق 92%</span></div>
-        <button class="btn-unfav">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
-          إزالة من المفضلة
-        </button>
-      </div>
 
-      <div class="fav-card major">
-        <button class="fav-heart" aria-label="إزالة من المفضلة">
+      <a href="specialization-detail.html?name=هندسة الحاسوب" class="major-card">
+        <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
           <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
         </button>
-        <div class="fav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
-        </div>
-        <h3>هندسة معمارية</h3>
-        <p>تصميم المباني والمساحات بأسلوب إبداعي ووظيفي.</p>
-        <div class="fav-meta"><span class="fav-match">توافق 85%</span></div>
-        <button class="btn-unfav">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
-          إزالة من المفضلة
-        </button>
-      </div>
+        <h4>هندسة الحاسوب</h4>
+        <div class="major-college">كلية الهندسة وتكنولوجيا المعلومات</div>
+        <span class="fav-match">توافق 92%</span>
+      </a>
 
-      <div class="fav-card major">
-        <button class="fav-heart" aria-label="إزالة من المفضلة">
+      <a href="specialization-detail.html?name=هندسة معمارية" class="major-card">
+        <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
           <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
         </button>
-        <div class="fav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
-        </div>
-        <h3>ذكاء اصطناعي</h3>
-        <p>تعلم الآلة وتطوير الأنظمة الذكية وتحليل البيانات.</p>
-        <div class="fav-meta"><span class="fav-match">توافق 89%</span></div>
-        <button class="btn-unfav">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
-          إزالة من المفضلة
+        <h4>هندسة معمارية</h4>
+        <div class="major-college">كلية الهندسة وتكنولوجيا المعلومات</div>
+        <span class="fav-match">توافق 85%</span>
+      </a>
+
+      <a href="specialization-detail.html?name=ذكاء اصطناعي" class="major-card">
+        <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
         </button>
-      </div>
+        <h4>ذكاء اصطناعي</h4>
+        <div class="major-college">كلية الهندسة وتكنولوجيا المعلومات</div>
+        <span class="fav-match">توافق 89%</span>
+      </a>
+
     </div>
 
-    <!-- Universities grid -->
+    <!-- Universities grid: قريب من تصميم نافذة Quick View تبع دليل الجامعات -->
     <div class="fav-grid" id="unisGrid" style="display:none;">
-      <div class="fav-card uni">
-        <button class="fav-heart" aria-label="إزالة من المفضلة">
+
+      <div class="fav-uni-card"
+           data-id="1"
+           data-name="جامعة النجاح الوطنية"
+           data-location="نابلس، فلسطين"
+           data-students="22,000"
+           data-majors="74"
+           data-deanships="12"
+           data-match="94"
+           data-desc="جامعة النجاح الوطنية من أعرق وأكبر الجامعات الفلسطينية، تأسست سنة 1918 وتضم عشرات الكليات والبرامج الأكاديمية على مستوى البكالوريوس والدراسات العليا."
+           data-logo="../assets/universities/1/logo.png"
+           data-detail-url="university-details.html?id=1">
+        <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
           <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
         </button>
-        <div class="fav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+        <div class="fav-uni-logo">
+          <img src="../assets/universities/1/logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <svg style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
         </div>
         <h3>جامعة النجاح الوطنية</h3>
-        <p>نابلس — من أكبر الجامعات الفلسطينية وأكثرها تنوعًا بالتخصصات.</p>
-        <div class="fav-meta"><span class="fav-match">توافق 94%</span></div>
+        <span class="fav-uni-location">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          نابلس
+        </span>
+        <div class="fav-uni-stats">
+          <div><b>22K</b><span>طالب</span></div>
+          <div><b>74</b><span>تخصص</span></div>
+          <div><b>12</b><span>كلية</span></div>
+        </div>
+        <span class="fav-match">توافق 94%</span>
         <button class="btn-unfav">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
           إزالة من المفضلة
         </button>
       </div>
 
-      <div class="fav-card uni">
-        <button class="fav-heart" aria-label="إزالة من المفضلة">
+      <div class="fav-uni-card"
+           data-id="2"
+           data-name="جامعة بيرزيت"
+           data-location="رام الله، فلسطين"
+           data-students="13,000"
+           data-majors="60"
+           data-deanships="9"
+           data-match="88"
+           data-desc="جامعة بيرزيت من الجامعات الفلسطينية المرموقة، تتميز بسمعتها الأكاديمية القوية وبرامجها البحثية المتقدمة على مستوى المنطقة."
+           data-logo="../assets/universities/2/logo.png"
+           data-detail-url="university-details.html?id=2">
+        <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
           <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
         </button>
-        <div class="fav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+        <div class="fav-uni-logo">
+          <img src="../assets/universities/2/logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <svg style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
         </div>
         <h3>جامعة بيرزيت</h3>
-        <p>رام الله — سمعة أكاديمية قوية وبرامج بحثية متقدمة.</p>
-        <div class="fav-meta"><span class="fav-match">توافق 88%</span></div>
+        <span class="fav-uni-location">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          رام الله
+        </span>
+        <div class="fav-uni-stats">
+          <div><b>13K</b><span>طالب</span></div>
+          <div><b>60</b><span>تخصص</span></div>
+          <div><b>9</b><span>كلية</span></div>
+        </div>
+        <span class="fav-match">توافق 88%</span>
         <button class="btn-unfav">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
           إزالة من المفضلة
         </button>
       </div>
 
-      <div class="fav-card uni">
-        <button class="fav-heart" aria-label="إزالة من المفضلة">
+      <div class="fav-uni-card"
+           data-id="3"
+           data-name="جامعة الخليل"
+           data-location="الخليل، فلسطين"
+           data-students="8,000"
+           data-majors="35"
+           data-deanships="6"
+           data-match="79"
+           data-desc="جامعة الخليل توفر رسومًا دراسية مناسبة وقربًا جغرافيًا لطلبة مناطق الجنوب، مع تنوع بالبرامج الأكاديمية على مستوى البكالوريوس."
+           data-logo="../assets/universities/3/logo.png"
+           data-detail-url="university-details.html?id=3">
+        <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
           <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
         </button>
-        <div class="fav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+        <div class="fav-uni-logo">
+          <img src="../assets/universities/3/logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <svg style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
         </div>
         <h3>جامعة الخليل</h3>
-        <p>الخليل — رسوم دراسية مناسبة وقرب من مناطق الجنوب.</p>
-        <div class="fav-meta"><span class="fav-match">توافق 79%</span></div>
+        <span class="fav-uni-location">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          الخليل
+        </span>
+        <div class="fav-uni-stats">
+          <div><b>8K</b><span>طالب</span></div>
+          <div><b>35</b><span>تخصص</span></div>
+          <div><b>6</b><span>كلية</span></div>
+        </div>
+        <span class="fav-match">توافق 79%</span>
         <button class="btn-unfav">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
           إزالة من المفضلة
         </button>
       </div>
+
+    </div>
+
+    <!-- Articles grid: نفس شكل .article-card تبع صفحة دليل الجامعات -->
+    <div class="fav-grid" id="articlesGrid" style="display:none;">
+
+      <article class="article-card"
+               data-category="دليل الطالب"
+               data-icon="🎓"
+               data-icon-class="blue"
+               data-title="كيف تختار الجامعة المناسبة؟"
+               data-desc="اختيار الجامعة المناسبة قرار مهم بيأثر على مشوارك الأكاديمي والمهني. من أهم المعايير: سمعة الجامعة الأكاديمية، التخصصات المتوفرة، الموقع الجغرافي، الرسوم الدراسية، وفرص التدريب والتوظيف بعد التخرج. خذي وقتك بالمقارنة قبل ما تقرري.">
+        <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
+        </button>
+        <div class="article-icon blue">🎓</div>
+        <span>دليل الطالب</span>
+        <h3>كيف تختار الجامعة المناسبة؟</h3>
+        <p>أهم المعايير التي يجب أن تضعيها في اعتبارك قبل اختيار جامعتك.</p>
+        <a href="#" class="article-open-link">اقرئي المزيد ←</a>
+      </article>
+
+      <article class="article-card"
+               data-category="مقارنة"
+               data-icon="⚖"
+               data-icon-class="cyan"
+               data-title="الفرق بين الجامعات الحكومية والخاصة"
+               data-desc="الجامعات الحكومية عادة رسومها أقل وأعداد طلابها أكبر، بينما الخاصة بتقدّم مرونة أكتر بالمواعيد وأحيانًا فرص أسرع بالتخرج. الفرق الحقيقي بيعتمد على التخصص، الميزانية، والأهداف الشخصية لكل طالب.">
+        <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
+        </button>
+        <div class="article-icon cyan">⚖</div>
+        <span>مقارنة</span>
+        <h3>الفرق بين الجامعات الحكومية والخاصة</h3>
+        <p>مقارنة سريعة تساعدك على فهم الفروقات بين الخيارات المتاحة.</p>
+        <a href="#" class="article-open-link">اقرأ المزيد ←</a>
+      </article>
+
+      <article class="article-card"
+               data-category="نصائح"
+               data-icon="💡"
+               data-icon-class="purple"
+               data-title="نصائح لأول سنة جامعية"
+               data-desc="أول سنة جامعية فيها تغييرات كتيرة: تنظيم الوقت، بناء علاقات جديدة، والتأقلم مع أسلوب دراسة مختلف. أهم نصيحة: لا تترددي تطلبي مساعدة من المرشد الأكاديمي أو الطلبة الأكبر، وحاولي توازني بين الدراسة والحياة الاجتماعية من البداية.">
+        <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
+        </button>
+        <div class="article-icon purple">💡</div>
+        <span>نصائح</span>
+        <h3>نصائح لأول سنة جامعية</h3>
+        <p>خطوات عملية تساعدك على بدء مشوارك الجامعي بثقة ووضوح.</p>
+        <a href="#" class="article-open-link">اقرأ المزيد ←</a>
+      </article>
+
     </div>
 
     <!-- Empty states -->
@@ -159,6 +255,67 @@
       <h3>ما في جامعات مفضلة بعد</h3>
       <p>لما تلاقي جامعة تعجبك، اضغط على أيقونة القلب لتضيفها هون.</p>
     </div>
+    <div class="fav-empty" id="articlesEmpty">
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <h3>ما في مقالات مفضلة بعد</h3>
+      <p>لما تلاقي مقال يفيدك، اضغط على أيقونة القلب لتضيفه هون.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======================= UNIVERSITY QUICK VIEW MODAL ======================= -->
+<div class="fav-quick-overlay" id="favUniModalOverlay">
+  <div class="fav-quick-box">
+
+    <button class="fav-quick-close" id="favUniModalClose" type="button" aria-label="إغلاق">&times;</button>
+
+    <div class="fav-quick-uni-logo">
+      <img id="favUniModalLogoImg" src="" alt="" style="display:none;">
+      <svg id="favUniModalLogoFallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+    </div>
+
+    <h3 id="favUniModalName">—</h3>
+
+    <span class="fav-quick-location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span id="favUniModalLocation">—</span>
+    </span>
+
+    <div class="fav-quick-stats">
+      <div><b id="favUniModalStudents">—</b><span>طالب</span></div>
+      <div><b id="favUniModalMajors">—</b><span>تخصص</span></div>
+      <div><b id="favUniModalDeanships">—</b><span>كلية</span></div>
+    </div>
+
+    <span class="fav-match" id="favUniModalMatch">—</span>
+
+    <p id="favUniModalDesc" class="fav-quick-desc">—</p>
+
+    <a href="#" id="favUniModalMoreBtn" class="fav-quick-more-btn">شاهد المزيد ←</a>
+
+  </div>
+</div>
+
+<!-- ======================= ARTICLE QUICK VIEW MODAL ======================= -->
+<div class="fav-quick-overlay" id="favArticleModalOverlay">
+  <div class="fav-quick-box">
+
+    <button class="fav-quick-close" id="favArticleModalClose" type="button" aria-label="إغلاق">&times;</button>
+
+    <div class="fav-quick-article-icon" id="favArticleModalIconBox">
+      <span id="favArticleModalIcon">—</span>
+    </div>
+
+    <span class="fav-quick-article-category" id="favArticleModalCategory">—</span>
+
+    <h3 id="favArticleModalTitle">—</h3>
+
+    <p id="favArticleModalDesc" class="fav-quick-desc">—</p>
+
+    <a href="#" id="favArticleModalMoreBtn" class="fav-quick-more-btn">شاهد المزيد ←</a>
 
   </div>
 </div>
@@ -169,39 +326,191 @@
 <script>
   // Tabs switching
   const tabs = document.querySelectorAll('.fav-tab');
-  const grids = { majors: document.getElementById('majorsGrid'), unis: document.getElementById('unisGrid') };
-  const empties = { majors: document.getElementById('majorsEmpty'), unis: document.getElementById('unisEmpty') };
+  const grids = {
+    majors: document.getElementById('majorsGrid'),
+    unis: document.getElementById('unisGrid'),
+    articles: document.getElementById('articlesGrid')
+  };
+  const empties = {
+    majors: document.getElementById('majorsEmpty'),
+    unis: document.getElementById('unisEmpty'),
+    articles: document.getElementById('articlesEmpty')
+  };
+  const countIds = { majors: 'majorsCount', unis: 'unisCount', articles: 'articlesCount' };
+
+  function getActiveTab() {
+    const activeBtn = document.querySelector('.fav-tab.active');
+    return activeBtn ? activeBtn.dataset.tab : 'majors';
+  }
+
+  // بيحدّث العداد + شكل الشبكة (تظهر/تختفي) + رسالة "فاضي" لكل التبويبات
+  // مرة وحدة، بالاعتماد على "الأولاد المباشرين" داخل كل شبكة بدل أسماء
+  // كلاسات محددة (هيك ما بيهم شو اسم كلاس الكرت المستخدم بكل تبويب)
+  function updateAllViews(opts = {}) {
+    const activeKey = getActiveTab();
+    const animateEntrance = !!opts.animateEntrance;
+
+    Object.keys(grids).forEach(key => {
+      const grid = grids[key];
+      const count = grid.children.length;
+
+      const countEl = document.getElementById(countIds[key]);
+      if (countEl) countEl.textContent = count;
+
+      const isActiveTab = key === activeKey;
+
+      // الشبكة تظهر فقط إذا هاد تبويبها المفتوح وفيها عناصر
+      grid.style.display = (isActiveTab && count > 0) ? 'grid' : 'none';
+
+      // رسالة "فاضي" تظهر فقط إذا هاد تبويبها المفتوح وما فيها عناصر
+      empties[key].classList.toggle('show', isActiveTab && count === 0);
+
+      // حركة ظهور متتابعة للكروت لما نفتح التبويب هاد بالذات
+      if (isActiveTab && animateEntrance && count > 0) {
+        grid.classList.remove('enter');
+        // إعادة تفعيل الأنيميشن (reflow) عشان تشتغل من جديد كل مرة
+        void grid.offsetWidth;
+        grid.classList.add('enter');
+      }
+    });
+  }
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
+      if (tab.classList.contains('active')) return;
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      const target = tab.dataset.tab;
-      Object.keys(grids).forEach(key => {
-        grids[key].style.display = key === target ? 'grid' : 'none';
-      });
+      updateAllViews({ animateEntrance: true });
     });
   });
 
-  // Remove from favorites (heart icon or button)
+  // Remove from favorites (heart icon or "unfav" button), works for
+  // أي نوع كرت داخل أي شبكة (تخصص / جامعة / مقال)
   function removeCard(card) {
-    const grid = card.parentElement;
-    const isMajor = grid.id === 'majorsGrid';
     card.classList.add('removing');
     setTimeout(() => {
       card.remove();
-      const remaining = grid.querySelectorAll('.fav-card').length;
-      const countEl = document.getElementById(isMajor ? 'majorsCount' : 'unisCount');
-      if (countEl) countEl.textContent = remaining;
-      if (remaining === 0) {
-        grid.style.display = 'none';
-        document.getElementById(isMajor ? 'majorsEmpty' : 'unisEmpty').classList.add('show');
-      }
-    }, 220);
+      updateAllViews();
+    }, 300);
   }
 
-  document.querySelectorAll('.fav-heart, .btn-unfav').forEach(btn => {
-    btn.addEventListener('click', () => removeCard(btn.closest('.fav-card')));
+  document.querySelectorAll('.fav-heart-overlay, .btn-unfav').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();   // يمنع الانتقال إذا الكرت كان رابط (major-card)
+      e.stopPropagation();
+
+      // نبضة سريعة على القلب قبل ما الكرت يبلش يختفي
+      if (btn.classList.contains('fav-heart-overlay')) {
+        btn.classList.add('pop');
+      }
+
+      removeCard(btn.closest('.fav-grid > *'));
+    });
+  });
+
+  // تهيئة الحالة الابتدائية للعدادات والشبكات والحالات الفارغة
+  // + تشغيل حركة الظهور على أول تبويب مفتوح تلقائيًا
+  updateAllViews({ animateEntrance: true });
+
+  /* ======================= نافذة معاينة سريعة: جامعة ======================= */
+
+  const favUniOverlay = document.getElementById('favUniModalOverlay');
+  const favUniClose = document.getElementById('favUniModalClose');
+
+  function openFavUniModal(card) {
+    document.getElementById('favUniModalName').textContent = card.dataset.name || '—';
+    document.getElementById('favUniModalLocation').textContent = card.dataset.location || '—';
+    document.getElementById('favUniModalStudents').textContent = card.dataset.students || '—';
+    document.getElementById('favUniModalMajors').textContent = card.dataset.majors || '—';
+    document.getElementById('favUniModalDeanships').textContent = card.dataset.deanships || '—';
+    document.getElementById('favUniModalMatch').textContent = card.dataset.match ? `توافق ${card.dataset.match}%` : '—';
+    document.getElementById('favUniModalDesc').textContent = card.dataset.desc || '';
+
+    const moreBtn = document.getElementById('favUniModalMoreBtn');
+    moreBtn.href = card.dataset.detailUrl || '#';
+
+    const logoImg = document.getElementById('favUniModalLogoImg');
+    const logoFallback = document.getElementById('favUniModalLogoFallback');
+    if (card.dataset.logo) {
+      logoImg.src = card.dataset.logo;
+      logoImg.style.display = 'block';
+      logoFallback.style.display = 'none';
+      logoImg.onerror = () => {
+        logoImg.style.display = 'none';
+        logoFallback.style.display = 'block';
+      };
+    } else {
+      logoImg.style.display = 'none';
+      logoFallback.style.display = 'block';
+    }
+
+    favUniOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFavUniModal() {
+    favUniOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  favUniClose.addEventListener('click', closeFavUniModal);
+  favUniOverlay.addEventListener('click', (e) => {
+    if (e.target === favUniOverlay) closeFavUniModal();
+  });
+
+  document.querySelectorAll('#unisGrid .fav-uni-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      // ما نفتح النافذة إذا الضغطة كانت على زر القلب أو زر الإزالة
+      if (e.target.closest('.fav-heart-overlay, .btn-unfav')) return;
+      openFavUniModal(card);
+    });
+  });
+
+  /* ======================= نافذة معاينة سريعة: مقال ======================= */
+
+  const favArticleOverlay = document.getElementById('favArticleModalOverlay');
+  const favArticleClose = document.getElementById('favArticleModalClose');
+
+  function openFavArticleModal(card) {
+    document.getElementById('favArticleModalIcon').textContent = card.dataset.icon || '📄';
+    const iconBox = document.getElementById('favArticleModalIconBox');
+    iconBox.className = 'fav-quick-article-icon ' + (card.dataset.iconClass || 'blue');
+
+    document.getElementById('favArticleModalCategory').textContent = card.dataset.category || '—';
+    document.getElementById('favArticleModalTitle').textContent = card.dataset.title || '—';
+    document.getElementById('favArticleModalDesc').textContent = card.dataset.desc || '';
+
+    const moreBtn = document.getElementById('favArticleModalMoreBtn');
+    moreBtn.href = card.dataset.url || '#';
+
+    favArticleOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFavArticleModal() {
+    favArticleOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  favArticleClose.addEventListener('click', closeFavArticleModal);
+  favArticleOverlay.addEventListener('click', (e) => {
+    if (e.target === favArticleOverlay) closeFavArticleModal();
+  });
+
+  document.querySelectorAll('#articlesGrid .article-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      // ما نفتح النافذة إذا الضغطة كانت على زر القلب أو زر الإزالة
+      if (e.target.closest('.fav-heart-overlay, .btn-unfav')) return;
+      e.preventDefault(); // يمنع رابط "اقرأ المزيد ←" من التنقل مباشرة
+      openFavArticleModal(card);
+    });
+  });
+
+  // إغلاق أي نافذة مفتوحة بمفتاح Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    closeFavUniModal();
+    closeFavArticleModal();
   });
 </script>
 <script src="../js/footer-index.js"></script>

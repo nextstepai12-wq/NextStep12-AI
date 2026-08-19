@@ -1,0 +1,206 @@
+/* =====================================================================
+   notifications.css
+   خاص بصفحة الإشعارات (notifications.html)
+   يعتمد على المتغيرات المعرّفة بـ app.css — حمّل app.css قبله
+   ===================================================================== */
+
+body{background:var(--light);}
+
+/* متغيرات خاصة بتصنيفات الإشعارات — ما إلها تعريف بـ app.css
+   فبنضيفها هون بس، وما بنلمس متغيرات الهوية الأساسية (navy/blue/mint...) */
+:root{
+  --cat-reco:var(--blue);
+  --cat-quiz:#8B5CF6;
+  --cat-uni:#F5A623;
+  --cat-ai:var(--mint);
+  --cat-system:#94A3B8;
+}
+
+/* ======================= NOTIFICATIONS PAGE =======================
+   ملاحظة: الـ sidebar والتخطيط العام (.student-layout / .student-sidebar)
+   معرّفين أصلاً بملف student-dashboard.css — ما نكرر تعريفهم هون
+   عشان ما يصير تعارض. هالملف بس بيضبط محتوى .notif-wrap جوا
+   عمود المحتوى (1fr) من نفس الـ grid. */
+.notif-wrap{min-width:0;padding:8px 0 90px;}
+.notif-inner{max-width:1180px;margin:0 auto;}
+
+.notif-head{margin-bottom:24px;}
+.notif-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;color:var(--blue);
+  background:rgba(47,107,255,0.08);
+  padding:6px 14px;border-radius:999px;margin-bottom:12px;
+}
+.notif-head h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(20px,3vw,27px);color:var(--navy);margin-bottom:6px;}
+.notif-head p{font-size:13.5px;color:var(--gray);max-width:520px;line-height:1.7;}
+
+/* ---- Sidebar badge (unread count next to nav link) ---- */
+.sidebar-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:18px;height:18px;padding:0 5px;margin-inline-start:4px;
+  border-radius:999px;background:var(--blue);color:#fff;
+  font-size:10.5px;font-weight:800;line-height:1;
+}
+
+/* ---- Controls row: tabs + mark-as-read ---- */
+.notif-controls-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;margin-bottom:24px;
+}
+.notif-tabs{
+  display:flex;gap:6px;border-bottom:2px solid var(--border);
+  overflow-x:auto;flex:1;min-width:0;
+}
+.notif-tab{
+  display:flex;align-items:center;gap:6px;
+  padding:12px 18px;
+  font-size:13.5px;font-weight:700;color:var(--gray);
+  background:none;border:none;border-bottom:2px solid transparent;
+  margin-bottom:-2px;cursor:pointer;font-family:'Cairo',sans-serif;
+  white-space:nowrap;transition:color .2s ease;
+}
+.notif-tab:hover{color:var(--navy);}
+.notif-tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.notif-tab .tab-count{
+  font-size:10.5px;font-weight:800;color:var(--gray);
+  background:var(--light);border-radius:999px;padding:1px 7px;
+}
+.notif-tab.active .tab-count{color:var(--blue);background:rgba(47,107,255,0.1);}
+
+.btn-mark-read{
+  display:flex;align-items:center;gap:8px;flex-shrink:0;
+  padding:11px 18px;border-radius:12px;
+  border:1.5px solid var(--border);
+  background:#fff;color:var(--navy);
+  font-weight:700;font-size:12.5px;
+  font-family:'Cairo',sans-serif;cursor:pointer;
+  transition:border-color .2s ease, color .2s ease;
+}
+.btn-mark-read:hover{border-color:var(--blue);color:var(--blue);}
+.btn-mark-read svg{width:15px;height:15px;flex-shrink:0;}
+
+/* ---- Main layout: stats | list | preferences ---- */
+.notif-layout{
+  display:grid;
+  grid-template-columns:200px 1fr 240px;
+  gap:20px;
+  align-items:start;
+}
+
+/* Left: stat cards */
+.notif-stats{display:flex;flex-direction:column;gap:14px;}
+.notif-stats .stat-card{
+  background:#fff;border:1px solid var(--border);border-radius:14px;
+  padding:16px;text-align:center;
+}
+.notif-stats .stat-value{font-family:'Poppins',sans-serif;font-weight:800;font-size:22px;color:var(--navy);}
+.notif-stats .stat-label{font-size:11.5px;color:var(--gray);margin-top:4px;font-weight:600;}
+
+.btn-notif-settings{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 12px;border-radius:12px;
+  background:var(--navy);color:#fff;
+  font-weight:700;font-size:12.5px;
+  box-shadow:0 10px 20px rgba(23,59,115,0.22);
+  transition:transform .2s ease;border:none;
+  font-family:'Cairo',sans-serif;cursor:pointer;
+}
+.btn-notif-settings:hover{transform:translateY(-2px);}
+.btn-notif-settings svg{width:15px;height:15px;flex-shrink:0;}
+
+/* Center: notification list */
+.notif-list-wrap{
+  background:#fff;border:1px solid var(--border);border-radius:16px;
+  padding:22px;overflow-x:auto;
+}
+.notif-day-group{margin-bottom:22px;}
+.notif-day-group:last-of-type{margin-bottom:0;}
+.notif-day-label{
+  font-size:12px;font-weight:800;color:var(--gray);
+  text-transform:uppercase;letter-spacing:.02em;
+  margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--border);
+}
+
+.notif-row{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 10px;border-radius:12px;
+  border-bottom:1px dashed var(--border);
+  transition:background .15s ease;
+}
+.notif-row:hover{background:var(--light);}
+.notif-day-group .notif-row:last-child{border-bottom:none;}
+.notif-row.unread{background:rgba(47,107,255,0.04);}
+.notif-row.unread:hover{background:rgba(47,107,255,0.07);}
+
+.notif-icon{
+  width:38px;height:38px;border-radius:11px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--light);
+}
+.notif-icon svg{width:18px;height:18px;}
+.notif-icon.cat-reco{color:var(--cat-reco);background:rgba(47,107,255,0.1);}
+.notif-icon.cat-quiz{color:var(--cat-quiz);background:rgba(139,92,246,0.1);}
+.notif-icon.cat-uni{color:var(--cat-uni);background:rgba(245,166,35,0.12);}
+.notif-icon.cat-ai{color:var(--cat-ai);background:rgba(69,199,157,0.12);}
+.notif-icon.cat-system{color:var(--cat-system);background:rgba(148,163,184,0.14);}
+
+.notif-body{flex:1;min-width:0;}
+.notif-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.notif-desc{font-size:12px;color:var(--gray);line-height:1.6;margin-bottom:6px;}
+.notif-time{font-size:10.5px;color:#B7C2D0;font-weight:600;}
+
+.notif-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--blue);
+  flex-shrink:0;margin-top:6px;
+}
+
+.notif-load-more-wrap{text-align:center;margin-top:18px;}
+.btn-load-more{
+  padding:11px 26px;border-radius:12px;
+  border:1.5px dashed var(--blue);color:var(--blue);
+  font-weight:700;font-size:12.5px;background:rgba(47,107,255,0.05);
+  transition:all .2s ease;font-family:'Cairo',sans-serif;cursor:pointer;
+}
+.btn-load-more:hover{background:rgba(47,107,255,0.1);}
+
+/* Right: notification preferences */
+.notif-prefs{
+  background:#fff;border:1px solid var(--border);border-radius:16px;
+  padding:20px 16px;
+}
+.notif-prefs h4{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:16px;}
+
+.pref-item{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding:10px 0;border-bottom:1px dashed var(--border);
+}
+.pref-item:last-child{border-bottom:none;}
+.pref-name{font-size:12px;font-weight:700;color:var(--dark);}
+.pref-sub{font-size:10.5px;color:var(--gray);margin-top:2px;}
+
+/* Toggle switch */
+.switch{position:relative;display:inline-block;width:38px;height:22px;flex-shrink:0;}
+.switch input{opacity:0;width:0;height:0;}
+.switch-track{
+  position:absolute;inset:0;background:var(--border);border-radius:999px;
+  cursor:pointer;transition:background .2s ease;overflow:hidden;
+}
+.switch-track::before{
+  content:"";position:absolute;height:16px;width:16px;left:3px;top:3px;
+  background:#fff;border-radius:50%;transition:transform .2s ease;
+  box-shadow:0 1px 3px rgba(0,0,0,0.2);
+}
+.switch input:checked + .switch-track{background:var(--blue);}
+.switch input:checked + .switch-track::before{transform:translateX(16px);}
+
+@media (max-width:960px){
+  .notif-layout{grid-template-columns:1fr;}
+  .notif-stats{flex-direction:row;flex-wrap:wrap;}
+  .notif-stats .stat-card{flex:1;min-width:140px;}
+  .notif-prefs{order:3;}
+}
+@media (max-width:640px){
+  .notif-controls-row{flex-direction:column;align-items:stretch;}
+  .btn-mark-read{justify-content:center;}
+  .notif-stats{flex-direction:column;}
+}

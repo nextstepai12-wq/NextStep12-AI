@@ -300,32 +300,71 @@
 
         </div>
 
+<!-- مدة الدراسة والفرع الدراسي -->
 
-        <!-- مدة الدراسة -->
+<div class="form-row-2">
 
-        <div class="form-row-2">
+  <div class="field-group">
 
-          <div class="field-group">
+    <label for="progDuration">
+      مدة الدراسة بالسنوات
+    </label>
 
-            <label for="progDuration">
-              مدة الدراسة بالسنوات
-            </label>
+    <input
+      type="number"
+      id="progDuration"
+      name="duration_years"
+      placeholder="4"
+      min="1"
+      max="8"
+      required
+    >
 
-            <input
-              type="number"
-              id="progDuration"
-              name="duration_years"
-              placeholder="4"
-              min="1"
-              max="8"
-              required
-            >
-
-          </div>
+  </div>
 
 
-       
+  <!-- الفرع الدراسي -->
+
+  <div class="field-group">
+
+    <label for="progTrackSearch">
+      الفرع الدراسي
+    </label>
+
+    <div
+      class="multi-select"
+      id="trackMultiSelectWrap"
+    >
+
+      <div
+        class="multi-select-control"
+        id="trackMultiSelectControl"
+        tabindex="0"
+      >
+
+        <div class="multi-select-tags" id="trackSelectedTags">
+          <span class="multi-select-placeholder" id="trackPlaceholder">
+            اختر فرع أو أكثر...
+          </span>
         </div>
+
+      </div>
+
+      <input type="hidden" id="progTracks" name="track_ids">
+
+      <ul
+        class="multi-select-list"
+        id="trackMultiSelectList"
+        hidden
+      >
+        <!-- سيتم تعبئتها ديناميكياً بالـ JS -->
+      </ul>
+
+    </div>
+
+  </div>
+
+</div>
 
 
         <!-- المنحة -->
@@ -389,129 +428,7 @@
                خطة الدراسة
           ================================================== -->
 
-          <div class="field-group">
-
-            <label for="studyPlanFile">
-              الخطة الدراسية
-              <span class="optional">(اختياري للمسودة)</span>
-            </label>
-
-            <div
-              class="study-plan-upload"
-              id="studyPlanUpload"
-            >
-
-              <input
-                type="file"
-                id="studyPlanFile"
-                name="study_plan"
-                accept=".pdf,.xlsx,.xls,.csv"
-                hidden
-              >
-
-              <label
-                for="studyPlanFile"
-                class="study-plan-dropzone"
-              >
-
-                <span class="study-plan-icon">
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6"/>
-                    <path d="M12 18v-6"/>
-                    <path d="M9 15l3-3 3 3"/>
-                  </svg>
-
-                </span>
-
-                <span class="study-plan-text">
-
-                  <strong>
-                    إضافة الخطة الدراسية
-                  </strong>
-
-                  <small>
-                    PDF أو Excel أو CSV — الحد الأقصى 20MB
-                  </small>
-
-                </span>
-
-              </label>
-
-
-              <!-- الملف المختار -->
-
-              <div
-                class="study-plan-file"
-                id="studyPlanFileRow"
-                hidden
-              >
-
-                <div class="study-plan-file-info">
-
-                  <span class="study-plan-file-icon">
-
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                      <path d="M14 2v6h6"/>
-                    </svg>
-
-                  </span>
-
-                  <div>
-
-                    <strong id="studyPlanFileName">
-                      —
-                    </strong>
-
-                    <small id="studyPlanFileSize">
-                      —
-                    </small>
-
-                  </div>
-
-                </div>
-
-
-                <button
-                  type="button"
-                  class="study-plan-remove"
-                  id="removeStudyPlan"
-                  aria-label="حذف الخطة الدراسية"
-                >
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M18 6L6 18M6 6l12 12"/>
-                  </svg>
-
-                </button>
-
-              </div>
-
-            </div>
-
-            <p class="field-hint">
-              ارفع الخطة الدراسية الخاصة بهذا التخصص حتى يتمكن النظام
-              من قراءتها وربط المواد والمقررات بالتخصص.
-            </p>
-
-          </div>
+          
       </section>
 
 
@@ -1626,6 +1543,213 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =========================================================
+     STUDY TRACKS (الفرع الدراسي)
+  ========================================================= */
+
+  const studyTracks = [
+    { id: 1, name: "علمي" },
+    { id: 2, name: "أدبي" },
+    { id: 3, name: "شرعي" },
+    { id: 4, name: "صناعي" },
+    { id: 5, name: "ريادي" },
+  ];
+
+
+  let selectedTrackIds = [];
+
+
+  const trackControl =
+    document.getElementById(
+      'trackMultiSelectControl'
+    );
+
+  const trackList =
+    document.getElementById(
+      'trackMultiSelectList'
+    );
+
+  const trackTagsWrap =
+    document.getElementById(
+      'trackSelectedTags'
+    );
+
+  const trackHiddenInput =
+    document.getElementById(
+      'progTracks'
+    );
+
+
+  function renderTrackList() {
+
+    trackList.innerHTML =
+      studyTracks
+        .map(track => `
+          <li class="multi-select-item" data-id="${track.id}">
+            <input type="checkbox" ${
+              selectedTrackIds.includes(track.id)
+                ? 'checked'
+                : ''
+            }>
+            <span>${track.name}</span>
+          </li>
+        `)
+        .join('');
+
+  }
+
+
+  function renderSelectedTracks() {
+
+    if (
+      selectedTrackIds.length === 0
+    ) {
+
+      trackTagsWrap.innerHTML =
+        `<span class="multi-select-placeholder">اختر فرع أو أكثر...</span>`;
+
+    } else {
+
+      trackTagsWrap.innerHTML =
+        selectedTrackIds
+          .map(id => {
+
+            const track =
+              studyTracks.find(
+                t => t.id === id
+              );
+
+            return `
+              <span class="multi-select-tag" data-id="${id}">
+                ${track.name}
+                <button type="button" class="track-tag-remove" data-id="${id}">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              </span>
+            `;
+
+          })
+          .join('');
+
+    }
+
+    trackHiddenInput.value =
+      selectedTrackIds.join(',');
+
+  }
+
+
+  function toggleTrack(id) {
+
+    if (
+      selectedTrackIds.includes(id)
+    ) {
+
+      selectedTrackIds =
+        selectedTrackIds.filter(
+          t => t !== id
+        );
+
+    } else {
+
+      selectedTrackIds.push(id);
+
+    }
+
+    renderTrackList();
+
+    renderSelectedTracks();
+
+  }
+
+
+  trackControl.addEventListener(
+    'click',
+    () => {
+
+      trackList.hidden =
+        !trackList.hidden;
+
+      if (!trackList.hidden) {
+        renderTrackList();
+      }
+
+    }
+  );
+
+
+  trackList.addEventListener(
+    'click',
+    e => {
+
+      const item =
+        e.target.closest(
+          '.multi-select-item'
+        );
+
+      if (item) {
+
+        toggleTrack(
+          Number(item.dataset.id)
+        );
+
+      }
+
+    }
+  );
+
+
+  trackTagsWrap.addEventListener(
+    'click',
+    e => {
+
+      const btn =
+        e.target.closest(
+          '.track-tag-remove'
+        );
+
+      if (btn) {
+
+        e.stopPropagation();
+
+        toggleTrack(
+          Number(btn.dataset.id)
+        );
+
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    'click',
+    e => {
+
+      const wrap =
+        document.getElementById(
+          'trackMultiSelectWrap'
+        );
+
+      if (
+        wrap &&
+        !wrap.contains(e.target)
+      ) {
+
+        trackList.hidden =
+          true;
+
+      }
+
+    }
+  );
+
+
+  renderSelectedTracks();
+
+
+  /* =========================================================
      STUDY PLAN UPLOAD
   ========================================================= */
 
@@ -1841,6 +1965,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document
           .getElementById('progDuration')
           .value,
+
+      track_ids:
+        selectedTrackIds,
 
       scholarship_percentage:
         document
@@ -2151,6 +2278,13 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append(
         'duration_years',
         data.duration_years
+      );
+
+      formData.append(
+        'track_ids',
+        JSON.stringify(
+          data.track_ids
+        )
       );
 
       formData.append(

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إعدادات الحساب | NextStep AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- ملفات التنسيق الخارجية -->
+  <link rel="stylesheet" href="../../css/student-profile.css">
+  <link rel="stylesheet" href="../../css/student-settings.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo-badge">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L2 8l10 5 10-5-10-5z" fill="currentColor"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </span>
+    NextStep <span class="ai-tag">AI</span>
+  </div>
+
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input type="text" placeholder="ابحث عن تخصص، جامعة، أو دليل...">
+  </div>
+
+  <div class="top-actions">
+    <button class="icon-btn" title="المساعدة" aria-label="المساعدة">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5" stroke-linecap="round"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+    </button>
+    <button class="icon-btn" title="الإشعارات" aria-label="الإشعارات">
+      <span class="dot"></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+    </button>
+
+    <div class="account-wrap">
+      <button class="account-trigger" id="accountTrigger" aria-expanded="false" aria-haspopup="true">
+        <img src="https://i.pravatar.cc/72?img=13" alt="صورة أحمد محمد">
+        <span class="account-meta">
+          <span class="name">أحمد محمد</span>
+          <span class="role">طالب توجيهي</span>
+        </span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+
+      <div class="dropdown" id="accountDropdown" role="menu">
+        <div class="dd-head">
+          <img src="https://i.pravatar.cc/72?img=13" alt="صورة أحمد محمد">
+          <div>
+            <div class="name">أحمد محمد</div>
+            <div class="role">طالب توجيهي</div>
+          </div>
+        </div>
+        <div class="dd-list">
+          <a href="dashboard.html" class="dd-item" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+            لوحة الطالب
+          </a>
+          <a href="#" class="dd-item" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+            نتائجي
+          </a>
+          <a href="#" class="dd-item" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 3v3M16 3v3M4 10h16"/></svg>
+            خطتي
+          </a>
+          <a href="#" class="dd-item" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
+            ملفي الشخصي
+          </a>
+          <a href="#" class="dd-item" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            الإشعارات
+          </a>
+          <a href="#" class="dd-item active" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.04 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.04H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.04-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l.06-.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1.04H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15z"/></svg>
+            الإعدادات
+          </a>
+        </div>
+        <div class="dd-divider"></div>
+        <div class="dd-list">
+          <a href="#" class="dd-item logout" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+            تسجيل الخروج
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="main">
+    <div class="welcome">
+      <p>إدارة تفضيلاتك وإعدادات حسابك الشخصي</p>
+    </div>
+
+    <div class="settings-grid">
+
+      <!-- ===== المعلومات الشخصية ===== -->
+      <section class="card personal-card">
+        <div class="card-head"><h2>المعلومات الشخصية</h2></div>
+
+        <!-- صورة البروفايل -->
+        <div class="profile-photo-section">
+          <div class="profile-photo-wrap">
+            <img id="profileImage" src="https://i.pravatar.cc/150?img=13" alt="صورة أحمد محمد">
+            <button class="photo-edit-btn" id="photoEditBtn" title="تغيير الصورة">📷</button>
+            <input type="file" id="photoInput" accept="image/png, image/jpeg">
+          </div>
+          <div class="photo-info">
+            <div class="photo-title">أحمد محمد</div>
+            <div class="photo-hint">JPG, PNG · حد أقصى 2MB</div>
+            <span class="photo-status" id="photoStatus">✓ الصورة مفعلة</span>
+          </div>
+        </div>
+
+        <!-- شبكة المعلومات -->
+        <div class="personal-grid">
+          <div class="field-group">
+            <label><span>اسم المستخدم</span><input value="ahmed_mohammed"></label>
+          </div>
+
+          <div class="field-group readonly">
+            <label><span>البريد الإلكتروني</span><input value="ahmed.mohammed@example.com" readonly></label>
+          </div>
+
+          <div class="field-group">
+            <label><span>رقم الهاتف</span><input value="0599 123 456"></label>
+          </div>
+
+          <div class="field-group">
+            <label><span>الجنس</span>
+              <select>
+                <option>ذكر</option>
+                <option>أنثى</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="field-group readonly">
+            <label><span>الاسم الكامل</span><input value="أحمد محمد" readonly></label>
+          </div>
+
+          <div class="field-group readonly">
+            <label><span>تاريخ الميلاد</span><input value="2006-04-12" readonly></label>
+          </div>
+
+          <div class="field-group password-field">
+            <label>
+              <span>الدولة</span>
+              <input value="فلسطين" readonly>
+            </label>
+            <button class="password-trigger-btn" id="openPasswordModal">
+              <span class="icon">🔑</span>
+              تغيير كلمة المرور
+            </button>
+          </div>
+        </div>
+
+        <button class="primary-btn">حفظ التغييرات</button>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="group-label">القائمة الرئيسية</div>
+    <nav>
+      <a href="dashboard.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        لوحة الطالب
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        النتائج والتوصيات
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+        الاختيار الذكي
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l4 8H8l4-8z"/><rect x="4" y="14" width="16" height="7" rx="1.5"/></svg>
+        الجامعات
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M4 9h5"/></svg>
+        التخصصات
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.8 8.4 8.5 8.5 0 0 1-4-1L3 20l1.1-4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+        المساعد الذكي
+      </a>
+    </nav>
+
+    <div class="group-label">أدواتي</div>
+    <nav>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-6.2 3.6 1.6-7L2 9.2l7.1-.6L12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7z"/></svg>
+        المفضلة
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        المقارنات
+      </a>
+    </nav>
+
+    <div class="group-label">حسابي</div>
+    <nav>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
+        ملفي الشخصي
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        الإشعارات
+      </a>
+      <a href="#" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>
+        الإعدادات
+      </a>
+      <hr>
+      <a href="#" class="nav-item logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        تسجيل الخروج
+      </a>
+    </nav>
+  </aside>
+</div>
+
+<!-- ===== Modal ===== -->
+<div class="modal-overlay" id="passwordModal">
+  <div class="modal">
+    <!-- ===== نموذج تغيير كلمة المرور ===== -->
+    <div id="passwordForm">
+      <div class="modal-head">
+        <h3><span class="icon">🔑</span> تغيير كلمة المرور</h3>
+        <button class="modal-close" id="closePasswordModal">✕</button>
+      </div>
+
+      <div class="field-group">
+        <label><span>كلمة المرور الحالية</span><input type="password" id="currentPassword" placeholder="أدخل كلمة المرور الحالية"></label>
+      </div>
+
+      <div class="field-group">
+        <label><span>كلمة المرور الجديدة</span><input type="password" id="newPassword" placeholder="أدخل كلمة المرور الجديدة"></label>
+      </div>
+
+      <div class="field-group">
+        <label><span>تأكيد كلمة المرور الجديدة</span><input type="password" id="confirmPassword" placeholder="أعد إدخال كلمة المرور الجديدة"></label>
+      </div>
+
+      <button class="modal-btn" id="changePasswordBtn">تغيير كلمة المرور</button>
+    </div>
+
+    <!-- ===== رسالة النجاح ===== -->
+    <div class="success-message" id="successMessage">
+      <span class="success-icon">✅</span>
+      <span class="success-title">تم تغيير كلمة المرور بنجاح!</span>
+      <span class="success-desc">تم تحديث كلمة المرور الخاصة بك. يمكنك الآن استخدام كلمة المرور الجديدة لتسجيل الدخول.</span>
+      <button class="success-close-btn" id="successCloseBtn">حسناً</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== Dropdown =====
+  const trigger = document.getElementById('accountTrigger');
+  const dropdown = document.getElementById('accountDropdown');
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.toggle('open');
+    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target) && !trigger.contains(e.target)) {
+      dropdown.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      dropdown.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // ===== رفع الصورة =====
+  const photoEditBtn = document.getElementById('photoEditBtn');
+  const photoInput = document.getElementById('photoInput');
+  const profileImage = document.getElementById('profileImage');
+  const photoStatus = document.getElementById('photoStatus');
+
+  photoEditBtn.addEventListener('click', () => {
+    photoInput.click();
+  });
+
+  photoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        alert('حجم الصورة يتجاوز 2MB. الرجاء اختيار صورة أصغر.');
+        photoInput.value = '';
+        return;
+      }
+
+      if (!file.type.match(/image\/(png|jpeg)/)) {
+        alert('الصيغ المدعومة: JPG, PNG فقط.');
+        photoInput.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        profileImage.src = event.target.result;
+        photoStatus.textContent = '✓ تم تغيير الصورة';
+        photoStatus.style.color = '#27ae60';
+        photoStatus.style.background = 'rgba(39, 174, 96, 0.12)';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // ===== Modal =====
+  const modal = document.getElementById('passwordModal');
+  const openModalBtn = document.getElementById('openPasswordModal');
+  const closeModalBtn = document.getElementById('closePasswordModal');
+  const passwordForm = document.getElementById('passwordForm');
+  const successMessage = document.getElementById('successMessage');
+  const changePasswordBtn = document.getElementById('changePasswordBtn');
+  const successCloseBtn = document.getElementById('successCloseBtn');
+
+  // الحقول
+  const currentPassword = document.getElementById('currentPassword');
+  const newPassword = document.getElementById('newPassword');
+  const confirmPassword = document.getElementById('confirmPassword');
+
+  function openModal() {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // إعادة تعيين الحقول عند الفتح
+    currentPassword.value = '';
+    newPassword.value = '';
+    confirmPassword.value = '';
+    passwordForm.style.display = 'block';
+    successMessage.classList.remove('show');
+    successMessage.style.display = 'none';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  openModalBtn.addEventListener('click', openModal);
+
+  closeModalBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeModal();
+    }
+  });
+
+  // ===== تغيير كلمة المرور =====
+  changePasswordBtn.addEventListener('click', () => {
+    // تحقق بسيط من الحقول
+    if (!currentPassword.value || !newPassword.value || !confirmPassword.value) {
+      alert('الرجاء ملء جميع الحقول.');
+      return;
+    }
+
+    if (newPassword.value !== confirmPassword.value) {
+      alert('كلمة المرور الجديدة وتأكيدها غير متطابقين.');
+      return;
+    }
+
+    if (newPassword.value.length < 6) {
+      alert('كلمة المرور الجديدة يجب أن تكون 6 أحرف على الأقل.');
+      return;
+    }
+
+    // إخفاء النموذج وعرض رسالة النجاح
+    passwordForm.style.display = 'none';
+    successMessage.style.display = 'block';
+    successMessage.classList.add('show');
+  });
+
+  // ===== زر إغلاق رسالة النجاح =====
+  successCloseBtn.addEventListener('click', () => {
+    closeModal();
+  });
+
+  // ===== إغلاق المودال عند الضغط على Enter في الحقل الأخير =====
+  confirmPassword.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      changePasswordBtn.click();
+    }
+  });
+</script>
+
+</body>
+</html>

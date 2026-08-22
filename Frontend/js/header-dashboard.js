@@ -1,6 +1,8 @@
 /* ============================================================
-   header-index.js
-   NextStep AI — Premium Animated Header
+   header-dashboard.js
+   NextStep AI — Premium Animated Header (Dashboard Version)
+   نفس هيدر header-index.js بالضبط، بس بدل زر "تسجيل دخول"
+   بيعرض شعار الحساب + قائمة منسدلة (بروفايل / إعدادات / خروج)
    ============================================================ */
 
 (function () {
@@ -115,23 +117,82 @@
 
 
                 /* =================================================
-                   ACTIONS
+                   ACTIONS — شعار الحساب بدل زر تسجيل الدخول
                    ================================================= */
 
                 '<div class="nav-actions">' +
 
-                    '<a href="' + pg + 'signup.html" class="btn-signin">' +
+                    /* زر الإشعارات */
+                    '<button class="icon-btn notif-btn" type="button" aria-label="الإشعارات">' +
+                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                            '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />' +
+                            '<path d="M13.73 21a2 2 0 0 1-3.46 0" />' +
+                        '</svg>' +
+                        '<span class="notif-badge"></span>' +
+                    '</button>' +
 
-                        '<span class="btn-icon">' +
-                            '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-                                '<path d="M12 3v10m0-10 4 4m-4-4L8 7" />' +
-                                '<path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" />' +
+                    /* حساب المستخدم + القائمة المنسدلة */
+                    '<div class="account-wrap">' +
+
+                        '<button class="account-trigger" id="accountTrigger" type="button" aria-haspopup="true" aria-expanded="false">' +
+
+                            '<span class="user-avatar">' +
+                                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                                    '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />' +
+                                    '<circle cx="12" cy="7" r="4" />' +
+                                '</svg>' +
+                            '</span>' +
+
+                            '<span class="account-meta">' +
+                                '<span class="name">اسم الطالب</span>' +
+                                '<span class="role">حساب طالب</span>' +
+                            '</span>' +
+
+                            '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+                                '<path d="m6 9 6 6 6-6" />' +
                             '</svg>' +
-                        '</span>' +
 
-                        '<span>تسجيل دخول</span>' +
+                        '</button>' +
 
-                    '</a>' +
+                        '<div class="dropdown" id="accountDropdown">' +
+
+                            '<div class="dd-head">' +
+                                '<span class="user-avatar">' +
+                                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                                        '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />' +
+                                        '<circle cx="12" cy="7" r="4" />' +
+                                    '</svg>' +
+                                '</span>' +
+                                '<div>' +
+                                    '<div class="name">اسم الطالب</div>' +
+                                    '<div class="role">حساب طالب</div>' +
+                                '</div>' +
+                            '</div>' +
+
+                            '<div class="dd-list">' +
+
+                                '<a href="' + pg + 'profile.html" class="dd-item">' +
+                                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
+                                    'ملفي الشخصي' +
+                                '</a>' +
+
+                                '<a href="' + pg + 'settings.html" class="dd-item">' +
+                                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>' +
+                                    'الإعدادات' +
+                                '</a>' +
+
+                                '<div class="dd-divider"></div>' +
+
+                                '<a href="' + root + 'index.html" class="dd-item logout">' +
+                                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>' +
+                                    'تسجيل الخروج' +
+                                '</a>' +
+
+                            '</div>' +
+
+                        '</div>' +
+
+                    '</div>' +
 
                 '</div>' +
 
@@ -174,7 +235,6 @@
 
         /* ========================================================
            MOUSE PARALLAX
-           حركة خفيفة جدًا للأشكال فقط
            ======================================================== */
 
         var orbs =
@@ -290,6 +350,71 @@
 
 
         /* ========================================================
+           ACCOUNT DROPDOWN
+           ======================================================== */
+
+        var trigger =
+            header.querySelector('#accountTrigger');
+
+        var dropdown =
+            header.querySelector('#accountDropdown');
+
+
+        if (trigger && dropdown) {
+
+            trigger.addEventListener('click', function (e) {
+
+                e.stopPropagation();
+
+                var isOpen =
+                    dropdown.classList.toggle('open');
+
+                trigger.setAttribute(
+                    'aria-expanded',
+                    isOpen ? 'true' : 'false'
+                );
+
+            });
+
+
+            document.addEventListener('click', function (e) {
+
+                if (
+                    !dropdown.contains(e.target) &&
+                    !trigger.contains(e.target)
+                ) {
+
+                    dropdown.classList.remove('open');
+
+                    trigger.setAttribute(
+                        'aria-expanded',
+                        'false'
+                    );
+
+                }
+
+            });
+
+
+            document.addEventListener('keydown', function (e) {
+
+                if (e.key === 'Escape') {
+
+                    dropdown.classList.remove('open');
+
+                    trigger.setAttribute(
+                        'aria-expanded',
+                        'false'
+                    );
+
+                }
+
+            });
+
+        }
+
+
+        /* ========================================================
            HEADER READY
            ======================================================== */
 
@@ -320,44 +445,6 @@
             mouseMove,
             { passive: true }
         );
-
-
-        /* ========================================================
-           BUTTON MICRO INTERACTION
-           ======================================================== */
-
-        var buttons =
-            header.querySelectorAll(
-                '.btn-signin'
-            );
-
-
-        buttons.forEach(function (button) {
-
-            button.addEventListener(
-                'mouseenter',
-                function () {
-
-                    button.classList.add(
-                        'is-hovered'
-                    );
-
-                }
-            );
-
-
-            button.addEventListener(
-                'mouseleave',
-                function () {
-
-                    button.classList.remove(
-                        'is-hovered'
-                    );
-
-                }
-            );
-
-        });
 
     }
 

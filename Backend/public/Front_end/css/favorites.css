@@ -1,0 +1,137 @@
+/* =====================================================================
+   favorites.css
+   خاص بصفحة المفضلة (favorites.html)
+   يعتمد على المتغيرات المعرّفة بـ app.css — حمّل app.css قبله
+   ===================================================================== */
+
+body{background:var(--light);}
+
+/* ======================= SUB-HEADER (breadcrumb + back + avatar) ======================= */
+.page-subbar{background:#fff;border-bottom:1px solid var(--border);}
+.page-subbar-inner{
+  max-width:1180px;margin:0 auto;padding:14px 32px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--gray);}
+.crumb a{color:var(--gray);transition:color .2s ease;}
+.crumb a:hover{color:var(--blue);}
+.crumb .sep{color:#C7D2E0;}
+.crumb .current{color:var(--navy);font-weight:700;}
+.subbar-right{display:flex;align-items:center;gap:14px;}
+.btn-back{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:700;color:var(--navy);
+  padding:8px 14px;border-radius:10px;border:1.5px solid var(--border);
+  transition:all .2s ease;
+}
+.btn-back:hover{border-color:var(--blue);color:var(--blue);}
+.btn-back svg{width:15px;height:15px;}
+.user-avatar{
+  width:38px;height:38px;border-radius:50%;
+  object-fit:cover;border:2px solid var(--border);flex-shrink:0;
+}
+
+/* ======================= FAVORITES PAGE ======================= */
+.fav-wrap{flex:1;padding:40px 16px 90px;}
+.fav-inner{max-width:1100px;margin:0 auto;}
+
+.fav-head{text-align:center;margin-bottom:28px;}
+.fav-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;color:#E0507A;
+  background:rgba(224,80,122,0.1);
+  padding:6px 14px;border-radius:999px;margin-bottom:14px;
+}
+.fav-eyebrow svg{width:13px;height:13px;fill:#E0507A;}
+.fav-head h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(22px,3.2vw,29px);color:var(--navy);margin-bottom:8px;}
+.fav-head p{font-size:14px;color:var(--gray);max-width:460px;margin:0 auto;line-height:1.7;}
+
+/* ---- Tabs ---- */
+.fav-tabs{
+  display:flex;justify-content:center;gap:10px;margin-bottom:30px;
+}
+.fav-tab{
+  padding:11px 26px;border-radius:999px;
+  font-size:13.5px;font-weight:700;color:var(--gray);
+  background:#fff;border:1.5px solid var(--border);
+  cursor:pointer;font-family:'Cairo',sans-serif;
+  transition:all .2s ease;display:inline-flex;align-items:center;gap:8px;
+}
+.fav-tab .count{
+  background:var(--light);color:var(--gray);
+  font-size:11px;padding:1px 8px;border-radius:999px;font-weight:800;
+}
+.fav-tab:hover{border-color:var(--blue);color:var(--blue);}
+.fav-tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+.fav-tab.active .count{background:rgba(255,255,255,0.18);color:#fff;}
+
+/* ---- Cards grid ---- */
+.fav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.fav-card{
+  background:#fff;border:1px solid var(--border);border-radius:18px;
+  padding:22px 20px;position:relative;
+  transition:all .2s ease;
+}
+.fav-card:hover{box-shadow:0 14px 30px rgba(23,59,115,0.08);transform:translateY(-3px);}
+
+.fav-heart{
+  position:absolute;top:16px;left:16px;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(224,80,122,0.08);
+  display:flex;align-items:center;justify-content:center;
+  border:none;cursor:pointer;transition:all .2s ease;
+}
+.fav-heart svg{width:17px;height:17px;fill:#E0507A;stroke:#E0507A;}
+.fav-heart:hover{background:rgba(224,80,122,0.16);transform:scale(1.08);}
+
+.fav-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:rgba(47,107,255,0.1);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;
+}
+.fav-icon svg{width:26px;height:26px;}
+.fav-card.uni .fav-icon{background:rgba(31,163,122,0.1);color:var(--mint);}
+
+.fav-card h3{font-size:15.5px;font-weight:800;color:var(--dark);margin-bottom:6px;}
+.fav-card p{font-size:12.5px;color:var(--gray);line-height:1.6;margin-bottom:16px;min-height:38px;}
+
+.fav-meta{display:flex;align-items:center;gap:8px;margin-bottom:18px;}
+.fav-match{
+  font-size:11.5px;font-weight:800;color:var(--mint);
+  background:rgba(31,163,122,0.1);padding:4px 10px;border-radius:999px;
+}
+
+.btn-unfav{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px;border-radius:10px;
+  border:1.5px solid var(--border);background:#fff;
+  color:var(--gray);font-weight:700;font-size:13px;
+  font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s ease;
+}
+.btn-unfav:hover{border-color:#E0507A;color:#E0507A;background:rgba(224,80,122,0.05);}
+.btn-unfav svg{width:15px;height:15px;}
+
+.fav-card.removing{opacity:0;transform:scale(.92);pointer-events:none;}
+
+/* ---- Empty state ---- */
+.fav-empty{
+  display:none;flex-direction:column;align-items:center;text-align:center;
+  padding:60px 20px;background:#fff;border:1.5px dashed var(--border);border-radius:20px;
+}
+.fav-empty.show{display:flex;}
+.fav-empty .empty-icon{
+  width:64px;height:64px;border-radius:50%;background:var(--light);
+  display:flex;align-items:center;justify-content:center;color:#C7D2E0;margin-bottom:16px;
+}
+.fav-empty .empty-icon svg{width:30px;height:30px;}
+.fav-empty h3{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:6px;}
+.fav-empty p{font-size:13px;color:var(--gray);max-width:300px;line-height:1.7;}
+
+@media (max-width:860px){
+  .fav-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:560px){
+  .fav-grid{grid-template-columns:1fr;}
+  .fav-tabs{flex-wrap:wrap;}
+}

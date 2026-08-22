@@ -1,0 +1,1087 @@
+/* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #173873;
+            --blue: #2F6BFF;
+            --blue-2: #3D7BFF;
+            --cyan: #35D0FF;
+            --text: #1F2937;
+            --muted: #6B7280;
+            --border: #E4E7EC;
+            --bg: #F7FAFC;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: "Tajawal", sans-serif;
+            background:
+                radial-gradient(
+                    circle at 12% 10%,
+                    rgba(53, 208, 255, 0.14),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 88% 5%,
+                    rgba(47, 107, 255, 0.12),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    135deg,
+                    #f7fbff 0%,
+                    #eef5ff 48%,
+                    #e7f0ff 100%
+                );
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 28px;
+
+            color: var(--text);
+        }
+
+
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
+
+        .auth-background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .auth-background::before {
+            content: "";
+            position: absolute;
+            width: 520px;
+            height: 520px;
+            top: -280px;
+            left: -180px;
+
+            background: rgba(53, 208, 255, 0.10);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+
+        .auth-background::after {
+            content: "";
+            position: absolute;
+            width: 460px;
+            height: 460px;
+            right: -220px;
+            bottom: -250px;
+
+            background: rgba(47, 107, 255, 0.10);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+
+        .background-grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                radial-gradient(
+                    rgba(47, 107, 255, 0.12) 1px,
+                    transparent 1px
+                );
+
+            background-size: 32px 32px;
+            opacity: 0.28;
+        }
+
+
+        /* =========================================================
+           MAIN SHELL
+        ========================================================= */
+
+        .auth-shell {
+            position: relative;
+            z-index: 2;
+
+            width: min(1040px, 100%);
+            min-height: 665px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            background: #ffffff;
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 30px 80px rgba(32, 75, 145, 0.13),
+                0 8px 25px rgba(32, 75, 145, 0.06);
+
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+
+        /* =========================================================
+           RIGHT SIDE — NEXTSTEP HERO
+        ========================================================= */
+
+        .auth-hero {
+            position: relative;
+
+            min-height: 665px;
+
+            padding: 48px 52px;
+
+            background:
+                radial-gradient(
+                    circle at 72% 15%,
+                    rgba(255, 255, 255, 0.8),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    145deg,
+                    #edf5ff 0%,
+                    #e4efff 52%,
+                    #dceaff 100%
+                );
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+        /* decorative glow */
+
+        .hero-glow {
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            left: 50%;
+            top: 52%;
+
+            transform: translate(-50%, -50%);
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(47, 107, 255, 0.13),
+                    transparent 68%
+                );
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           BRAND
+        ========================================================= */
+
+        .hero-brand {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            gap: 7px;
+
+            direction: rtl;
+
+            position: relative;
+            z-index: 3;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+
+            color: #173873;
+
+            letter-spacing: -0.5px;
+        }
+
+        .brand-ai {
+            color: #2F6BFF;
+        }
+
+        .brand-mini-logo {
+            width: 32px;
+            height: 32px;
+
+            display: block;
+        }
+
+
+        /* =========================================================
+           HERO TEXT
+        ========================================================= */
+
+        .hero-copy {
+            position: relative;
+            z-index: 2;
+
+            text-align: center;
+
+            margin-top: 52px;
+        }
+
+        .hero-title {
+            font-size: clamp(27px, 3vw, 36px);
+            line-height: 1.35;
+
+            font-weight: 800;
+
+            color: #173873;
+
+            letter-spacing: -0.8px;
+        }
+
+        .hero-title .blue {
+            color: #2F6BFF;
+        }
+
+        .hero-description {
+            margin-top: 8px;
+
+            color: #6B7280;
+
+            font-size: 13px;
+            font-weight: 500;
+
+            line-height: 1.9;
+        }
+
+
+        /* =========================================================
+           NEXTSTEP LOGO — PREMIUM ANIMATION (ACCURATE TRACE)
+        ========================================================= */
+
+        .logo-stage {
+            position: relative;
+
+            width: 350px;
+            height: 340px;
+
+            margin-top: 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 3;
+        }
+
+        .nextstep-logo {
+            width: 330px;
+            height: 330px;
+
+            overflow: visible;
+
+            animation:
+                logoBreathing 5s ease-in-out 2.6s infinite;
+        }
+
+        @keyframes logoBreathing {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50%      { transform: translateY(-5px) scale(1.012); }
+        }
+
+        /* ---- steps (بناء تصاعدي قبل ظهور الـN) ---- */
+
+        .logo-step {
+            opacity: 0;
+            transform-box: fill-box;
+            transform-origin: center;
+            transform: translateY(20px) scale(.7);
+        }
+
+        .step-3 {
+            animation: revealStep .5s cubic-bezier(.2,.85,.25,1) .05s forwards;
+        }
+
+        .step-2 {
+            animation: revealStep .5s cubic-bezier(.2,.85,.25,1) .2s forwards;
+        }
+
+        .step-1 {
+            animation: revealStep .5s cubic-bezier(.2,.85,.25,1) .35s forwards;
+        }
+
+        @keyframes revealStep {
+            0%   { opacity: 0; transform: translateY(20px) scale(.7); }
+            70%  { opacity: 1; transform: translateY(-3px) scale(1.04); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ---- الظل الداكن (الطية الخلفية لحرف الـN) ---- */
+
+        .logo-shadow {
+            opacity: 0;
+            transform-box: fill-box;
+            transform-origin: center;
+            transform: translateY(14px) scale(.9);
+            animation: revealShadow .55s cubic-bezier(.2,.85,.25,1) .5s forwards;
+        }
+
+        @keyframes revealShadow {
+            0%   { opacity: 0; transform: translateY(14px) scale(.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ---- شريط الـN المتدرج + السهم (شكل واحد متصل كالأصل) ---- */
+
+        .logo-n {
+            opacity: 0;
+            transform-box: fill-box;
+            transform-origin: 20% 85%;
+            transform: translateY(18px) scale(.88);
+            filter: drop-shadow(0 10px 16px rgba(29, 86, 220, 0.14));
+            animation: revealN .85s cubic-bezier(.16,.84,.24,1) .6s forwards;
+        }
+
+        @keyframes revealN {
+            0%   { opacity: 0; transform: translateY(18px) scale(.88); }
+            65%  { opacity: 1; transform: translateY(-4px) scale(1.015); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .nextstep-logo,
+            .logo-step,
+            .logo-shadow,
+            .logo-n {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+
+        /* =========================================================
+           HERO FEATURES
+        ========================================================= */
+
+        .hero-features {
+            position: relative;
+            z-index: 3;
+
+            width: 100%;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin-top: 8px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid rgba(120, 155, 205, 0.22);
+        }
+
+        .feature {
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: rgba(255, 255, 255, 0.92);
+
+            box-shadow:
+                0 8px 18px rgba(55, 105, 170, 0.08);
+
+            color: #2F6BFF;
+
+            margin-bottom: 8px;
+        }
+
+        .feature-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .feature-title {
+            font-size: 12px;
+            font-weight: 700;
+
+            color: #173873;
+        }
+
+
+        /* =========================================================
+           LEFT SIDE — LOGIN
+        ========================================================= */
+
+        .auth-form-side {
+            position: relative;
+
+            padding: 54px 62px;
+
+            background: #ffffff;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-content {
+            width: 100%;
+            max-width: 400px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =========================================================
+           WELCOME
+        ========================================================= */
+
+        .welcome {
+            text-align: center;
+
+            margin-bottom: 38px;
+        }
+
+        .welcome h1 {
+            font-size: 29px;
+            line-height: 1.4;
+
+            color: #173873;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+        }
+
+        .welcome h1 .wave {
+            font-size: 25px;
+            display: inline-block;
+
+            animation: waveHand 2.2s ease-in-out infinite;
+            transform-origin: 70% 70%;
+        }
+
+        @keyframes waveHand {
+            0%,
+            55%,
+            100% {
+                transform: rotate(0);
+            }
+
+            62% {
+                transform: rotate(13deg);
+            }
+
+            70% {
+                transform: rotate(-8deg);
+            }
+
+            78% {
+                transform: rotate(10deg);
+            }
+
+            86% {
+                transform: rotate(0);
+            }
+        }
+
+        .welcome p {
+            margin-top: 6px;
+
+            color: #6B7280;
+
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+
+        /* =========================================================
+           FORM
+        ========================================================= */
+
+        .login-form {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #1F2937;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            right: 17px;
+            top: 50%;
+
+            width: 18px;
+            height: 18px;
+
+            transform: translateY(-50%);
+
+            color: #6B7280;
+
+            pointer-events: none;
+        }
+
+        .input-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .form-input {
+            width: 100%;
+
+            height: 56px;
+
+            padding:
+                0 50px
+                0 18px;
+
+            border: 1px solid #E4E7EC;
+
+            border-radius: 13px;
+
+            background: #fbfcfe;
+
+            outline: none;
+
+            color: #1F2937;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            transition:
+                border-color .25s ease,
+                box-shadow .25s ease,
+                background .25s ease;
+        }
+
+        .form-input::placeholder {
+            color: #6B7280;
+        }
+
+        .form-input:focus {
+            background: #ffffff;
+
+            border-color: #2F6BFF;
+
+            box-shadow:
+                0 0 0 4px rgba(47, 107, 255, 0.12);
+        }
+
+
+        /* =========================================================
+           PASSWORD TOGGLE
+        ========================================================= */
+
+        .password-toggle {
+            position: absolute;
+
+            left: 16px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: 0;
+            background: transparent;
+
+            width: 26px;
+            height: 26px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #6B7280;
+
+            cursor: pointer;
+        }
+
+        .password-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+
+        /* =========================================================
+           FORGOT PASSWORD
+        ========================================================= */
+
+        .forgot-row {
+            display: flex;
+            justify-content: flex-start;
+
+            margin-top: -5px;
+            margin-bottom: 21px;
+        }
+
+        .forgot-link {
+            color: #2F6BFF;
+
+            text-decoration: none;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            transition: color .2s ease;
+        }
+
+        .forgot-link:hover {
+            color: #173873;
+        }
+
+
+        /* =========================================================
+           LOGIN BUTTON
+        ========================================================= */
+
+        .login-button {
+            width: 100%;
+            height: 56px;
+
+            border: 0;
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #173873 0%,
+                    #2F6BFF 48%,
+                    #35D0FF 100%
+                );
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 17px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 24px rgba(47, 107, 255, 0.22);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                filter .2s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 16px 28px rgba(47, 107, 255, 0.30);
+
+            filter: brightness(1.03);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button span {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+
+        /* =========================================================
+           DIVIDER
+        ========================================================= */
+
+        .divider {
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            margin: 24px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            height: 1px;
+
+            flex: 1;
+
+            background: #E4E7EC;
+        }
+
+        .divider span {
+            color: #6B7280;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           GOOGLE BUTTON
+        ========================================================= */
+
+        .google-button {
+            width: 100%;
+            height: 53px;
+
+            border-radius: 12px;
+
+            border: 1px solid #E4E7EC;
+
+            background: #ffffff;
+
+            color: #1F2937;
+
+            font-family: inherit;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            transition:
+                background .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .google-button:hover {
+            background: #F7FAFC;
+
+            border-color: #D8DEE7;
+
+            box-shadow:
+                0 5px 15px rgba(25, 61, 110, 0.06);
+        }
+
+        .google-icon {
+            width: 18px;
+            height: 18px;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 18px;
+            font-weight: 700;
+
+            color: #4285f4;
+        }
+
+
+        /* =========================================================
+           SIGN UP
+        ========================================================= */
+
+        .signup-text {
+            text-align: center;
+
+            margin-top: 26px;
+
+            color: #6B7280;
+
+            font-size: 12px;
+        }
+
+        .signup-text a {
+            color: #2F6BFF;
+
+            font-weight: 700;
+
+            text-decoration: none;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            body {
+                padding: 18px;
+            }
+
+            .auth-shell {
+                max-width: 570px;
+
+                grid-template-columns: 1fr;
+
+                min-height: auto;
+            }
+
+            .auth-hero {
+                order: -1;
+
+                min-height: 520px;
+
+                padding: 35px 35px 30px;
+            }
+
+            .auth-form-side {
+                padding: 45px 45px 50px;
+            }
+
+            .logo-stage {
+                margin-top: 25px;
+
+                width: 260px;
+                height: 240px;
+            }
+
+            .nextstep-logo {
+                width: 240px;
+                height: 240px;
+            }
+
+          .hero-copy {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+
+    margin-top: 42px;
+}
+        }
+
+
+        @media (max-width: 520px) {
+
+            body {
+                padding: 0;
+            }
+
+            .auth-shell {
+                width: 100%;
+                min-height: 100vh;
+
+                border-radius: 0;
+
+                box-shadow: none;
+            }
+
+            .auth-hero {
+                min-height: 455px;
+
+                padding: 27px 22px 24px;
+            }
+
+            .hero-brand {
+                justify-content: center;
+            }
+
+            .hero-copy {
+                margin-top: 28px;
+            }
+
+            .hero-title {
+                font-size: 25px;
+            }
+
+            .hero-description {
+                font-size: 12px;
+            }
+
+            .logo-stage {
+                width: 225px;
+                height: 205px;
+
+                margin-top: 18px;
+            }
+
+            .nextstep-logo {
+                width: 205px;
+                height: 205px;
+            }
+
+            .hero-features {
+                gap: 5px;
+            }
+
+            .feature-title {
+                font-size: 10px;
+            }
+
+            .feature-icon {
+                width: 38px;
+                height: 38px;
+            }
+
+            .auth-form-side {
+                padding: 38px 22px 45px;
+            }
+
+            .welcome {
+                margin-bottom: 30px;
+            }
+
+            .welcome h1 {
+                font-size: 25px;
+            }
+        }
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }/* =========================================================
+   AUTH — EXTRA (للعناصر الإضافية بصفحة إنشاء الحساب فقط)
+   ضيفي هاد الملف بعد auth.css مباشرة:
+   <link rel="stylesheet" href="../css/auth-extra.css">
+========================================================= */
+
+/* صفوف مزدوجة (اسم + هاتف، إيميل + مدينة...) */
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.form-row-2 .form-group {
+    margin-bottom: 0;
+}
+
+/* وسم اختياري جنب اللابل */
+.form-label .optional {
+    font-weight: 500;
+    color: #6B7280;
+    font-size: 11px;
+}
+
+/* القوائم المنسدلة (select) — تاخذ نفس شكل .form-input */
+select.form-input {
+    padding: 0 18px;
+    cursor: pointer;
+}
+
+select.form-input:disabled {
+    background: #F3F5F8;
+    color: #6B7280;
+    cursor: not-allowed;
+}
+
+/* أزرار اختيار المسار: طالب جديد / طالب جامعي */
+.type-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.type-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 50px;
+    border-radius: 12px;
+    border: 1px solid #E4E7EC;
+    background: #fbfcfe;
+    color: #6B7280;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.type-btn svg {
+    width: 17px;
+    height: 17px;
+}
+
+.type-btn.active {
+    background: rgba(47, 107, 255, 0.08);
+    border-color: #2F6BFF;
+    color: #2F6BFF;
+}
+
+/* تنبيه نجاح / خطأ داخل الفورم */
+#loginAlert,
+#signupAlert {
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+/* الحقول الشرطية (طالب جديد / طالب جامعي) */
+.conditional-fields {
+    margin-top: 4px;
+}
+
+/* تجاوب الصفوف المزدوجة على الموبايل */
+@media (max-width: 520px) {
+    .form-row-2 {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+}

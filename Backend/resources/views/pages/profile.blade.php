@@ -3,7 +3,7 @@
 @section('title', 'الملف الشخصي — NextStep AI')
 
 @section('css')
-<link href="{{ asset('NextStepAi-front/css/profile.css') }}" rel="stylesheet">
+<link href="{{ asset('Front_end/css/profile.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

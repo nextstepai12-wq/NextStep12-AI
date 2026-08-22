@@ -1,49 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'الرئيسية — NextStep AI')
-
-@section('css')
-<link href="{{ asset('NextStepAi-front/css/home.css') }}" rel="stylesheet">
-@endsection
+@section('title', 'الرئيسية | NextStep AI')
 
 @section('content')
+
+  <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline poster="{{ asset('Front_end/assets/5.jpg') }}">
+      <source src="{{ asset('Front_end/assets/vedio-hero.mp4') }}" type="video/mp4">
+    </video>
+  </div>
+
 <!-- ======================= HERO ======================= -->
 <section class="hero">
-  <div class="hero-bg">
-  <img src="{{ asset('NextStepAi-front/assets/hero-bg-1400x700.jpg') }}" alt="" style="width:100%;height:100%;object-fit:cover;">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#2F6BFF"/>
-          <stop offset="100%" stop-color="#173B73"/>
-        </linearGradient>
-      </defs>
-      <rect width="1400" height="700" fill="url(#sky)"/>
-      <rect x="60" y="320" width="140" height="270" fill="#1F2937" opacity="0.5"/>
-      <rect x="220" y="260" width="110" height="330" fill="#1F2937" opacity="0.4"/>
-      <rect x="980" y="290" width="150" height="300" fill="#1F2937" opacity="0.45"/>
-      <rect x="1150" y="340" width="90" height="250" fill="#1F2937" opacity="0.35"/>
-      <rect x="1260" y="300" width="110" height="290" fill="#1F2937" opacity="0.4"/>
-      <g fill="#48E6B0" opacity="0.3">
-        <rect x="80" y="345" width="14" height="16"/><rect x="105" y="345" width="14" height="16"/><rect x="130" y="345" width="14" height="16"/>
-        <rect x="80" y="385" width="14" height="16"/><rect x="105" y="385" width="14" height="16"/><rect x="130" y="385" width="14" height="16"/>
-        <rect x="1010" y="320" width="14" height="16"/><rect x="1035" y="320" width="14" height="16"/><rect x="1060" y="320" width="14" height="16"/>
-        <rect x="1010" y="360" width="14" height="16"/><rect x="1035" y="360" width="14" height="16"/><rect x="1060" y="360" width="14" height="16"/>
-      </g>
-      <rect x="0" y="590" width="1400" height="110" fill="#0F2547"/>
-      <path d="M0 590 L1400 590 L1400 615 Q700 645 0 615 Z" fill="#122E5D"/>
-      <path d="M560 700 L640 590 L760 590 L840 700 Z" fill="#173B73" opacity="0.55"/>
-      <g transform="translate(980,400)">
-        <ellipse cx="30" cy="18" rx="19" ry="21" fill="#0B1B2C"/>
-        <path d="M6 44 Q4 32 30 32 Q56 32 54 44 L61 145 Q61 162 50 165 L11 165 Q0 162 0 145 Z" fill="#16324F"/>
-        <rect x="15" y="62" width="30" height="50" rx="9" fill="#0B1B2C"/>
-        <path d="M0 145 Q-2 168 9 184 L18 165 Z" fill="#0B1B2C"/>
-        <path d="M61 145 Q63 168 52 184 L43 165 Z" fill="#0B1B2C"/>
-        <rect x="19" y="168" width="13" height="68" fill="#16324F"/>
-        <rect x="36" y="168" width="13" height="68" fill="#122A45"/>
-      </g>
-      <circle cx="1250" cy="150" r="130" fill="#48E6B0" opacity="0.08"/>
-    </svg>
-  </div>
+  
+  <div class="hero-overlay" aria-hidden="true"></div>
 
   <div class="hero-inner">
     <div class="hero-copy">
@@ -51,12 +21,33 @@
       <h2>خطوتك الذكية نحو مستقبلك</h2>
       <p class="lead">منصة ذكية تساعدك على اكتشاف التخصص المناسب واختيار الجامعة الأفضل لك من خلال الذكاء الاصطناعي.</p>
       <div class="hero-actions">
-        <a href="{{ route('register') }}" class="btn-primary">
+        <a href="{{ route('pages.quiz') }}" class="btn-primary">
           ابدأ الاختبار الذكي
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
-        <a href="#" class="btn-outline">استكشف الجامعات</a>
+        <a href="{{ url('/universities') }}" class="btn-outline">استكشف الجامعات</a>
       </div>
+      <div class="stats-container">
+<div class="stats-container">
+  <div class="stat-item">
+    <div class="stat-number" data-target="{{ $universitiesCount }}">{{ $universitiesCount }} <span>+</span></div>
+    <div class="stat-label">جامعة</div>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="stat-item">
+    <div class="stat-number" data-target="{{ $majorsCount }}">{{ $majorsCount }}<span>+</span></div>
+    <div class="stat-label">تخصص</div>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="stat-item">
+    <div class="stat-number" data-target="{{ str_replace('K', '', $studentsCount) }}">{{ $studentsCount }}<span>+</span></div>
+    <div class="stat-label">طالب</div>
+  </div>
+</div>
     </div>
   </div>
 </section>
@@ -104,21 +95,101 @@
 </section>
 
 <!-- ======================= STATS BAR ======================= -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat">
-      <div class="num">+<span>{{ $universitiesCount ?? 50 }}</span></div>
-      <div class="lbl">جامعة</div>
+<section class="steps-section">
+        <!-- شارة العنوان العلوية -->
+        <div class="section-badge">
+            <span class="icon">⚡</span> كيف تعمل المنصة
+        </div>
+
+        <!-- العنوان الرئيسي -->
+        <h2 class="section-title">ثلاث خطوات تفصلك عن قرارك</h2>
+        <p class="section-subtitle">.رحلة بسيطة وواضحة من التسجيل إلى الخطة الدراسية المخصصة</p>
+        <!-- حاوية البطاقات -->
+        <div class="cards-container">
+            
+            <!-- البطاقة الأولى (3) -->
+            <div class="step-card">
+                <div class="step-badge">٣</div>
+                <div class="card-icon">
+                    <!-- أيقونة تعبيرية أو SVG -->
+<svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(53, 208, 255)" d="M544 160C544 124.7 515.3 96 480 96L160 96C124.7 96 96 124.7 96 160L96 480C96 515.3 124.7 544 160 544L480 544C515.3 544 544 515.3 544 480L544 160zM352 216C352 229.3 341.3 240 328 240L216 240C202.7 240 192 229.3 192 216C192 202.7 202.7 192 216 192L328 192C341.3 192 352 202.7 352 216zM424 296C437.3 296 448 306.7 448 320C448 333.3 437.3 344 424 344L216 344C202.7 344 192 333.3 192 320C192 306.7 202.7 296 216 296L424 296zM288 424C288 437.3 277.3 448 264 448L216 448C202.7 448 192 437.3 192 424C192 410.7 202.7 400 216 400L264 400C277.3 400 288 410.7 288 424z"/></svg>
+
+                </div>
+                <h3>احصل على خطتك</h3>
+                <p>استلم توصيات التخصصات والجامعات المناسبة مع خطة دراسية واضحة الخطوات.</p>
+            </div>
+
+            <!-- البطاقة الثانية (2) -->
+            <div class="step-card">
+                <div class="step-badge">٢</div>
+                <div class="card-icon">
+<svg xmlns="http://www.w3.org/2000/svg"height="32" width="32" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(53, 208, 255)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z"/></svg>
+
+                </div>
+                <h3>أكمل الاختبار الذكي</h3>
+                <p>أجب عن أسئلة تفاعلية تقيس ميولك وقدراتك، ويحللها الذكاء الاصطناعي فوراً.</p>
+            </div>
+
+            <!-- البطاقة الثالثة (1) -->
+            <div class="step-card">
+                <div class="step-badge">١</div>
+                <div class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="#35d0ff" d="M285.7 368C384.2 368 464 447.8 464 546.3C464 562.7 450.7 576 434.3 576L77.7 576C61.3 576 48 562.7 48 546.3C48 447.8 127.8 368 226.3 368L285.7 368zM528 144C541.3 144 552 154.7 552 168L552 216L600 216C613.3 216 624 226.7 624 240C624 253.3 613.3 264 600 264L552 264L552 312C552 325.3 541.3 336 528 336C514.7 336 504 325.3 504 312L504 264L456 264C442.7 264 432 253.3 432 240C432 226.7 442.7 216 456 216L504 216L504 168C504 154.7 514.7 144 528 144zM256 312C189.7 312 136 258.3 136 192C136 125.7 189.7 72 256 72C322.3 72 376 125.7 376 192C376 258.3 322.3 312 256 312z"/></svg>
+
+                </div>
+                <h3>أنشئ حسابك</h3>
+                <p>سجل بياناتك واختر مسارك: طالب جديد يبحث عن تخصص، أو طالب جامعي يطور مساره.</p>
+            </div>
+
+        </div>
+    </section>
+
+<section class="cta-section">
+    <div class="cta-banner">
+        <h2>جاهز لاتخاذ خطوتك الذكية؟</h2>
+        <p>انضم إلى آلاف الطلاب الذين اكتشفوا مسارهم الجامعي المناسب مع NextStep AI.</p>
+        <div class="cta-buttons">
+            <a href="{{ route('register') }}" class="btn-primary">أنشئ حسابك مجاناً ←</a>
+            <a href="{{ route('login') }}" class="btn-outline">لدي حساب بالفعل</a>
+        </div>
     </div>
-    <div class="stat">
-      <div class="num">+<span>{{ $majorsCount ?? 2000 }}</span></div>
-      <div class="lbl">تخصص</div>
-    </div>
-    <div class="stat">
-      <div class="num">+<span>{{ $studentsCount ?? '100K' }}</span></div>
-      <div class="lbl">طالب</div>
-    </div>
-    <div class="stat tagline">كل ما تحتاجه في مكان واحد</div>
-  </div>
-</div>
+</section>
+
+@endsection
+
+@section('scripts')
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const counters = document.querySelectorAll(".stat-number");
+
+    counters.forEach(counter => {
+      const target = +counter.getAttribute("data-target");
+      const isK = counter.textContent.includes("K");
+      let current = 0;
+      const increment = target / 80; 
+
+      const updateCounter = () => {
+        if (current < target) {
+          current += increment;
+          if (current > target) current = target;
+
+          if (isK) {
+            counter.textContent = Math.ceil(current) + "K+";
+          } else {
+            counter.textContent = Math.ceil(current) + "+";
+          }
+          requestAnimationFrame(updateCounter);
+        } else {
+          if (isK) {
+            counter.textContent = target + "K+";
+          } else {
+            counter.textContent = target + "+";
+          }
+        }
+      };
+
+      updateCounter();
+    });
+  });
+</script>
 @endsection

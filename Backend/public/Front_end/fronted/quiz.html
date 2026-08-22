@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الاستبيان الذكي — NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
+<link href="../css/quiz.css" rel="stylesheet">
+<link href="../css/footer.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<script src="../js/header-index.js"></script>
+
+<!-- ======================= QUIZ ======================= -->
+<div class="quiz-wrap">
+  <div class="ring-wrap" id="ringWrap">
+    <div class="quiz-card" id="quizCard">
+
+      <div id="questionView">
+        <div class="card-top">
+          <div class="mini-path" id="miniPath"></div>
+          <div class="q-counter"><b id="qNum">1</b>/6</div>
+        </div>
+
+        <div class="quiz-question" id="qText"></div>
+        <div class="quiz-options" id="qOptions"></div>
+
+        <div class="quiz-nav">
+          <button class="quiz-nav-btn" id="btnPrev" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 19l-7-7 7-7"/></svg>
+            السابق
+          </button>
+          <button class="quiz-finish-btn" id="btnFinish" type="button" disabled>
+            إنهاء الاختبار
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+          </button>
+          <button class="quiz-nav-btn primary" id="btnNext" type="button">
+            التالي
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Completion state -->
+      <div class="quiz-done" id="doneView" style="display:none;">
+        <div class="done-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h2>خلصنا! 🎉</h2>
+        <p>جاوبت على كل الأسئلة. راح نحلل إجاباتك ونطلعلك أنسب التخصصات المناسبة لك.</p>
+        <a href="results.html" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+          شوف النتيجة
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ======================= FOOTER ======================= -->
+<script src="../js/footer-index.js"></script>
+<script>
+/* ======================= QUIZ DATA ======================= */
+const questions = [
+  {
+    text: "شو أكتر نشاط بتحس فيه بالمتعة والحماس؟",
+    options: ["حل مسائل رياضية أو منطقية معقدة", "الرسم أو التصميم أو الكتابة الإبداعية", "التحدث مع الناس ومساعدتهم", "تفكيك جهاز ومعرفة كيف بيشتغل"]
+  },
+  {
+    text: "لو خيّروك تشتغل بمشروع جماعي، أي دور بتحب تاخده؟",
+    options: ["قائد الفريق ومنظّم الخطة", "المسؤول عن الأفكار الإبداعية", "المسؤول عن التنفيذ والتفاصيل الدقيقة", "المسؤول عن البحث وجمع المعلومات"]
+  },
+  {
+    text: "أي مادة دراسية كانت الأقرب لقلبك؟",
+    options: ["الرياضيات والفيزياء", "الأحياء والكيمياء", "اللغة العربية أو الإنجليزية", "الحاسوب والتكنولوجيا"]
+  },
+  {
+    text: "كيف بتحب تقضي وقت فراغك؟",
+    options: ["قراءة كتب أو مقالات علمية", "مشاهدة أفلام أو تصميم محتوى", "التطوع أو العمل مع مجموعات", "بناء أو برمجة شي جديد"]
+  },
+  {
+    text: "شو أكتر شي بيحفزك بالشغل المستقبلي؟",
+    options: ["الاستقرار المادي والراتب الجيد", "الإبداع وحرية التعبير", "مساعدة الناس والتأثير الإيجابي", "الابتكار وتطوير حلول جديدة"]
+  },
+  {
+    text: "لو واجهتك مشكلة صعبة، شو أول رد فعل إلك؟",
+    options: ["أحلل المشكلة خطوة بخطوة بمنطق", "أفكر بحل غير تقليدي وخارج الصندوق", "أستشير حدا واسأل عن رأيه", "أبحث عن حلول مشابهة جربها غيري"]
+  }
+];
+
+/* ألوان الهوية المستخدمة بالـ burst والـ confetti */
+const brandColors = ['#2f6bff', '#48e6b0', '#173b73'];
+
+/* ======================= STATE ======================= */
+let current = 0;
+const answers = new Array(questions.length).fill(null);
+
+/* ======================= DOM ======================= */
+const ringWrap = document.getElementById('ringWrap');
+const miniPath = document.getElementById('miniPath');
+const qNum = document.getElementById('qNum');
+const qText = document.getElementById('qText');
+const qOptions = document.getElementById('qOptions');
+const btnPrev = document.getElementById('btnPrev');
+const btnNext = document.getElementById('btnNext');
+const btnFinish = document.getElementById('btnFinish');
+const questionView = document.getElementById('questionView');
+const doneView = document.getElementById('doneView');
+const quizCard = document.getElementById('quizCard');
+
+/* Build the tiny dot path in the card header */
+function buildMiniPath(){
+  miniPath.innerHTML = '';
+  questions.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'mini-dot';
+    dot.dataset.index = i;
+    miniPath.appendChild(dot);
+  });
+}
+
+function updateMiniPath(){
+  const dots = miniPath.querySelectorAll('.mini-dot');
+  dots.forEach((dot, i) => {
+    dot.classList.remove('done', 'active');
+    if (i < current) dot.classList.add('done');
+    else if (i === current) dot.classList.add('active');
+  });
+}
+
+/* الحلقة المضيئة حوالين الكرت بتمتلئ حسب نسبة التقدم */
+function updateRing(){
+  const pct = Math.round(((current + 1) / questions.length) * 100);
+  ringWrap.style.setProperty('--progress', pct);
+}
+
+function renderQuestion(){
+  const q = questions[current];
+  qNum.textContent = current + 1;
+  qText.textContent = q.text;
+
+  qOptions.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const el = document.createElement('div');
+    el.className = 'quiz-option' + (answers[current] === i ? ' selected' : '');
+    el.innerHTML = '<span>' + opt + '</span><span class="opt-check"></span>';
+    el.addEventListener('click', (e) => {
+      answers[current] = i;
+      spawnBurst(el);
+      renderQuestion();
+      updateFinishState();
+    });
+    qOptions.appendChild(el);
+  });
+
+  btnPrev.disabled = current === 0;
+  btnNext.style.display = current === questions.length - 1 ? 'none' : 'inline-flex';
+
+  updateMiniPath();
+  updateRing();
+}
+
+function updateFinishState(){
+  const allAnswered = answers.every(a => a !== null);
+  btnFinish.disabled = !allAnswered;
+}
+
+/* مكافأة بصرية صغيرة عند كل اختيار: نقاط بتتطاير من مركز الخيار المختار */
+function spawnBurst(targetEl){
+  const rect = targetEl.getBoundingClientRect();
+  const cardRect = quizCard.getBoundingClientRect();
+  const originX = rect.left - cardRect.left + rect.width / 2;
+  const originY = rect.top - cardRect.top + rect.height / 2;
+
+  for (let i = 0; i < 10; i++){
+    const dot = document.createElement('span');
+    dot.className = 'burst-dot';
+    const angle = (Math.PI * 2 * i) / 10 + Math.random() * 0.4;
+    const dist = 34 + Math.random() * 26;
+    const fx = Math.cos(angle) * dist;
+    const fy = Math.sin(angle) * dist;
+    dot.style.left = originX + 'px';
+    dot.style.top = originY + 'px';
+    dot.style.background = brandColors[i % brandColors.length];
+    dot.style.setProperty('--fly', 'translate(' + fx + 'px,' + fy + 'px)');
+    quizCard.appendChild(dot);
+    dot.addEventListener('animationend', () => dot.remove());
+  }
+}
+
+/* confetti احتفالي عند إنهاء الاستبيان */
+function spawnConfetti(){
+  const cardWidth = quizCard.clientWidth;
+  for (let i = 0; i < 36; i++){
+    const piece = document.createElement('span');
+    piece.className = 'confetti-piece';
+    const startX = Math.random() * cardWidth;
+    const fallY = 220 + Math.random() * 140;
+    const driftX = (Math.random() - 0.5) * 120;
+    piece.style.left = startX + 'px';
+    piece.style.background = brandColors[i % brandColors.length];
+    piece.style.setProperty('--fall', 'translate(' + driftX + 'px,' + fallY + 'px)');
+    piece.style.setProperty('--spin', (Math.random() * 480 - 240) + 'deg');
+    piece.style.animationDelay = (Math.random() * 0.3) + 's';
+    quizCard.appendChild(piece);
+    piece.addEventListener('animationend', () => piece.remove());
+  }
+}
+
+btnPrev.addEventListener('click', () => {
+  if (current > 0){ current--; renderQuestion(); }
+});
+btnNext.addEventListener('click', () => {
+  if (current < questions.length - 1){ current++; renderQuestion(); }
+});
+btnFinish.addEventListener('click', () => {
+  if (btnFinish.disabled) return;
+  questionView.style.display = 'none';
+  doneView.style.display = 'block';
+  ringWrap.classList.add('complete');
+  spawnConfetti();
+});
+
+/* Init */
+buildMiniPath();
+renderQuestion();
+updateFinishState();
+</script>
+
+</body>
+</html>

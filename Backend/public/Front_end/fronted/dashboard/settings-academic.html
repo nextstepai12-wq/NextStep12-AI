@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المحتوى الأكاديمي — الإعدادات | NextStep AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/app.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/settings-dashboard.css">
+
+  <style>
+    .settings-stepper-wrapper { display: grid; grid-template-columns: 260px 1fr; gap: 2rem; align-items: start; }
+    .settings-stepper { background: var(--white); border-radius: var(--radius); padding: 1.5rem 1.25rem; box-shadow: var(--shadow); position: sticky; top: 90px; border: 1px solid rgba(47,107,255,0.04); }
+    .settings-stepper h3 { font-size: 1rem; font-weight: 700; color: var(--gray); margin-bottom: 1.5rem; padding-bottom: .75rem; border-bottom: 1px solid var(--gray-bg); }
+    .settings-stepper ul { list-style: none; display: flex; flex-direction: column; gap: .25rem; }
+    .stepper-item-settings { display: flex; align-items: center; gap: .75rem; padding: .75rem; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); border: none; background: transparent; width: 100%; text-align: right; }
+    .stepper-item-settings:hover { background: var(--gray-bg); }
+    .stepper-item-settings.active { background: rgba(47,107,255,0.06); }
+    .stepper-item-settings.active h4 { color: var(--blue); }
+    .stepper-dot { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--gray-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: var(--transition); }
+    .stepper-item-settings.active .stepper-dot { border-color: var(--blue); background: var(--blue); }
+    .stepper-item-settings.active .stepper-dot .dot-inner { background: white; }
+    .dot-inner { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-light); transition: var(--transition); }
+    .stepper-item-settings h4 { font-size: .9rem; font-weight: 600; color: var(--navy); }
+    .stepper-item-settings p { font-size: .75rem; color: var(--gray); margin-top: .1rem; }
+    .stepper-item-settings div { text-align: right; }
+
+    .settings-section { background: var(--white); border-radius: var(--radius); padding: 1.75rem 2rem; box-shadow: var(--shadow); border: 1px solid rgba(47,107,255,0.04); }
+    .settings-section-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: .75rem; padding-bottom: .75rem; border-bottom: 2px solid var(--gray-bg); margin-bottom: 1.5rem; }
+    .settings-section-title svg { width: 22px; height: 22px; color: var(--blue); }
+    .settings-section-title .section-hint { font-size: .8rem; font-weight: 400; color: var(--gray); margin-right: auto; }
+
+    .field-group { margin-bottom: 1.25rem; }
+    .field-group label { display: block; font-weight: 600; font-size: .9rem; color: var(--navy); margin-bottom: .4rem; }
+    .field-group input, .field-group select { width: 100%; padding: .6rem 1rem; border: 1px solid var(--gray-bg); border-radius: var(--radius-sm); font-family: 'Cairo', sans-serif; font-size: .95rem; background: white; color: var(--navy); outline: none; }
+    .field-group input:focus, .field-group select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(47,107,255,0.12); }
+    .field-hint { font-size: .8rem; color: var(--gray); margin-top: .3rem; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+    /* جدول بسيط لعرض الكليات/الأقسام/التخصصات داخل كل تبويب */
+    .mini-table-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .btn-add-small { background: var(--blue); color: white; border: none; padding: .5rem 1.1rem; border-radius: var(--radius-sm); font-weight: 600; font-size: .85rem; cursor: pointer; font-family: 'Cairo', sans-serif; display: inline-flex; align-items: center; gap: .4rem; }
+    .mini-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    .mini-table thead th { text-align: right; padding: 10px 12px; font-weight: 700; color: var(--gray); font-size: .72rem; text-transform: uppercase; border-bottom: 2px solid var(--gray-bg); }
+    .mini-table tbody td { padding: 10px 12px; border-bottom: 1px solid var(--gray-bg); color: var(--gray-dark); }
+    .mini-table tbody tr:hover { background: var(--gray-bg); }
+    .row-action-btn { background: none; border: none; color: var(--blue); cursor: pointer; font-size: .8rem; font-weight: 600; }
+    .row-action-btn.danger { color: var(--red); }
+
+    .toggle-wrap { display: flex; align-items: center; gap: 1rem; }
+    .toggle { position: relative; width: 44px; height: 24px; background: #d1d9e6; border-radius: 40px; cursor: pointer; flex-shrink: 0; border: none; appearance: none; }
+    .toggle:checked { background: var(--blue); }
+    .toggle::after { content: ''; position: absolute; top: 3px; right: 3px; width: 18px; height: 18px; background: white; border-radius: 50%; transition: .2s; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+    .toggle:checked::after { transform: translateX(-20px); }
+    .toggle-label { font-size: .9rem; color: var(--gray); }
+
+    /* شريط Matching (نطاق التوافق الأدنى) */
+    .matching-slider-box { background: rgba(47,107,255,0.05); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; }
+    .matching-slider-value { font-size: 1.8rem; font-weight: 800; color: var(--blue); }
+    input[type="range"] { width: 100%; margin-top: .75rem; accent-color: var(--blue); }
+    .matching-slider-labels { display: flex; justify-content: space-between; font-size: .75rem; color: var(--gray); margin-top: .25rem; }
+
+    .form-actions { display: flex; gap: 1rem; justify-content: flex-end; padding-top: 1.5rem; border-top: 1px solid var(--gray-bg); margin-top: 1.5rem; }
+    .btn-save-primary { background: var(--blue); color: white; border: none; padding: .75rem 2rem; border-radius: var(--radius-sm); font-weight: 700; font-size: 1rem; cursor: pointer; font-family: 'Cairo', sans-serif; }
+    .btn-cancel-outline { background: transparent; color: var(--gray); border: 1px solid var(--gray-bg); padding: .75rem 2rem; border-radius: var(--radius-sm); font-weight: 600; font-size: 1rem; cursor: pointer; font-family: 'Cairo', sans-serif; }
+
+    .settings-panel { display: none; animation: settingsPanelFade .25s ease; }
+    .settings-panel.active-panel { display: block; }
+    @keyframes settingsPanelFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 1200px) {
+      .settings-stepper-wrapper { grid-template-columns: 1fr; }
+      .settings-stepper { position: relative; top: 0; }
+      .settings-stepper ul { flex-direction: row; flex-wrap: wrap; }
+      .stepper-item-settings { flex: 1; min-width: 170px; }
+    }
+    @media (max-width: 768px) {
+      .settings-section { padding: 1.25rem; }
+      .form-row-2 { grid-template-columns: 1fr; }
+      .mini-table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="admin-topbar" id="adminTopbar"></header>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main admin-main-content">
+
+    <div class="admin-page-head">
+      <div>
+        <h1>المحتوى الأكاديمي</h1>
+        <p>الكليات، الأقسام، التخصصات، الخطط الدراسية، وإعدادات Matching.</p>
+      </div>
+      <button type="button" class="btn-cancel-outline" onclick="window.location.href='settings-dashboard.html'">→ رجوع للإعدادات</button>
+    </div>
+
+    <div class="settings-stepper-wrapper">
+
+      <aside class="settings-stepper">
+        <h3>أقسام المحتوى الأكاديمي</h3>
+        <ul id="stepperList">
+          <li class="stepper-item-settings active" data-target="panelFaculties">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div><h4>الكليات</h4><p>عمادات وكليات الجامعة</p></div>
+          </li>
+          <li class="stepper-item-settings" data-target="panelDepartments">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div><h4>الأقسام</h4><p>الأقسام داخل كل كلية</p></div>
+          </li>
+          <li class="stepper-item-settings" data-target="panelMajors">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div><h4>التخصصات</h4><p>إدارة التخصصات الأكاديمية</p></div>
+          </li>
+          <li class="stepper-item-settings" data-target="panelPlans">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div><h4>الخطط الدراسية</h4><p>ملفات ورسومات الخطط</p></div>
+          </li>
+          <li class="stepper-item-settings" data-target="panelFaculty">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div><h4>هيئة التدريس والمختبرات</h4><p>الكادر التدريسي والمرافق</p></div>
+          </li>
+          <li class="stepper-item-settings" data-target="panelMatching">
+            <span class="stepper-dot"><span class="dot-inner"></span></span>
+            <div><h4>إعدادات Matching</h4><p>حد أدنى نسبة التوافق</p></div>
+          </li>
+        </ul>
+      </aside>
+
+      <form id="academicForm" novalidate>
+
+        <!-- ===== الكليات ===== -->
+        <!-- المصدر: deanships_faculties (WHERE university_id = هاي الجامعة) -->
+        <section class="settings-section settings-panel active-panel" id="panelFaculties">
+          <div class="settings-section-title">
+            الكليات
+            <span class="section-hint">من جدول deanships_faculties</span>
+          </div>
+          <div class="mini-table-head">
+            <p class="field-hint" style="margin:0;">عمادات وكليات جامعتكم المسجّلة على المنصة.</p>
+            <button type="button" class="btn-add-small">+ إضافة كلية</button>
+          </div>
+          <table class="mini-table">
+            <thead><tr><th>اسم الكلية</th><th>عدد الأقسام</th><th>عدد التخصصات</th><th></th></tr></thead>
+            <tbody id="facultiesBody"></tbody>
+          </table>
+        </section>
+
+        <!-- ===== الأقسام ===== -->
+        <!-- ⚠️ ملاحظة: ما في جدول "أقسام" منفصل عن deanships_faculties بالمايجريشنز
+             الحالية — التخصصات (majors) مربوطة بالكلية مباشرة بدون مستوى وسيط
+             "قسم". لو فعلاً بدكم مستوى قسم منفصل عن الكلية، هاد جدول جديد لازم يتضاف. -->
+        <section class="settings-section settings-panel" id="panelDepartments">
+          <div class="settings-section-title">
+            الأقسام
+            <span class="section-hint">⚠️ يحتاج جدول جديد</span>
+          </div>
+          <div style="background:#FFF8E6;border:1px solid #F0D98C;border-radius:var(--radius-sm);padding:1rem 1.25rem;color:#8A6D1E;font-size:.88rem;">
+            بالتصميم الحالي، التخصصات مربوطة مباشرة بالكلية (deanships_faculties) بدون
+            مستوى "قسم" وسيط بينهم. لو فعلاً محتاجين هيك مستوى منفصل (كلية ← قسم ← تخصص)،
+            لازم جدول <code>departments</code> جديد يترَبط بـ deanship_faculty_id،
+            وبعدها majors تتربط بالقسم بدل الكلية مباشرة. أكدولي هالنقطة قبل ما نبنيها.
+          </div>
+        </section>
+
+        <!-- ===== التخصصات ===== -->
+        <!-- المصدر: majors -->
+        <section class="settings-section settings-panel" id="panelMajors">
+          <div class="settings-section-title">
+            التخصصات
+            <span class="section-hint">من جدول majors</span>
+          </div>
+          <div class="mini-table-head">
+            <p class="field-hint" style="margin:0;">كل التخصصات الأكاديمية المسجّلة لجامعتكم.</p>
+            <button type="button" class="btn-add-small" onclick="window.location.href='add-program.html'">+ إضافة تخصص</button>
+          </div>
+          <table class="mini-table">
+            <thead><tr><th>اسم التخصص</th><th>الكلية</th><th>أدنى معدل قبول</th><th></th></tr></thead>
+            <tbody id="majorsBody"></tbody>
+          </table>
+        </section>
+
+        <!-- ===== الخطط الدراسية ===== -->
+        <!-- المصدر: majors.study_plan_image, study_plan_file_url -->
+        <section class="settings-section settings-panel" id="panelPlans">
+          <div class="settings-section-title">
+            الخطط الدراسية
+            <span class="section-hint">من majors.study_plan_file_url</span>
+          </div>
+          <p class="field-hint" style="margin-bottom:1rem;">ملفات الخطط الدراسية مرتبطة بكل تخصص على حدة — عدّليها من صفحة التخصص نفسه.</p>
+          <table class="mini-table">
+            <thead><tr><th>التخصص</th><th>حالة ملف الخطة</th><th></th></tr></thead>
+            <tbody id="plansBody"></tbody>
+          </table>
+        </section>
+
+        <!-- ===== هيئة التدريس والمختبرات ===== -->
+        <section class="settings-section settings-panel" id="panelFaculty">
+          <div class="settings-section-title">
+            هيئة التدريس والمختبرات
+            <span class="section-hint">⚠️ جدول جديد بالكامل</span>
+          </div>
+          <div style="background:#FFF8E6;border:1px solid #F0D98C;border-radius:var(--radius-sm);padding:1rem 1.25rem;color:#8A6D1E;font-size:.88rem;">
+            ما في أي جدول حالياً لأعضاء هيئة التدريس ولا المختبرات — نطاق جديد
+            بالكامل خارج المايجريشنز الموجودة (<code>faculty_members</code>,
+            <code>labs</code> تقريباً). محتاجة توضيح: هل هاي بيانات نصية بسيطة
+            (وصف مختبر، اسم أستاذ) ولا فيها ربط أعمق (كل عضو هيئة تدريس بمواد
+            محددة مثلاً)؟
+          </div>
+        </section>
+
+        <!-- ===== إعدادات Matching ===== -->
+        <!-- المصدر: universities.min_recommendation_match (من المايجريشن المقترحة) -->
+        <section class="settings-section settings-panel" id="panelMatching">
+          <div class="settings-section-title">
+            إعدادات Matching
+            <span class="section-hint">universities.min_recommendation_match</span>
+          </div>
+          <div class="matching-slider-box">
+            <label style="font-weight:700;color:var(--navy);display:block;margin-bottom:.25rem;">
+              حد أدنى لنسبة التوافق قبل ظهور التخصص كتوصية للطالب
+            </label>
+            <p class="field-hint" style="margin-bottom:.5rem;">
+              أي تخصص من تخصصات جامعتكم نسبة توافقه مع الطالب أقل من هاي النسبة،
+              ما رح يظهر إله كتوصية بنتيجة الاستبيان.
+            </p>
+            <span class="matching-slider-value" id="matchValue">50%</span>
+            <input type="range" id="matchSlider" min="0" max="100" step="5" value="50">
+            <div class="matching-slider-labels"><span>0% (كل التوصيات تظهر)</span><span>100% (توافق تام بس)</span></div>
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button type="button" class="btn-cancel-outline" onclick="window.location.href='settings-dashboard.html'">إلغاء</button>
+          <button type="submit" class="btn-save-primary">حفظ التغييرات</button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </main>
+</div>
+
+<div id="admin-footer-slot"></div>
+<script src="../../js/admin-shell.js"></script>
+
+<script>
+  (function() {
+    'use strict';
+
+    var stepperItems = document.querySelectorAll('.stepper-item-settings');
+    var panels = document.querySelectorAll('.settings-panel');
+    function showPanel(targetId) {
+      panels.forEach(function(p) { p.classList.toggle('active-panel', p.id === targetId); });
+      stepperItems.forEach(function(i) { i.classList.toggle('active', i.dataset.target === targetId); });
+    }
+    stepperItems.forEach(function(item) {
+      item.addEventListener('click', function() { showPanel(item.dataset.target); });
+    });
+
+    // ===== بيانات وهمية =====
+    var MOCK_FACULTIES = [
+      { name: 'كلية الهندسة وتكنولوجيا المعلومات', departments: 4, majors: 5 },
+      { name: 'كلية العلوم', departments: 3, majors: 4 },
+      { name: 'كلية إدارة الأعمال والاقتصاد', departments: 2, majors: 4 },
+    ];
+    var MOCK_MAJORS = [
+      { name: 'هندسة البرمجيات', faculty: 'كلية الهندسة وتكنولوجيا المعلومات', minScore: 85 },
+      { name: 'علوم الحاسوب', faculty: 'كلية الهندسة وتكنولوجيا المعلومات', minScore: 80 },
+      { name: 'إدارة الأعمال', faculty: 'كلية إدارة الأعمال والاقتصاد', minScore: 70 },
+    ];
+
+    var facultiesBody = document.getElementById('facultiesBody');
+    MOCK_FACULTIES.forEach(function(f) {
+      facultiesBody.innerHTML += '<tr><td><strong>' + f.name + '</strong></td><td>' + f.departments + '</td><td>' + f.majors + '</td><td><button type="button" class="row-action-btn">تعديل</button></td></tr>';
+    });
+
+    var majorsBody = document.getElementById('majorsBody');
+    MOCK_MAJORS.forEach(function(m) {
+      majorsBody.innerHTML += '<tr><td><strong>' + m.name + '</strong></td><td>' + m.faculty + '</td><td>' + m.minScore + '%</td><td><button type="button" class="row-action-btn">تعديل</button> <button type="button" class="row-action-btn danger">حذف</button></td></tr>';
+    });
+
+    var plansBody = document.getElementById('plansBody');
+    MOCK_MAJORS.forEach(function(m) {
+      plansBody.innerHTML += '<tr><td><strong>' + m.name + '</strong></td><td>✓ مرفوعة</td><td><button type="button" class="row-action-btn">استبدال الملف</button></td></tr>';
+    });
+
+    // ===== Matching slider =====
+    var slider = document.getElementById('matchSlider');
+    var valueEl = document.getElementById('matchValue');
+    slider.addEventListener('input', function() {
+      valueEl.textContent = this.value + '%';
+    });
+
+    document.getElementById('academicForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('محاكاة محلية — لسا ما فيه ربط فعلي بالـ API.');
+    });
+
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تفاصيل الجامعة — NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
+<link href="../css/university-details.css" rel="stylesheet">
+<link href="../css/footer.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<script src="../js/header-index.js"></script>
+
+<!-- ======================= HERO / COVER & HERO CARD ======================= -->
+<div class="uni-hero-wrapper">
+  
+  <!-- BACK LINK BUTTON (Top Left Overlay) -->
+  <div class="back-link-overlay">
+    <a href="universities.html" class="back-link-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      الرجوع لكل الجامعات
+    </a>
+  </div>
+
+  <!-- COVER IMAGE -->
+  <div class="uni-cover">
+    <div class="cover-img">
+      <img id="uniCoverImg" src="" alt="غلاف الجامعة" class="cover-img-real" style="display:none;">
+    </div>
+  </div>
+
+  <!-- HERO INFO CARD (LOGO + TITLE + STATS) -->
+  <div class="hero-card-container">
+    <div class="hero-card">
+      
+      <!-- LOGO -->
+      <div class="uni-logo-box">
+        <img id="uniLogo" src="" alt="شعار الجامعة" class="uni-logo-img" style="display:none;">
+        <svg id="uniLogoFallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+      </div>
+
+      <!-- TEXT / META -->
+      <div class="hero-card-text">
+        <h1 id="uniName">جارٍ التحميل...</h1>
+        <div class="uni-meta">
+          <span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="uniLocation">—</span>
+          </span>
+          <span id="uniWebsiteRow" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+            <a id="uniWebsiteLink" href="#" target="_blank" rel="noopener">www.najah.edu</a>
+          </span>
+        </div>
+      </div>
+
+      <!-- STATS BOXES INSIDE HERO CARD -->
+      <div class="hero-stats-group">
+        <div class="stat-item">
+          <div class="stat-icon-bg purple-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5m-4 0h4"/></svg>
+          </div>
+          <b id="statDeanships">—</b>
+          <span>كلية</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon-bg blue-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+          </div>
+          <b id="statMajors">—</b>
+          <span>تخصص</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon-bg green-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <b id="statStudents">—</b>
+          <span>طالب</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ======================= TABS BAR ======================= -->
+<div class="tabs-container" id="tabsContainer">
+  <div class="uni-tabs" role="tablist">
+    <button class="uni-tab active" data-tab="about" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        الجامعة
+    </button>
+    <button class="uni-tab" data-tab="deanships" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"/></svg>
+      العمادات 
+    </button>
+    <button class="uni-tab" data-tab="majors" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/></svg>
+      التخصصات
+    </button>
+    <button class="uni-tab" data-tab="news" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/></svg>
+      الأخبار
+    </button>
+    <button class="uni-tab" data-tab="contact" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      التواصل
+    </button>
+  </div>
+</div>
+
+<!-- ======================= CONTENT PANELS ======================= -->
+<div class="uni-content" id="uniContent">
+
+  <!-- ---- نبذة عن الجامعة ---- -->
+  <div class="uni-panel" data-panel="about">
+    <div class="about-layout">
+      
+      <!-- العمود الأيمن (الرئيسي) -->
+      <div class="about-main-card">
+        <h3 class="section-title">نبذة عن الجامعة</h3>
+        <p id="uniDescription" class="about-desc-text">جارٍ التحميل...</p>
+
+        <!-- الرؤية والرسالة -->
+        <div class="vision-card-styled" id="uniVisionSection" style="display:none;">
+          <div class="vision-header">
+            <span class="vision-title">الرؤية والرسالة</span>
+            <div class="vision-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
+            </div>
+          </div>
+          <p id="uniVisionMission" class="vision-text"></p>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="uni-cta-row">
+          <button class="uni-tab-jump btn-outline-contact" data-jump="contact" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.62a16 16 0 0 0 6 6l1.19-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg>
+            تواصل معنا
+          </button>
+          <a href="quiz.html" class="btn-primary-match">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+            اعرف نسبة توافقك مع الجامعة
+          </a>
+        </div>
+      </div>
+
+      <!-- العمود الأيسر (معلومات سريعة) -->
+      <div class="quick-facts-card">
+        <h3>معلومات سريعة</h3>
+        <div class="fact-list">
+          <div class="fact-item">
+            <div class="fact-label-group">
+              <span class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6M4 14l6-6 2 2M2 5h12M7 2v3M22 22l-5-10-5 10M14 18h6"/></svg></span>
+              <span>لغة الدراسة</span>
+            </div>
+            <span class="fact-value">عربي / إنجليزي</span>
+          </div>
+          
+          <div class="fact-item">
+            <div class="fact-label-group">
+              <span class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"/></svg></span>
+              <span>نوع القطاع</span>
+            </div>
+            <span class="fact-value" id="factSectorValue">حكومية</span>
+          </div>
+
+          <div class="fact-item">
+            <div class="fact-label-group">
+              <span class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+              <span>عدد الكليات</span>
+            </div>
+            <span class="fact-value" id="uniDeanshipsCount">12</span>
+          </div>
+
+          <div class="fact-item">
+            <div class="fact-label-group">
+              <span class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <span>الموقع</span>
+            </div>
+            <span class="fact-value" id="factLocationValue">نابلس</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ---- العمادات والكليات ---- -->
+  <div class="uni-panel" data-panel="deanships" style="display:none;">
+    <div class="deanships-grid" id="deanshipsGrid">
+      <div class="no-results">جارٍ التحميل...</div>
+    </div>
+  </div>
+
+  <!-- ---- التخصصات ---- -->
+  <div class="uni-panel" data-panel="majors" style="display:none;">
+    <div class="majors-toolbar">
+      <input type="text" id="majorSearch" placeholder="ابحثي عن تخصص...">
+      <span class="majors-count" id="majorsCount">6 تخصصات</span>
+    </div>
+    <div class="majors-grid" id="majorsGrid">
+      <a href="specialization-detail.html" class="major-card" data-name="علوم الحاسوب"><h4>علوم الحاسوب</h4><div class="major-college">كلية الهندسة وتكنولوجيا المعلومات</div></a>
+      <div class="major-card" data-name="هندسة البرمجيات"><h4>هندسة البرمجيات</h4><div class="major-college">كلية الهندسة وتكنولوجيا المعلومات</div></div>
+      <div class="major-card" data-name="إدارة الأعمال"><h4>إدارة الأعمال</h4><div class="major-college">كلية الاقتصاد والعلوم الإدارية</div></div>
+      <div class="major-card" data-name="الطب البشري"><h4>الطب البشري</h4><div class="major-college">كلية الطب والعلوم الصحية</div></div>
+      <div class="major-card" data-name="القانون"><h4>القانون</h4><div class="major-college">كلية الشريعة والقانون</div></div>
+      <div class="major-card" data-name="اللغة العربية"><h4>اللغة العربية وآدابها</h4><div class="major-college">كلية الآداب</div></div>
+    </div>
+  </div>
+
+  <!-- ---- الأخبار ---- -->
+  <div class="uni-panel" data-panel="news" style="display:none;">
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-thumb">
+          <img src="https://picsum.photos/id/24/600/400" alt="تسجيل" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="news-body">
+          <div class="news-date">10 يوليو 2026</div>
+          <h4>فتح باب التسجيل للفصل الدراسي القادم</h4>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-thumb">
+          <img src="https://picsum.photos/id/20/600/400" alt="منح" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="news-body">
+          <div class="news-date">2 يوليو 2026</div>
+          <h4>إطلاق منح دراسية جديدة للطلبة المتفوقين</h4>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-thumb">
+          <img src="https://picsum.photos/id/0/600/400" alt="مختبر" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="news-body">
+          <div class="news-date">28 يونيو 2026</div>
+          <h4>افتتاح مختبر جديد لكلية الهندسة</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---- التواصل ---- -->
+  <div class="uni-panel" data-panel="contact" style="display:none;">
+    <div class="contact-grid">
+      <div class="contact-box">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>
+        <div><div class="c-label">الموقع الإلكتروني</div><div class="c-value" id="contactWebsite">غير متوفر</div></div>
+      </div>
+      <div class="contact-box">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="c-label">العنوان</div><div class="c-value" id="contactLocation">—</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======================= NAFETHA MONBATHEQA (Generic Modal) للعمادات والتخصصات ======================= -->
+<div class="modal-overlay" id="genericModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">العنوان</h3>
+      <button class="modal-close" id="modalCloseBtn" type="button" aria-label="إغلاق">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid" id="modalGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= FOOTER ======================= -->
+<script src="../js/footer-index.js"></script>
+
+<script>
+const USE_MOCK_DATA = true;
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const ASSETS_BASE = '../assets/universities';
+
+// عدد العناصر اللي تظهر مباشرة قبل ما يطلع زر "شاهد المزيد"
+const DEANSHIPS_PREVIEW_LIMIT = 2;
+const MAJORS_PREVIEW_LIMIT = 4;
+
+const MOCK_UNIVERSITY_DETAILS = {
+  1: {
+    name: 'جامعة النجاح الوطنية',
+    location: 'نابلس، فلسطين',
+    sector: 'حكومية',
+    students_count: 22000,
+    majors_count: 74,
+    deanships_count: 12,
+    description: 'جامعة النجاح الوطنية من أعرق وأكبر الجامعات الفلسطينية، تأسست سنة 1918 وتضم عشرات الكليات والبرامج الأكاديمية على مستوى البكالوريوس والدراسات العليا.',
+    vision_mission: 'الريادة والتميز بالتعليم والبحث العلمي خدمةً للمجتمع الفلسطيني.',
+    website_url: 'https://www.najah.edu',
+    deanships_faculties: [
+      { 
+        id: 1, 
+        type: 'faculty', 
+        name: 'كلية الهندسة وتكنولوجيا المعلومات', 
+        description: 'برامج بالحاسوب والهندسة والاتصالات.', 
+        dean_name: 'د. أحمد سلامة', 
+        email: 'eng@najah.edu', 
+        cover_image: 'https://picsum.photos/id/1/600/400' 
+      },
+      { 
+        id: 2, 
+        type: 'faculty', 
+        name: 'كلية الطب والعلوم الصحية', 
+        description: 'برامج الطب والتمريض والصيدلة.', 
+        dean_name: 'د. ليلى حمدان', 
+        email: 'medicine@najah.edu', 
+        cover_image: 'https://picsum.photos/id/1050/600/400' 
+      },
+      { 
+        id: 3, 
+        type: 'faculty', 
+        name: 'كلية الاقتصاد والعلوم الإدارية', 
+        description: 'برامج إدارة الأعمال والمحاسبة والاقتصاد.', 
+        dean_name: 'د. سامر عودة', 
+        email: 'business@najah.edu', 
+        cover_image: 'https://picsum.photos/id/1070/600/400' 
+      },
+    ],
+  },
+};
+
+function getFallbackMockUniversity(id) {
+  return {
+    name: 'جامعة تجريبية #' + id,
+    location: 'فلسطين',
+    sector: 'حكومية',
+    students_count: 5000,
+    majors_count: 20,
+    deanships_count: 4,
+    description: 'بيانات تجريبية لعرض واجهة الصفحة.',
+    vision_mission: 'رؤية تجريبية.',
+    website_url: 'https://example.com',
+    deanships_faculties: [],
+  };
+}
+
+const tabs = document.querySelectorAll('.uni-tab');
+const panels = document.querySelectorAll('.uni-panel');
+
+function activateTab(target){
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === target));
+  panels.forEach(p => { p.style.display = (p.dataset.panel === target) ? 'block' : 'none'; });
+
+  const tabsContainer = document.getElementById('tabsContainer');
+  if (tabsContainer) {
+    const offset = 20;
+    const bodyRect = document.body.getBoundingClientRect().top;
+    const elementRect = tabsContainer.getBoundingClientRect().top;
+    const elementPosition = elementRect - bodyRect;
+    const offsetPosition = elementPosition - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+}
+
+tabs.forEach(tab => tab.addEventListener('click', () => activateTab(tab.dataset.tab)));
+document.querySelectorAll('.uni-tab-jump').forEach(btn => {
+  btn.addEventListener('click', () => activateTab(btn.dataset.jump));
+});
+
+function getUniversityIdFromUrl() {
+  return new URLSearchParams(window.location.search).get('id') || '1';
+}
+
+function formatCount(n) {
+  if (n === null || n === undefined) return '—';
+  if (n >= 1000) return '+' + Math.round(n / 1000) + 'K';
+  return String(n);
+}
+
+function renderDeanshipCard(d) {
+  return `
+    <div class="deanship-card" data-deanship-id="${d.id}">
+      <div class="deanship-cover">
+        <img src="${d.cover_image || ''}" alt="" ${d.cover_image ? '' : 'style="display:none;"'}>
+      </div>
+      <div class="deanship-body">
+        <span class="deanship-type-badge">${d.type === 'faculty' ? 'كلية' : 'عمادة'}</span>
+        <h4>${d.name}</h4>
+        <p class="deanship-desc">${d.description || 'ما في وصف متوفر.'}</p>
+        <div class="deanship-meta">
+          <span>${d.dean_name || '—'}</span>
+          <span>${d.email || '—'}</span>
+        </div>
+        <button class="btn-view-majors" type="button">عرض التخصصات التابعة</button>
+      </div>
+    </div>`;
+}
+
+/* ======================= منطق النافذة المنبثقة (Modal) ======================= */
+const genericModal = document.getElementById('genericModal');
+const modalTitleEl = document.getElementById('modalTitle');
+const modalGridEl = document.getElementById('modalGrid');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+function openModal(title, itemsHTML) {
+  modalTitleEl.textContent = title;
+  modalGridEl.innerHTML = itemsHTML;
+  genericModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  genericModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+modalCloseBtn.addEventListener('click', closeModal);
+genericModal.addEventListener('click', (e) => {
+  if (e.target === genericModal) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+/**
+ * تعرض أول N عنصر من شبكة معينة، وتخفي الباقي، وتضيف زر "شاهد المزيد"
+ * بعرض كامل يفتح نافذة منبثقة فيها كل العناصر.
+ * containerId : id العنصر الحاوي (الشبكة)
+ * itemSelector: سيلكتور الكروت جوا الشبكة (مثلاً '.deanship-card')
+ * limit       : عدد العناصر اللي تظهر مباشرة
+ * modalTitle  : عنوان النافذة المنبثقة
+ */
+function setupShowMore(containerId, itemSelector, limit, modalTitle) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  // نشيل أي زر "شاهد المزيد" قديم (بحالة إعادة رسم الشبكة)
+  const oldBtn = container.querySelector('.show-more-btn');
+  if (oldBtn) oldBtn.remove();
+
+  const items = Array.from(container.querySelectorAll(itemSelector));
+  if (!items.length) return;
+
+  items.forEach((item, idx) => {
+    item.style.display = idx < limit ? '' : 'none';
+  });
+
+  if (items.length > limit) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'show-more-btn';
+    btn.textContent = `شاهد المزيد (${items.length - limit}+)`;
+    btn.addEventListener('click', () => {
+      const wrapper = document.createElement('div');
+      items.forEach(item => wrapper.appendChild(item.cloneNode(true)));
+      openModal(modalTitle, wrapper.innerHTML);
+    });
+    container.appendChild(btn);
+  }
+}
+
+/* ======================= ربط زر "عرض التخصصات التابعة" داخل كل كرت كلية/عمادة بالتخصصات الخاصة فيها ======================= */
+// استخدمنا event delegation لأن كروت العمادات بتترسم ديناميكيًا (innerHTML) بعد التحميل
+document.getElementById('deanshipsGrid').addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn-view-majors');
+  if (!btn) return;
+
+  const card = btn.closest('.deanship-card');
+  if (!card) return;
+
+  const collegeName = card.querySelector('h4').textContent.trim();
+
+  const allMajors = Array.from(document.querySelectorAll('#majorsGrid .major-card'));
+  const matched = allMajors.filter(m => {
+    const collegeEl = m.querySelector('.major-college');
+    return collegeEl && collegeEl.textContent.trim() === collegeName;
+  });
+
+  const wrapper = document.createElement('div');
+  if (matched.length) {
+    matched.forEach(m => wrapper.appendChild(m.cloneNode(true)));
+  } else {
+    wrapper.innerHTML = '<div class="no-results">ما في تخصصات مضافة لهاي الكلية حالياً.</div>';
+  }
+
+  openModal(`تخصصات ${collegeName}`, wrapper.innerHTML);
+});
+
+async function loadUniversityDetails() {
+  const id = getUniversityIdFromUrl();
+  let uni = USE_MOCK_DATA ? (MOCK_UNIVERSITY_DETAILS[id] || getFallbackMockUniversity(id)) : null;
+
+  if (!USE_MOCK_DATA) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/universities/${id}`);
+      const result = await response.json();
+      if (response.ok && result.status === 'success') uni = result.data;
+    } catch (err) { console.error(err); }
+  }
+
+  if (uni) renderUniversityDetails(uni, id);
+
+  // التخصصات ثابتة بالـ HTML، فمنفعّل زر "شاهد المزيد" فيها مباشرة
+  setupShowMore('majorsGrid', '.major-card', MAJORS_PREVIEW_LIMIT, 'كل التخصصات');
+}
+
+function renderUniversityDetails(uni, id) {
+  document.title = `${uni.name} — NextStep AI`;
+  document.getElementById('uniName').textContent = uni.name;
+  document.getElementById('uniDescription').textContent = uni.description || 'ما في وصف متوفر حالياً.';
+  document.getElementById('uniLocation').textContent = uni.location || 'غير محدد';
+  document.getElementById('factLocationValue').textContent = uni.location || 'غير محدد';
+  document.getElementById('factSectorValue').textContent = uni.sector || 'حكومية';
+
+  if (uni.vision_mission) {
+    document.getElementById('uniVisionMission').textContent = uni.vision_mission;
+    document.getElementById('uniVisionSection').style.display = 'block';
+  }
+
+  if (uni.website_url) {
+    const link = document.getElementById('uniWebsiteLink');
+    link.href = uni.website_url;
+    link.textContent = uni.website_url.replace(/^https?:\/\//, '');
+    document.getElementById('uniWebsiteRow').style.display = 'inline-flex';
+    document.getElementById('contactWebsite').textContent = uni.website_url;
+  }
+
+  document.getElementById('statDeanships').textContent = uni.deanships_count ?? 0;
+  document.getElementById('statMajors').textContent = uni.majors_count ?? 0;
+  document.getElementById('statStudents').textContent = formatCount(uni.students_count);
+  document.getElementById('uniDeanshipsCount').textContent = uni.deanships_count ?? 0;
+
+  // بناء المسار المباشر لمجلد صور الجامعة
+  const universityAssetsFolder = `${ASSETS_BASE}/${id}`;
+
+  // 1. ضبط صورة الغلاف
+  const coverImg = document.getElementById('uniCoverImg');
+  if (coverImg) {
+    coverImg.src = `${universityAssetsFolder}/cover.jpg`;
+    coverImg.style.display = 'block';
+    
+    // إذا لم تكن صورة الغلاف موجودة يتم إخفاء العنصر
+    coverImg.onerror = () => {
+      coverImg.style.display = 'none';
+    };
+  }
+
+  // 2. ضبط اللوجو
+  const logoImg = document.getElementById('uniLogo');
+  const logoFallback = document.getElementById('uniLogoFallback');
+  if (logoImg) {
+    logoImg.src = `${universityAssetsFolder}/logo.png`;
+    logoImg.style.display = 'block';
+    if (logoFallback) logoFallback.style.display = 'none';
+
+    // إذا لم يجد صورة اللوجو يظهر الأيقونة الاحتياطية (Fallback SVG)
+    logoImg.onerror = () => {
+      logoImg.style.display = 'none';
+      if (logoFallback) logoFallback.style.display = 'block';
+    };
+  }
+
+  const deanships = uni.deanships_faculties || [];
+  const grid = document.getElementById('deanshipsGrid');
+  grid.innerHTML = deanships.length ? deanships.map(renderDeanshipCard).join('') : '<div class="no-results">ما في كليات مضافة حالياً.</div>';
+
+  // نفعّل زر "شاهد المزيد" على شبكة العمادات بعد ما نعبيها
+  setupShowMore('deanshipsGrid', '.deanship-card', DEANSHIPS_PREVIEW_LIMIT, 'كل العمادات والكليات');
+}
+
+loadUniversityDetails();
+</script>
+</body>
+</html>

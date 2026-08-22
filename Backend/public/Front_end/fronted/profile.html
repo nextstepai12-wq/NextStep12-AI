@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الملف الشخصي — NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
+<link href="../css/profile.css" rel="stylesheet">
+<link href="../css/footer.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+
+<script src="../js/header-index.js"></script>
+
+<!-- ======================= PROFILE ======================= -->
+<div class="profile-wrap">
+  <div class="profile-inner">
+
+    <div class="profile-layout">
+
+      <!-- Sidebar -->
+      <div class="profile-side">
+        <div class="side-avatar">لم</div>
+        <div class="side-name">لمى محضون</div>
+        <div class="side-role">طالبة — علوم الحاسوب</div>
+
+        <nav class="side-menu">
+          <a href="results.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/></svg>
+            نسبة التوافق
+          </a>
+          <a href="study-plan.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+            الخطة الدراسية
+          </a>
+          <a href="profile.html" class="active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+            الملف الشخصي
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            الإشعارات
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            الإعدادات
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 12h6M9 16h6M9 8h1"/></svg>
+            السيرة الذاتية
+          </a>
+
+          <div class="menu-divider"></div>
+
+          <button class="logout-btn" id="btnLogout" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+            تسجيل الخروج
+          </button>
+        </nav>
+      </div>
+
+      <!-- Main content -->
+      <div class="profile-main">
+
+        <div class="profile-card">
+          <div class="profile-card-head">
+            <div class="big-avatar" id="profileInitials">لم</div>
+            <div>
+              <!-- users.name -->
+              <h2 id="profileName" data-field="name">لمى محضون</h2>
+              <!-- users.created_at -->
+              <p>طالبة مسجّلة على NextStep AI منذ <span id="profileJoinDate" data-field="created_at">يوليو 2026</span></p>
+            </div>
+          </div>
+
+          <!--
+            ======================= بيانات مشتركة (كل الطلاب) =======================
+            كل عمود هون موجود فعلياً بجدول student_profiles أو users
+          -->
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">البريد الإلكتروني</div>
+              <div class="info-value" data-field="email">student@email.com</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">رقم الهاتف</div>
+              <div class="info-value" data-field="phone">0599999999</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">المدينة</div>
+              <div class="info-value" data-field="city">نابلس</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">تاريخ الميلاد</div>
+              <div class="info-value" data-field="birth_date">2005-03-14</div>
+            </div>
+          </div>
+
+          <!--
+            ======================= طالب جديد (student_type = new_student) =======================
+            يظهر بس لو student_profiles.student_type = 'new_student'
+            هاي القيم عينة/تجريبية، بتنعبى فعلياً من الـ API
+          -->
+          <div class="info-grid track-section" data-show-for="new_student">
+            <div class="info-item">
+              <div class="info-label">معدل الثانوية</div>
+              <div class="info-value" data-field="high_school_score">92.5</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">الفرع الدراسي</div>
+              <!-- ملاحظة: high_school_branch_id رقم بالجدول، لازم الـ API يرجع اسم الفرع
+                   مش الرقم (عن طريق join مع جدول high_school_branches) -->
+              <div class="info-value" data-field="high_school_branch_name">علمي</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">سنة التخرج من الثانوية</div>
+              <div class="info-value" data-field="graduation_year">2025</div>
+            </div>
+          </div>
+
+          <!--
+            ======================= طالب جامعي (student_type = university_student) =======================
+            يظهر بس لو student_profiles.student_type = 'university_student'
+          -->
+          <div class="info-grid track-section" data-show-for="university_student" style="display:none;">
+            <div class="info-item">
+              <div class="info-label">الجامعة</div>
+              <!-- current_university_id رقم، لازم الـ API يرجع اسم الجامعة (join مع universities) -->
+              <div class="info-value" data-field="current_university_name">جامعة النجاح الوطنية</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">التخصص</div>
+              <!-- current_major_id رقم، لازم الـ API يرجع اسم التخصص (join مع majors) -->
+              <div class="info-value" data-field="current_major_name">علوم الحاسوب</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">السنة الدراسية</div>
+              <div class="info-value" data-field="academic_level">السنة الثانية</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">المعدل التراكمي (GPA)</div>
+              <div class="info-value" data-field="gpa">3.20</div>
+            </div>
+          </div>
+
+          <!--
+            "الميول الأكاديمية" — معدّلة لتُقرأ من جدول حقيقي (مش "مهارات" مخترعة):
+            student_academic_interests (وسيط) + academic_interests (الاسم)
+            كل واحدة هون = صف بجدول student_academic_interests لهاد الطالب
+          -->
+          <div class="skills-label">الميول الأكاديمية</div>
+          <div class="skills-row" id="interestsRow">
+            <!-- مثال — كرري عنصر زي هيك لكل صف من student_academic_interests -->
+            <span class="skill-tag" data-field="interest_name">تكنولوجيا المعلومات</span>
+            <span class="skill-tag" data-field="interest_name">الهندسة</span>
+          </div>
+        </div>
+
+        <div class="quick-stats">
+          <div class="qstat-card">
+            <div class="qstat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/></svg></div>
+            <div>
+              <!-- من recommendation_results.match_percentage (أعلى نتيجة موجودة للطالب) -->
+              <div class="qstat-value" data-field="top_match_percentage">94%</div>
+              <div class="qstat-label">نسبة التوافق مع أفضل تخصص</div>
+            </div>
+          </div>
+          <div class="qstat-card">
+            <div class="qstat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></div>
+            <div>
+              <!-- عدد صفوف recommendation_results الخاصة بهاد الطالب -->
+              <div class="qstat-value" data-field="recommendations_count">1</div>
+              <div class="qstat-label">اختبار مكتمل</div>
+            </div>
+          </div>
+          <div class="qstat-card">
+            <div class="qstat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
+            <div>
+              <!-- من majors.total_credit_hours (تخصص current_major_id).
+                   ما منعرض "المكتمل" لأنه ما في جدول يتتبع ساعات مكتملة فعلياً -->
+              <div class="qstat-value" data-field="total_credit_hours">140</div>
+              <div class="qstat-label">إجمالي الساعات المطلوبة للتخرج</div>
+            </div>
+          </div>
+        </div>
+        <!--
+          ⚠️ TODO للفريق: "الساعات المكتملة فعلياً" (كانت 45/140 قبل) محتاجة
+          جدول تسجيل مساقات (courses/enrollments) — مش موجود حالياً.
+          نفس القرار المطلوب لصفحة study-plan.html بالكامل.
+        -->
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======================= FOOTER ======================= -->
+<script src="../js/footer-index.js"></script>
+
+<script>
+document.getElementById('btnLogout').addEventListener('click', () => {
+  window.location.href = '../index.html';
+});
+
+/*
+  TODO لما يجهز API الطالب (GET /api/user مثلاً):
+  استبدلي هاد بمنطق فعلي: بعد جلب بيانات الطالب، خدي profile.student_type
+  وشغّلي showTrackSection(profile.student_type) عشان يبين القسم الصح بس.
+*/
+function showTrackSection(trackValue) {
+  document.querySelectorAll('.track-section').forEach(section => {
+    section.style.display = (section.dataset.showFor === trackValue) ? 'grid' : 'none';
+  });
+}
+</script>
+
+<script src="../js/include-partials.js"></script>
+</body>
+</html>

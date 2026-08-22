@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نتائج الاستبيان — NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
+<link href="../css/results.css" rel="stylesheet">
+<link href="../css/footer.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<script src="../js/header-index.js"></script>
+
+<!-- ======================= RESULTS ======================= -->
+<div class="results-wrap">
+  <div class="results-inner">
+
+    <div class="results-head">
+      <span class="results-eyebrow">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+        تم تحليل إجاباتك
+      </span>
+      <h1>هذه نتيجة الاختبار التي تناسبك</h1>
+      <p>بناءً على إجاباتك على الاستبيان الذكي، حللنا ميولك ومهاراتك ولقينالك أقرب التخصصات والجامعات المناسبة لك</p>
+    </div>
+
+    <!-- Top match: main recommended major -->
+    <div class="top-match">
+      <div class="top-match-info">
+        <span class="top-match-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 2l9 4.5-9 4.5-9-4.5 9-4.5z"/><path d="M3 6.5v6c0 2.5 4 4.5 9 4.5s9-2 9-4.5v-6"/></svg>
+          التخصص الأول المقترح
+        </span>
+        <div class="top-match-name">علوم الحاسوب</div>
+        <p class="top-match-desc">تخصص يناسب تفكيرك المنطقي وشغفك بحل المشاكل باستخدام التكنولوجيا، وفيه فرص عمل واسعة ومتنوعة.</p>
+      </div>
+      <div class="match-circle">
+        <div class="pct">94<span>%</span></div>
+        <div class="pct-label">نسبة التوافق</div>
+      </div>
+    </div>
+
+    <!-- University compatibility -->
+    <div class="section-title"><span class="dot"></span>نسبة التوافق مع الجامعة</div>
+    <div class="uni-grid">
+
+      <div class="uni-card">
+        <div class="uni-icon tier-high-bg" style="background:rgba(72,230,176,0.14);color:var(--mint);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+        </div>
+        <div class="uni-pct tier-high">92<span>%</span></div>
+        <div class="uni-bar"><div class="uni-bar-fill tier-high-bg" style="width:92%;"></div></div>
+        <div class="uni-name">جامعة النجاح الوطنية</div>
+        <div class="uni-tier-label tier-high">توافق عالي</div>
+      </div>
+
+      <div class="uni-card">
+        <div class="uni-icon" style="background:rgba(47,107,255,0.1);color:var(--blue);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+        </div>
+        <div class="uni-pct tier-good">68<span>%</span></div>
+        <div class="uni-bar"><div class="uni-bar-fill tier-good-bg" style="width:68%;"></div></div>
+        <div class="uni-name">الجامعة الإسلامية</div>
+        <div class="uni-tier-label tier-good">توافق جيد</div>
+      </div>
+
+      <div class="uni-card">
+        <div class="uni-icon" style="background:rgba(245,166,35,0.12);color:var(--orange);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+        </div>
+        <div class="uni-pct tier-medium">45<span>%</span></div>
+        <div class="uni-bar"><div class="uni-bar-fill tier-medium-bg" style="width:45%;"></div></div>
+        <div class="uni-name">جامعة الأزهر</div>
+        <div class="uni-tier-label tier-medium">توافق متوسط</div>
+      </div>
+
+    </div>
+
+    <!-- Other suggested majors -->
+    <div class="section-title"><span class="dot"></span>تخصصات أخرى تناسبك</div>
+    <div class="majors-card">
+      <div class="majors-list">
+        <span class="major-chip">
+          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+          الذكاء الاصطناعي
+        </span>
+        <span class="major-chip">
+          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+          الأمن السيبراني
+        </span>
+        <span class="major-chip">
+          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+          هندسة الحاسوب
+        </span>
+        <span class="major-chip">
+          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+          علم البيانات
+        </span>
+        <span class="major-chip">
+          <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+          نظم المعلومات
+        </span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="results-actions">
+      <a href="quiz.html" class="btn-retake">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        إعادة الاختبار
+      </a>
+      <a href="student-signup.html" class="btn-continue">
+        تابع وأنشئ حسابك
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======================= FOOTER ======================= -->
+<script src="../js/footer-index.js"></script>
+
+</body>
+</html>

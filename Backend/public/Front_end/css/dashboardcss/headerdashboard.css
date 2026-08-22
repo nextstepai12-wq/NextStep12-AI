@@ -1,0 +1,242 @@
+/* =====================================================================
+   header.css
+   الهيدر الموحّد لكل صفحات الموقع — المصدر الوحيد لتنسيقات الهيدر
+   يعتمد على المتغيرات في app.css — حمّل app.css قبله
+   ===================================================================== */
+
+header.site-header{
+  position:fixed;
+  inset-block-start:0;
+  inset-inline:0;
+  width:100%;
+  z-index:1000;
+  background:transparent;
+  border-bottom:none;
+  direction:ltr;
+  padding-block:0.25rem;
+  backdrop-filter:none;
+  box-shadow:none;
+  opacity:0;
+  transform:translateY(-14px);
+  transition:opacity .35s ease, transform .35s ease;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+/* عند السكرول: الهيدر الشفاف (بصفحات زي الرئيسية) بيرجع static بدل fixed.
+   ملاحظة: صفحات auth (login/signup...) عندها استثناء خاص محدد بـ auth.css
+   عبر .site-header.header-solid.scrolled (specificity أعلى)، فبيضل fixed هناك فقط. */
+header.site-header.scrolled{
+  position: static !important;
+  transform: none;
+  box-shadow: none;
+  background: transparent;
+  padding-block: 0.35rem;
+  border-color: transparent;
+}
+header.site-header.ready{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* فاصل يمنع تغطية المحتوى — الارتفاع يُحدَّث ديناميكياً عبر header.js */
+.header-spacer{
+  height:var(--header-height, 6rem);
+  flex-shrink:0;
+}
+
+.nav-inner{
+  max-width:1520px;
+  margin:0 auto;
+  padding:0.85rem 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1.5rem;
+  direction:ltr;
+  position:relative;
+  z-index:1;
+}
+
+.brand-mark{
+  display:flex;
+  align-items:center;
+  gap:0.625rem;
+  padding-inline-start:0.25rem;
+  flex-shrink:0;
+}
+.brand-mark .brand-logo{
+  width:5.125rem;
+  height:5.125rem;
+  object-fit:contain;
+  flex-shrink:0;
+}
+.brand-mark .brand-text{
+  font-family:'Cairo',sans-serif;
+  font-weight:700;
+  font-size:clamp(1.5rem, 3vw, 2.5rem);
+  color:#ffffff;
+  transition:transform 0.3s ease;
+  display:flex;
+  align-items:center;
+  gap:0.25rem;
+  text-shadow:0 1px 3px rgba(0,0,0,0.28);
+}
+.brand-mark .brand-text span{color:var(--cyan);}
+brand-mark .brand-text:hover{transform:translateY(-0.35rem);}
+
+nav.main-nav ul{
+  display:flex;
+  gap:2.25rem;
+  font-size:18px;
+  font-weight:800;
+  color:#f7fbff;
+}
+nav.main-nav a{
+  position:relative;
+  transition:color .25s ease, transform .25s ease, text-shadow .25s ease;
+  padding-block:0.2rem;
+  
+}
+.main-nav ul li a:hover {
+    color: var(--cyan); /* يتغير للون السماوي من هويتك البصرية */
+    transform: translateY(-2px); /* حركة خفيفة للأعلى */
+}
+
+/* تأثير الضغط الفعلي على الرابط (Active/Click) */
+.main-nav ul li a:active {
+    transform: translateY(0); /* يعود لمكانه عند الضغط عليه */
+    opacity: 0.8;
+}
+
+/* تنسيق الصفحة الحالية (Active Class الموجودة في الـ HTML) */
+.main-nav ul li a.active {
+    color: var(--cyan);
+    font-weight: 700;
+}
+nav.main-nav a::after{
+  content:"";
+  position:absolute;
+  inset-inline-start:0;
+  inset-block-end:-0.25rem;
+  width:0;
+  height:2px;
+  background:transparent;
+  border-radius:999px;
+  transition:width .25s ease;
+}
+nav.main-nav a:hover,
+nav.main-nav a:focus-visible,
+nav.main-nav a.active{
+  color:#ffffff;
+  transform:translateY(-1px);
+  text-shadow:0 1px 3px rgba(0,0,0,0.25);
+}
+nav.main-nav a:hover::after,
+nav.main-nav a:focus-visible::after{width:100%;}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  flex-shrink:0;
+}
+
+.start-btn{
+  padding:0.5625rem 1.375rem;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  background-color:rgba(255,255,255,0.16);
+  color:#f7fbff;
+  border:1px solid rgba(255,255,255,0.22);
+  border:none;
+  font-size:18px;
+  font-weight:800;
+  cursor:pointer;
+  transition:background-color 0.2s ease, transform 0.2s ease;
+  font-family:'Cairo', sans-serif;
+}
+.start-btn:hover{
+  background-color:rgba(255,255,255,0.24);
+  transform:scale(1.02);
+}
+.start-btn svg{width:1.125rem;height:1.125rem;}
+
+.btn-signin{
+  padding:0.5625rem 1.375rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.24);
+  color:#ffffff;
+  background:linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
+  font-weight:800;
+  font-size:18px;
+  transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 12px 24px rgba(53, 208, 255, 0.24);
+}
+.btn-signin::before{
+  content:"";
+  position:absolute;
+  inset:-20% -30% auto auto;
+  width:160%;
+  height:180%;
+  background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.34) 45%, transparent 70%);
+  transform:translateX(-140%) rotate(10deg);
+  animation:btnWave 2.6s linear infinite;
+  pointer-events:none;
+}
+.btn-signin:hover,
+.btn-signin:focus-visible{
+  transform:translateY(-1px) scale(1.02);
+  box-shadow:0 16px 30px rgba(53, 208, 255, 0.32);
+  filter:brightness(1.04);
+}
+.btn-signin:active{
+  transform:translateY(0) scale(0.98);
+  filter:brightness(0.96);
+}
+
+@keyframes btnWave{
+  0% { transform:translateX(-140%) rotate(10deg); }
+  100% { transform:translateX(140%) rotate(10deg); }
+}
+
+/* زر الملف الشخصي في الهيدر (صفحات المستخدم المسجّل) */
+.nav-avatar-btn{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:5px 12px 5px 5px;
+  border-radius:999px;
+  border:1.5px solid var(--border);
+  background:#fff;
+  transition:border-color .2s ease;
+}
+.nav-avatar-btn:hover{border-color:rgba(15, 41, 75, 0.25);}
+.nav-avatar-btn .avatar-circle{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:var(--navy);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:800;
+  flex-shrink:0;
+}
+.nav-avatar-btn span{font-size:12.5px;font-weight:700;color:var(--navy);}
+
+@media (max-width:960px){
+  nav.main-nav{display:none;}
+}
+@media (max-width:560px){
+  .brand-mark .brand-logo{width:3.25rem;height:3.25rem;}
+  .brand-mark .brand-text{font-size:1.5rem;}
+  .header-spacer{height:5rem;}
+}

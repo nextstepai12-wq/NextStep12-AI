@@ -1,197 +1,458 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الإشعارات — لوحة تحكم الإدارة | NextStep AI</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="../../css/app.css">
-  <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
-  <link rel="stylesheet" href="../../css/dashboardcss/notifications.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإشعارات — NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
+<link href="../css/footer.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/student-dashboard.css">
+<link href="../css/notifications.css" rel="stylesheet">
 </head>
 <body>
 
-<header class="admin-topbar" id="adminTopbar"></header>
+<!-- ======================= HEADER ======================= -->
 
-<div class="admin-layout">
-  <aside class="admin-sidebar" id="adminSidebar"></aside>
+<!-- ======================= LAYOUT (Sidebar + Content) ======================= -->
+<div class="student-layout">
 
-  <main class="admin-main admin-main-content">
+  <aside class="student-sidebar">
+    <div class="student-sidebar-head">
+      <h3>بوابة الطالب</h3>
+      <p>مرحباً، أحمد 👋</p>
+    </div>
 
-    <!-- ===== PAGE HEADER ===== -->
-    <div class="admin-page-head">
-      <div>
+    <nav class="student-sidebar-nav">
+      <a href="../fronted/dashboard/settings-dashboard.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+          نظرة عامة
+        </span>
+      </a>
+      <a href="../profile.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          ملفي الشخصي
+        </span>
+      </a>
+      <a href="../quiz.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6"/>
+            <path d="M9 13h6"/>
+            <path d="M9 17h4"/>
+          </svg>
+          الاختبارات الذكية
+        </span>
+      </a>
+      <a href="recommendations.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          التوصيات
+        </span>
+      </a>
+      <a href="universities.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3L2 9l10 6 10-6-10-6z"/>
+            <path d="M2 15l10 6 10-6"/>
+            <path d="M2 21l10-6 10 6"/>
+          </svg>
+          الجامعات
+        </span>
+      </a>
+      <a href="study-plan.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          الخطة الدراسية
+        </span>
+      </a>
+      <a href="ai-assistant.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.27A7.01 7.01 0 0 1 14 23h-4a7.01 7.01 0 0 1-5.73-3H3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+            <circle cx="9" cy="15" r="1"/>
+            <circle cx="15" cy="15" r="1"/>
+            <path d="M9 19c.83.6 2 1 3 1s2.17-.4 3-1"/>
+          </svg>
+          المساعد الذكي
+        </span>
+      </a>
+      <a href="notifications.html" class="student-sidebar-link active">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          الإشعارات
+          <span class="sidebar-badge">5</span>
+        </span>
+      </a>
+      <a href="../student-settings.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          الإعدادات
+        </span>
+      </a>
+    </nav>
+
+    <button type="button" class="student-sidebar-cta" onclick="window.location.href='tests.html'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      ابدأ الاختبار الآن
+    </button>
+  </aside>
+
+  <!-- ======================= NOTIFICATIONS (CONTENT) ======================= -->
+  <div class="notif-wrap">
+    <div class="notif-inner">
+
+      <div class="notif-head">
+        <span class="notif-eyebrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          مركز الإشعارات
+        </span>
         <h1>الإشعارات</h1>
-        <p>جميع التنبيهات والإشعارات الصادرة من النظام.</p>
+        <p>كل التحديثات المتعلقة بخطتك، اختباراتك، وتوصيات الجامعات بمكان واحد</p>
       </div>
-      <div class="header-actions">
-        <button type="button" class="pill-btn" id="markAllReadBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+
+      <!-- Controls row -->
+      <div class="notif-controls-row">
+        <div class="notif-tabs" role="tablist">
+          <button class="notif-tab active" data-filter="all" type="button">الكل <span class="tab-count">12</span></button>
+          <button class="notif-tab" data-filter="unread" type="button">غير مقروءة <span class="tab-count">5</span></button>
+          <button class="notif-tab" data-filter="quiz" type="button">الاختبارات</button>
+          <button class="notif-tab" data-filter="reco" type="button">التوصيات</button>
+          <button class="notif-tab" data-filter="uni" type="button">الجامعات</button>
+          <button class="notif-tab" data-filter="system" type="button">النظام</button>
+        </div>
+        <button class="btn-mark-read" id="btnMarkRead" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
           تحديد الكل كمقروء
         </button>
-        <button type="button" class="pill-btn danger" id="clearAllBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          حذف الكل
-        </button>
       </div>
-    </div>
 
-    <!-- ===== TABS ===== -->
-    <div class="notif-tabs">
-      <button type="button" class="notif-tab active" data-filter="all">
-        الكل <span class="badge" id="countAll">0</span>
-      </button>
-      <button type="button" class="notif-tab" data-filter="unread">
-        غير المقروء <span class="badge" id="countUnread">0</span>
-      </button>
-    </div>
+      <!-- Day filter row -->
+      <div class="notif-day-filter" id="notifDayFilter" role="tablist">
+        <button class="day-filter-btn active" data-day="today" type="button">اليوم</button>
+        <button class="day-filter-btn" data-day="yesterday" type="button">أمس</button>
+        <button class="day-filter-btn" data-day="lastweek" type="button">الأسبوع الماضي</button>
+      </div>
 
-    <!-- ===== LIST ===== -->
-    <div class="notif-list" id="notifList">
-      <!-- سيتم تعبئته بواسطة JavaScript -->
-    </div>
+      <!-- Main layout -->
+      <div class="notif-layout">
 
-  </main>
+        <!-- Left: quick stats -->
+        <div class="notif-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="unreadCount">5</div>
+            <div class="stat-label">إشعارات غير مقروءة</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">12</div>
+            <div class="stat-label">إشعارات هذا الأسبوع</div>
+          </div>
+          <button class="btn-notif-settings" type="button" onclick="document.getElementById('prefsPanel').scrollIntoView({behavior:'smooth'});">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            تفضيلات الإشعارات
+          </button>
+        </div>
+
+        <!-- Center: notification list -->
+        <div class="notif-list-wrap">
+
+          <div class="notif-day-group" data-day="today">
+            <div class="notif-day-label">اليوم</div>
+
+            <div class="notif-row unread" data-category="reco">
+              <div class="notif-icon cat-reco">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              </div>
+              <div class="notif-body">
+                <div class="notif-title">توصية جديدة بانتظارك</div>
+                <div class="notif-desc">بناءً على نتائج اختبارك الأخير، عندنا تخصص جديد يناسبك بنسبة توافق 91%</div>
+                <div class="notif-time">قبل 25 دقيقة</div>
+              </div>
+              <span class="notif-dot"></span>
+            </div>
+
+            <div class="notif-row unread" data-category="quiz">
+              <div class="notif-icon cat-quiz">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h4"/></svg>
+              </div>
+              <div class="notif-body">
+                <div class="notif-title">نتيجة الاختبار جاهزة</div>
+                <div class="notif-desc">خلّصنا تحليل إجاباتك في اختبار الميول المهنية، شوف نتيجتك التفصيلية الآن</div>
+                <div class="notif-time">قبل ساعتين</div>
+              </div>
+              <span class="notif-dot"></span>
+            </div>
+
+            <div class="notif-row" data-category="system">
+              <div class="notif-icon cat-system">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              </div>
+              <div class="notif-body">
+                <div class="notif-title">تحديث على خطتك الدراسية</div>
+                <div class="notif-desc">تمت إضافة مادة "قواعد البيانات" لمتطلبات الفصل الخامس بعد تحديث خطة التخصص</div>
+                <div class="notif-time">قبل 4 ساعات</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-day-group" data-day="yesterday">
+            <div class="notif-day-label">أمس</div>
+
+            <div class="notif-row unread" data-category="uni">
+              <div class="notif-icon cat-uni">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L2 9l10 6 10-6-10-6z"/><path d="M2 15l10 6 10-6"/><path d="M2 21l10-6 10 6"/></svg>
+              </div>
+              <div class="notif-body">
+                <div class="notif-title">اقترب موعد التسجيل</div>
+                <div class="notif-desc">باقي 6 أيام على آخر موعد للتقديم على منحة جامعة النجاح لتخصص علوم الحاسوب</div>
+                <div class="notif-time">أمس، 6:40 م</div>
+              </div>
+              <span class="notif-dot"></span>
+            </div>
+
+            <div class="notif-row" data-category="ai">
+              <div class="notif-icon cat-ai">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.27A7.01 7.01 0 0 1 14 23h-4a7.01 7.01 0 0 1-5.73-3H3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/><circle cx="9" cy="15" r="1"/><circle cx="15" cy="15" r="1"/><path d="M9 19c.83.6 2 1 3 1s2.17-.4 3-1"/></svg>
+              </div>
+              <div class="notif-body">
+                <div class="notif-title">رد جديد من المساعد الذكي</div>
+                <div class="notif-desc">جاوبنا على سؤالك حول الفرق بين هندسة البرمجيات وعلوم الحاسوب، شوف الرد كامل</div>
+                <div class="notif-time">أمس، 2:15 م</div>
+              </div>
+            </div>
+
+            <div class="notif-row" data-category="quiz">
+              <div class="notif-icon cat-quiz">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h4"/></svg>
+              </div>
+              <div class="notif-body">
+                <div class="notif-title">تذكير: اختبار لم يكتمل</div>
+                <div class="notif-desc">بلّشتِ اختبار "المهارات التقنية" ووقفتِ عند سؤال 8 من 20، كمّلي متى ما بدك</div>
+                <div class="notif-time">أمس، 11:02 ص</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-day-group" data-day="lastweek">
+            <div class="notif-day-label">الأسبوع الماضي</div>
+
+            <div class="notif-row unread" data-category="reco">
+              <div class="notif-icon cat-reco">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              </div>
+              <div class="notif-body">
+                <div class="notif-title">قارنّا لك بين تخصصين</div>
+                <div class="notif-desc">جهّزنا مقارنة بين "هندسة البرمجيات" و"نظم المعلومات" حسب نتائجك واهتماماتك</div>
+                <div class="notif-time">الخميس، 9:20 ص</div>
+              </div>
+              <span class="notif-dot"></span>
+            </div>
+
+            <div class="notif-row" data-category="uni">
+              <div class="notif-icon cat-uni">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L2 9l10 6 10-6-10-6z"/><path d="M2 15l10 6 10-6"/><path d="M2 21l10-6 10 6"/></svg>
+              </div>
+              <div class="notif-body">
+                <div class="notif-title">جامعة جديدة تطابق ميولك</div>
+                <div class="notif-desc">أضفنا جامعة بيرزيت لقائمة الجامعات المقترحة بناءً على معدلك وتخصصك المفضل</div>
+                <div class="notif-time">الأربعاء، 4:50 م</div>
+              </div>
+            </div>
+
+            <div class="notif-row" data-category="system">
+              <div class="notif-icon cat-system">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <div class="notif-body">
+                <div class="notif-title">تم تحديث ملفك الشخصي</div>
+                <div class="notif-desc">تم حفظ التعديلات على معلوماتك الأكاديمية بنجاح</div>
+                <div class="notif-time">الثلاثاء، 10:05 ص</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-load-more-wrap">
+            <button class="btn-load-more" id="btnLoadMore" type="button">تحميل إشعارات أقدم</button>
+          </div>
+
+        </div>
+
+        <!-- Right: preferences -->
+        <div class="notif-prefs" id="prefsPanel">
+          <h4>تفضيلات الإشعارات</h4>
+
+          <div class="pref-item">
+            <div class="pref-info">
+              <div class="pref-name">التوصيات</div>
+              <div class="pref-sub">تخصصات وجامعات جديدة</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="switch-track"></span>
+            </label>
+          </div>
+
+          <div class="pref-item">
+            <div class="pref-info">
+              <div class="pref-name">الاختبارات</div>
+              <div class="pref-sub">نتائج وتذكيرات</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="switch-track"></span>
+            </label>
+          </div>
+
+          <div class="pref-item">
+            <div class="pref-info">
+              <div class="pref-name">الجامعات</div>
+              <div class="pref-sub">مواعيد ومنح دراسية</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="switch-track"></span>
+            </label>
+          </div>
+
+          <div class="pref-item">
+            <div class="pref-info">
+              <div class="pref-name">المساعد الذكي</div>
+              <div class="pref-sub">ردود ومتابعات</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="switch-track"></span>
+            </label>
+          </div>
+
+          <div class="pref-item">
+            <div class="pref-info">
+              <div class="pref-name">إشعارات النظام</div>
+              <div class="pref-sub">تحديثات الخطة والحساب</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="switch-track"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <!-- ======================= END NOTIFICATIONS ======================= -->
+
 </div>
+<!-- ======================= END PAGE LAYOUT ======================= -->
 
-<div id="admin-footer-slot"></div>
-<script src="../../js/admin-shell.js"></script>
+<!-- ======================= FOOTER ======================= -->
+<div id="footer-placeholder"></div>
 
 <script>
-  (function() {
-    'use strict';
+/* ============================================================
+   فلترة الإشعارات: تصنيف (الكل/غير مقروءة/...) + يوم (اليوم/أمس/الأسبوع الماضي)
+   الفلترتان تشتغلان مع بعض
+   ============================================================ */
 
-    var notifList = document.getElementById('notifList');
-    var countAll = document.getElementById('countAll');
-    var countUnread = document.getElementById('countUnread');
-    var markAllBtn = document.getElementById('markAllReadBtn');
-    var clearAllBtn = document.getElementById('clearAllBtn');
-    var tabs = document.querySelectorAll('.notif-tab');
-    var currentFilter = 'all';
+const notifTabs = document.querySelectorAll('.notif-tab');
+const dayFilterBtns = document.querySelectorAll('.day-filter-btn');
+const dayGroups = document.querySelectorAll('.notif-day-group');
 
-    // ================================================================
-    // RENDER
-    // ================================================================
-    function renderNotifications(filter) {
-      var notifs = window.NextStepNotifications.getNotifications();
-      var filtered = filter === 'unread' ? notifs.filter(function(n) { return !n.read; }) : notifs;
+let currentCategoryFilter = 'all';
+let currentDayFilter = 'today'; // الافتراضي: عرض اليوم فقط
 
-      // تحديث العدادات
-      countAll.textContent = notifs.length;
-      countUnread.textContent = notifs.filter(function(n) { return !n.read; }).length;
+function applyFilters(){
+  dayGroups.forEach(group => {
+    const groupDay = group.dataset.day;
+    const dayMatch = groupDay === currentDayFilter;
 
-      if (!filtered.length) {
-        notifList.innerHTML = `
-          <div class="empty-state">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            <h4>لا توجد إشعارات</h4>
-            <p>جميع الإشعارات قد تمت قراءتها أو لا توجد إشعارات جديدة.</p>
-          </div>
-        `;
-        return;
-      }
-
-      var html = '';
-      filtered.forEach(function(n) {
-        var iconMap = {
-          info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
-          success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>',
-          warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/></svg>',
-          error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>'
-        };
-        var icon = iconMap[n.type] || iconMap.info;
-        var typeClass = n.type || 'info';
-
-        html += `
-          <div class="notif-item ${n.read ? 'read' : 'unread'}" data-id="${n.id}">
-            <div class="notif-icon ${typeClass}">${icon}</div>
-            <div class="notif-content">
-              <div class="notif-header">
-                <strong>${n.title}</strong>
-                <span class="notif-time">${n.time}</span>
-              </div>
-              <p>${n.message}</p>
-            </div>
-            <div class="item-actions">
-              ${!n.read ? `<button type="button" class="mark-read" title="تحديد كمقروء"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></button>` : ''}
-              <button type="button" class="delete" title="حذف"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-            </div>
-          </div>
-        `;
-      });
-
-      notifList.innerHTML = html;
-
-      // ===== ربط الأحداث =====
-      // زر "تحديد كمقروء"
-      document.querySelectorAll('.mark-read').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var item = this.closest('.notif-item');
-          var id = parseInt(item.dataset.id);
-          window.NextStepNotifications.markAsRead(id);
-          renderNotifications(currentFilter);
-        });
-      });
-
-      // زر "حذف"
-      document.querySelectorAll('.delete').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var item = this.closest('.notif-item');
-          var id = parseInt(item.dataset.id);
-          if (confirm('هل أنت متأكد من حذف هذا الإشعار؟')) {
-            window.NextStepNotifications.deleteNotification(id);
-            renderNotifications(currentFilter);
-          }
-        });
-      });
-
-      // النقر على العنصر غير المقروء لتحديده كمقروء
-      document.querySelectorAll('.notif-item.unread').forEach(function(item) {
-        item.addEventListener('click', function() {
-          var id = parseInt(this.dataset.id);
-          window.NextStepNotifications.markAsRead(id);
-          renderNotifications(currentFilter);
-        });
-      });
+    if (!dayMatch){
+      group.style.display = 'none';
+      return;
     }
 
-    // ================================================================
-    // EVENTS
-    // ================================================================
-    markAllBtn.addEventListener('click', function() {
-      if (confirm('هل أنت متأكد من تحديد جميع الإشعارات كمقروءة؟')) {
-        window.NextStepNotifications.markAllAsRead();
-        renderNotifications(currentFilter);
-      }
+    let anyVisible = false;
+
+    group.querySelectorAll('.notif-row').forEach(row => {
+      const catMatch = currentCategoryFilter === 'all'
+        ? true
+        : currentCategoryFilter === 'unread'
+          ? row.classList.contains('unread')
+          : row.dataset.category === currentCategoryFilter;
+
+      row.style.display = catMatch ? 'flex' : 'none';
+      if (catMatch) anyVisible = true;
     });
 
-    clearAllBtn.addEventListener('click', function() {
-      if (confirm('هل أنت متأكد من حذف جميع الإشعارات؟')) {
-        window.NextStepNotifications.clearAllNotifications();
-        renderNotifications(currentFilter);
-      }
-    });
+    group.style.display = anyVisible ? 'block' : 'none';
+  });
+}
 
-    tabs.forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        tabs.forEach(function(t) { t.classList.remove('active'); });
-        this.classList.add('active');
-        currentFilter = this.dataset.filter;
-        renderNotifications(currentFilter);
-      });
-    });
+/* تبويبات التصنيف */
+notifTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    notifTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentCategoryFilter = tab.dataset.filter;
+    applyFilters();
+  });
+});
 
-    // ================================================================
-    // INIT
-    // ================================================================
-    renderNotifications('all');
+/* تبويبات اليوم */
+dayFilterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    dayFilterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDayFilter = btn.dataset.day;
+    applyFilters();
+  });
+});
 
-  })();
+/* تشغيل أولي */
+applyFilters();
+
+/* تحديد الكل كمقروء */
+document.getElementById('btnMarkRead').addEventListener('click', () => {
+  document.querySelectorAll('.notif-row.unread').forEach(row => row.classList.remove('unread'));
+  document.getElementById('unreadCount').textContent = '0';
+  const unreadTabCount = document.querySelector('.notif-tab[data-filter="unread"] .tab-count');
+  if (unreadTabCount) unreadTabCount.textContent = '0';
+  const badge = document.querySelector('.sidebar-badge');
+  if (badge) badge.remove();
+});
+
+/* تحميل المزيد (مؤقت) */
+document.getElementById('btnLoadMore').addEventListener('click', () => {
+  alert('ما في إشعارات أقدم حالياً');
+});
 </script>
 
 </body>

@@ -1,198 +1,460 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الإشعارات — لوحة تحكم الإدارة | NextStep AI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>الإشعارات — NextStep AI</title>
 
-  <link rel="stylesheet" href="../../css/app.css">
-  <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
-  <link rel="stylesheet" href="../../css/dashboardcss/notifications.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/Notifications.CSS">
 </head>
+
 <body>
 
-<header class="admin-topbar" id="adminTopbar"></header>
+<!-- ================= TOPBAR ================= -->
 
-<div class="admin-layout">
-  <aside class="admin-sidebar" id="adminSidebar"></aside>
+<header class="topbar">
 
-  <main class="admin-main admin-main-content">
+    <div class="brand">
+        <div class="brand-icon">N</div>
+        <span>NextStep <b>AI</b></span>
+    </div>
 
-    <!-- ===== PAGE HEADER ===== -->
-    <div class="admin-page-head">
-      <div>
-        <h1>الإشعارات</h1>
-        <p>جميع التنبيهات والإشعارات الصادرة من النظام.</p>
-      </div>
-      <div class="header-actions">
-        <button type="button" class="pill-btn" id="markAllReadBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-          تحديد الكل كمقروء
+    <div class="search-box">
+        <span>⌕</span>
+        <input type="text" placeholder="إبحث عن تخصص، جامعة، أو مقال...">
+    </div>
+
+    <div class="top-actions">
+
+        <button class="top-icon active">♧</button>
+        <button class="top-icon">♡</button>
+        <button class="top-icon">؟</button>
+
+        <div class="profile-mini">
+
+            <div class="profile-info">
+                <strong>أحمد محمد</strong>
+                <small>طالب جامعي</small>
+            </div>
+
+            <div class="avatar">أ</div>
+
+        </div>
+
+        <button class="menu-btn">☰</button>
+
+    </div>
+
+</header>
+
+
+<div class="page">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="side-title">
+        <span>لوحة الطالب</span>
+        <b>⚙</b>
+    </div>
+
+    <a href="#">
+        <span class="side-icon">▣</span>
+        <span>الاختبار الذكي</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">◫</span>
+        <span>دليل الجامعات</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">♡</span>
+        <span>المفضلة</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">▤</span>
+        <span>المقالات</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">▧</span>
+        <span>المستندات</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">♙</span>
+        <span>الملف الشخصي</span>
+    </a>
+
+    <a class="settings-link" href="#">
+        <span class="side-icon">⚙</span>
+        <span>الإعدادات</span>
+    </a>
+
+    <a class="logout" href="#">
+        <span>⇥</span>
+        <span>تسجيل الخروج</span>
+    </a>
+
+</aside>
+
+
+<!-- ================= CONTENT ================= -->
+
+<main class="content">
+
+    <!-- Heading -->
+
+    <section class="heading">
+
+        <div>
+            <div class="title-line">
+                <h1>مركز الإشعارات</h1>
+                <span class="title-icon">♧</span>
+            </div>
+
+            <p>
+                كل جديد يخص رحلتك التعليمية في مكان واحد
+            </p>
+        </div>
+
+        <button class="read-all">
+            ✓ تحديد الكل كمقروء
         </button>
-        <button type="button" class="pill-btn danger" id="clearAllBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          حذف الكل
+
+    </section>
+
+
+    <!-- ================= SUMMARY ================= -->
+
+    <section class="notification-summary">
+
+        <div class="summary-main">
+
+            <div class="summary-icon">
+                ♧
+            </div>
+
+            <div>
+                <span>لديك</span>
+                <strong>4 إشعارات جديدة</strong>
+                <p>هناك بعض التحديثات التي تستحق انتباهك</p>
+            </div>
+
+        </div>
+
+
+        <div class="summary-stats">
+
+            <div>
+                <strong>04</strong>
+                <span>جديد</span>
+            </div>
+
+            <div>
+                <strong>12</strong>
+                <span>هذا الأسبوع</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FILTERS ================= -->
+
+    <div class="filters">
+
+        <button class="filter active">
+            الكل
+            <span>16</span>
         </button>
-      </div>
+
+        <button class="filter">
+            غير المقروءة
+            <span>4</span>
+        </button>
+
+        <button class="filter">
+            الجامعات
+        </button>
+
+        <button class="filter">
+            المنصة
+        </button>
+
+        <button class="filter">
+            المنح والفرص
+        </button>
+
     </div>
 
-    <!-- ===== TABS ===== -->
-    <div class="notif-tabs">
-      <button type="button" class="notif-tab active" data-filter="all">
-        الكل <span class="badge" id="countAll">0</span>
-      </button>
-      <button type="button" class="notif-tab" data-filter="unread">
-        غير المقروء <span class="badge" id="countUnread">0</span>
-      </button>
+
+    <!-- ================= NOTIFICATIONS ================= -->
+
+    <section class="notifications">
+
+
+        <!-- Notification 1 -->
+
+        <article class="notification unread">
+
+            <div class="notification-icon blue">
+                🎓
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            جامعة جديدة أصبحت متاحة في دليلك
+                        </h3>
+
+                        <span class="badge blue-badge">
+                            الجامعات
+                        </span>
+                    </div>
+
+                    <span class="dot"></span>
+
+                </div>
+
+                <p>
+                    تمت إضافة معلومات وتخصصات جديدة لإحدى الجامعات
+                    التي قد تتناسب مع اهتماماتك الأكاديمية.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ منذ 15 دقيقة</span>
+                    <button>عرض التفاصيل ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Notification 2 -->
+
+        <article class="notification unread">
+
+            <div class="notification-icon purple">
+                ✦
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            اكتشفنا تخصصات قد تناسب شخصيتك
+                        </h3>
+
+                        <span class="badge purple-badge">
+                            الاختبار الذكي
+                        </span>
+                    </div>
+
+                    <span class="dot"></span>
+
+                </div>
+
+                <p>
+                    بناءً على نتائج اختبارك، لدينا مجموعة من التخصصات
+                    التي قد تكون مناسبة لاهتماماتك ونمط تفكيرك.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ منذ ساعة</span>
+                    <button>استكشف النتائج ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Notification 3 -->
+
+        <article class="notification unread">
+
+            <div class="notification-icon orange">
+                ✦
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            فرصة جديدة قد تهمك 🎯
+                        </h3>
+
+                        <span class="badge orange-badge">
+                            منح وفرص
+                        </span>
+                    </div>
+
+                    <span class="dot"></span>
+
+                </div>
+
+                <p>
+                    تمت إضافة فرصة تعليمية جديدة إلى قسم المنح والفرص.
+                    تحقق من التفاصيل قبل انتهاء الموعد.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ منذ 3 ساعات</span>
+                    <button>عرض الفرصة ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Notification 4 -->
+
+        <article class="notification unread">
+
+            <div class="notification-icon cyan">
+                ★
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            لديك تحديث جديد في حسابك
+                        </h3>
+
+                        <span class="badge cyan-badge">
+                            المنصة
+                        </span>
+                    </div>
+
+                    <span class="dot"></span>
+
+                </div>
+
+                <p>
+                    تم تحديث بعض المعلومات في ملفك الشخصي لتحسين
+                    توصيات NextStep AI الخاصة بك.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ اليوم، 10:30 ص</span>
+                    <button>فتح الملف ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Read notification -->
+
+        <article class="notification">
+
+            <div class="notification-icon gray">
+                ✓
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            تم حفظ إعدادات حسابك بنجاح
+                        </h3>
+
+                        <span class="badge gray-badge">
+                            الحساب
+                        </span>
+                    </div>
+
+                </div>
+
+                <p>
+                    تم حفظ التغييرات التي أجريتها على إعدادات حسابك.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ أمس، 08:45 م</span>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Read notification -->
+
+        <article class="notification">
+
+            <div class="notification-icon blue">
+                ◫
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            تمت إضافة مقال جديد إلى المنصة
+                        </h3>
+
+                        <span class="badge blue-badge">
+                            المقالات
+                        </span>
+                    </div>
+
+                </div>
+
+                <p>
+                    مقال جديد حول كيفية اختيار التخصص الجامعي
+                    المناسب لمهاراتك وطموحاتك.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ أمس، 03:20 م</span>
+                    <button>قراءة المقال ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- ================= END ================= -->
+
+    <div class="notifications-end">
+        <span></span>
+        <p>لقد وصلت إلى نهاية الإشعارات</p>
+        <span></span>
     </div>
 
-    <!-- ===== LIST ===== -->
-    <div class="notif-list" id="notifList">
-      <!-- سيتم تعبئته بواسطة JavaScript -->
-    </div>
+</main>
 
-  </main>
 </div>
-
-<div id="admin-footer-slot"></div>
-<script src="../../js/admin-shell.js"></script>
-
-<script>
-  (function() {
-    'use strict';
-
-    var notifList = document.getElementById('notifList');
-    var countAll = document.getElementById('countAll');
-    var countUnread = document.getElementById('countUnread');
-    var markAllBtn = document.getElementById('markAllReadBtn');
-    var clearAllBtn = document.getElementById('clearAllBtn');
-    var tabs = document.querySelectorAll('.notif-tab');
-    var currentFilter = 'all';
-
-    // ================================================================
-    // RENDER
-    // ================================================================
-    function renderNotifications(filter) {
-      var notifs = window.NextStepNotifications.getNotifications();
-      var filtered = filter === 'unread' ? notifs.filter(function(n) { return !n.read; }) : notifs;
-
-      // تحديث العدادات
-      countAll.textContent = notifs.length;
-      countUnread.textContent = notifs.filter(function(n) { return !n.read; }).length;
-
-      if (!filtered.length) {
-        notifList.innerHTML = `
-          <div class="empty-state">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            <h4>لا توجد إشعارات</h4>
-            <p>جميع الإشعارات قد تمت قراءتها أو لا توجد إشعارات جديدة.</p>
-          </div>
-        `;
-        return;
-      }
-
-      var html = '';
-      filtered.forEach(function(n) {
-        var iconMap = {
-          info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
-          success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>',
-          warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/></svg>',
-          error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>'
-        };
-        var icon = iconMap[n.type] || iconMap.info;
-        var typeClass = n.type || 'info';
-
-        html += `
-          <div class="notif-item ${n.read ? 'read' : 'unread'}" data-id="${n.id}">
-            <div class="notif-icon ${typeClass}">${icon}</div>
-            <div class="notif-content">
-              <div class="notif-header">
-                <strong>${n.title}</strong>
-                <span class="notif-time">${n.time}</span>
-              </div>
-              <p>${n.message}</p>
-            </div>
-            <div class="item-actions">
-              ${!n.read ? `<button type="button" class="mark-read" title="تحديد كمقروء"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></button>` : ''}
-              <button type="button" class="delete" title="حذف"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-            </div>
-          </div>
-        `;
-      });
-
-      notifList.innerHTML = html;
-
-      // ===== ربط الأحداث =====
-      // زر "تحديد كمقروء"
-      document.querySelectorAll('.mark-read').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var item = this.closest('.notif-item');
-          var id = parseInt(item.dataset.id);
-          window.NextStepNotifications.markAsRead(id);
-          renderNotifications(currentFilter);
-        });
-      });
-
-      // زر "حذف"
-      document.querySelectorAll('.delete').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var item = this.closest('.notif-item');
-          var id = parseInt(item.dataset.id);
-          if (confirm('هل أنت متأكد من حذف هذا الإشعار؟')) {
-            window.NextStepNotifications.deleteNotification(id);
-            renderNotifications(currentFilter);
-          }
-        });
-      });
-
-      // النقر على العنصر غير المقروء لتحديده كمقروء
-      document.querySelectorAll('.notif-item.unread').forEach(function(item) {
-        item.addEventListener('click', function() {
-          var id = parseInt(this.dataset.id);
-          window.NextStepNotifications.markAsRead(id);
-          renderNotifications(currentFilter);
-        });
-      });
-    }
-
-    // ================================================================
-    // EVENTS
-    // ================================================================
-    markAllBtn.addEventListener('click', function() {
-      if (confirm('هل أنت متأكد من تحديد جميع الإشعارات كمقروءة؟')) {
-        window.NextStepNotifications.markAllAsRead();
-        renderNotifications(currentFilter);
-      }
-    });
-
-    clearAllBtn.addEventListener('click', function() {
-      if (confirm('هل أنت متأكد من حذف جميع الإشعارات؟')) {
-        window.NextStepNotifications.clearAllNotifications();
-        renderNotifications(currentFilter);
-      }
-    });
-
-    tabs.forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        tabs.forEach(function(t) { t.classList.remove('active'); });
-        this.classList.add('active');
-        currentFilter = this.dataset.filter;
-        renderNotifications(currentFilter);
-      });
-    });
-
-    // ================================================================
-    // INIT
-    // ================================================================
-    renderNotifications('all');
-
-  })();
-</script>
 
 </body>
 </html>

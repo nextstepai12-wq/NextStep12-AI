@@ -1,0 +1,195 @@
+/* =====================================================================
+   footer.css (معدل ليكون أفتح وأكثر إشراقاً)
+   ===================================================================== */
+
+footer.site-footer{
+  width:100%;
+  position:relative;
+  /* جعلنا التدرج يبدأ بدرجة أفتح قليلاً ومريحة للعين */
+  background:linear-gradient(180deg, #1e3a60 0%, #152b4f 100%);
+  color:#F1F5F9;
+  overflow:hidden;
+  margin-top:auto;
+  flex-shrink:0;
+}
+
+footer.site-footer::before{
+  content:"";
+  position:absolute;
+  top:0; right:0; left:0;
+  height:4px;
+  background:linear-gradient(90deg, var(--navy), var(--blue), var(--cyan), var(--mint));
+}
+
+footer.site-footer::after{
+  content:"";
+  position:absolute;
+  width:520px; height:520px;
+  /* زيادة إضاءة التوهج الخلفي ليصبح الفوتر أكثر حيوية */
+  background:radial-gradient(circle, rgba(53,208,255,0.2) 0%, rgba(53,208,255,0) 70%);
+  top:-220px; left:-160px;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.footer-inner{
+  position:relative;
+  max-width:1100px;
+  margin:0 auto;
+  padding:56px 32px 28px;
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr 1fr;
+  gap:40px;
+  padding-bottom:36px;
+}
+
+.footer-brand .brand-mark{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+footer .brand-mark .brand-logo{width:38px;height:38px;object-fit:contain;flex-shrink:0;}
+
+footer .brand-mark .brand-text{
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:20px;
+  color:#ffffff;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+footer .brand-mark .brand-text span{color:var(--cyan);}
+
+.footer-brand .tagline{
+  font-size:14px;
+  line-height:1.9;
+  /* تفتيح لون النص التوضيحي لتحسين القراءة */
+  color:#cbd5e1;
+  max-width:280px;
+}
+
+.social-row{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.social-row a{
+  width:36px; height:36px;
+  border-radius:12px;
+  /* خلفية أفتح قليلاً للأيقونات */
+  background:rgba(255,255,255,0.09);
+  border:1px solid rgba(255,255,255,0.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#e2e8f0;
+  text-decoration:none;
+  transition:all .2s ease;
+}
+
+.social-row a:hover{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+  transform:translateY(-2px);
+}
+
+.social-row svg{width:16px;height:16px;}
+
+.footer-col h4{
+  font-family:'Cairo',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  color:#ffffff;
+  margin-bottom:18px;
+  position:relative;
+  padding-bottom:10px;
+}
+
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+
+.footer-col ul li a{
+  /* تفتيح ألوان الروابط لتكون واضحة على الخلفية الجديدة */
+  color:#cbd5e1;
+  text-decoration:none;
+  font-size:14px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:color .2s ease, transform .2s ease;
+}
+
+.footer-col ul li a:hover{
+  color:var(--cyan);
+  transform:translateX(-4px);
+}
+
+.footer-col ul li a svg{width:14px;height:14px;opacity:.8;flex-shrink:0;}
+
+.contact-item{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:14px;
+  color:#cbd5e1;
+  margin-bottom:14px;
+}
+
+.contact-item .icon-wrap{
+  width:30px; height:30px;
+  border-radius:9px;
+  background:rgba(53,208,255,0.18);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+
+.contact-item .icon-wrap svg{width:15px;height:15px;color:var(--cyan);}
+.contact-item a{color:#cbd5e1;text-decoration:none;transition:color .2s;}
+.contact-item a:hover{color:var(--cyan);}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.12);
+  padding-top:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.footer-bottom p{
+  font-size:13px;
+  color:#94a3b8;
+}
+
+.footer-bottom .legal-links{
+  display:flex;
+  gap:18px;
+  font-size:13px;
+}
+
+.footer-bottom .legal-links a{
+  color:#94a3b8;
+  text-decoration:none;
+  transition:color .2s;
+}
+
+.footer-bottom .legal-links a:hover{color:var(--mint);}
+
+@media (max-width:860px){
+  .footer-top{grid-template-columns:1fr 1fr;row-gap:32px;}
+  .footer-brand{grid-column:1 / -1;}
+}
+
+@media (max-width:520px){
+  .footer-top{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+}

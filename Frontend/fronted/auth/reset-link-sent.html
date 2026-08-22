@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تم إرسال رابط الاستعادة — NextStep AI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+<link rel="stylesheet" href="../../css/app.css">
+<link rel="stylesheet" href="../../css/header.css">
+<link rel="stylesheet" href="../../css/auth.css">
+<link rel="stylesheet" href="../../css/auth-extra.css">
+<link rel="stylesheet" href="../../css/auth-updates.css">
+<link rel="stylesheet" href="../../css/footer.css">
+</head>
+
+<body>
+
+<!-- ======================= HEADER ======================= -->
+    <script src="../../js/header-index.js"></script>
+
+<!-- BACKGROUND -->
+<div class="auth-bg">
+    <div class="auth-grid"></div>
+</div>
+
+<main class="auth-shell">
+
+    <!-- =====================================================
+         LEFT (first) — SUCCESS STATE
+    ====================================================== -->
+    <section class="auth-form-side">
+
+        <div class="login-content">
+
+            <div class="success-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            </div>
+
+            <div class="welcome welcome-center">
+                <h1>تم إرسال رابط الاستعادة! 📩</h1>
+                <p id="sentSubtitle">لقد أرسلنا بريداً إلكترونياً يحتوي على رابط لإعادة تعيين كلمة المرور. يرجى التحقق من بريدك الوارد.</p>
+            </div>
+
+            <a href="login.html" class="login-button" style="text-decoration:none; margin-bottom:12px;">
+                <span>العودة لتسجيل الدخول</span>
+            </a>
+
+            <button type="button" class="btn-outline-full" id="resendBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                <span>إعادة إرسال الرابط</span>
+            </button>
+
+            <p class="signup-text">لم يصلك البريد؟ تأكد من مجلد الرسائل غير الهامة (Spam)</p>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         RIGHT (second) — NEXTSTEP HERO
+    ====================================================== -->
+    <section class="auth-hero">
+
+        <div class="hero-brand">
+
+
+            <div class="brand-wordmark">
+                <span class="brand-next">NextStep</span><span class="brand-ai">AI</span>
+            </div>
+
+        </div>
+
+        <div class="hero-copy">
+
+            <span class="hero-eyebrow">
+                NEXTSTEP AI · ACADEMIC GUIDANCE
+            </span>
+
+            <h2 class="hero-title">
+                خطوة وحدة تفصلك
+                <span class="blue">عن الرجوع لحسابك</span>
+            </h2>
+
+            <p class="hero-description">
+                افتحي رابط الاستعادة من بريدك الإلكتروني وحدّدي كلمة
+                مرور جديدة للمتابعة بمسارك الدراسي فوراً.
+            </p>
+
+        </div>
+
+        <div class="logo-stage" aria-hidden="true">
+
+            <span class="orbit orbit-one"></span>
+            <span class="orbit orbit-two"></span>
+
+            <span class="podium podium-back"></span>
+            <span class="podium podium-front"></span>
+
+            <span class="logo-halo"></span>
+
+            <img
+                src="../../assets/img/logo.png"
+                alt=""
+                class="nextstep-logo-img"
+            >
+
+        </div>
+
+        <div class="hero-features">
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.7">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <path d="M22 6l-10 7L2 6"/>
+                    </svg>
+                </div>
+                <span class="feature-title">وصلك البريد؟</span>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.7">
+                        <rect x="3" y="11" width="18" height="10" rx="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                </div>
+                <span class="feature-title">رابط آمن ومؤقت</span>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.7">
+                        <circle cx="12" cy="12" r="8"/>
+                        <path d="M12 8v5l3 2"/>
+                    </svg>
+                </div>
+                <span class="feature-title">رجوع بثوانٍ</span>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script>
+    const API_BASE_URL = 'http://127.0.0.1:8000/api';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const sentEmail = urlParams.get('email');
+
+    const sentSubtitle = document.getElementById('sentSubtitle');
+    if (sentEmail) {
+        sentSubtitle.textContent = `أرسلنا رابط إعادة تعيين كلمة المرور إلى ${sentEmail}. يرجى التحقق من بريدك الوارد.`;
+    }
+
+    const resendBtn = document.getElementById('resendBtn');
+
+    const alertBox = document.createElement('div');
+    alertBox.id = 'resendAlert';
+    resendBtn.insertAdjacentElement('afterend', alertBox);
+
+    function showAlert(message, type) {
+        alertBox.textContent = message;
+        alertBox.style.display = 'block';
+        if (type === 'error') {
+            alertBox.style.background = '#FDEDEE';
+            alertBox.style.color = '#C62828';
+        } else {
+            alertBox.style.background = 'rgba(75,230,176,0.12)';
+            alertBox.style.color = '#1C8F63';
+        }
+    }
+
+    resendBtn.addEventListener('click', async function () {
+        if (!sentEmail) {
+            showAlert('تعذر تحديد الإيميل، رجعي لصفحة "نسيت كلمة المرور" وحاول مرة ثانية', 'error');
+            return;
+        }
+
+        resendBtn.disabled = true;
+        const originalContent = resendBtn.innerHTML;
+        resendBtn.innerHTML = '<span>جارٍ إعادة الإرسال...</span>';
+        alertBox.style.display = 'none';
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ email: sentEmail }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.status === 'success') {
+                showAlert('تم إعادة إرسال الرابط بنجاح', 'success');
+            } else {
+                showAlert(data.message || 'تعذر إعادة إرسال الرابط، حاولي لاحقاً', 'error');
+            }
+        } catch (err) {
+            showAlert('تعذر الاتصال بالسيرفر. تأكدي إنه الباك اند شغال.', 'error');
+            console.error('Resend link error:', err);
+        } finally {
+            resendBtn.disabled = false;
+            resendBtn.innerHTML = originalContent;
+        }
+    });
+</script>
+
+<!-- ======================= FOOTER ======================= -->
+<script src="../../js/footer-index.js"></script>
+
+</body>
+</html>

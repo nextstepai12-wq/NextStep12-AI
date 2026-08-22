@@ -65,11 +65,13 @@
   <div class="admin-page-head">
 
     <div>
-      <h1>إضافة برنامج أكاديمي جديد</h1>
+      <h1 id="pageTitle">إضافة برنامج أكاديمي جديد</h1>
 
-      <p>
-        اضف تفاصيل البرنامج والخطة الدراسية. هذه البيانات بتُستخدم
-        لعرض التخصص بشكل كامل وربطه بالعمادة والمسار الدراسي.
+      <p id="pageSubtitle">
+        اضف تفاصيل البرنامج الأساسية وارفعي الخطة الدراسية (PDF) إذا كانت جاهزة عندك.
+        لو بدك الذكاء الاصطناعي يحلل الخطة تلقائياً، استخدمي صفحة
+        <a href="programs.html" style="color:var(--blue);font-weight:700;">تحديث الخطط الدراسية</a>
+        بعد الحفظ.
       </p>
     </div>
 
@@ -104,6 +106,21 @@
           <div>
             <h4>المعلومات الأساسية</h4>
             <p>الاسم، العمادة، الدرجة</p>
+          </div>
+        </li>
+
+
+        <li
+          class="stepper-item"
+          data-target="sectionPlan"
+        >
+          <span class="stepper-dot">
+            <span class="dot-inner"></span>
+          </span>
+
+          <div>
+            <h4>رفع الخطة</h4>
+            <p>ملف PDF (اختياري)</p>
           </div>
         </li>
 
@@ -421,14 +438,98 @@
 
         </div>
 
+      </section>
 
 
-        
-          <!-- =================================================
-               خطة الدراسة
-          ================================================== -->
+      <!-- ===================================================
+           رفع الخطة (يدوي فقط)
+      ==================================================== -->
 
-          
+      <section
+        class="admin-panel"
+        id="sectionPlan"
+      >
+
+        <div class="form-section-title">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6M9 13h6M9 17h6"/>
+          </svg>
+
+          رفع الخطة
+
+        </div>
+
+        <p class="field-hint" style="margin-bottom:16px;">
+          ارفعي ملف الخطة الدراسية (PDF) — رح تُحفظ مع بيانات التخصص كما هي (بدون تحليل).
+          إذا بدك الذكاء الاصطناعي يحلل الخطة ويطلع منها الفصول والمواد تلقائياً، احفظي التخصص هون
+          الأول، وبعدين استخدمي صفحة "تحديث الخطط الدراسية" لرفعها بوضع AI.
+        </p>
+
+        <div class="field-group">
+
+          <label for="studyPlanFile">
+            ملف الخطة الدراسية <span class="optional">(اختياري)</span>
+          </label>
+
+          <div class="study-plan-upload" id="studyPlanUpload">
+
+            <input
+              type="file"
+              id="studyPlanFile"
+              name="study_plan"
+              accept=".pdf"
+              hidden
+            >
+
+            <label for="studyPlanFile" class="study-plan-dropzone">
+
+              <span class="study-plan-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <path d="M17 8l-5-5-5 5"/>
+                  <path d="M12 3v12"/>
+                </svg>
+              </span>
+
+              <span class="study-plan-text">
+                <strong>اسحبي الملف هنا أو انقري للاختيار</strong>
+                <small>PDF فقط — الحد الأقصى 20MB</small>
+              </span>
+
+            </label>
+
+            <div class="study-plan-file" id="studyPlanFileRow" hidden>
+
+              <div class="study-plan-file-info">
+
+                <span class="study-plan-file-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6"/>
+                  </svg>
+                </span>
+
+                <div>
+                  <strong id="studyPlanFileName">—</strong>
+                  <small id="studyPlanFileSize">—</small>
+                </div>
+
+              </div>
+
+              <button type="button" class="study-plan-remove" id="removeStudyPlan" aria-label="حذف الملف">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </section>
 
 
@@ -702,7 +803,7 @@
           id="saveBtn"
         >
 
-          نشر البرنامج
+          <span id="saveBtnLabel">نشر البرنامج</span>
 
           <svg
             viewBox="0 0 24 24"
@@ -1750,156 +1851,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =========================================================
-     STUDY PLAN UPLOAD
+     STUDY PLAN UPLOAD (يدوي — بدون معالجة AI)
   ========================================================= */
 
-  const studyPlanFile =
-    document.getElementById(
-      'studyPlanFile'
-    );
+  const studyPlanFile = document.getElementById('studyPlanFile');
+  const studyPlanFileRow = document.getElementById('studyPlanFileRow');
+  const studyPlanFileName = document.getElementById('studyPlanFileName');
+  const studyPlanFileSize = document.getElementById('studyPlanFileSize');
+  const removeStudyPlan = document.getElementById('removeStudyPlan');
 
-  const studyPlanFileRow =
-    document.getElementById(
-      'studyPlanFileRow'
-    );
+  const PLAN_MAX_SIZE = 20 * 1024 * 1024;
 
-  const studyPlanFileName =
-    document.getElementById(
-      'studyPlanFileName'
-    );
-
-  const studyPlanFileSize =
-    document.getElementById(
-      'studyPlanFileSize'
-    );
-
-  const removeStudyPlan =
-    document.getElementById(
-      'removeStudyPlan'
-    );
-
-
-  const MAX_FILE_SIZE =
-    20 * 1024 * 1024;
-
-
-  const allowedExtensions = [
-    'pdf',
-    'xlsx',
-    'xls',
-    'csv'
-  ];
-
-
-  function formatFileSize(
-    bytes
-  ) {
-
-    if (bytes < 1024) {
-      return `${bytes} B`;
-    }
-
-    if (bytes < 1024 * 1024) {
-      return `${(
-        bytes / 1024
-      ).toFixed(1)} KB`;
-    }
-
-    return `${(
-      bytes /
-      (1024 * 1024)
-    ).toFixed(1)} MB`;
-
+  function formatPlanFileSize(bytes) {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   }
-
 
   function clearStudyPlan() {
-
-    studyPlanFile.value =
-      '';
-
-    studyPlanFileRow.hidden =
-      true;
-
+    studyPlanFile.value = '';
+    studyPlanFileRow.hidden = true;
   }
 
+  studyPlanFile.addEventListener('change', () => {
 
-  studyPlanFile.addEventListener(
-    'change',
-    () => {
+    const file = studyPlanFile.files[0];
+    if (!file) return;
 
-      const file =
-        studyPlanFile.files[0];
+    const extension = file.name.split('.').pop().toLowerCase();
 
-      if (!file) {
-        return;
-      }
-
-
-      const extension =
-        file.name
-          .split('.')
-          .pop()
-          .toLowerCase();
-
-
-      if (
-        !allowedExtensions
-          .includes(extension)
-      ) {
-
-        clearStudyPlan();
-
-        openModal({
-          type: 'error',
-          title: 'نوع الملف غير مدعوم',
-          message:
-            'الخطة الدراسية يجب أن تكون PDF أو Excel أو CSV.'
-        });
-
-        return;
-
-      }
-
-
-      if (
-        file.size >
-        MAX_FILE_SIZE
-      ) {
-
-        clearStudyPlan();
-
-        openModal({
-          type: 'error',
-          title: 'الملف كبير جداً',
-          message:
-            'الحد الأقصى لحجم الخطة الدراسية هو 20 ميجابايت.'
-        });
-
-        return;
-
-      }
-
-
-      studyPlanFileName.textContent =
-        file.name;
-
-      studyPlanFileSize.textContent =
-        formatFileSize(
-          file.size
-        );
-
-      studyPlanFileRow.hidden =
-        false;
-
+    if (extension !== 'pdf') {
+      clearStudyPlan();
+      openModal({
+        type: 'error',
+        title: 'نوع الملف غير مدعوم',
+        message: 'الخطة الدراسية هون لازم تكون PDF فقط.'
+      });
+      return;
     }
-  );
 
+    if (file.size > PLAN_MAX_SIZE) {
+      clearStudyPlan();
+      openModal({
+        type: 'error',
+        title: 'الملف كبير جداً',
+        message: 'الحد الأقصى لحجم الخطة الدراسية هو 20 ميجابايت.'
+      });
+      return;
+    }
 
-  removeStudyPlan.addEventListener(
-    'click',
-    clearStudyPlan
-  );
+    studyPlanFileName.textContent = file.name;
+    studyPlanFileSize.textContent = formatPlanFileSize(file.size);
+    studyPlanFileRow.hidden = false;
+
+  });
+
+  removeStudyPlan.addEventListener('click', clearStudyPlan);
 
 
   /* =========================================================
@@ -2100,34 +2107,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /*
-      عند النشر نطلب الخطة الدراسية.
-      المسودة ممكن تنحفظ بدونها.
-    */
-
-    if (
-      status === 'published' &&
-      !studyPlanFile.files.length
-    ) {
-
-      openModal({
-        type: 'error',
-        title: 'الخطة الدراسية مطلوبة',
-        message:
-          'ارفعي ملف الخطة الدراسية قبل نشر البرنامج.'
-      });
-
-      document
-        .getElementById(
-          'studyPlanFile'
-        )
-        .click();
-
-      return false;
-
-    }
-
-
     return true;
 
   }
@@ -2153,7 +2132,7 @@ document.addEventListener('DOMContentLoaded', () => {
       buildData(status);
 
 
-    const file =
+    const planFile =
       studyPlanFile.files[0] ||
       null;
 
@@ -2183,12 +2162,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const mockData = {
           ...data,
           study_plan:
-            file
-              ? {
-                  name: file.name,
-                  size: file.size,
-                  type: file.type
-                }
+            planFile
+              ? { name: planFile.name, size: planFile.size, type: planFile.type }
               : null
         };
 
@@ -2220,7 +2195,9 @@ document.addEventListener('DOMContentLoaded', () => {
           message:
             status === 'draft'
               ? 'تم حفظ البرنامج محلياً. البيانات موجودة في Console.'
-              : 'تم نشر البرنامج بشكل تجريبي. البيانات موجودة في Console.',
+              : (planFile
+                  ? 'تم نشر البرنامج مع الخطة الدراسية بنجاح.'
+                  : 'تم نشر البرنامج بدون خطة دراسية. تقدري ترفعيها لاحقاً (يدوياً أو بالذكاء الاصطناعي) من صفحة "تحديث الخطط الدراسية".'),
 
           confirmText:
             'تمام',
@@ -2229,7 +2206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             status === 'published'
               ? () => {
                   window.location.href =
-                    'programs.html';
+                    'browse-deanships.html';
                 }
               : null
 
@@ -2334,14 +2311,11 @@ document.addEventListener('DOMContentLoaded', () => {
         )
       );
 
-
-      if (file) {
-
+      if (planFile) {
         formData.append(
           'study_plan',
-          file
+          planFile
         );
-
       }
 
 
@@ -2469,6 +2443,106 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
   );
+
+
+  /* =========================================================
+     EDIT MODE
+     إذا الرابط فيه ?edit=<majorId> بنعبّي الفورم ببيانات
+     التخصص (بيانات وهمية محلية لغرض العرض فقط — بالنسخة
+     الحقيقية هاي البيانات لازم تجي من الباك اند)
+  ========================================================= */
+
+  const MOCK_MAJORS_DB = {
+    101: { name: 'علوم الحاسوب', degree: 'bachelor', deanship_id: 1, duration_years: 4,
+      goals: 'إعداد خريجين قادرين على تصميم وتطوير الأنظمة البرمجية والحلول التقنية المتقدمة.',
+      qualifications: 'معدل ثانوية عامة 70% فأكثر بفرع العلمي.',
+      target_skills: ['التفكير التحليلي', 'حل المشكلات'],
+      career_paths: ['مهندس برمجيات', 'محلل بيانات'] },
+    102: { name: 'هندسة البرمجيات', degree: 'bachelor', deanship_id: 1, duration_years: 4,
+      goals: 'تأهيل مهندسين قادرين على بناء أنظمة برمجية موثوقة وقابلة للتوسع.',
+      qualifications: 'معدل ثانوية عامة 75% فأكثر بفرع العلمي.',
+      target_skills: ['إدارة المشاريع', 'العمل ضمن فريق'],
+      career_paths: ['مهندس برمجيات', 'مدير مشروع تقني'] },
+    401: { name: 'إدارة الأعمال', degree: 'bachelor', deanship_id: 4, duration_years: 4,
+      goals: 'إعداد كوادر إدارية قادرة على قيادة المؤسسات واتخاذ القرار.',
+      qualifications: 'معدل ثانوية عامة 65% فأكثر.',
+      target_skills: ['التواصل الفعّال', 'إدارة الوقت'],
+      career_paths: ['مدير مشاريع', 'مستشار أعمال'] }
+    // باقي التخصصات ممكن تتضاف هون لاحقاً، أو الأفضل تجي من الباك اند مباشرة
+  };
+
+  function initEditMode() {
+
+    const params =
+      new URLSearchParams(window.location.search);
+
+    const editId =
+      params.get('edit');
+
+    if (!editId) {
+      return;
+    }
+
+    const major =
+      MOCK_MAJORS_DB[editId];
+
+    if (!major) {
+
+      openModal({
+        type: 'error',
+        title: 'ما لقينا بيانات هالتخصص',
+        message:
+          'هاد التخصص (رقم ' + editId + ') مو موجود ببيانات العرض التجريبية. جرّبي تخصص تاني من صفحة الاستعراض.'
+      });
+
+      return;
+
+    }
+
+    // بانر وضع التعديل
+    const banner =
+      document.createElement('div');
+
+    banner.className =
+      'edit-mode-banner';
+
+    banner.style.cssText =
+      'display:flex;align-items:center;gap:10px;background:rgba(47,107,255,0.08);' +
+      'border:1px solid rgba(47,107,255,0.18);color:var(--blue);border-radius:var(--radius-sm);' +
+      'padding:12px 18px;margin-bottom:16px;font-size:0.9rem;font-weight:600;';
+
+    banner.innerHTML =
+      '✏️ إنتِ هلق بتعدّلي على تخصص موجود: <strong style="color:var(--navy);">' + major.name + '</strong>';
+
+    document
+      .querySelector('.admin-page-head')
+      .insertAdjacentElement('beforebegin', banner);
+
+    // تعديل العنوان ونص الأزرار
+    document.getElementById('pageTitle').textContent =
+      'تعديل تخصص: ' + major.name;
+
+    document.getElementById('pageSubtitle').textContent =
+      'عدّلي البيانات الأساسية لهذا التخصص. الخطة الدراسية تتحدّث من صفحة "تحديث الخطط الدراسية".';
+
+    document.getElementById('saveBtnLabel').textContent =
+      'حفظ التعديلات';
+
+    // تعبئة الحقول الأساسية
+    document.getElementById('progName').value = major.name;
+    document.getElementById('progDegree').value = major.degree;
+    document.getElementById('progDeanship').value = major.deanship_id;
+    document.getElementById('progDuration').value = major.duration_years;
+    document.getElementById('progGoals').value = major.goals || '';
+    document.getElementById('progQualifications').value = major.qualifications || '';
+
+    // تعبئة تاجز المهارات المستهدفة والمسارات المهنية
+    (major.target_skills || []).forEach(skill => addTag('skillTags', skill));
+    (major.career_paths || []).forEach(path => addTag('careerTags', path));
+
+  }
+
+  initEditMode();
 
 
   });

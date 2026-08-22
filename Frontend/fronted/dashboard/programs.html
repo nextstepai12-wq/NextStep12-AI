@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>البرامج الأكاديمية — لوحة تحكم الإدارة | NextStep AI</title>
+  <title>تحديث الخطط الدراسية — لوحة تحكم الإدارة | NextStep AI</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,6 +12,32 @@
   <link rel="stylesheet" href="../../css/app.css">
   <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
   <link rel="stylesheet" href="../../css/dashboardcss/programs.css">
+  <style>
+    /* جدول المحتوى المستخرج (فصول/مواد) القابل للتعديل بعد معالجة AI */
+    .edit-semester-block { margin-bottom: 16px; }
+    .edit-semester-block h4 {
+      font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 8px;
+    }
+    .edit-course-row {
+      display: grid; grid-template-columns: 1fr 90px 34px; gap: 8px; margin-bottom: 6px; align-items: center;
+    }
+    .edit-course-row input {
+      padding: 8px 12px; border: 2px solid var(--gray-bg); border-radius: var(--radius-sm);
+      font-family: inherit; font-size: 0.85rem; color: var(--gray-dark); outline: none;
+    }
+    .edit-course-row input:focus { border-color: var(--blue); }
+    .edit-course-remove {
+      width: 32px; height: 32px; border: none; background: rgba(198,40,40,0.06); color: var(--red);
+      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .edit-course-remove:hover { background: rgba(198,40,40,0.12); }
+    .edit-add-course-btn {
+      background: none; border: 1.5px dashed var(--gray-light); color: var(--gray);
+      border-radius: var(--radius-sm); padding: 8px 14px; font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; width: 100%; margin-top: 4px;
+    }
+    .edit-add-course-btn:hover { border-color: var(--blue); color: var(--blue); }
+  </style>
 </head>
 <body>
 
@@ -30,8 +56,13 @@
     <!-- ====== PAGE HEADER ====== -->
     <div class="admin-page-head">
       <div>
-        <h1>إدارة البرامج الأكاديمية</h1>
-        <p>ارفع الخطط الدراسية (PDF أو Excel أو CSV) وسيحوّلها الذكاء الاصطناعي تلقائياً إلى بيانات هيكلية جاهزة للربط بالعمادة والتخصص.</p>
+        <h1>تحديث الخطط الدراسية</h1>
+        <p>
+          هاي الصفحة لتحديث خطة تخصص <strong>موجود مسبقاً</strong> فقط (مثلاً تغيير سنوي بالمنهاج).
+          ارفعي النسخة المحدّثة (PDF أو Excel أو CSV) وسيحوّلها الذكاء الاصطناعي تلقائياً إلى بيانات هيكلية.
+          لإضافة تخصص جديد بخطته الدراسية من الأساس، استخدمي صفحة
+          <a href="add-program.html" style="color:var(--blue);font-weight:700;">إضافة تخصص جديد</a>.
+        </p>
       </div>
       <span class="ai-badge">
         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -52,7 +83,7 @@
         <span class="step-num">2</span>
       </button>
       <button type="button" class="admin-step-card" data-step="3">
-        <span class="step-label">رفع ومعالجة الملف<br><small>الخطوة الثالثة</small></span>
+        <span class="step-label">رفع نسخة محدّثة<br><small>الخطوة الثالثة</small></span>
         <span class="step-num">3</span>
       </button>
     </div>
@@ -91,6 +122,11 @@
         </div>
       </div>
 
+      <p class="field-hint" id="planModeHint" style="margin:0 0 16px;color:var(--gray);font-size:0.85rem;">
+        بيرفع الملف ويحلله الذكاء الاصطناعي تلقائياً ويطلع منه الفصول والمواد.
+        (للرفع اليدوي بدون تحليل، استخدمي قسم "رفع الخطة" بصفحة إضافة التخصص).
+      </p>
+
       <!-- ====== DROPZONE ====== -->
       <label class="dropzone" id="dropzone" for="planFile">
         <div class="dropzone-icon">
@@ -100,7 +136,7 @@
             <path d="M12 3v12"/>
           </svg>
         </div>
-        <h4>اسحب الملف هنا أو انقر للاختيار</h4>
+        <h4 id="dropzoneTitle">اسحب النسخة المحدّثة من الخطة هنا أو انقر للاختيار</h4>
         <p>ندعم ملفات PDF, Excel, و CSV (الحد الأقصى 20 ميجابايت)</p>
         <input type="file" id="planFile" accept=".pdf,.xlsx,.xls,.csv">
       </label>
@@ -128,11 +164,29 @@
 
       <!-- ====== PROCESS BUTTON ====== -->
       <button type="button" class="panel-submit" id="processBtn" disabled>
-        معالجة الملف بالذكاء الاصطناعي
+        <span id="processBtnLabel">تحديث الخطة بالذكاء الاصطناعي</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <path d="M5 12h14M13 5l7 7-7 7"/>
         </svg>
       </button>
+
+      <!-- ====== نتيجة المعالجة + تعديل المحتوى ====== -->
+      <div id="extractedContentBlock" hidden style="margin-top:22px;">
+
+        <div class="chart-card-head">
+          <h3>المحتوى المستخرج — عدّلي عليه قبل الحفظ</h3>
+        </div>
+
+        <div id="extractedSemesters"><!-- فصول ومواد قابلة للتعديل — تتعبى بـ JS --></div>
+
+        <button type="button" class="panel-submit" id="saveEditedContentBtn" style="margin-top:16px;background:linear-gradient(135deg, var(--green), #0EAE7B);">
+          حفظ التعديلات على المحتوى
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </button>
+
+      </div>
 
     </div>
 
@@ -364,6 +418,22 @@
         fileInput.value = '';
         return;
       }
+
+      const extension = file.name.split('.').pop().toLowerCase();
+      const allowedExt = planMode === 'manual' ? ['pdf'] : ['pdf', 'xlsx', 'xls', 'csv'];
+
+      if (!allowedExt.includes(extension)) {
+        openModal({
+          type: 'error',
+          title: 'نوع الملف غير مدعوم',
+          message: planMode === 'manual'
+            ? 'بالرفع اليدوي لازم يكون الملف بصيغة PDF فقط.'
+            : 'الخطة الدراسية يجب أن تكون PDF أو Excel أو CSV.'
+        });
+        fileInput.value = '';
+        return;
+      }
+
       fileNameEl.textContent = file.name;
       fileSizeEl.textContent = formatFileSize(file.size);
       fileRow.classList.add('show');
@@ -405,13 +475,88 @@
     });
 
     // ========================================================================
-    // 5. PROCESS - معالجة الملف
+    // 5. PROCESS - معالجة الملف بالذكاء الاصطناعي
     // ========================================================================
+    const extractedContentBlock = document.getElementById('extractedContentBlock');
+    const extractedSemestersEl = document.getElementById('extractedSemesters');
+    const saveEditedContentBtn = document.getElementById('saveEditedContentBtn');
+
+    const COURSE_TOPICS = [
+      'مبادئ', 'أساسيات', 'مقدمة في', 'نظريات', 'تطبيقات', 'مهارات', 'إدارة', 'تحليل', 'تصميم'
+    ];
+
+    // بيتولد محتوى وهمي (فصول ومواد) بعد "تحليل" الملف — قابل للتعديل الكامل من الإدارة
+    function generateEditableSemesters(majorName) {
+      const semestersCount = 8; // افتراضي 4 سنوات — قابل للتعديل يدوياً بإضافة/حذف مواد
+      const semesters = [];
+      for (let s = 1; s <= semestersCount; s++) {
+        const courses = [];
+        for (let c = 1; c <= 5; c++) {
+          const topic = COURSE_TOPICS[(s + c) % COURSE_TOPICS.length];
+          courses.push({ name: `${topic} ${majorName}`, hours: 3 });
+        }
+        semesters.push({ number: s, courses });
+      }
+      return semesters;
+    }
+
+    function courseRowHtml(course) {
+      return `
+        <div class="edit-course-row">
+          <input type="text" class="course-name-input" value="${course.name}" placeholder="اسم المادة">
+          <input type="number" class="course-hours-input" value="${course.hours}" min="1" max="6" placeholder="ساعات">
+          <button type="button" class="edit-course-remove" aria-label="حذف المادة">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+      `;
+    }
+
+    function renderEditableSemesters(semesters) {
+      extractedSemestersEl.innerHTML = semesters.map((sem, idx) => `
+        <div class="edit-semester-block" data-sem="${idx}">
+          <h4>الفصل الدراسي ${sem.number}</h4>
+          <div class="courses-container">
+            ${sem.courses.map(courseRowHtml).join('')}
+          </div>
+          <button type="button" class="edit-add-course-btn">+ إضافة مادة</button>
+        </div>
+      `).join('');
+
+      // حذف مادة
+      extractedSemestersEl.querySelectorAll('.edit-course-remove').forEach(btn => {
+        btn.addEventListener('click', () => btn.closest('.edit-course-row').remove());
+      });
+
+      // إضافة مادة لنفس الفصل
+      extractedSemestersEl.querySelectorAll('.edit-add-course-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const container = btn.previousElementSibling;
+          container.insertAdjacentHTML('beforeend', courseRowHtml({ name: '', hours: 3 }));
+          const newRow = container.lastElementChild;
+          newRow.querySelector('.edit-course-remove').addEventListener('click', () => newRow.remove());
+        });
+      });
+    }
+
+    function collectEditedSemesters() {
+      return Array.from(extractedSemestersEl.querySelectorAll('.edit-semester-block')).map((block, idx) => ({
+        number: idx + 1,
+        courses: Array.from(block.querySelectorAll('.edit-course-row')).map(row => ({
+          name: row.querySelector('.course-name-input').value.trim(),
+          hours: Number(row.querySelector('.course-hours-input').value) || 3
+        })).filter(c => c.name)
+      }));
+    }
+
     processBtn.addEventListener('click', async function() {
       if (!fileInput.files.length) return;
 
       const deanshipVal = deanshipSelect.value;
       const majorVal = majorSelect.value;
+      const majorText = majorSelect.options[majorSelect.selectedIndex]
+        ? majorSelect.options[majorSelect.selectedIndex].textContent
+        : '';
 
       if (!deanshipVal) {
         openModal({
@@ -432,10 +577,10 @@
 
       const originalContent = this.innerHTML;
       this.disabled = true;
-      this.textContent = 'جارٍ المعالجة...';
+      this.textContent = 'جارٍ التحليل...';
 
       if (USE_MOCK_DATA) {
-        console.log('📦 رفع الخطة الدراسية (محاكاة):', {
+        console.log('📦 تحليل الخطة بالذكاء الاصطناعي (محاكاة):', {
           fileName: fileInput.files[0].name,
           fileSize: fileInput.files[0].size,
           deanship_id: deanshipVal,
@@ -444,17 +589,15 @@
 
         await new Promise(resolve => setTimeout(resolve, 1200));
 
-        openModal({
-          type: 'success',
-          title: 'تمت معالجة الملف بنجاح 🎉',
-          message: 'هاي محاكاة محلية بدون باك اند — تفاصيل الملف طلعت بالـ Console.',
-        });
-
-        // إعادة تعيين الحقول
-        fileInput.value = '';
-        fileRow.classList.remove('show');
         this.disabled = false;
         this.innerHTML = originalContent;
+
+        // عرض المحتوى المستخرج بشكل قابل للتعديل
+        const semesters = generateEditableSemesters(majorText || 'التخصص');
+        renderEditableSemesters(semesters);
+        extractedContentBlock.hidden = false;
+        extractedContentBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
         return;
       }
 
@@ -464,7 +607,46 @@
       // formData.append('deanship_id', deanshipVal);
       // formData.append('major_id', majorVal);
       // const response = await fetch(`${API_BASE_URL}/upload-plan`, { method: 'POST', body: formData });
-      // ...
+      // ثم عرض النتيجة المستخرجة من الباك اند بنفس renderEditableSemesters()
+    });
+
+    // حفظ التعديلات على المحتوى المستخرج
+    saveEditedContentBtn.addEventListener('click', async function() {
+      const editedSemesters = collectEditedSemesters();
+
+      const originalContent = this.innerHTML;
+      this.disabled = true;
+      this.textContent = 'جارٍ الحفظ...';
+
+      if (USE_MOCK_DATA) {
+        console.log('📦 حفظ المحتوى المعدَّل يدوياً بعد AI (محاكاة):', {
+          deanship_id: deanshipSelect.value,
+          major_id: majorSelect.value,
+          semesters: editedSemesters
+        });
+
+        await new Promise(resolve => setTimeout(resolve, 700));
+
+        openModal({
+          type: 'success',
+          title: 'تم حفظ الخطة بنجاح 🎉',
+          message: 'انحفظ المحتوى بعد تعديلاتك. هاي محاكاة محلية بدون باك اند — التفاصيل بالـ Console.',
+        });
+
+        this.disabled = false;
+        this.innerHTML = originalContent;
+        extractedContentBlock.hidden = true;
+        fileInput.value = '';
+        fileRow.classList.remove('show');
+        return;
+      }
+
+      // TODO: ربط الباك اند الحقيقي هنا
+      // await fetch(`${API_BASE_URL}/majors/${majorSelect.value}/plan`, {
+      //   method: 'PUT',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ semesters: editedSemesters })
+      // });
     });
 
     // ========================================================================
@@ -493,7 +675,41 @@
     });
 
     // ========================================================================
-    // 7. TOP BAR - تأثير التمرير
+    // 7. وضع التحديث من الرابط: ?deanship=X&major=Y
+    //    (جاي غالباً من صفحة الاستعراض browse-deanships.html)
+    // ========================================================================
+    (function initFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const deanshipParam = params.get('deanship');
+      const majorParam = params.get('major');
+
+      if (!deanshipParam) return;
+
+      deanshipSelect.value = deanshipParam;
+      deanshipSelect.dispatchEvent(new Event('change'));
+
+      if (!majorParam) return;
+
+      // بننتظر لحد ما التخصصات تتحمّل (نفس المدة المستخدمة بمحاكاة التحميل)
+      const trySelectMajor = setInterval(() => {
+        if (!majorSelect.disabled) {
+          majorSelect.value = majorParam;
+          clearInterval(trySelectMajor);
+
+          // بانر توضيحي إنه هاي عملية تحديث
+          const banner = document.createElement('div');
+          banner.style.cssText =
+            'display:flex;align-items:center;gap:10px;background:rgba(47,107,255,0.08);' +
+            'border:1px solid rgba(47,107,255,0.18);color:var(--blue);border-radius:var(--radius-sm);' +
+            'padding:12px 18px;margin-bottom:16px;font-size:0.9rem;font-weight:600;';
+          banner.innerHTML = '📋 جاي من صفحة الاستعراض — العمادة والتخصص محددين مسبقاً، بس ارفعي ملف الخطة.';
+          document.querySelector('.admin-page-head').insertAdjacentElement('beforebegin', banner);
+        }
+      }, 100);
+    })();
+
+    // ========================================================================
+    // 8. TOP BAR - تأثير التمرير
     // ========================================================================
   })();
 </script>

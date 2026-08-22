@@ -1,0 +1,920 @@
+/* ==========================================
+   Account Settings Styles - settings.css
+   مطابق للهوية البصرية لـ NextStep AI
+   ========================================== */
+
+/* ===== استيراد الخطوط من Google Fonts ===== */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* ===== متغيرات الألوان حسب الهوية ===== */
+:root {
+  /* الألوان الأساسية */
+  --navy: #1B2A4A;
+  --blue: #2563EB;
+  --cyan: #06B6D4;
+  --mint: #34D399;
+  --light: #F8FAFC;
+  --gray: #94A3B8;
+  --dark: #0F172A;
+
+  /* الألوان المشتقة */
+  --bg-primary: var(--light);
+  --bg-card: #FFFFFF;
+  --bg-secondary: #F1F5F9;
+  --text-primary: var(--dark);
+  --text-secondary: var(--gray);
+  --border: #E2E8F0;
+  --shadow: 0 4px 20px rgba(27, 42, 74, 0.08);
+  --shadow-hover: 0 8px 40px rgba(27, 42, 74, 0.15);
+  
+  /* تدرجات الأزرار */
+  --gradient-primary: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--cyan) 0%, var(--mint) 100%);
+}
+
+/* ===== تعيين الخطوط ===== */
+* {
+  font-family: 'Cairo', 'Poppins', sans-serif;
+}
+
+body {
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* ===== الحاوية الرئيسية ===== */
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.settings-grid .card {
+  margin-bottom: 0;
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.settings-grid .card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.settings-grid .card .card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+}
+
+.settings-grid .card .card-head .card-icon {
+  font-size: 24px;
+  color: var(--blue);
+}
+
+.settings-grid .card .card-head h2 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.settings-grid .card .card-head h2 .highlight {
+  color: var(--cyan);
+}
+
+/* ===== المعلومات الشخصية ===== */
+.personal-card {
+  grid-column: 1 / -1;
+  background: linear-gradient(145deg, #FFFFFF, var(--bg-secondary));
+}
+
+.personal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 28px;
+}
+
+.personal-grid .field-group {
+  margin-bottom: 0;
+}
+
+.personal-grid .field-group.password-field {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.personal-grid .field-group.password-field label {
+  flex: 1;
+}
+
+.personal-grid .field-group.password-field .password-trigger-btn {
+  background: var(--gradient-secondary);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+  letter-spacing: 0.3px;
+}
+
+.personal-grid .field-group.password-field .password-trigger-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.5);
+}
+
+.personal-grid .field-group.password-field .password-trigger-btn:active {
+  transform: scale(0.97);
+}
+
+.personal-grid .field-group.password-field .password-trigger-btn .icon {
+  font-size: 18px;
+}
+
+/* ===== صورة البروفايل ===== */
+.profile-photo-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 0 20px 0;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.profile-photo-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+}
+
+.profile-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--blue);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
+}
+
+.photo-edit-btn {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  border: 3px solid #fff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.3);
+}
+
+.photo-edit-btn:hover {
+  transform: scale(1.15) rotate(10deg);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+}
+
+#photoInput {
+  display: none;
+}
+
+.photo-info {
+  flex: 1;
+}
+
+.photo-info .photo-title {
+  font-weight: 800;
+  font-size: 17px;
+  color: var(--navy);
+  font-family: 'Poppins', 'Cairo', sans-serif;
+}
+
+.photo-info .photo-hint {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+.photo-info .photo-status {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--mint);
+  background: rgba(52, 211, 153, 0.15);
+  padding: 4px 16px;
+  border-radius: 30px;
+  font-weight: 700;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+/* ===== حقول الإدخال ===== */
+.field-group label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-family: 'Cairo', 'Poppins', sans-serif;
+}
+
+.field-group label input,
+.field-group label select {
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  font-size: 14px;
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.field-group label input:focus,
+.field-group label select:focus {
+  border-color: var(--blue);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+  transform: translateY(-1px);
+}
+
+.field-group label input::placeholder {
+  color: var(--gray);
+  font-weight: 400;
+}
+
+/* ===== حقول للقراءة فقط ===== */
+.field-group.readonly label input {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.8;
+  border-style: dashed;
+}
+
+.field-group.readonly label input:focus {
+  border-color: var(--border);
+  box-shadow: none;
+  transform: none;
+}
+
+/* ===== الأزرار الرئيسية ===== */
+.primary-btn {
+  background: var(--gradient-primary);
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 15px;
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  width: 100%;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 35px rgba(37, 99, 235, 0.45);
+}
+
+.primary-btn:active {
+  transform: scale(0.98);
+}
+
+/* ===== تفضيلات ===== */
+.select-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.select-row:last-child {
+  border-bottom: none;
+}
+
+.select-row label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.select-row select {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  color: var(--text-primary);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.select-row select:focus {
+  border-color: var(--cyan);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+}
+
+/* ===== Toggles (مفاتيح التبديل) ===== */
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.toggle-row:last-child {
+  border-bottom: none;
+}
+
+.toggle-row div strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.toggle-row div small {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.switch {
+  position: relative;
+  width: 50px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch i {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 30px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.switch i::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  top: 4px;
+  right: 4px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.switch input:checked + i {
+  background: var(--gradient-primary);
+}
+
+.switch input:checked + i::after {
+  transform: translateX(-22px);
+}
+
+/* ===== شريط التقدم (Progress Bar) - حسب الهوية ===== */
+.progress-section {
+  margin: 16px 0 8px 0;
+}
+
+.progress-item {
+  margin-bottom: 14px;
+}
+
+.progress-item .progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.progress-item .progress-label .progress-percent {
+  color: var(--blue);
+  font-weight: 800;
+  font-family: 'Poppins', 'Cairo', sans-serif;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: var(--bg-secondary);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.progress-bar .progress-fill {
+  height: 100%;
+  border-radius: 30px;
+  background: var(--gradient-primary);
+  transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.progress-bar .progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ===== نص التوقيع (Signature Text) - حسب الهوية ===== */
+.signature-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 0 8px 0;
+  font-size: 13px;
+  color: var(--gray);
+  font-weight: 600;
+  border-top: 2px solid var(--border);
+  margin-top: 20px;
+}
+
+.signature-text .signature-icon {
+  color: var(--cyan);
+  font-size: 20px;
+}
+
+.signature-text strong {
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.signature-text .highlight-cyan {
+  color: var(--cyan);
+}
+
+.signature-text .highlight-mint {
+  color: var(--mint);
+}
+
+/* ===== تطبيق الموية (Watermark/Opacity) - حسب الهوية ===== */
+.watermark-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37, 99, 235, 0.06);
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.watermark-badge .watermark-icon {
+  font-size: 16px;
+}
+
+/* ===== Modal (النافذة المنبثقة) ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(16px);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  background: var(--bg-card);
+  border-radius: 28px;
+  padding: 40px 44px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 40px 100px rgba(27, 42, 74, 0.3);
+  position: relative;
+  animation: modalIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal .modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.modal .modal-head h3 {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--navy);
+  font-family: 'Cairo', 'Poppins', sans-serif;
+}
+
+.modal .modal-head h3 .icon {
+  margin-left: 10px;
+  color: var(--cyan);
+}
+
+.modal .modal-close {
+  background: var(--bg-secondary);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--gray);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal .modal-close:hover {
+  background: var(--border);
+  color: var(--navy);
+  transform: rotate(90deg);
+}
+
+.modal .field-group {
+  margin-bottom: 20px;
+}
+
+.modal .field-group:last-of-type {
+  margin-bottom: 28px;
+}
+
+.modal .field-group label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-family: 'Cairo', 'Poppins', sans-serif;
+}
+
+.modal .field-group label input {
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  font-size: 14px;
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.modal .field-group label input:focus {
+  border-color: var(--blue);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.modal .field-group label input::placeholder {
+  color: var(--gray);
+}
+
+.modal .modal-btn {
+  background: var(--gradient-primary);
+  color: #fff;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 16px;
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.modal .modal-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px rgba(37, 99, 235, 0.55);
+}
+
+.modal .modal-btn:active {
+  transform: scale(0.97);
+}
+
+/* ===== رسالة النجاح داخل المودال ===== */
+.modal .success-message {
+  display: none;
+  text-align: center;
+  padding: 24px 0 12px 0;
+}
+
+.modal .success-message.show {
+  display: block;
+  animation: successIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes successIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal .success-message .success-icon {
+  font-size: 64px;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.modal .success-message .success-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--mint);
+  display: block;
+  font-family: 'Cairo', 'Poppins', sans-serif;
+}
+
+.modal .success-message .success-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  display: block;
+  margin-top: 8px;
+}
+
+.modal .success-message .success-close-btn {
+  margin-top: 24px;
+  background: var(--gradient-accent);
+  color: #fff;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 15px;
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 25px rgba(52, 211, 153, 0.4);
+}
+
+.modal .success-message .success-close-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 35px rgba(52, 211, 153, 0.55);
+}
+
+/* ===== دعم الوضع المظلم ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: var(--dark);
+    --bg-card: #1E293B;
+    --bg-secondary: #0F172A;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --border: #334155;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .settings-grid .card {
+    background: var(--bg-card);
+    border-color: var(--border);
+  }
+
+  .personal-card {
+    background: linear-gradient(145deg, #1E293B, #0F172A);
+  }
+
+  .modal {
+    background: var(--bg-card);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .modal .modal-head h3 {
+    color: #F1F5F9;
+  }
+
+  .modal .modal-close {
+    background: rgba(255, 255, 255, 0.06);
+    color: #94A3B8;
+  }
+
+  .modal .modal-close:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #F1F5F9;
+  }
+
+  .modal .field-group label {
+    color: #94A3B8;
+  }
+
+  .modal .field-group label input {
+    background: #0F172A;
+    border-color: #334155;
+    color: #F1F5F9;
+  }
+
+  .modal .field-group label input::placeholder {
+    color: #475569;
+  }
+
+  .modal .field-group label input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+  }
+
+  .modal .success-message .success-desc {
+    color: #94A3B8;
+  }
+
+  .signature-text {
+    border-color: var(--border);
+  }
+
+  .signature-text strong {
+    color: #F1F5F9;
+  }
+
+  .watermark-badge {
+    background: rgba(37, 99, 235, 0.12);
+    border-color: rgba(37, 99, 235, 0.2);
+  }
+
+  .photo-info .photo-title {
+    color: #F1F5F9;
+  }
+
+  .settings-grid .card .card-head h2 {
+    color: #F1F5F9;
+  }
+
+  .toggle-row div strong {
+    color: #F1F5F9;
+  }
+
+  .select-row label {
+    color: #F1F5F9;
+  }
+
+  .select-row select {
+    background: #0F172A;
+    border-color: #334155;
+    color: #F1F5F9;
+  }
+}
+
+/* ===== التجاوب مع الشاشات ===== */
+@media (max-width: 900px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .personal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .personal-grid .field-group.password-field {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .personal-grid .field-group.password-field .password-trigger-btn {
+    justify-content: center;
+    height: 48px;
+  }
+
+  .modal {
+    padding: 30px 24px;
+    width: 95%;
+    margin: 10px;
+  }
+
+  .profile-photo-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .photo-info .photo-status {
+    display: block;
+    text-align: center;
+  }
+
+  .settings-grid .card {
+    padding: 20px;
+  }
+
+  .signature-text {
+    flex-wrap: wrap;
+    text-align: center;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-grid .card .card-head h2 {
+    font-size: 14px;
+  }
+
+  .primary-btn {
+    font-size: 13px;
+    padding: 12px 18px;
+  }
+
+  .modal .modal-head h3 {
+    font-size: 18px;
+  }
+
+  .select-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .toggle-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .toggle-row div strong {
+    font-size: 13px;
+  }
+}

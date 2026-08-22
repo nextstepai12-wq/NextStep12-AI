@@ -1,321 +1,1463 @@
-/* =====================================================================
-   header.css
-   الهيدر الموحّد لكل صفحات الموقع — المصدر الوحيد لتنسيقات الهيدر
-   يعتمد على المتغيرات في app.css — حمّل app.css قبله
-   ===================================================================== */
+/* =========================================================
+   NextStep AI — PREMIUM TRANSPARENT HEADER
+   Soft Color + 3D Floating Animation
+   ========================================================= */
 
-header.site-header{
-  position:fixed;
-  padding: 0;
-  inset-inline:0;
-  width:100%;
-  z-index:1000;
-  background:#f7fafd;
-  border-bottom:none;
-  direction:ltr;
-  padding-block:0.25rem;
-  backdrop-filter:none;
-  -webkit-backdrop-filter:none;
-  box-shadow:none;
-  opacity:0;
-  transform:translateY(-14px);
-  transition:opacity .35s ease, transform .35s ease;
-  overflow:hidden;
-  isolation:isolate;
-}
-
-/* عند السكرول: نفس الهيدر يضل ثابت مع خلفية موحّدة، بدون تعريف مكرر.
-   ملاحظة: صفحات auth (login/signup...) عندها استثناء خاص محدد بـ auth.css
-   عبر .site-header.header-solid.scrolled (specificity أعلى)، فبيضل fixed هناك فقط. */
-header.site-header.scrolled {
-    position: fixed;
-    inset-block-start: 0;
+header.site-header {
+    position: absolute;
+    top: 0;
     inset-inline: 0;
+    width: 100%;
+    z-index: 1000;
 
-    transform: none;
+    direction: ltr;
 
-    background: #f7fafd;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 
-    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 
-    padding: 0;
+    opacity: 0;
+    transform: translateY(-14px);
 
-    border-color: transparent;
+    transition:
+        opacity .45s ease,
+        transform .45s ease;
 }
 
-header.site-header.ready{
-  opacity:1;
-  transform:translateY(0);
+header.site-header.ready {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* فاصل يمنع تغطية المحتوى — الارتفاع يُحدَّث ديناميكياً عبر header.js */
-.header-spacer {
-    height: var(--header-height, 5.3rem);
-    flex-shrink: 0;
+header.site-header.scrolled {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
 }
+
+
+/* =========================================================
+   NAV INNER
+   ========================================================= */
 
 .nav-inner {
-    max-width: 1520px;
-    width: 100%;
+    width: min(1420px, calc(100% - 56px));
+
+    min-height: 82px;
 
     margin: 0 auto;
 
-    padding: 0.7rem 2rem;
+    padding: 13px 0;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    gap: 1.5rem;
+    gap: 25px;
+
+    direction: ltr;
+}
+
+
+/* =========================================================
+   LOGO BOX
+   ========================================================= */
+
+.brand-mark {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    height: 52px;
+
+    padding: 4px 17px 4px 7px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.58),
+            rgba(235,247,255,.38)
+        );
+
+    border:
+        1px solid rgba(91,174,230,.20);
+
+    box-shadow:
+        0 8px 22px rgba(24,87,145,.07),
+        inset 0 1px 0 rgba(255,255,255,.90);
+
+    transform:
+        translateZ(0);
+
+    transition:
+        transform .28s cubic-bezier(.2,.8,.2,1),
+        background .28s ease,
+        border-color .28s ease,
+        box-shadow .28s ease;
+}
+
+
+/* لمعة خفيفة */
+
+.brand-mark::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent 20%,
+            rgba(255,255,255,.55) 48%,
+            transparent 72%
+        );
+
+    transform:
+        translateX(-120%);
+
+    transition:
+        transform .7s ease;
+
+    pointer-events: none;
+}
+
+.brand-mark:hover::before {
+    transform:
+        translateX(120%);
+}
+
+
+.brand-mark:hover {
+    transform:
+        translateY(-4px)
+        rotateX(2deg);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.82),
+            rgba(230,247,255,.58)
+        );
+
+    border-color:
+        rgba(54,159,221,.32);
+
+    box-shadow:
+        0 16px 30px rgba(24,87,145,.12),
+        0 0 0 4px rgba(53,191,225,.045),
+        inset 0 1px 0 rgba(255,255,255,1);
+}
+
+
+/* =========================================================
+   LOGO IMAGE
+   ========================================================= */
+
+.brand-mark .brand-logo {
+    position: relative;
+    z-index: 2;
+
+    width: 43px;
+    height: 43px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 5px 6px rgba(23,76,135,.17)
+        );
+
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        filter .3s ease;
+}
+
+
+/* حركة الشعار */
+
+.brand-mark:hover .brand-logo {
+    transform:
+        translateY(-2px)
+        rotate(-3deg)
+        scale(1.05);
+
+    filter:
+        drop-shadow(
+            0 8px 9px rgba(23,76,135,.20)
+        );
+}
+
+
+/* =========================================================
+   BRAND TEXT
+   ========================================================= */
+
+.brand-mark .brand-text {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: baseline;
+
+    gap: 4px;
 
     direction: ltr;
 
+    white-space: nowrap;
+
+    font-family:
+        "Poppins",
+        "Cairo",
+        sans-serif;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    color: #173873;
+
+    text-shadow:
+        0 2px 0 rgba(255,255,255,.9);
+
+    transition:
+        transform .28s ease;
+}
+
+.brand-mark .brand-text span {
+    color: #20bfd3 !important;
+
+    background: none !important;
+
+    -webkit-text-fill-color: initial !important;
+
+    text-shadow:
+        0 2px 0 rgba(255,255,255,.9),
+        0 5px 12px rgba(32,191,211,.13);
+}
+
+.brand-mark:hover .brand-text {
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+nav.main-nav {
+    position: absolute;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+}
+
+
+/* =========================================================
+   NAV LIST
+   ========================================================= */
+
+nav.main-nav ul {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    background: transparent !important;
+
+    border: none !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   NAV BOX
+   ========================================================= */
+
+nav.main-nav a {
     position: relative;
-    z-index: 1;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 43px;
+
+    padding:
+        0 17px;
+
+    border-radius: 13px;
+
+    /*
+       لون خفيف جدًا للبوكس
+    */
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.62),
+            rgba(238,248,255,.38)
+        );
+
+    border:
+        1px solid rgba(75,161,222,.19);
+
+    color: #52657f;
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 12.5px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 5px 14px rgba(23,82,130,.045),
+        inset 0 1px 0 rgba(255,255,255,.92);
+
+    transform:
+        translateY(0)
+        translateZ(0);
+
+    transition:
+        color .22s ease,
+        background .22s ease,
+        border-color .22s ease,
+        transform .28s cubic-bezier(.2,.8,.2,1),
+        box-shadow .28s ease;
 }
 
-/* ===== خلفية الشعار + اسم المنصة (كبسولة زجاجية بعمق 3D) ===== */
-.brand-mark{
-  display:flex;
-  align-items:center;
-  gap:0.625rem;
-  flex-shrink:0;
-  background:linear-gradient(135deg, rgba(30,79,209,0.85) 0%, rgba(12,150,190,0.85) 100%);
-  border:1px solid rgba(30,79,209,0.25);
-  border-radius:999px;
-  padding:0 1.75rem;
-  height:3.4rem;
-  box-sizing:border-box;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.35),
-    inset 0 -2px 4px rgba(10,30,80,0.2),
-    0 6px 14px -6px rgba(10,30,80,0.35);
-  transition:background-color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
-}
-.brand-mark:hover{
-  transform:translateY(-2px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.4),
-    inset 0 -2px 4px rgba(10,30,80,0.2),
-    0 10px 20px -8px rgba(10,30,80,0.45);
-}
-.brand-mark .brand-logo{
-  width:2.3rem;
-  height:2.3rem;
-  object-fit:contain;
-  flex-shrink:0;
-  filter:drop-shadow(0 2px 3px rgba(10,30,80,0.3));
-}
-.brand-mark .brand-text{
-  font-family:'Cairo',sans-serif;
-  font-weight:700;
-  font-size:clamp(1.15rem, 2vw, 1.5rem);
-  color:#ffffff;
-  transition:transform 0.3s ease;
-  display:flex;
-  align-items:center;
-  gap:0.25rem;
-  text-shadow:0 1px 3px rgba(0,0,0,0.25);
-}
-.brand-mark .brand-text span{
-  background:linear-gradient(180deg, var(--cyan, #7EF6FF), #ffffff);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-.brand-mark .brand-text:hover{transform:translateY(-0.35rem);}
 
-/* ===== خلفية قائمة الروابط (كبسولة زجاجية بعمق 3D) ===== */
-nav.main-nav ul{
-  display:flex;
-  gap:2.25rem;
-  font-size:18px;
-  font-weight:800;
-  color:#eaf2ff;
-  background:linear-gradient(135deg, rgba(30,79,209,0.85) 0%, rgba(12,150,190,0.85) 100%);
-  border:1px solid rgba(30,79,209,0.25);
-  border-radius:999px;
-  padding:0.55rem 1.75rem;
-  min-height:2.75rem;
-  box-sizing:border-box;
-  align-items:center;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.3),
-    inset 0 -2px 4px rgba(10,30,80,0.15),
-    0 6px 14px -8px rgba(10,30,80,0.35);
-}
-nav.main-nav a{
-  position:relative;
-  transition:color .25s ease, transform .25s ease, text-shadow .25s ease;
-  padding-block:0.2rem;
-  color:inherit;
-}
-.main-nav ul li a:hover {
-    color: var(--cyan, #7EF6FF);
-    transform: translateY(-2px);
-}
-.main-nav ul li a:active {
-    transform: translateY(0);
-    opacity: 0.8;
-}
-.main-nav ul li a.active {
-    color: #ffffff;
-    font-weight: 700;
-    text-shadow:0 1px 4px rgba(0,0,0,0.4);
-}
-nav.main-nav a::after{
-  content:"";
-  position:absolute;
-  inset-inline-start:0;
-  inset-block-end:-0.25rem;
-  width:0;
-  height:2px;
-  background:linear-gradient(90deg, var(--cyan, #7EF6FF), #ffffff);
-  border-radius:999px;
-  transition:width .25s ease;
-}
-nav.main-nav a:hover,
-nav.main-nav a:focus-visible,
-nav.main-nav a.active{
-  color:#ffffff;
-  transform:translateY(-1px);
-  text-shadow:0 1px 3px rgba(0,0,0,0.25);
-}
-nav.main-nav a:hover::after,
-nav.main-nav a:focus-visible::after{width:100%;}
+/* =========================================================
+   FLOATING ANIMATION
+   كل بوكس يتحرك بتوقيت مختلف
+   ========================================================= */
 
-.nav-actions{
-  display:flex;
-  align-items:center;
-  gap:1rem;
-  flex-shrink:0;
+nav.main-nav li:nth-child(1) a {
+    animation:
+        navFloat 4.8s ease-in-out infinite;
+    animation-delay: 0s;
 }
 
-/* ===== زر مخطط (تسجيل دخول) — زجاجي بعمق خفيف ===== */
-.btn-outline{
-  background:linear-gradient(160deg, rgba(30,79,209,0.1), rgba(30,79,209,0.03));
-  border:1.5px solid rgba(30,79,209,0.35) !important;
-  color:#1E4FD1 !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.5),
-    0 4px 10px -6px rgba(10,30,80,0.15);
-  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
-}
-.btn-outline:hover{
-  transform:translateY(-2px);
-  background:linear-gradient(160deg, rgba(30,79,209,0.16), rgba(30,79,209,0.06));
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.5),
-    0 8px 16px -8px rgba(10,30,80,0.25);
-}
-.btn-outline:active{
-  transform:translateY(0);
+nav.main-nav li:nth-child(2) a {
+    animation:
+        navFloat 5.3s ease-in-out infinite;
+    animation-delay: -.8s;
 }
 
-.start-btn{
-  padding:0.5625rem 1.375rem;
-  border-radius:999px;
-  display:flex;
-  align-items:center;
-  gap:0.5rem;
-  background:linear-gradient(135deg, #48E680 0%, #12C7B7 100%);
-  color:#0b2440;
-  border:none;
-  font-size:18px;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.5),
-    0 6px 16px -6px rgba(18,199,183,0.55);
-  transition:transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  font-family:'Cairo', sans-serif;
+nav.main-nav li:nth-child(3) a {
+    animation:
+        navFloat 4.5s ease-in-out infinite;
+    animation-delay: -1.6s;
 }
-.start-btn:hover{
-  transform:translateY(-2px) scale(1.02);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.55),
-    0 10px 22px -8px rgba(18,199,183,0.65);
-  filter:brightness(1.03);
+
+nav.main-nav li:nth-child(4) a {
+    animation:
+        navFloat 5.1s ease-in-out infinite;
+    animation-delay: -2.3s;
 }
-.start-btn:active{
-  transform:translateY(0) scale(0.98);
-  filter:brightness(0.97);
+
+
+@keyframes navFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            translateZ(0);
+    }
+
+    50% {
+        transform:
+            translateY(-3px)
+            translateZ(8px);
+    }
 }
-.start-btn svg{width:1.125rem;height:1.125rem;}
+
+
+/* =========================================================
+   HOVER — نوقف الطفو ونحولها 3D
+   ========================================================= */
+
+nav.main-nav a:hover {
+
+    animation-play-state: paused;
+
+    color: #173873;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.90),
+            rgba(224,246,255,.72)
+        );
+
+    border-color:
+        rgba(40,153,218,.34);
+
+    transform:
+        translateY(-6px)
+        scale(1.025);
+
+    box-shadow:
+        0 13px 25px rgba(24,90,145,.11),
+        0 0 0 4px rgba(39,191,213,.045),
+        inset 0 1px 0 rgba(255,255,255,1);
+}
+
+
+/* =========================================================
+   ACTIVE
+   ========================================================= */
+
+nav.main-nav a.active {
+
+    color: #1e52d9;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(239,248,255,.86),
+            rgba(222,246,255,.60)
+        );
+
+    border-color:
+        rgba(42,132,211,.27);
+
+    box-shadow:
+        0 8px 19px rgba(30,82,217,.07),
+        inset 0 1px 0 rgba(255,255,255,1);
+}
+
+
+/* =========================================================
+   NAV SHINE
+   ========================================================= */
+
+nav.main-nav a::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent 25%,
+            rgba(255,255,255,.50) 48%,
+            transparent 70%
+        );
+
+    transform:
+        translateX(-120%);
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+nav.main-nav a:hover::before {
+
+    opacity: 1;
+
+    animation:
+        navShine .65s ease;
+}
+
+
+@keyframes navShine {
+
+    from {
+        transform:
+            translateX(-120%);
+    }
+
+    to {
+        transform:
+            translateX(120%);
+    }
+}
+
+
+/* =========================================================
+   NAV LINK ICON
+   ========================================================= */
+
+nav.main-nav a .nav-icon {
+
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    color: #3aa9e0;
+
+    transition:
+        color .22s ease,
+        transform .28s cubic-bezier(.2,.8,.2,1);
+}
+
+nav.main-nav a .nav-icon svg {
+
+    width: 16px;
+    height: 16px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+nav.main-nav a > span:not(.nav-icon) {
+
+    position: relative;
+    z-index: 2;
+}
+
+nav.main-nav a:hover .nav-icon {
+
+    color: #1e52d9;
+
+    transform:
+        translateY(-1px)
+        scale(1.08);
+}
+
+nav.main-nav a.active .nav-icon {
+
+    color: #1e52d9;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.nav-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    flex-shrink: 0;
+
+    direction: rtl;
+}
+
+
+.btn-outline,
+.btn-signin,
+.start-btn {
+
+    position: relative;
+
+    min-height: 45px;
+
+    padding:
+        0 20px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    border: none !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #48e680 0%,
+            #20d5a9 52%,
+            #12c7b7 100%
+        ) !important;
+
+    color: #073b38 !important;
+
+    box-shadow:
+        0 10px 21px rgba(18,199,183,.20),
+        inset 0 1px 0 rgba(255,255,255,.68),
+        inset 0 -2px 0 rgba(0,80,70,.08);
+
+    transition:
+        transform .25s cubic-bezier(.2,.8,.2,1),
+        box-shadow .25s ease,
+        filter .25s ease;
+}
+
+
+/* حركة خفيفة مستمرة */
+
+.btn-outline {
+    animation:
+        loginFloat 4s ease-in-out infinite;
+}
+
+
+@keyframes loginFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-3px);
+    }
+}
+
+
+/* Shine */
+
+.btn-outline::after,
+.btn-signin::after,
+.start-btn::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: -35%;
+    left: -90%;
+
+    width: 45%;
+    height: 170%;
+
+    transform:
+        skewX(-20deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.48),
+            transparent
+        );
+
+    transition:
+        left .7s ease;
+}
+
+
+.btn-outline:hover,
+.btn-signin:hover,
+.start-btn:hover {
+
+    animation-play-state: paused;
+
+    transform:
+        translateY(-6px)
+        scale(1.035);
+
+    filter:
+        brightness(1.04);
+
+    box-shadow:
+        0 17px 31px rgba(18,199,183,.29),
+        0 0 0 5px rgba(72,230,128,.07),
+        inset 0 1px 0 rgba(255,255,255,.76),
+        inset 0 -2px 0 rgba(0,80,70,.08);
+}
+
+
+.btn-outline:hover::after,
+.btn-signin:hover::after,
+.start-btn:hover::after {
+
+    left: 135%;
+}
+
+
+.btn-outline:active,
+.btn-signin:active,
+.start-btn:active {
+
+    transform:
+        translateY(1px)
+        scale(.97);
+
+    animation: none;
+}
+
+
+/* =========================================================
+   AVATAR
+   ========================================================= */
+
+.nav-avatar-btn {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    min-height: 45px;
+
+    padding:
+        4px 11px 4px 5px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.45);
+
+    border:
+        1px solid rgba(75,161,222,.17);
+
+    box-shadow:
+        0 6px 17px rgba(23,56,115,.05),
+        inset 0 1px 0 rgba(255,255,255,.9);
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+}
+
+
+.nav-avatar-btn:hover {
+
+    transform:
+        translateY(-4px);
+
+    background:
+        rgba(255,255,255,.72);
+
+    box-shadow:
+        0 13px 25px rgba(23,56,115,.09),
+        inset 0 1px 0 rgba(255,255,255,1);
+}
+
+
+.nav-avatar-btn .avatar-circle {
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1e52d9,
+            #27bfd5
+        );
+
+    color: #fff;
+
+    font-size: 11px;
+    font-weight: 900;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.4),
+        0 6px 12px rgba(30,82,217,.14);
+
+    transition:
+        transform .3s ease;
+}
+
+
+.nav-avatar-btn:hover .avatar-circle {
+
+    transform:
+        rotate(-5deg)
+        scale(1.05);
+}
+
+
+.nav-avatar-btn span {
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    color: #173873;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    nav.main-nav a,
+    .btn-outline,
+    .brand-mark {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 960px) {
+
+    nav.main-nav {
+        display: none;
+    }
+
+    .nav-inner {
+        width:
+            calc(100% - 30px);
+    }
+}
+
+
+@media (max-width: 560px) {
+
+    .nav-inner {
+        min-height: 68px;
+
+        width:
+            calc(100% - 20px);
+    }
+
+    .brand-mark {
+        height: 47px;
+
+        padding:
+            3px 11px 3px 5px;
+    }
+
+    .brand-mark .brand-logo {
+        width: 39px;
+        height: 39px;
+    }
+
+    .brand-mark .brand-text {
+        font-size: 18px;
+    }
+
+    .btn-outline,
+    .btn-signin,
+    .start-btn {
+        min-height: 41px;
+
+        padding:
+            0 13px;
+
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   NEXTSTEP AI — HEADER MOTION
+   ========================================================= */
+
+
+/* =========================================================
+   FLOATING LIGHT ORBS
+   ========================================================= */
+
+.site-header {
+    overflow: visible !important;
+}
+
+
+/* الأشكال المتحركة */
+
+.header-orb {
+    position: absolute;
+
+    display: block;
+
+    pointer-events: none;
+
+    border-radius: 50%;
+
+    z-index: -1;
+
+    opacity: .55;
+
+    filter: blur(1px);
+
+    will-change:
+        transform;
+}
+
+
+/* السماوي */
+
+.orb-one {
+
+    width: 95px;
+    height: 95px;
+
+    top: 10px;
+    left: 28%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(39,191,213,.18) 0%,
+            rgba(39,191,213,.07) 45%,
+            transparent 72%
+        );
+
+    animation:
+        headerFloatOne
+        7s
+        ease-in-out
+        infinite;
+}
+
+
+/* الأخضر */
+
+.orb-two {
+
+    width: 75px;
+    height: 75px;
+
+    top: 18px;
+    right: 28%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(72,230,128,.15) 0%,
+            rgba(72,230,128,.05) 45%,
+            transparent 72%
+        );
+
+    animation:
+        headerFloatTwo
+        8s
+        ease-in-out
+        infinite;
+}
+
+
+/* الأزرق */
+
+.orb-three {
+
+    width: 55px;
+    height: 55px;
+
+    top: 25px;
+    right: 12%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(30,79,209,.12) 0%,
+            rgba(30,79,209,.04) 48%,
+            transparent 72%
+        );
+
+    animation:
+        headerFloatThree
+        6s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================================================
+   FLOAT ANIMATIONS
+   ========================================================= */
+
+@keyframes headerFloatOne {
+
+    0%,
+    100% {
+        margin-top: 0;
+    }
+
+    50% {
+        margin-top: -9px;
+    }
+}
+
+
+@keyframes headerFloatTwo {
+
+    0%,
+    100% {
+        margin-top: 0;
+    }
+
+    50% {
+        margin-top: 8px;
+    }
+}
+
+
+@keyframes headerFloatThree {
+
+    0%,
+    100% {
+        margin-top: 0;
+        opacity: .35;
+    }
+
+    50% {
+        margin-top: -6px;
+        opacity: .65;
+    }
+}
+
+
+/* =========================================================
+   LOGO BOX
+   ========================================================= */
+
+.brand-logo-box {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.88),
+            rgba(235,247,255,.62)
+        );
+
+    border:
+        1px solid rgba(39,191,213,.13);
+
+    box-shadow:
+        0 7px 18px rgba(23,56,115,.08),
+        inset 0 1px 0 rgba(255,255,255,.95);
+
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        box-shadow .35s ease;
+}
+
+
+.brand-mark:hover .brand-logo-box {
+
+    transform:
+        translateY(-3px)
+        rotate(-3deg);
+
+    box-shadow:
+        0 13px 25px rgba(23,56,115,.12),
+        0 0 0 4px rgba(39,191,213,.045),
+        inset 0 1px 0 rgba(255,255,255,1);
+}
+
+
+.brand-mark .brand-logo {
+
+    width: 38px !important;
+    height: 38px !important;
+
+    transition:
+        transform .4s cubic-bezier(.2,.8,.2,1);
+}
+
+
+.brand-mark:hover .brand-logo {
+
+    transform:
+        scale(1.07)
+        rotate(2deg);
+}
+
+
+/* =========================================================
+   NAV BUTTON MOTION
+   ========================================================= */
+
+nav.main-nav a {
+
+    will-change:
+        transform;
+}
+
+
+/* حركة دخول بسيطة لكل زر */
+
+nav.main-nav li {
+
+    animation:
+        navItemIn
+        .6s
+        ease
+        both;
+}
+
+
+nav.main-nav li:nth-child(1) {
+    animation-delay: .08s;
+}
+
+nav.main-nav li:nth-child(2) {
+    animation-delay: .14s;
+}
+
+nav.main-nav li:nth-child(3) {
+    animation-delay: .20s;
+}
+
+nav.main-nav li:nth-child(4) {
+    animation-delay: .26s;
+}
+
+
+@keyframes navItemIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-7px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   NAV BORDER GLOW
+   ========================================================= */
+
+nav.main-nav a::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: inherit;
+
+    border:
+        1px solid rgba(39,191,213,.0);
+
+    pointer-events: none;
+
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+
+nav.main-nav a:hover::before {
+
+    border-color:
+        rgba(39,191,213,.20);
+
+    box-shadow:
+        0 0 12px rgba(39,191,213,.08);
+}
+
+
+/* =========================================================
+   GREEN BUTTON — CHECK / SHINE MOTION
+   ========================================================= */
 
 .btn-signin {
-  padding: 14px 16px;
-  border-radius: 999px;
-  border: none;
-  background:linear-gradient(135deg, #48E680 0%, #12C7B7 100%);
-  color: #0b2440;
-  font-family: 'Cairo', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.5),
-    0 6px 16px -6px rgba(18,199,183,0.5);
-  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-}
-.btn-signin:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.55),
-    0 10px 22px -8px rgba(18,199,183,0.6);
-  filter: brightness(1.04);
-}
-.btn-signin:active {
-  transform: translateY(0) scale(0.98);
-  filter: brightness(0.96);
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    will-change:
+        transform;
 }
 
-@keyframes btnWave{
-  0% { transform:translateX(-140%) rotate(10deg); }
-  100% { transform:translateX(140%) rotate(10deg); }
+
+/* لمعان مستمر خفيف */
+
+.btn-signin::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -60%;
+
+    left: -100%;
+
+    width: 55%;
+
+    height: 220%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.38),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    animation:
+        buttonShine
+        4.5s
+        ease-in-out
+        infinite;
+
+    pointer-events: none;
+
+    z-index: 0;
 }
 
-/* زر الملف الشخصي في الهيدر (صفحات المستخدم المسجّل) */
-.nav-avatar-btn{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:5px 12px 5px 5px;
-  border-radius:999px;
-  border:1.5px solid rgba(255,255,255,0.4);
-  background:linear-gradient(160deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
-  box-shadow:0 4px 10px -6px rgba(10,30,80,0.4);
-  transition:border-color .2s ease, transform .2s ease;
-}
-.nav-avatar-btn:hover{
-  border-color:rgba(255,255,255,0.6);
-  transform:translateY(-1px);
-}
-.nav-avatar-btn .avatar-circle{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:linear-gradient(135deg, #1E4FD1, #12C7B7);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-  font-weight:800;
-  flex-shrink:0;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.4);
-}
-.nav-avatar-btn span{font-size:12.5px;font-weight:700;color:var(--navy);}
 
-@media (max-width:960px){
-  nav.main-nav{display:none;}
+@keyframes buttonShine {
+
+    0% {
+        left: -100%;
+    }
+
+    22% {
+        left: 135%;
+    }
+
+    100% {
+        left: 135%;
+    }
 }
-@media (max-width:560px){
-  .brand-mark .brand-logo{width:3.25rem;height:3.25rem;}
-  .brand-mark .brand-text{font-size:1.5rem;}
-  .header-spacer{height:5rem;}
+
+
+/* النص والأيقونة فوق اللمعة */
+
+.btn-signin > span {
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   LOGIN ICON
+   ========================================================= */
+
+.btn-icon {
+
+    width: 19px;
+    height: 19px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background:
+        rgba(255,255,255,.20);
+
+    transition:
+        transform .3s ease,
+        background .3s ease;
+}
+
+
+.btn-icon svg {
+
+    width: 13px;
+    height: 13px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.btn-signin:hover .btn-icon {
+
+    transform:
+        translateY(-1px)
+        rotate(-4deg);
+
+    background:
+        rgba(255,255,255,.30);
+}
+
+
+.btn-signin:hover .btn-icon svg {
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   HEADER READY — العناصر تدخل بشكل ناعم
+   ========================================================= */
+
+.site-header.ready .brand-mark {
+
+    animation:
+        headerBrandIn
+        .7s
+        cubic-bezier(.2,.8,.2,1)
+        both;
+}
+
+
+.site-header.ready .nav-actions {
+
+    animation:
+        headerActionIn
+        .7s
+        .15s
+        cubic-bezier(.2,.8,.2,1)
+        both;
+}
+
+
+@keyframes headerBrandIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(-15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+@keyframes headerActionIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .header-orb,
+    nav.main-nav li,
+    .btn-signin::before,
+    .site-header.ready .brand-mark,
+    .site-header.ready .nav-actions {
+
+        animation: none !important;
+    }
+
 }

@@ -7,7 +7,7 @@
 body{background:var(--light);}
 
 /* ======================= PROFILE PAGE ======================= */
-.profile-wrap{flex:1;padding:40px 16px 90px;}
+.profile-wrap{flex:1;    padding: 227px 16px 90px;}
 .profile-inner{max-width:1080px;margin:0 auto;}
 
 .profile-layout{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start;}

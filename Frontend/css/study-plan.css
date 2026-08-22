@@ -6,8 +6,12 @@
 
 body{background:var(--light);}
 
-/* ======================= PLAN PAGE ======================= */
-.plan-wrap{flex:1;padding:40px 16px 90px;}
+/* ======================= PLAN PAGE =======================
+   ملاحظة: الـ sidebar والتخطيط العام (.student-layout / .student-sidebar)
+   معرّفين أصلاً بملف student-dashboard.css — ما نكرر تعريفهم هون
+   عشان ما يصير تعارض. هالملف بس بيضبط محتوى .plan-wrap جوا
+   عمود المحتوى (1fr) من نفس الـ grid. */
+.plan-wrap{min-width:0;padding:8px 0 90px;}
 .plan-inner{max-width:1180px;margin:0 auto;}
 
 .plan-head{margin-bottom:24px;}
@@ -210,3 +214,4 @@ body{background:var(--light);}
   .schedule-row{grid-template-columns:repeat(2,1fr);}
   .plan-stats{flex-direction:column;}
 }
+

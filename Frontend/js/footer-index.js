@@ -7,7 +7,7 @@
 
           '<div class="footer-col footer-brand">' +
             '<div class="brand-mark">' +
-              '<img src="../assets/logo.png" alt="NextStep AI" class="brand-logo">' +
+              '<img src="../../assets/img/logo.png" alt="NextStep AI" class="brand-logo">' +
               '<div class="brand-text">NextStep <span>AI</span></div>' +
             '</div>' +
             '<div class="logo2">' +

@@ -16,7 +16,6 @@
     /* ⚠️ صفحة بمحتوى بسيط بس (كلمة مرور، 2FA، سجل دخول) — ما استخدمنا نمط
        التبويب/Stepper هون لأنه ما في محتوى كافي يبرر تقسيمه لأقسام،
        نفس منطق تجنب "تعقيد بدون داعي" اللي مشينا عليه بصفحة students */
-    .settings-content { max-width: 760px; }
     .settings-section { background: var(--white); border-radius: var(--radius); padding: 1.75rem 2rem; box-shadow: var(--shadow); border: 1px solid rgba(47,107,255,0.04); margin-bottom: 1.5rem; }
     .settings-section:last-child { margin-bottom: 0; }
     .settings-section-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: .75rem; padding-bottom: .75rem; border-bottom: 2px solid var(--gray-bg); margin-bottom: 1.5rem; }
@@ -89,32 +88,7 @@
         </form>
       </section>
 
-      <section class="settings-section">
-        <div class="settings-section-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
-          المصادقة الثنائية (2FA)
-        </div>
-        <div class="toggle-wrap">
-          <input type="checkbox" class="toggle" id="twoFaToggle" role="switch">
-          <span class="toggle-label" id="twoFaLabel">غير مفعّلة — نوصي بتفعيلها لحماية إضافية</span>
-        </div>
-      </section>
-
-      <section class="settings-section">
-        <div class="settings-section-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          آخر عمليات الدخول
-        </div>
-        <table class="mini-table">
-          <thead><tr><th>الجهاز</th><th>الموقع التقريبي</th><th>التاريخ</th></tr></thead>
-          <tbody>
-            <tr><td>Chrome — Windows</td><td>الرياض، السعودية</td><td>اليوم، 10:24 ص</td></tr>
-            <tr><td>Safari — iPhone</td><td>الرياض، السعودية</td><td>أمس، 6:12 م</td></tr>
-            <tr><td>Chrome — Windows</td><td>جدة، السعودية</td><td>قبل 3 أيام</td></tr>
-          </tbody>
-        </table>
-      </section>
-
+ 
     </div>
 
   </main>

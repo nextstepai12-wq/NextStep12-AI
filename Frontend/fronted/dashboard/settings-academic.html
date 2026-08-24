@@ -140,15 +140,14 @@
         <!-- المصدر: deanships_faculties (WHERE university_id = هاي الجامعة) -->
         <section class="settings-section settings-panel active-panel" id="panelFaculties">
           <div class="settings-section-title">
-            الكليات
-            <span class="section-hint">من جدول deanships_faculties</span>
+            العمادات
           </div>
           <div class="mini-table-head">
-            <p class="field-hint" style="margin:0;">عمادات وكليات جامعتكم المسجّلة على المنصة.</p>
-            <button type="button" class="btn-add-small">+ إضافة كلية</button>
+            <p class="field-hint" style="margin:0;">عمادات  جامعتكم المسجّلة على المنصة.</p>
+            <button type="button" class="btn-add-small"  onclick="window.location.href='adddeanship.html'">+ إضافة عمادة</button>
           </div>
           <table class="mini-table">
-            <thead><tr><th>اسم الكلية</th><th>عدد الأقسام</th><th>عدد التخصصات</th><th></th></tr></thead>
+            <thead><tr><th>اسم العمادة </th><th>عدد الأقسام</th><th>عدد التخصصات</th><th></th></tr></thead>
             <tbody id="facultiesBody"></tbody>
           </table>
         </section>
@@ -160,7 +159,7 @@
         <section class="settings-section settings-panel" id="panelDepartments">
           <div class="settings-section-title">
             الأقسام
-            <span class="section-hint">⚠️ يحتاج جدول جديد</span>
+     
           </div>
           <div style="background:#FFF8E6;border:1px solid #F0D98C;border-radius:var(--radius-sm);padding:1rem 1.25rem;color:#8A6D1E;font-size:.88rem;">
             بالتصميم الحالي، التخصصات مربوطة مباشرة بالكلية (deanships_faculties) بدون
@@ -175,7 +174,7 @@
         <section class="settings-section settings-panel" id="panelMajors">
           <div class="settings-section-title">
             التخصصات
-            <span class="section-hint">من جدول majors</span>
+           
           </div>
           <div class="mini-table-head">
             <p class="field-hint" style="margin:0;">كل التخصصات الأكاديمية المسجّلة لجامعتكم.</p>
@@ -280,12 +279,12 @@
 
     var facultiesBody = document.getElementById('facultiesBody');
     MOCK_FACULTIES.forEach(function(f) {
-      facultiesBody.innerHTML += '<tr><td><strong>' + f.name + '</strong></td><td>' + f.departments + '</td><td>' + f.majors + '</td><td><button type="button" class="row-action-btn">تعديل</button></td></tr>';
+      facultiesBody.innerHTML += '<tr><td><strong>' + f.name + '</strong></td><td>' + f.departments + '</td><td>' + f.majors + '</td><td><button type="button" class="row-action-btn "العمادات >تعديل</button></td></tr>';
     });
 
     var majorsBody = document.getElementById('majorsBody');
     MOCK_MAJORS.forEach(function(m) {
-      majorsBody.innerHTML += '<tr><td><strong>' + m.name + '</strong></td><td>' + m.faculty + '</td><td>' + m.minScore + '%</td><td><button type="button" class="row-action-btn">تعديل</button> <button type="button" class="row-action-btn danger">حذف</button></td></tr>';
+      majorsBody.innerHTML += '<tr><td><strong>' + m.name + '</strong></td><td>' + m.faculty + '</td><td>' + m.minScore + '%</td><td><button type="button" class="row-action-btn" >تعديل</button> <button type="button" class="row-action-btn danger">حذف</button></td></tr>';
     });
 
     var plansBody = document.getElementById('plansBody');

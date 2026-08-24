@@ -1007,3 +1007,47 @@ background: linear-gradient(135deg, #2F6BFF 0%, #35D0FF 100%);  color:#fff;
     height: 28px;
   }
 }
+.popover-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.soon-popover {
+  position: absolute;
+  bottom: 125%; /* تظهر فوق الأيقونة */
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  background-color: #173873;
+  color: #35D0FF;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: 'Poppins', 'Cairo', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* سهم صغير أسفل القائمة */
+.soon-popover::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #173873 transparent transparent transparent;
+}
+
+/* إظهار القائمة المنبثقة */
+.popover-wrapper.active .soon-popover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}

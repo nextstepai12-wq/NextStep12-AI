@@ -6,87 +6,17 @@
 <title>ملفي الشخصي | NextStep AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- CSS الخاص بالهيدر الأساسي (site-header, orbs, nav-inner...) -->
+<link rel="stylesheet" href="../../css/header.css">
+<!-- CSS الخاص بشعار الحساب + القائمة المنسدلة داخل الهيدر -->
+<link rel="stylesheet" href="../../css/header-dashboard-account.css">
+<!-- CSS الخاص بمحتوى صفحة الملف الشخصي -->
 <link rel="stylesheet" href="../../css/student-profile.css">
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <span class="logo-badge">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L2 8l10 5 10-5-10-5z" fill="currentColor"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </span>
-    NextStep <span class="ai-tag">AI</span>
-  </div>
-
-  <div class="search-wrap">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <input type="text" placeholder="ابحث عن تخصص، جامعة، أو دليل...">
-  </div>
-
-  <div class="top-actions">
-    <button class="icon-btn" title="المساعدة" aria-label="المساعدة">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5" stroke-linecap="round"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
-    </button>
-    <button class="icon-btn" title="الإشعارات" aria-label="الإشعارات">
-      <span class="dot"></span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-    </button>
-
-    <div class="account-wrap">
-      <button class="account-trigger" id="accountTrigger" aria-expanded="false" aria-haspopup="true">
-        <img src="https://i.pravatar.cc/72?img=13" alt="صورة أحمد محمد">
-        <span class="account-meta">
-          <span class="name">أحمد محمد</span>
-          <span class="role">طالب توجيهي</span>
-        </span>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-
-      <div class="dropdown" id="accountDropdown" role="menu">
-        <div class="dd-head">
-          <img src="https://i.pravatar.cc/72?img=13" alt="صورة أحمد محمد">
-          <div>
-            <div class="name">أحمد محمد</div>
-            <div class="role">طالب توجيهي</div>
-          </div>
-        </div>
-        <div class="dd-list">
-          <a href="dashboard.html" class="dd-item" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-            لوحة الطالب
-          </a>
-          <a href="#" class="dd-item" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
-            نتائجي
-          </a>
-          <a href="#" class="dd-item" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 3v3M16 3v3M4 10h16"/></svg>
-            خطتي
-          </a>
-          <a href="#" class="dd-item active" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
-            ملفي الشخصي
-          </a>
-          <a href="#" class="dd-item" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-            الإشعارات
-          </a>
-          <a href="#" class="dd-item" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.04 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.04H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.04-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1.04H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15z"/></svg>
-            الإعدادات
-          </a>
-        </div>
-        <div class="dd-divider"></div>
-        <div class="dd-list">
-          <a href="#" class="dd-item logout" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-            تسجيل الخروج
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+<!-- الهيدر بيتكتب تلقائياً هون عن طريق header-dashboard.js -->
 
 <div class="layout">
   <!-- ===== MAIN CONTENT ===== -->
@@ -275,30 +205,8 @@
   </aside>
 </div>
 
-<script>
-  const trigger = document.getElementById('accountTrigger');
-  const dropdown = document.getElementById('accountDropdown');
-
-  trigger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = dropdown.classList.toggle('open');
-    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!dropdown.contains(e.target) && !trigger.contains(e.target)) {
-      dropdown.classList.remove('open');
-      trigger.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      dropdown.classList.remove('open');
-      trigger.setAttribute('aria-expanded', 'false');
-    }
-  });
-</script>
+<!-- سكربت الهيدر يكتب الهيدر تلقائياً ويفعّل القائمة المنسدلة -->
+<script src="../../js/header-dashboard.js"></script>
 
 </body>
 </html>

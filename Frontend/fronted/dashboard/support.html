@@ -61,6 +61,10 @@
         <option value="closed">مغلقة</option>
       </select>
       <input type="text" id="supportSearch" placeholder="بحث عن تذكرة...">
+      <button type="button" class="btn-cancel-outline" id="viewSavedTicketsBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        التذاكر المحفوظة <span id="savedTicketsCount">(0)</span>
+      </button>
       <button type="button" class="btn-save-primary" id="newTicketBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
         إنشاء تذكرة دعم
@@ -120,7 +124,23 @@
     </div>
     <div class="filter-modal-footer">
       <button type="button" class="btn-cancel-outline" id="cancelTicketBtn">إلغاء</button>
+      <button type="button" class="btn-cancel-outline" id="saveDraftBtn">حفظ تذكرة</button>
       <button type="button" class="btn-save-primary" id="submitTicketBtn">إرسال التذكرة</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SAVED TICKETS MODAL ====== -->
+<div class="app-modal-overlay" id="savedTicketsModal">
+  <div class="app-modal" style="max-width:520px;">
+    <div class="filter-modal-header">
+      <h3>التذاكر المحفوظة</h3>
+      <button type="button" class="close-modal-btn" id="closeSavedTicketsModalBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="filter-modal-body" id="savedTicketsList">
+      <!-- سيتم تعبئته بواسطة JavaScript -->
     </div>
   </div>
 </div>
@@ -144,7 +164,87 @@
     var ticketIdCounter = 4;
 
     // ================================================================
-    // RENDER
+    // SAVED TICKETS (DRAFTS) — تُحمّل قبل أي شيء آخر يستخدمها
+    // ================================================================
+    var STORAGE_KEY = 'nextstep_saved_tickets';
+    var savedTickets = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    var draftIdCounter = savedTickets.length
+      ? Math.max.apply(null, savedTickets.map(function(d){ return d.id; })) + 1
+      : 1;
+    var currentDraftId = null; // إذا كنا عم نعدّل على مسودة موجودة
+
+    function persistDrafts() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedTickets));
+      document.getElementById('savedTicketsCount').textContent = '(' + savedTickets.length + ')';
+    }
+
+    function renderSavedTickets() {
+      var list = document.getElementById('savedTicketsList');
+      if (!savedTickets.length) {
+        list.innerHTML = '<p style="text-align:center;color:var(--gray);padding:24px 0;">لا يوجد تذاكر محفوظة حاليًا.</p>';
+        return;
+      }
+      var priorityLabel = { medium: 'متوسطة', urgent: 'عاجلة' };
+      var html = '';
+      savedTickets.forEach(function(d) {
+        html += `
+          <div class="saved-ticket-item">
+            <div class="saved-ticket-info">
+              <strong>${d.title}</strong>
+              <span>${priorityLabel[d.priority] || d.priority}</span>
+            </div>
+            <div class="saved-ticket-actions">
+              <button type="button" class="saved-ticket-select-btn" data-id="${d.id}">اختيار</button>
+              <button type="button" class="saved-ticket-delete-btn" data-id="${d.id}">حذف</button>
+            </div>
+          </div>
+        `;
+      });
+      list.innerHTML = html;
+
+      list.querySelectorAll('.saved-ticket-select-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var id = parseInt(this.dataset.id);
+          var draft = savedTickets.find(function(d){ return d.id === id; });
+          if (!draft) return;
+          document.getElementById('ticketTitle').value = draft.title;
+          document.getElementById('ticketDescription').value = draft.description;
+          document.getElementById('ticketPriority').value = draft.priority;
+          currentDraftId = draft.id;
+          closeSavedModalFn();
+          openModal();
+        });
+      });
+
+      list.querySelectorAll('.saved-ticket-delete-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var id = parseInt(this.dataset.id);
+          savedTickets = savedTickets.filter(function(d){ return d.id !== id; });
+          persistDrafts();
+          renderSavedTickets();
+        });
+      });
+    }
+
+    var savedModal = document.getElementById('savedTicketsModal');
+    document.getElementById('viewSavedTicketsBtn').addEventListener('click', function() {
+      renderSavedTickets();
+      savedModal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    });
+    function closeSavedModalFn() {
+      savedModal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('closeSavedTicketsModalBtn').addEventListener('click', closeSavedModalFn);
+    savedModal.addEventListener('click', function(e) {
+      if (e.target === savedModal) closeSavedModalFn();
+    });
+
+    persistDrafts(); // لتحديث العداد عند التحميل
+
+    // ================================================================
+    // RENDER TICKETS TABLE
     // ================================================================
     function renderTickets(filter, search) {
       var filtered = ticketsData;
@@ -251,6 +351,7 @@
     var closeBtn = document.getElementById('closeTicketModalBtn');
     var cancelBtn = document.getElementById('cancelTicketBtn');
     var submitBtn = document.getElementById('submitTicketBtn');
+    var saveDraftBtn = document.getElementById('saveDraftBtn');
 
     function openModal() {
       modal.classList.add('is-open');
@@ -261,6 +362,7 @@
       document.body.style.overflow = '';
       document.getElementById('ticketTitle').value = '';
       document.getElementById('ticketDescription').value = '';
+      currentDraftId = null;
     }
 
     openBtn.addEventListener('click', openModal);
@@ -293,8 +395,42 @@
         updated: new Date().toISOString().slice(0,10)
       });
 
+      // احذف المسودة (إذا وجدت) قبل ما نصفّر currentDraftId داخل closeModalFn
+      if (currentDraftId) {
+        savedTickets = savedTickets.filter(function(d){ return d.id !== currentDraftId; });
+        persistDrafts();
+      }
+
       closeModalFn();
       applyFilters();
+    });
+
+    saveDraftBtn.addEventListener('click', function() {
+      var title = document.getElementById('ticketTitle').value.trim();
+      var description = document.getElementById('ticketDescription').value.trim();
+      var priority = document.getElementById('ticketPriority').value;
+
+      if (!title) {
+        alert('يرجى كتابة عنوان التذكرة على الأقل قبل الحفظ.');
+        return;
+      }
+
+      if (currentDraftId) {
+        var existing = savedTickets.find(function(d){ return d.id === currentDraftId; });
+        existing.title = title;
+        existing.description = description;
+        existing.priority = priority;
+      } else {
+        savedTickets.push({
+          id: draftIdCounter++,
+          title: title,
+          description: description,
+          priority: priority
+        });
+      }
+      persistDrafts();
+      alert('تم حفظ التذكرة كمسودة.');
+      closeModalFn();
     });
 
     // ================================================================

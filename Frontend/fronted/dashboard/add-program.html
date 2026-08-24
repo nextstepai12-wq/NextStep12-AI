@@ -68,9 +68,9 @@
       <h1 id="pageTitle">إضافة برنامج أكاديمي جديد</h1>
 
       <p id="pageSubtitle">
-        اضف تفاصيل البرنامج الأساسية وارفعي الخطة الدراسية (PDF) إذا كانت جاهزة عندك.
-        لو بدك الذكاء الاصطناعي يحلل الخطة تلقائياً، استخدمي صفحة
-        <a href="programs.html" style="color:var(--blue);font-weight:700;">تحديث الخطط الدراسية</a>
+        اضف تفاصيل البرنامج الأساسية وارفع الخطة الدراسية (PDF) إذا كانت جاهزة عندك.
+        اذا  اردت تحليلها بواسطة الذكاء الاصطناعي، استخدم صفحة
+        <a href="programs.html" style="color:var(--blue);font-weight:700;">اضافة برنامج  من خلال  ai </a>
         بعد الحفظ.
       </p>
     </div>
@@ -395,6 +395,7 @@
               <span class="optional">(اختياري)</span>
             </label>
 
+            
             <div class="input-suffix-wrap">
 
               <input
@@ -437,6 +438,37 @@
           </div>
 
         </div>
+
+
+        
+          <div class="field-group">
+
+            <label for="progScholarship">
+معدلات القبول 
+            </label>
+
+            
+            <div class="input-suffix-wrap">
+
+              <input
+                type="number"
+                id="progScholarship"
+                name="scholarship_percentage"
+                placeholder="0"
+                min="0"
+                max="100"
+                step="1"
+              >
+
+              <span class="input-suffix">
+                %
+              </span>
+
+            </div>
+
+        
+
+          </div>
 
       </section>
 

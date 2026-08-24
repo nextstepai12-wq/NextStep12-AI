@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Schema;
  */
 return new class extends Migration
 {
-    public function up(): voidئ
+    public function up(): void
     {
         Schema::create('universities', function (Blueprint $table) {
             $table->id(); // رقم الجامعة التعريفي[cite: 2]

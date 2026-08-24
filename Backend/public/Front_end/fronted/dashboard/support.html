@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الدعم الفني | NextStep AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/app.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/support.css">
+</head>
+<body>
+
+<header class="admin-topbar" id="adminTopbar"></header>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main admin-main-content">
+
+    <div class="admin-page-head">
+      <div>
+        <h1>الدعم الفني</h1>
+        <p>تابع تذاكر الدعم اللي فتحتها، أو افتح تذكرة جديدة.</p>
+      </div>
+      <span class="ai-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg>
+        بواسطة AI
+      </span>
+    </div>
+
+    <!-- ====== STATS (تذاكري أنا بس) ====== -->
+    <div class="support-stats-grid">
+      <div class="support-stat-card">
+        <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg></div>
+        <div><span class="stat-number" id="totalTickets">0</span><span class="stat-label">إجمالي تذاكري</span></div>
+      </div>
+      <div class="support-stat-card">
+        <div class="stat-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/></svg></div>
+        <div><span class="stat-number" id="openTickets">0</span><span class="stat-label">مفتوحة</span></div>
+      </div>
+      <div class="support-stat-card">
+        <div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <div><span class="stat-number" id="inProgressTickets">0</span><span class="stat-label">قيد المعالجة</span></div>
+      </div>
+      <div class="support-stat-card">
+        <div class="stat-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div><span class="stat-number" id="closedTickets">0</span><span class="stat-label">مغلقة</span></div>
+      </div>
+    </div>
+
+    <!-- ====== FILTER ====== -->
+    <div class="support-filter-bar">
+      <select id="supportFilterStatus">
+        <option value="all">جميع التذاكر</option>
+        <option value="open">مفتوحة</option>
+        <option value="in-progress">قيد المعالجة</option>
+        <option value="closed">مغلقة</option>
+      </select>
+      <input type="text" id="supportSearch" placeholder="بحث عن تذكرة...">
+      <button type="button" class="btn-save-primary" id="newTicketBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+        إنشاء تذكرة دعم
+      </button>
+    </div>
+
+    <!-- ====== TICKETS TABLE (تذاكري أنا بس) ====== -->
+    <div class="admin-panel">
+      <div class="tickets-table-wrap">
+        <table class="tickets-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الطلب</th>
+              <th>الأولوية</th>
+              <th>الحالة</th>
+              <th>وقت الإرسال</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="ticketsTableBody">
+            <!-- سيتم تعبئته بواسطة JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      <div id="ticketsEmptyState"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ====== NEW TICKET MODAL ====== -->
+<div class="app-modal-overlay" id="newTicketModal">
+  <div class="app-modal" style="max-width:520px;">
+    <div class="filter-modal-header">
+      <h3>تذكرة دعم جديدة</h3>
+      <button type="button" class="close-modal-btn" id="closeTicketModalBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="filter-modal-body">
+      <div class="field-group">
+        <label for="ticketTitle">عنوان التذكرة</label>
+        <input type="text" id="ticketTitle" placeholder="مثال: مشكلة في تسجيل الدخول">
+      </div>
+      <div class="field-group">
+        <label for="ticketPriority">الأولوية</label>
+        <select id="ticketPriority">
+          <option value="medium" selected>متوسطة</option>
+          <option value="urgent">عاجلة</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label for="ticketDescription">الوصف</label>
+        <textarea id="ticketDescription" rows="4" placeholder="شرح المشكلة بالتفصيل..."></textarea>
+      </div>
+    </div>
+    <div class="filter-modal-footer">
+      <button type="button" class="btn-cancel-outline" id="cancelTicketBtn">إلغاء</button>
+      <button type="button" class="btn-save-primary" id="submitTicketBtn">إرسال التذكرة</button>
+    </div>
+  </div>
+</div>
+
+<div id="admin-footer-slot"></div>
+<script src="../../js/admin-shell.js"></script>
+
+<script>
+  (function() {
+    'use strict';
+
+    // ================================================================
+    // MOCK DATA — تذاكر المستخدم الحالي فقط (محاكاة، بدون user column)
+    // ================================================================
+    var ticketsData = [
+      { id: 1, title: 'مشكلة في تسجيل الدخول', description: 'لا أستطيع تسجيل الدخول إلى النظام منذ يومين.', priority: 'urgent', status: 'open', created: '2026-10-01T09:00', updated: '2026-10-02T14:00' },
+      { id: 2, title: 'استفسار عن خطة الدراسة', description: 'هل يمكن تعديل الخطة الدراسية بعد بدء الفصل؟', priority: 'medium', status: 'in-progress', created: '2026-09-28T10:00', updated: '2026-09-29T09:00' },
+      { id: 3, title: 'مشكلة في رفع الملفات', description: 'لا يمكن رفع ملفات PDF أكبر من 5 ميجابايت.', priority: 'medium', status: 'closed', created: '2026-09-15T12:00', updated: '2026-09-18T16:00' },
+    ];
+
+    var ticketIdCounter = 4;
+
+    // ================================================================
+    // RENDER
+    // ================================================================
+    function renderTickets(filter, search) {
+      var filtered = ticketsData;
+
+      if (filter && filter !== 'all') {
+        filtered = filtered.filter(function(t) { return t.status === filter; });
+      }
+
+      if (search) {
+        var q = search.toLowerCase();
+        filtered = filtered.filter(function(t) {
+          return t.title.toLowerCase().includes(q) ||
+                 t.description.toLowerCase().includes(q);
+        });
+      }
+
+      // تحديث الإحصائيات (محسوبة من كامل تذاكري، مش من نتيجة الفلترة)
+      document.getElementById('totalTickets').textContent = ticketsData.length;
+      document.getElementById('openTickets').textContent = ticketsData.filter(function(t) { return t.status === 'open'; }).length;
+      document.getElementById('inProgressTickets').textContent = ticketsData.filter(function(t) { return t.status === 'in-progress'; }).length;
+      document.getElementById('closedTickets').textContent = ticketsData.filter(function(t) { return t.status === 'closed'; }).length;
+
+      var body = document.getElementById('ticketsTableBody');
+      var emptyState = document.getElementById('ticketsEmptyState');
+
+      if (!filtered.length) {
+        body.innerHTML = '';
+        emptyState.innerHTML = `
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
+            <h4>لا توجد تذاكر</h4>
+            <p>لا توجد تذاكر دعم تطابق معايير البحث.</p>
+          </div>
+        `;
+        return;
+      }
+      emptyState.innerHTML = '';
+
+      var priorityMap = {
+        medium: { label: 'متوسطة', class: 'medium' },
+        urgent: { label: 'عاجلة', class: 'urgent' }
+      };
+      var statusMap = {
+        open: { label: 'مفتوحة', class: 'rejected' },
+        'in-progress': { label: 'قيد المعالجة', class: 'review' },
+        closed: { label: 'مغلقة', class: 'done' }
+      };
+
+      var html = '';
+      filtered.forEach(function(t, i) {
+        var p = priorityMap[t.priority] || priorityMap.medium;
+        var s = statusMap[t.status] || statusMap.open;
+        var sentDisplay = (t.created || '').replace('T', ' — ');
+        html += `
+          <tr>
+            <td>${i + 1}</td>
+            <td class="ticket-title-cell"><strong title="${t.description.replace(/"/g, '&quot;')}">${t.title}</strong></td>
+            <td><span class="priority-badge ${p.class}">${p.label}</span></td>
+            <td><span class="status-pill ${s.class}"><span class="dot"></span> ${s.label}</span></td>
+            <td>${sentDisplay}</td>
+            <td>
+              <div class="ticket-actions-cell">
+                ${t.status !== 'closed' ? `<button type="button" class="ticket-close-btn" data-id="${t.id}">إلغاء الطلب</button>` : ''}
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      body.innerHTML = html;
+
+      // ربط الأحداث — إلغاء الطلب فقط (المشترك ما بيقدر يلغي/يحذف تذاكر غيره)
+      document.querySelectorAll('.ticket-close-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var id = parseInt(this.dataset.id);
+          if (!confirm('هل أنت متأكد من إلغاء هذا الطلب؟')) return;
+          var ticket = ticketsData.find(function(t) { return t.id === id; });
+          if (ticket) {
+            ticket.status = 'closed';
+            ticket.updated = new Date().toISOString().slice(0, 16);
+            applyFilters();
+          }
+        });
+      });
+    }
+
+    function applyFilters() {
+      var filter = document.getElementById('supportFilterStatus').value;
+      var search = document.getElementById('supportSearch').value;
+      renderTickets(filter, search);
+    }
+
+    // ================================================================
+    // FILTER EVENTS
+    // ================================================================
+    document.getElementById('supportFilterStatus').addEventListener('change', applyFilters);
+    document.getElementById('supportSearch').addEventListener('input', applyFilters);
+
+    // ================================================================
+    // NEW TICKET MODAL
+    // ================================================================
+    var modal = document.getElementById('newTicketModal');
+    var openBtn = document.getElementById('newTicketBtn');
+    var closeBtn = document.getElementById('closeTicketModalBtn');
+    var cancelBtn = document.getElementById('cancelTicketBtn');
+    var submitBtn = document.getElementById('submitTicketBtn');
+
+    function openModal() {
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModalFn() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+      document.getElementById('ticketTitle').value = '';
+      document.getElementById('ticketDescription').value = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModalFn);
+    cancelBtn.addEventListener('click', closeModalFn);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeModalFn();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModalFn();
+    });
+
+    submitBtn.addEventListener('click', function() {
+      var title = document.getElementById('ticketTitle').value.trim();
+      var description = document.getElementById('ticketDescription').value.trim();
+      var priority = document.getElementById('ticketPriority').value;
+
+      if (!title || !description) {
+        alert('يرجى تعبئة جميع الحقول.');
+        return;
+      }
+
+      ticketsData.push({
+        id: ticketIdCounter++,
+        title: title,
+        description: description,
+        priority: priority,
+        status: 'open',
+        created: new Date().toISOString().slice(0,10),
+        updated: new Date().toISOString().slice(0,10)
+      });
+
+      closeModalFn();
+      applyFilters();
+    });
+
+    // ================================================================
+    // INIT
+    // ================================================================
+    renderTickets('all', '');
+
+  })();
+</script>
+
+</body>
+</html>

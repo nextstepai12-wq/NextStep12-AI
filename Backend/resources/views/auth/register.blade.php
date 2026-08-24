@@ -3,7 +3,7 @@
 @section('title', 'إنشاء حساب طالب — NextStep AI')
 
 @section('css')
-<link href="{{ asset('NextStepAi-front/css/signup.css') }}" rel="stylesheet">
+<link href="{{ asset('Front_end/css/signup.css') }}" rel="stylesheet">
 <style>
   .text-danger { color: #e3342f; font-size: 12px; margin-top: 5px; }
   .alert-danger { background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 14px; }
@@ -14,7 +14,7 @@
 <div class="auth-wrap">
   <div class="auth-card">
     <div class="auth-logo">
-      <img src="{{ asset('NextStepAi-front/assets/logo.png') }}" alt="NextStep AI" class="brand-logo" style="width:38px;">
+      <img src="{{ asset('Front_end/assets/logo.png') }}" alt="NextStep AI" class="brand-logo" style="width:38px;">
       <div class="brand-text">NextStep <span>AI</span></div>
     </div>
     <div class="auth-badge">

@@ -1,0 +1,373 @@
+@extends('layouts.app')
+
+@section('title', 'الرئيسية | NextStep AI')
+
+@section('content')
+
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+<link href="{{ asset("Front_end/css/app.css") }}" rel="stylesheet">
+
+<link href="{{ asset("Front_end/css/home.css") }}" rel="stylesheet">
+<link href="{{ asset("Front_end/css/footer.css") }}" rel="stylesheet">
+</head>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const counters = document.querySelectorAll(".stat-number");
+
+    counters.forEach(counter => {
+      const target = +counter.getAttribute("data-target");
+      const isK = counter.textContent.includes("K");
+      let current = 0;
+      const increment = target / 80; // سرعة العدّ (كل ما زاد الرقم كل ما بطيء)
+
+      const updateCounter = () => {
+        if (current < target) {
+          current += increment;
+          if (current > target) current = target;
+
+          if (isK) {
+            counter.textContent = Math.ceil(current) + "K+";
+          } else {
+            counter.textContent = Math.ceil(current) + "+";
+          }
+          requestAnimationFrame(updateCounter);
+        } else {
+          // تثبيت الرقم النهائي
+          if (isK) {
+            counter.textContent = target + "K+";
+          } else {
+            counter.textContent = target + "+";
+          }
+        }
+      };
+
+      updateCounter();
+    });
+  });
+</script>
+<body>
+
+ <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline poster="assets/5.jpg">
+      <source src="{{ asset("Front_end/assets/vedio-hero.mp4") }}" type="video/mp4">
+    </video>
+  </div>
+<!-- ======================= HEADER ======================= -->
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="index.html" class="brand-mark">
+      <img src="{{ asset("/Front_end/assets/logo.png")}}" alt="NextStep AI" class="brand-logo">
+      <div class="brand-text">NextStep<span>AI</span> </div>
+    </a>
+
+    <nav class="main-nav">
+      <ul>
+           <li><a href="">عن المنصة</a></li>
+           <li><a href="">الجامعات</a></li>
+           <li><a href="{{ route('pages.quiz') }}">الاختبار الذكي</a></li>
+           <li><a href="" class="active">الرئيسية</a></li>
+      </ul>
+    </nav>
+
+
+
+    <div class="nav-actions">
+
+      <a href="{{ route('register') }}" class="btn-signin">انشاء حساب </a>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="hero">
+
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1>NextStep <span>AI</span></h1>
+      <h2>خطوتك الذكية نحو مستقبلك</h2>
+<p class="lead">منصة ذكية تساعدك على اكتشاف التخصص المناسب واختيار
+  <br>
+ الجامعة الأفضل لك من خلال الذكاء الاصطناعي</p>           <div class="hero-actions">
+        <a href="{{ route('pages.quiz') }}" class="btn-primary">
+          ابدأ الاختبار الذكي
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="" class="btn-outline">استكشف الجامعات</a>
+      </div>
+      <div class="stats-container">
+<div class="stats-container">
+  <div class="stat-item">
+    <div class="stat-number" data-target="{{ $universitiesCount }}">{{ $universitiesCount }} <span>+</span></div>
+    <div class="stat-label">جامعة</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="stat-item">
+    <div class="stat-number" data-target="{{ str_replace('K', '', $majorsCount) }}">{{ $majorsCount }}<span>+</span></div>
+    <div class="stat-label">تخصص</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="stat-item">
+    <div class="stat-number" data-target="{{ str_replace('K', '', $studentsCount) }}">{{ $studentsCount }}<span>+</span></div>
+    <div class="stat-label">طالب</div>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FEATURES ROW ======================= -->
+<section class="features-section">
+  <div class="features-row">
+    <div class="feature-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
+      </div>
+      <div>
+        <h3>استبيان ذكي</h3>
+        <p>اكتشف مهاراتك واهتماماتك</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/></svg>
+      </div>
+      <div>
+        <h3>نسبة توافق دقيقة</h3>
+        <p>نقارن بياناتك وبين كل جامعة وتخصص</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+      </div>
+      <div>
+        <h3>خطة دراسية شخصية</h3>
+        <p>خطة مقترحة تناسب أهدافك</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+      </div>
+      <div>
+        <h3>جولات VR و 3D</h3>
+        <p>استكشف الكليات والحرم الجامعي</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= STATS BAR ======================= -->
+<section class="steps-section">
+        <!-- شارة العنوان العلوية -->
+        <div class="section-badge">
+            <span class="icon">⚡</span> كيف تعمل المنصة
+        </div>
+
+        <!-- العنوان الرئيسي -->
+        <h2 class="section-title">ثلاث خطوات تفصلك عن قرارك</h2>
+        <p class="section-subtitle">.رحلة بسيطة وواضحة من التسجيل إلى الخطة الدراسية المخصصة</p>
+        <!-- حاوية البطاقات -->
+        <div class="cards-container">
+
+            <!-- البطاقة الأولى (3) -->
+            <div class="step-card">
+                <div class="step-badge">٣</div>
+                <div class="card-icon">
+    <!-- تم تكبير الأيقونة إلى 64x64 -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="64" width="64" viewBox="0 0 640 640">
+        <path fill="rgb(53, 208, 255)" d="M544 160C544 124.7 515.3 96 480 96L160 96C124.7 96 96 124.7 96 160L96 480C96 515.3 124.7 544 160 544L480 544C515.3 544 544 515.3 544 480L544 160zM352 216C352 229.3 341.3 240 328 240L216 240C202.7 240 192 229.3 192 216C192 202.7 202.7 192 216 192L328 192C341.3 192 352 202.7 352 216zM424 296C437.3 296 448 306.7 448 320C448 333.3 437.3 344 424 344L216 344C202.7 344 192 333.3 192 320C192 306.7 202.7 296 216 296L424 296zM288 424C288 437.3 277.3 448 264 448L216 448C202.7 448 192 437.3 192 424C192 410.7 202.7 400 216 400L264 400C277.3 400 288 410.7 288 424z"/>
+    </svg>
+</div>
+                <h3>احصل على خطتك</h3>
+                <p>استلم توصيات التخصصات والجامعات المناسبة مع خطة دراسية واضحة الخطوات.</p>
+            </div>
+
+            <!-- البطاقة الثانية (2) -->
+            <div class="step-card">
+                <div class="step-badge">٢</div>
+                <div class="card-icon">
+<svg xmlns="http://www.w3.org/2000/svg"height="32" width="32" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(53, 208, 255)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z"/></svg>
+
+                </div>
+                <h3>أكمل الاختبار الذكي</h3>
+                <p>أجب عن أسئلة تفاعلية تقيس ميولك وقدراتك، ويحللها الذكاء الاصطناعي فوراً.</p>
+            </div>
+
+            <!-- البطاقة الثالثة (1) -->
+            <div class="step-card">
+                <div class="step-badge">١</div>
+                <div class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="#35d0ff" d="M285.7 368C384.2 368 464 447.8 464 546.3C464 562.7 450.7 576 434.3 576L77.7 576C61.3 576 48 562.7 48 546.3C48 447.8 127.8 368 226.3 368L285.7 368zM528 144C541.3 144 552 154.7 552 168L552 216L600 216C613.3 216 624 226.7 624 240C624 253.3 613.3 264 600 264L552 264L552 312C552 325.3 541.3 336 528 336C514.7 336 504 325.3 504 312L504 264L456 264C442.7 264 432 253.3 432 240C432 226.7 442.7 216 456 216L504 216L504 168C504 154.7 514.7 144 528 144zM256 312C189.7 312 136 258.3 136 192C136 125.7 189.7 72 256 72C322.3 72 376 125.7 376 192C376 258.3 322.3 312 256 312z"/></svg>
+
+                </div>
+                <h3>أنشئ حسابك</h3>
+                <p>سجل بياناتك واختر مسارك: طالب جديد يبحث عن تخصص، أو طالب جامعي يطور مساره.</p>
+            </div>
+
+        </div>
+    </section>
+
+<!-- ======================= FOOTER ======================= -->
+
+<section class="cta-section">
+    <div class="cta-banner">
+        <h2>جاهز لاتخاذ خطوتك الذكية؟</h2>
+        <p>انضم إلى آلاف الطلاب الذين اكتشفوا مسارهم الجامعي المناسب مع NextStep AI.</p>
+        <div class="cta-buttons">
+            <a href="{{ route('login') }}" class="btn-primary">أنشئ حسابك مجاناً ←</a>
+            <a href="{{ route('register') }}" class="btn-outline">لدي حساب بالفعل</a>
+        </div>
+    </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+
+      <!-- Brand -->
+      <div class="footer-col footer-brand">
+        <div class="brand-mark">
+          <img src="../Frontend/assets/logo.png" alt="NextStep AI" class="brand-logo">
+          <div class="brand-text">NextStep <span>AI</span></div>
+        </div>
+        <div class="logo2">
+       <span>خطوتك الذكية نحو مستقبلك</span>
+      <p class="lead">منصة ذكية تساعدك على اكتشاف التخصص المناسب واختيار الجامعة الأفضل لك من خلال الذكاء الاصطناعي.</p>
+        </div>
+              <div class="social-row">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter/X">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="7" r="0.5" fill="currentColor"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/><line x1="11" y1="10" x2="11" y2="17"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Site pages -->
+      <div class="footer-col">
+        <h4>روابط الموقع</h4>
+        <ul>
+          <li><a href="../Frontend/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>الرئيسية</a></li>
+          <li><a href="../Frontend/fronted/signup.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>اختبار الاستكشاف</a></li>
+          <li><a href="../Frontend/fronted/signup.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>الخطة الدراسية</a></li>
+          <li><a href="../Frontend/fronted/universities.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>الجامعات</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact us -->
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <div class="contact-item">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>
+<a href="mailto:info@nextstepai.com?subject=استفسار من موقع NextStep AI&body=مرحباً فريق NextStep AI،">
+  تواصل معنا
+</a>        </div>
+        <div class="contact-item">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.62a16 16 0 0 0 6 6l1.19-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg></div>
+          <a href="tel:+970000000">+970 59 796 7157</a>
+        </div>
+        <div class="contact-item">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <span>غزة، فلسطين</span>
+        </div>
+      </div>
+
+      <!-- Information -->
+      <div class="footer-col">
+        <h4>معلومات</h4>
+        <ul>
+          <li><a href="../Frontend/fronted/about.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>من نحن</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>سياسة الخصوصية</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>الشروط والأحكام</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5M12 17h.01"/></svg>الأسئلة الشائعة</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 NextStep AI. جميع الحقوق محفوظة.</p>
+
+    </div>
+  </div>
+</footer>
+</body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.site-header');
+    const counters = document.querySelectorAll('.stat .num');
+    const navLinks = document.querySelectorAll('.main-nav a');
+
+    const toggleHeaderState = () => {
+      if (!header) return;
+      const scrolled = window.scrollY > 20;
+      header.classList.toggle('scrolled', scrolled);
+
+      navLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href && href !== '#' && window.location.pathname.endsWith(href)) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    };
+
+    if (header) {
+      requestAnimationFrame(() => {
+        header.classList.add('ready');
+      });
+    }
+
+    window.addEventListener('scroll', toggleHeaderState, { passive: true });
+    toggleHeaderState();
+
+    counters.forEach((counter, index) => {
+      const span = counter.querySelector('span');
+      const target = parseInt(counter.dataset.target || span.textContent, 10);
+      const suffix = counter.dataset.suffix || '';
+      const duration = 1400 + index * 180;
+      const startTime = performance.now();
+
+      const animate = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(eased * target);
+        span.textContent = `${value}${suffix}`;
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          span.textContent = `${target}${suffix}`;
+        }
+      };
+
+      requestAnimationFrame(animate);
+    });
+  });
+</script>
+</html>

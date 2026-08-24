@@ -10,6 +10,7 @@ footer.site-footer {
   overflow: hidden;
   margin-top: auto;
   flex-shrink: 0;
+  direction:rtl;
 }
 
 footer.site-footer::before {

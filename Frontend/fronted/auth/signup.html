@@ -171,12 +171,28 @@
                                 <option value="">-- اختر الفرع --</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label" for="inclination_id">الميول</label>
-                            <select class="form-input" id="inclination_id" name="inclination_id" required>
-                                <option value="">-- اختر الميول --</option>
-                            </select>
-                        </div>
+<!-- حقل الميول مع وصف يظهر عند التمرير -->
+<div class="form-group">
+    <label class="form-label" for="inclination_id">
+        الميول
+    </label>
+
+    <select
+        class="form-input"
+        id="inclination_id"
+        name="inclination_id"
+        required
+    >
+        <option value="">-- اختر الميول --</option>
+    </select>
+
+    <!-- وصف يظهر عند التمرير فوق الخيارات -->
+    <div
+        id="inclinationHoverDescription"
+        class="inclination-description"
+        style="margin-top: 8px; font-size: 14px; color: #555; min-height: 24px; transition: all 0.2s;"
+    ></div>
+</div>
                     </div>
 
                 </div>
@@ -330,263 +346,701 @@
 </main>
 
 <script>
-    const trackBtns = document.querySelectorAll('.type-btn');
-    const trackInput = document.getElementById('track');
-    const trackGoalText = document.getElementById('trackGoal');
-    const newStudentFields = document.querySelector('.conditional-fields[data-show-for="new_student"]');
-    const universityFields = document.querySelector('.conditional-fields[data-show-for="university_student"]');
+// =====================================================
+// 1. التبديل بين مسار طالب جديد / طالب جامعي
+// =====================================================
 
-    const goals = {
-        new_student: 'الهدف: اختيار تخصص وجامعة مناسبة',
-        university_student: 'الهدف: تطوير المسار الأكاديمي والمهني أثناء الدراسة'
-    };
+const trackBtns = document.querySelectorAll('.type-btn');
+const trackInput = document.getElementById('track');
+const trackGoalText = document.getElementById('trackGoal');
 
-    function setRequiredWithin(container, isRequired) {
-        container.querySelectorAll('input, select').forEach(field => {
-            if (field.id === 'gpa') return;
-            if (field.id === 'major_id') return;
-            field.required = isRequired;
-        });
-    }
+const newStudentFields =
+    document.querySelector('.conditional-fields[data-show-for="new_student"]');
 
-    trackBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            trackBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const track = btn.dataset.track;
-            trackInput.value = track;
-            trackGoalText.textContent = goals[track];
+const universityFields =
+    document.querySelector('.conditional-fields[data-show-for="university_student"]');
 
-            if (track === 'new_student') {
-                newStudentFields.style.display = 'block';
-                universityFields.style.display = 'none';
-                setRequiredWithin(newStudentFields, true);
-                setRequiredWithin(universityFields, false);
-            } else {
-                newStudentFields.style.display = 'none';
-                universityFields.style.display = 'block';
-                setRequiredWithin(newStudentFields, false);
-                setRequiredWithin(universityFields, true);
-            }
-        });
+const goals = {
+    new_student: 'الهدف: اختيار تخصص وجامعة مناسبة',
+    university_student: 'الهدف: تطوير المسار الأكاديمي والمهني أثناء الدراسة'
+};
+
+function setRequiredWithin(container, isRequired) {
+    container.querySelectorAll('input, select').forEach(field => {
+        if (field.id === 'gpa') return;
+        if (field.id === 'major_id') return;
+
+        field.required = isRequired;
     });
+}
 
-    /* إظهار / إخفاء كلمة المرور */
-    document.querySelectorAll('.toggle-password').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetInput = document.getElementById(btn.dataset.target);
-            const eyeIcon = btn.querySelector('.icon-eye');
-            const eyeOffIcon = btn.querySelector('.icon-eye-off');
-            const isHidden = targetInput.type === 'password';
+trackBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        trackBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-            targetInput.type = isHidden ? 'text' : 'password';
-            eyeIcon.style.display = isHidden ? 'none' : 'block';
-            eyeOffIcon.style.display = isHidden ? 'block' : 'none';
-            btn.setAttribute('aria-label', isHidden ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور');
-        });
-    });
-
-    /* ربط الفورم بـ API التسجيل */
-    const API_BASE_URL = 'http://127.0.0.1:8000/api';
-
-    const signupForm = document.getElementById('signupForm');
-    const submitBtn = signupForm.querySelector('.login-button');
-
-    const alertBox = document.createElement('div');
-    alertBox.id = 'signupAlert';
-    signupForm.prepend(alertBox);
-
-    function showAlert(message, type) {
-        alertBox.textContent = message;
-        alertBox.style.display = 'block';
-        if (type === 'error') {
-            alertBox.style.background = '#FDEDEE';
-            alertBox.style.color = '#C62828';
-        } else {
-            alertBox.style.background = 'rgba(75,230,176,0.12)';
-            alertBox.style.color = '#1C8F63';
-        }
-    }
-
-    /* بيانات تجريبية (Demo Mode) — تُستخدم فقط إذا تعذّر الوصول للباك اند
-       بحيث تظل الصفحة قابلة للتجربة والعرض بدون سيرفر شغال */
-    const DEMO_BRANCHES = [
-        { id: 1, name: 'علمي' },
-        { id: 2, name: 'أدبي' },
-        { id: 3, name: 'تجاري' },
-        { id: 4, name: 'صناعي' },
-    ];
-
-    const DEMO_INCLINATIONS = [
-        { id: 1, name: 'تكنولوجيا ومعلوماتية' },
-        { id: 2, name: 'صحة وطب' },
-        { id: 3, name: 'هندسة وعمارة' },
-        { id: 4, name: 'أعمال وإدارة' },
-    ];
-
-    const DEMO_UNIVERSITIES = [
-        { id: 1, name: 'جامعة النجاح الوطنية' },
-        { id: 2, name: 'جامعة بيرزيت' },
-        { id: 3, name: 'جامعة بوليتكنك فلسطين' },
-    ];
-
-    const DEMO_MAJORS = [
-        { id: 1, title: 'هندسة حاسوب' },
-        { id: 2, title: 'طب بشري' },
-        { id: 3, title: 'إدارة أعمال' },
-        { id: 4, title: 'علوم حاسوب' },
-    ];
-
-    let demoMode = false;
-
-    function fillSelect(select, items, placeholder, labelKey) {
-        select.innerHTML = `<option value="">${placeholder}</option>`;
-        items.forEach(item => {
-            select.innerHTML += `<option value="${item.id}">${item[labelKey]}</option>`;
-        });
-    }
-
-    function showDemoNotice() {
-        if (demoMode) return;
-        demoMode = true;
-        showAlert('تنبيه: تعذّر الاتصال بالسيرفر، الفورم يعمل حالياً ببيانات تجريبية للعرض فقط.', 'error');
-    }
-
-    async function loadInitialLookups() {
-        try {
-            const branchesRes = await fetch(`${API_BASE_URL}/lookups/branches`, { headers: { 'Accept': 'application/json' } });
-            const branchesData = await branchesRes.json();
-            if (branchesRes.ok && branchesData.status === 'success') {
-                fillSelect(document.getElementById('high_school_branch_id'), branchesData.data, '-- اختر الفرع --', 'name');
-            } else {
-                throw new Error('branches lookup failed');
-            }
-
-            const inclinationsRes = await fetch(`${API_BASE_URL}/lookups/inclinations`, { headers: { 'Accept': 'application/json' } });
-            const inclinationsData = await inclinationsRes.json();
-            if (inclinationsRes.ok && inclinationsData.status === 'success') {
-                fillSelect(document.getElementById('inclination_id'), inclinationsData.data, '-- اختر الميول --', 'name');
-            } else {
-                throw new Error('inclinations lookup failed');
-            }
-
-            const unisRes = await fetch(`${API_BASE_URL}/universities`, { headers: { 'Accept': 'application/json' } });
-            const unisData = await unisRes.json();
-            if (unisRes.ok && unisData.status === 'success') {
-                fillSelect(document.getElementById('university_id'), unisData.data, '-- اختر الجامعة --', 'name');
-            } else {
-                throw new Error('universities lookup failed');
-            }
-        } catch (err) {
-            /* الباك اند مش شغال أو تعذّر الاتصال — نعبّي بيانات تجريبية
-               حتى تظل الصفحة قابلة للتجربة بدون سيرفر */
-            fillSelect(document.getElementById('high_school_branch_id'), DEMO_BRANCHES, '-- اختر الفرع --', 'name');
-            fillSelect(document.getElementById('inclination_id'), DEMO_INCLINATIONS, '-- اختر الميول --', 'name');
-            fillSelect(document.getElementById('university_id'), DEMO_UNIVERSITIES, '-- اختر الجامعة --', 'name');
-            showDemoNotice();
-        }
-    }
-
-    const universitySelect = document.getElementById('university_id');
-    const majorSelect = document.getElementById('major_id');
-
-    universitySelect.addEventListener('change', async function () {
-        const universityId = this.value;
-        majorSelect.innerHTML = '<option value="">--  المطلوب اختر التخصص --</option>';
-
-        if (!universityId) {
-            majorSelect.disabled = true;
-            majorSelect.innerHTML = '<option value="">-- اختر الجامعة أولاً --</option>';
-            return;
-        }
-
-        try {
-            majorSelect.disabled = true;
-            majorSelect.innerHTML = '<option value="">جاري تحميل التخصصات...</option>';
-
-            const response = await fetch(`${API_BASE_URL}/lookups/universities/${universityId}/majors`, { headers: { 'Accept': 'application/json' } });
-            const result = await response.json();
-
-            if (response.ok && result.status === 'success') {
-                majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
-                if (result.data.length === 0) {
-                    majorSelect.innerHTML = '<option value="">لا توجد تخصصات متاحة لهذه الجامعة</option>';
-                    return;
-                }
-                result.data.forEach(major => {
-                    majorSelect.innerHTML += `<option value="${major.id}">${major.title}</option>`;
-                });
-                majorSelect.disabled = false;
-            } else {
-                throw new Error('majors lookup failed');
-            }
-        } catch (err) {
-            /* الباك اند مش شغال — نعبّي تخصصات تجريبية */
-            fillSelect(majorSelect, DEMO_MAJORS, '-- اختر التخصص --', 'title');
-            majorSelect.disabled = false;
-            showDemoNotice();
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', loadInitialLookups);
-
-    signupForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        const track = document.getElementById('track').value;
-
-        const payload = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            password: document.getElementById('password').value,
-            password_confirmation: document.getElementById('password_confirmation').value,
-            student_type: track,
-            city: document.getElementById('city').value || null,
-        };
+        const track = btn.dataset.track;
+        trackInput.value = track;
+        trackGoalText.textContent = goals[track];
 
         if (track === 'new_student') {
-            payload.age = document.getElementById('age').value;
-            payload.high_school_branch_id = document.getElementById('high_school_branch_id').value;
-            payload.inclination_id = document.getElementById('inclination_id').value;
-            payload.high_school_score = document.getElementById('high_school_score').value;
-        } else if (track === 'university_student') {
-            payload.university_id = document.getElementById('university_id').value;
-            payload.major_id = document.getElementById('major_id').value;
-            payload.academic_level = document.getElementById('academic_level').value;
-            const gpaVal = document.getElementById('gpa').value;
-            if (gpaVal) payload.gpa = gpaVal;
-        }
+            newStudentFields.style.display = 'block';
+            universityFields.style.display = 'none';
 
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>جارٍ الإنشاء...</span>';
-        alertBox.style.display = 'none';
+            setRequiredWithin(newStudentFields, true);
+            setRequiredWithin(universityFields, false);
+        } else {
+            newStudentFields.style.display = 'none';
+            universityFields.style.display = 'block';
 
-        try {
-            const response = await fetch(`${API_BASE_URL}/register`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(payload),
-            });
-
-            const data = await response.json();
-
-            if (response.ok && data.status === 'success') {
-                localStorage.setItem('auth_token', data.data.token);
-                showAlert('تم إنشاء الحساب بنجاح! جارٍ التحويل...', 'success');
-                setTimeout(() => { window.location.href = 'quiz.html'; }, 1200);
-            } else {
-                const errorMsg = data.message || 'حدث خطأ، تأكد من البيانات وحاولي مرة ثانية';
-                showAlert(errorMsg, 'error');
-            }
-        } catch (err) {
-            showAlert('تعذر الاتصال بالسيرفر. تأكد إنه الباك اند شغال.', 'error');
-            console.error('Register error:', err);
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<span>إنشاء الحساب <span aria-hidden="true">←</span></span>';
+            setRequiredWithin(newStudentFields, false);
+            setRequiredWithin(universityFields, true);
         }
     });
+});
+
+// =====================================================
+// 2. إظهار / إخفاء كلمة المرور
+// =====================================================
+
+document.querySelectorAll('.toggle-password').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const targetInput = document.getElementById(btn.dataset.target);
+        const eyeIcon = btn.querySelector('.icon-eye');
+        const eyeOffIcon = btn.querySelector('.icon-eye-off');
+        const isHidden = targetInput.type === 'password';
+
+        targetInput.type = isHidden ? 'text' : 'password';
+        if (eyeIcon) eyeIcon.style.display = isHidden ? 'none' : 'block';
+        if (eyeOffIcon) eyeOffIcon.style.display = isHidden ? 'block' : 'none';
+
+        btn.setAttribute(
+            'aria-label',
+            isHidden ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'
+        );
+    });
+});
+
+// =====================================================
+// 3. ربط الفورم بـ API التسجيل + بيانات تجريبية
+// =====================================================
+
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const signupForm = document.getElementById('signupForm');
+const submitBtn = signupForm.querySelector('.login-button');
+
+const alertBox = document.createElement('div');
+alertBox.id = 'signupAlert';
+signupForm.prepend(alertBox);
+
+function showAlert(message, type) {
+    alertBox.textContent = message;
+    alertBox.style.display = 'block';
+
+    if (type === 'error') {
+        alertBox.style.background = '#FDEDEE';
+        alertBox.style.color = '#C62828';
+    } else {
+        alertBox.style.background = 'rgba(75,230,176,0.12)';
+        alertBox.style.color = '#1C8F63';
+    }
+}
+
+const DEMO_BRANCHES = [
+    { id: 1, name: 'علمي' },
+    { id: 2, name: 'أدبي' },
+    { id: 3, name: 'تجاري' },
+    { id: 4, name: 'صناعي' }
+];
+
+const DEMO_INCLINATIONS = [
+    { id: 1, name: 'تكنولوجيا ومعلوماتية' },
+    { id: 2, name: 'صحة وطب' },
+    { id: 3, name: 'هندسة وعمارة' },
+    { id: 4, name: 'أعمال وإدارة' }
+];
+
+const DEMO_UNIVERSITIES = [
+    { id: 1, name: 'جامعة النجاح الوطنية' },
+    { id: 2, name: 'جامعة بيرزيت' },
+    { id: 3, name: 'جامعة بوليتكنك فلسطين' }
+];
+
+const DEMO_MAJORS = [
+    { id: 1, title: 'هندسة حاسوب' },
+    { id: 2, title: 'طب بشري' },
+    { id: 3, title: 'إدارة أعمال' },
+    { id: 4, title: 'علوم حاسوب' }
+];
+
+let demoMode = false;
+
+function fillSelect(select, items, placeholder, labelKey) {
+    select.innerHTML = `<option value="">${placeholder}</option>`;
+    items.forEach(item => {
+        select.innerHTML += `<option value="${item.id}">${item[labelKey]}</option>`;
+    });
+}
+
+function showDemoNotice() {
+    if (demoMode) return;
+    demoMode = true;
+    showAlert(
+        'تنبيه: تعذّر الاتصال بالسيرفر، الفورم يعمل حالياً ببيانات تجريبية للعرض فقط.',
+        'error'
+    );
+}
+
+async function loadInitialLookups() {
+    try {
+        const branchesRes = await fetch(`${API_BASE_URL}/lookups/branches`, {
+            headers: { 'Accept': 'application/json' }
+        });
+        const branchesData = await branchesRes.json();
+
+        if (branchesRes.ok && branchesData.status === 'success') {
+            fillSelect(document.getElementById('high_school_branch_id'), branchesData.data, '-- اختر الفرع --', 'name');
+        } else {
+            throw new Error('branches lookup failed');
+        }
+
+        const inclinationsRes = await fetch(`${API_BASE_URL}/lookups/inclinations`, {
+            headers: { 'Accept': 'application/json' }
+        });
+        const inclinationsData = await inclinationsRes.json();
+
+        if (inclinationsRes.ok && inclinationsData.status === 'success') {
+            fillSelect(document.getElementById('inclination_id'), inclinationsData.data, '-- اختر الميول --', 'name');
+        } else {
+            throw new Error('inclinations lookup failed');
+        }
+
+        const unisRes = await fetch(`${API_BASE_URL}/universities`, {
+            headers: { 'Accept': 'application/json' }
+        });
+        const unisData = await unisRes.json();
+
+        if (unisRes.ok && unisData.status === 'success') {
+            fillSelect(document.getElementById('university_id'), unisData.data, '-- اختر الجامعة --', 'name');
+        } else {
+            throw new Error('universities lookup failed');
+        }
+
+    } catch (err) {
+        fillSelect(document.getElementById('high_school_branch_id'), DEMO_BRANCHES, '-- اختر الفرع --', 'name');
+        fillSelect(document.getElementById('inclination_id'), DEMO_INCLINATIONS, '-- اختر الميول --', 'name');
+        fillSelect(document.getElementById('university_id'), DEMO_UNIVERSITIES, '-- اختر الجامعة --', 'name');
+        showDemoNotice();
+    }
+}
+
+// =====================================================
+// 4. تحميل التخصصات حسب الجامعة
+// =====================================================
+
+const universitySelect = document.getElementById('university_id');
+const majorSelect = document.getElementById('major_id');
+
+universitySelect.addEventListener('change', async function () {
+    const universityId = this.value;
+    majorSelect.innerHTML = '<option value="">-- المطلوب اختر التخصص --</option>';
+
+    if (!universityId) {
+        majorSelect.disabled = true;
+        majorSelect.innerHTML = '<option value="">-- اختر الجامعة أولاً --</option>';
+        return;
+    }
+
+    try {
+        majorSelect.disabled = true;
+        majorSelect.innerHTML = '<option value="">جاري تحميل التخصصات...</option>';
+
+        const response = await fetch(`${API_BASE_URL}/lookups/universities/${universityId}/majors`, {
+            headers: { 'Accept': 'application/json' }
+        });
+        const result = await response.json();
+
+        if (response.ok && result.status === 'success') {
+            majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+
+            if (result.data.length === 0) {
+                majorSelect.innerHTML = '<option value="">لا توجد تخصصات متاحة لهذه الجامعة</option>';
+                return;
+            }
+
+            result.data.forEach(major => {
+                majorSelect.innerHTML += `<option value="${major.id}">${major.title}</option>`;
+            });
+
+            majorSelect.disabled = false;
+        } else {
+            throw new Error('majors lookup failed');
+        }
+    } catch (err) {
+        fillSelect(majorSelect, DEMO_MAJORS, '-- اختر التخصص --', 'title');
+        majorSelect.disabled = false;
+        showDemoNotice();
+    }
+});
+
+// =====================================================
+// 5. تسجيل الحساب
+// =====================================================
+
+signupForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const track = document.getElementById('track').value;
+    const payload = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        password: document.getElementById('password').value,
+        password_confirmation: document.getElementById('password_confirmation').value,
+        student_type: track,
+        city: document.getElementById('city').value || null
+    };
+
+    if (track === 'new_student') {
+        payload.age = document.getElementById('age').value;
+        payload.high_school_branch_id = document.getElementById('high_school_branch_id').value;
+        payload.inclination_id = document.getElementById('inclination_id').value;
+        payload.high_school_score = document.getElementById('high_school_score').value;
+    } else if (track === 'university_student') {
+        payload.university_id = document.getElementById('university_id').value;
+        payload.major_id = document.getElementById('major_id').value;
+        payload.academic_level = document.getElementById('academic_level').value;
+        const gpaVal = document.getElementById('gpa').value;
+        if (gpaVal) payload.gpa = gpaVal;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>جارٍ الإنشاء...</span>';
+    alertBox.style.display = 'none';
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.status === 'success') {
+            localStorage.setItem('auth_token', data.data.token);
+            showAlert('تم إنشاء الحساب بنجاح! جارٍ التحويل...', 'success');
+            setTimeout(() => { window.location.href = 'quiz.html'; }, 1200);
+        } else {
+            const errorMsg = data.message || 'حدث خطأ، تأكد من البيانات وحاول مرة ثانية';
+            showAlert(errorMsg, 'error');
+        }
+    } catch (err) {
+        showAlert('تعذر الاتصال بالسيرفر. تأكد إنه الباك اند شغال.', 'error');
+        console.error('Register error:', err);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>إنشاء الحساب <span aria-hidden="true">←</span></span>';
+    }
+});
+
+// =====================================================
+// 6. ★ Dropdown الميول المخصص مع النافذة المنبثقة الشارحة ★
+//    ملاحظة: القائمة والـ tooltip بيتولدوا كأبناء لـ <body>
+//    مباشرة (مش جوه الفورم) وبيتموضعوا بـ position: fixed
+//    عشان ما يتحاصروا جوه أي stacking context تبع عناصر
+//    الفورم (زي .conditional-fields اللي عندها transform/animation)
+//    وبالتالي يطلعوا فوق زر "إنشاء الحساب" مش تحته.
+// =====================================================
+
+const inclinationSelect = document.getElementById('inclination_id');
+
+const inclinationDescriptions = {
+    'تكنولوجيا ومعلوماتية': 'تميل إلى البرمجة والتقنية والأنظمة الرقمية وحل المشكلات باستخدام التكنولوجيا.',
+    'صحة وطب': 'تهتم بمجالات الصحة والطب ومساعدة الآخرين وفهم جسم الإنسان.',
+    'هندسة وعمارة': 'تستمتع بالتصميم والبناء وتحليل المشكلات وتحويل الأفكار إلى حلول عملية.',
+    'أعمال وإدارة': 'تهتم بالإدارة والتجارة وريادة الأعمال والتخطيط واتخاذ القرارات.'
+};
+
+const inclinationStyle = document.createElement('style');
+inclinationStyle.textContent = `
+.inclination-custom {
+    position: relative;
+    width: 100%;
+    z-index: 1000;
+}
+
+.inclination-trigger {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 16px;
+    border: 1px solid #d8dee8;
+    border-radius: 12px;
+    background: #fff;
+    color: #26364a;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.inclination-trigger:hover,
+.inclination-custom.open .inclination-trigger {
+    border-color: #2f70ff;
+    box-shadow: 0 0 0 3px rgba(47,112,255,.12);
+}
+
+.inclination-arrow {
+    width: 8px;
+    height: 8px;
+    border-left: 1.5px solid #667085;
+    border-bottom: 1.5px solid #667085;
+    transform: rotate(-45deg);
+    transition: transform .2s ease;
+}
+
+.inclination-custom.open .inclination-arrow {
+    transform: rotate(135deg);
+}
+
+/* القائمة بقت معلّقة على <body> مباشرة بـ position: fixed،
+   فالفتح/الإغلاق بيتحكم فيه class على .inclination-menu نفسها
+   مش عبر ancestor selector */
+.inclination-menu {
+    position: fixed;
+    background: #fff;
+    border: 1px solid #d8dee8;
+    border-radius: 10px;
+    box-shadow: 0 14px 35px rgba(15, 23, 42, .14);
+    overflow: visible;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+    z-index: 999999;
+}
+
+.inclination-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.inclination-option {
+    position: relative;
+    min-height: 46px;
+    padding: 11px 15px;
+    display: flex;
+    align-items: center;
+    color: #26364a;
+    background: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease;
+}
+
+.inclination-option:first-child { border-radius: 10px 10px 0 0; }
+.inclination-option:last-child { border-radius: 0 0 10px 10px; }
+
+.inclination-option:hover {
+    background: linear-gradient(90deg, rgba(47,112,255,.10), rgba(47,112,255,.03));
+    color: #1a73e8;
+}
+
+.inclination-option.selected {
+    background: rgba(47,112,255,.08);
+    color: #1a73e8;
+    font-weight: 600;
+}
+
+/* الفقاعة المنبثقة للشرح */
+.inclination-tooltip {
+    position: fixed;
+    width: 255px;
+    padding: 12px 14px;
+    background: var(--ns-navy);
+    color: #fff;
+    border-radius: 10px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 12.5px;
+    line-height: 1.8;
+    text-align: right;
+    box-shadow: 0 12px 30px rgba(15,23,42,.22);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(8px);
+    transition: opacity .16s ease, transform .16s ease;
+    pointer-events: none;
+    z-index: 9999999;
+}
+
+.inclination-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: -6px;
+    width: 12px;
+    height: 12px;
+    background: var(--ns-navy);
+    transform: rotate(45deg);
+}
+
+.inclination-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.inclination-tooltip-title {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--ns-cyan);
+    font-size: 12px;
+    font-weight: 700;
+}
+`;
+
+document.head.appendChild(inclinationStyle);
+
+let inclinationCustom = null;
+let inclinationMenu = null;
+let inclinationTooltip = null;
+
+// يحسب موضع القائمة بالنسبة للـ trigger ويطبّقه كـ position: fixed
+function positionInclinationMenu() {
+    if (!inclinationCustom || !inclinationMenu) return;
+    const rect = inclinationCustom.getBoundingClientRect();
+
+    inclinationMenu.style.top = `${rect.bottom + 7}px`;
+    inclinationMenu.style.left = `${rect.left}px`;
+    inclinationMenu.style.width = `${rect.width}px`;
+
+    // لو القائمة طالعة برة الشاشة تحت، افتحها لفوق بدل تحت
+    const menuHeight = inclinationMenu.offsetHeight;
+    if (rect.bottom + 7 + menuHeight > window.innerHeight && rect.top - menuHeight - 7 > 0) {
+        inclinationMenu.style.top = `${rect.top - menuHeight - 7}px`;
+    }
+}
+
+function openInclinationMenu() {
+    inclinationCustom.classList.add('open');
+    inclinationMenu.classList.add('open');
+    positionInclinationMenu();
+}
+
+function closeInclinationMenu() {
+    inclinationCustom.classList.remove('open');
+    inclinationMenu.classList.remove('open');
+}
+
+function buildInclinationDropdown() {
+    if (!inclinationSelect || inclinationCustom) return;
+
+    inclinationCustom = document.createElement('div');
+    inclinationCustom.className = 'inclination-custom';
+
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'inclination-trigger';
+    trigger.innerHTML = `
+        <span class="inclination-current">-- اختر الميول --</span>
+        <span class="inclination-arrow"></span>
+    `;
+
+    // ★ القائمة بتتولد كابن مباشر لـ body، مش جوه inclinationCustom،
+    //   عشان تتفلت من أي stacking context بيصير جوه الفورم
+    inclinationMenu = document.createElement('div');
+    inclinationMenu.className = 'inclination-menu';
+    document.body.appendChild(inclinationMenu);
+
+    inclinationTooltip = document.createElement('div');
+    inclinationTooltip.className = 'inclination-tooltip';
+    document.body.appendChild(inclinationTooltip);
+
+    inclinationCustom.appendChild(trigger);
+
+    inclinationSelect.style.display = 'none';
+    inclinationSelect.parentNode.insertBefore(inclinationCustom, inclinationSelect);
+
+    trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (inclinationCustom.classList.contains('open')) {
+            closeInclinationMenu();
+        } else {
+            openInclinationMenu();
+        }
+    });
+
+    document.addEventListener('click', function () {
+        closeInclinationMenu();
+        hideInclinationTooltip();
+    });
+
+    inclinationCustom.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+    // القائمة صارت برة inclinationCustom بالـ DOM، فلازم توقف
+    // الـ click تبعها لحالها عشان ما يسكرها الـ document listener
+    inclinationMenu.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+    // إعادة حساب موضع القائمة لو المستخدم عمل scroll أو resize وهي مفتوحة
+    window.addEventListener('resize', function () {
+        if (inclinationCustom.classList.contains('open')) positionInclinationMenu();
+    });
+    window.addEventListener('scroll', function () {
+        if (inclinationCustom.classList.contains('open')) positionInclinationMenu();
+    }, true);
+
+    refreshInclinationOptions();
+}
+
+function refreshInclinationOptions() {
+    if (!inclinationMenu) return;
+    inclinationMenu.innerHTML = '';
+
+    Array.from(inclinationSelect.options).forEach(function (option) {
+        const item = document.createElement('div');
+        item.className = 'inclination-option';
+        item.dataset.value = option.value;
+        item.textContent = option.textContent.trim();
+
+        if (!option.value) {
+            item.style.color = '#777';
+        }
+
+        if (option.value === inclinationSelect.value) {
+            item.classList.add('selected');
+        }
+
+        // إظهار النافذة المنبثقة عند التأشير (Hover)
+        item.addEventListener('mouseenter', function () {
+            if (!option.value) {
+                hideInclinationTooltip();
+                return;
+            }
+
+            const text = option.textContent.trim();
+            const description = inclinationDescriptions[text];
+
+            if (!description) {
+                hideInclinationTooltip();
+                return;
+            }
+
+            showInclinationTooltip(item, text, description);
+        });
+
+        item.addEventListener('mouseleave', function () {
+            hideInclinationTooltip();
+        });
+
+        item.addEventListener('click', function () {
+            inclinationSelect.value = option.value;
+            inclinationSelect.dispatchEvent(new Event('change', { bubbles: true }));
+
+            updateInclinationCurrent();
+            updateSelectedInclination();
+            closeInclinationMenu();
+            hideInclinationTooltip();
+        });
+
+        inclinationMenu.appendChild(item);
+    });
+
+    updateInclinationCurrent();
+}
+
+function updateInclinationCurrent() {
+    const current = inclinationCustom?.querySelector('.inclination-current');
+    if (!current) return;
+
+    const selected = inclinationSelect.options[inclinationSelect.selectedIndex];
+    if (selected && selected.value) {
+        current.textContent = selected.textContent.trim();
+    } else {
+        current.textContent = '-- اختر الميول --';
+    }
+}
+
+function updateSelectedInclination() {
+    if (!inclinationMenu) return;
+    inclinationMenu.querySelectorAll('.inclination-option').forEach(function (item) {
+        item.classList.toggle('selected', item.dataset.value === inclinationSelect.value);
+    });
+}
+
+function showInclinationTooltip(item, title, description) {
+    if (!inclinationTooltip) return;
+
+    inclinationTooltip.innerHTML = `
+        <span class="inclination-tooltip-title">${title}</span>
+        <span>${description}</span>
+    `;
+
+    const rect = item.getBoundingClientRect();
+    
+    // حساب الموضع على يسار القائمة
+    let left = rect.left - 267;
+    let top = rect.top + (rect.height / 2) - 35;
+
+    // ضبط الموضع إذا خرج عن الشاشة
+    if (left < 10) {
+        left = rect.right + 12;
+    }
+    if (top < 10) {
+        top = 10;
+    }
+    if (top + 100 > window.innerHeight) {
+        top = window.innerHeight - 110;
+    }
+
+    inclinationTooltip.style.left = `${left}px`;
+    inclinationTooltip.style.top = `${top}px`;
+    inclinationTooltip.classList.add('show');
+}
+
+function hideInclinationTooltip() {
+    if (!inclinationTooltip) return;
+    inclinationTooltip.classList.remove('show');
+}
+
+function updateInclinationDropdownAfterLoad() {
+    if (!inclinationCustom) {
+        buildInclinationDropdown();
+    } else {
+        refreshInclinationOptions();
+    }
+}
+
+if (inclinationSelect) {
+    const inclinationObserver = new MutationObserver(function () {
+        updateInclinationDropdownAfterLoad();
+    });
+
+    inclinationObserver.observe(inclinationSelect, { childList: true });
+
+    inclinationSelect.addEventListener('change', function () {
+        updateInclinationCurrent();
+        updateSelectedInclination();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    loadInitialLookups();
+    buildInclinationDropdown();
+});
+
 </script>
 
 <!-- ======================= FOOTER ======================= -->

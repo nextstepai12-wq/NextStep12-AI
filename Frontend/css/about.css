@@ -93,6 +93,7 @@ select{
 .wrap{
   width:min(1140px, calc(100% - 64px));
   margin:0 auto;
+  padding:63px;
 }
 
 .about-page{

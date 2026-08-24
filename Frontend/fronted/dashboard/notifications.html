@@ -17,9 +17,10 @@
 <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
 <link href="../../css/dashboardcss/notifications.css" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- ======================= HEADER ======================= -->
+<!-- ================= TOPBAR ================= -->
 
 <!-- ======================= LAYOUT (Sidebar + Content) ======================= -->
 <!--
@@ -136,9 +137,9 @@
     </button>
   </aside>
 
-  <!-- ======================= NOTIFICATIONS (CONTENT) ======================= -->
-  <div class="notif-wrap">
-    <div class="notif-inner">
+        <button class="top-icon active">♧</button>
+        <button class="top-icon">♡</button>
+        <button class="top-icon">؟</button>
 
       <div class="notif-head">
         <span class="notif-eyebrow">
@@ -160,6 +161,8 @@
           <button class="notif-tab" data-filter="team" type="button">الفريق والاشتراك</button>
           <button class="notif-tab" data-filter="system" type="button">النظام</button>
         </div>
+<<<<<<< HEAD
+=======
         <div class="notif-actions">
           <button class="btn-notif-manage" id="btnManageNotifications" type="button"
                   onclick="document.getElementById('prefsPanel').scrollIntoView({behavior:'smooth'});">
@@ -176,38 +179,100 @@
           </button>
         </div>
       </div>
+>>>>>>> fbbe1a432a8e2397b6e92603ee7dfa0f83b6ea3e
 
-      <!-- Day filter row -->
-      <div class="notif-day-filter" id="notifDayFilter" role="tablist">
-        <button class="day-filter-btn active" data-day="today" type="button">اليوم</button>
-        <button class="day-filter-btn" data-day="yesterday" type="button">أمس</button>
-        <button class="day-filter-btn" data-day="lastweek" type="button">الأسبوع الماضي</button>
-      </div>
+        <button class="menu-btn">☰</button>
 
-      <!-- Main layout -->
-      <div class="notif-layout">
+    </div>
 
-        <!-- Left: quick stats -->
-        <div class="notif-stats">
-          <div class="stat-card">
-            <div class="stat-value" id="unreadCount">5</div>
-            <div class="stat-label">إشعارات غير مقروءة</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">12</div>
-            <div class="stat-label">إشعارات هذا الأسبوع</div>
-          </div>
-          <button class="btn-notif-settings" type="button" onclick="document.getElementById('prefsPanel').scrollIntoView({behavior:'smooth'});">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            تفضيلات الإشعارات
-          </button>
+</header>
+
+
+<div class="page">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="side-title">
+        <span>لوحة الطالب</span>
+        <b>⚙</b>
+    </div>
+
+    <a href="#">
+        <span class="side-icon">▣</span>
+        <span>الاختبار الذكي</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">◫</span>
+        <span>دليل الجامعات</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">♡</span>
+        <span>المفضلة</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">▤</span>
+        <span>المقالات</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">▧</span>
+        <span>المستندات</span>
+    </a>
+
+    <a href="#">
+        <span class="side-icon">♙</span>
+        <span>الملف الشخصي</span>
+    </a>
+
+    <a class="settings-link" href="#">
+        <span class="side-icon">⚙</span>
+        <span>الإعدادات</span>
+    </a>
+
+    <a class="logout" href="#">
+        <span>⇥</span>
+        <span>تسجيل الخروج</span>
+    </a>
+
+</aside>
+
+
+<!-- ================= CONTENT ================= -->
+
+<main class="content">
+
+    <!-- Heading -->
+
+    <section class="heading">
+
+        <div>
+            <div class="title-line">
+                <h1>مركز الإشعارات</h1>
+                <span class="title-icon">♧</span>
+            </div>
+
+            <p>
+                كل جديد يخص رحلتك التعليمية في مكان واحد
+            </p>
         </div>
 
-        <!-- Center: notification list -->
-        <div class="notif-list-wrap">
+        <button class="read-all">
+            ✓ تحديد الكل كمقروء
+        </button>
 
-          <div class="notif-day-group" data-day="today">
-            <div class="notif-day-label">اليوم</div>
+    </section>
+
+
+    <!-- ================= SUMMARY ================= -->
+
+    <section class="notification-summary">
+
+        <div class="summary-main">
 
             <div class="notif-row unread" data-category="students">
               <div class="notif-icon cat-reco">
@@ -326,9 +391,6 @@
           <button class="btn-load-more" id="btnLoadMore" type="button">تحميل إشعارات أقدم</button>
         </div>
 
-        <!-- Right: preferences -->
-        <div class="notif-prefs" id="prefsPanel">
-          <h4>تفضيلات الإشعارات</h4>
 
           <div class="pref-item">
             <div class="pref-info">
@@ -346,23 +408,20 @@
               <div class="pref-name">تذاكر الدعم الفني</div>
               <div class="pref-sub">عند فتح تذكرة دعم جديدة من طالب</div>
             </div>
-            <label class="switch">
-              <input type="checkbox" checked>
-              <span class="switch-track"></span>
-            </label>
-          </div>
 
+<<<<<<< HEAD
           <div class="pref-item">
             <div class="pref-info">
               <div class="pref-name">البرامج الأكاديمية</div>
               <div class="pref-sub">حالة مراجعة برنامج جديد أو تعديل عليه</div>
+=======
+            <div>
+                <strong>12</strong>
+                <span>هذا الأسبوع</span>
+>>>>>>> 3445daa2a00aa5dc61208dac9f2d98184ba0d949
             </div>
-            <label class="switch">
-              <input type="checkbox" checked>
-              <span class="switch-track"></span>
-            </label>
-          </div>
 
+<<<<<<< HEAD
           <div class="pref-item">
             <div class="pref-info">
               <div class="pref-name">الفريق</div>
@@ -395,98 +454,300 @@
               <span class="switch-track"></span>
             </label>
           </div>
+=======
+>>>>>>> 3445daa2a00aa5dc61208dac9f2d98184ba0d949
         </div>
 
-      </div>
+    </section>
+
+
+    <!-- ================= FILTERS ================= -->
+
+    <div class="filters">
+
+        <button class="filter active">
+            الكل
+            <span>16</span>
+        </button>
+
+        <button class="filter">
+            غير المقروءة
+            <span>4</span>
+        </button>
+
+        <button class="filter">
+            الجامعات
+        </button>
+
+        <button class="filter">
+            المنصة
+        </button>
+
+        <button class="filter">
+            المنح والفرص
+        </button>
 
     </div>
-  </div>
-  <!-- ======================= END NOTIFICATIONS ======================= -->
+
+
+    <!-- ================= NOTIFICATIONS ================= -->
+
+    <section class="notifications">
+
+
+        <!-- Notification 1 -->
+
+        <article class="notification unread">
+
+            <div class="notification-icon blue">
+                🎓
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            جامعة جديدة أصبحت متاحة في دليلك
+                        </h3>
+
+                        <span class="badge blue-badge">
+                            الجامعات
+                        </span>
+                    </div>
+
+                    <span class="dot"></span>
+
+                </div>
+
+                <p>
+                    تمت إضافة معلومات وتخصصات جديدة لإحدى الجامعات
+                    التي قد تتناسب مع اهتماماتك الأكاديمية.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ منذ 15 دقيقة</span>
+                    <button>عرض التفاصيل ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Notification 2 -->
+
+        <article class="notification unread">
+
+            <div class="notification-icon purple">
+                ✦
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            اكتشفنا تخصصات قد تناسب شخصيتك
+                        </h3>
+
+                        <span class="badge purple-badge">
+                            الاختبار الذكي
+                        </span>
+                    </div>
+
+                    <span class="dot"></span>
+
+                </div>
+
+                <p>
+                    بناءً على نتائج اختبارك، لدينا مجموعة من التخصصات
+                    التي قد تكون مناسبة لاهتماماتك ونمط تفكيرك.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ منذ ساعة</span>
+                    <button>استكشف النتائج ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Notification 3 -->
+
+        <article class="notification unread">
+
+            <div class="notification-icon orange">
+                ✦
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            فرصة جديدة قد تهمك 🎯
+                        </h3>
+
+                        <span class="badge orange-badge">
+                            منح وفرص
+                        </span>
+                    </div>
+
+                    <span class="dot"></span>
+
+                </div>
+
+                <p>
+                    تمت إضافة فرصة تعليمية جديدة إلى قسم المنح والفرص.
+                    تحقق من التفاصيل قبل انتهاء الموعد.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ منذ 3 ساعات</span>
+                    <button>عرض الفرصة ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Notification 4 -->
+
+        <article class="notification unread">
+
+            <div class="notification-icon cyan">
+                ★
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            لديك تحديث جديد في حسابك
+                        </h3>
+
+                        <span class="badge cyan-badge">
+                            المنصة
+                        </span>
+                    </div>
+
+                    <span class="dot"></span>
+
+                </div>
+
+                <p>
+                    تم تحديث بعض المعلومات في ملفك الشخصي لتحسين
+                    توصيات NextStep AI الخاصة بك.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ اليوم، 10:30 ص</span>
+                    <button>فتح الملف ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Read notification -->
+
+        <article class="notification">
+
+            <div class="notification-icon gray">
+                ✓
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            تم حفظ إعدادات حسابك بنجاح
+                        </h3>
+
+                        <span class="badge gray-badge">
+                            الحساب
+                        </span>
+                    </div>
+
+                </div>
+
+                <p>
+                    تم حفظ التغييرات التي أجريتها على إعدادات حسابك.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ أمس، 08:45 م</span>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Read notification -->
+
+        <article class="notification">
+
+            <div class="notification-icon blue">
+                ◫
+            </div>
+
+            <div class="notification-content">
+
+                <div class="notification-top">
+
+                    <div>
+                        <h3>
+                            تمت إضافة مقال جديد إلى المنصة
+                        </h3>
+
+                        <span class="badge blue-badge">
+                            المقالات
+                        </span>
+                    </div>
+
+                </div>
+
+                <p>
+                    مقال جديد حول كيفية اختيار التخصص الجامعي
+                    المناسب لمهاراتك وطموحاتك.
+                </p>
+
+                <div class="notification-footer">
+                    <span>◷ أمس، 03:20 م</span>
+                    <button>قراءة المقال ←</button>
+                </div>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- ================= END ================= -->
+
+    <div class="notifications-end">
+        <span></span>
+        <p>لقد وصلت إلى نهاية الإشعارات</p>
+        <span></span>
+    </div>
+
+</main>
 
 </div>
-<!-- ======================= END PAGE LAYOUT ======================= -->
-
-<!-- ======================= FOOTER ======================= -->
-<div id="footer-placeholder"></div>
-
-<script>
-/* ============================================================
-   فلترة الإشعارات: تصنيف (الكل/غير مقروءة/...) + يوم (اليوم/أمس/الأسبوع الماضي)
-   الفلترتان تشتغلان مع بعض
-   ============================================================ */
-
-const notifTabs = document.querySelectorAll('.notif-tab');
-const dayFilterBtns = document.querySelectorAll('.day-filter-btn');
-const dayGroups = document.querySelectorAll('.notif-day-group');
-
-let currentCategoryFilter = 'all';
-let currentDayFilter = 'today'; // الافتراضي: عرض اليوم فقط
-
-function applyFilters(){
-  dayGroups.forEach(group => {
-    const groupDay = group.dataset.day;
-    const dayMatch = groupDay === currentDayFilter;
-
-    if (!dayMatch){
-      group.style.display = 'none';
-      return;
-    }
-
-    let anyVisible = false;
-
-    group.querySelectorAll('.notif-row').forEach(row => {
-      const catMatch = currentCategoryFilter === 'all'
-        ? true
-        : currentCategoryFilter === 'unread'
-          ? row.classList.contains('unread')
-          : row.dataset.category === currentCategoryFilter;
-
-      row.style.display = catMatch ? 'flex' : 'none';
-      if (catMatch) anyVisible = true;
-    });
-
-    group.style.display = anyVisible ? 'block' : 'none';
-  });
-}
-
-/* تبويبات التصنيف */
-notifTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    notifTabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    currentCategoryFilter = tab.dataset.filter;
-    applyFilters();
-  });
-});
-
-/* تبويبات اليوم */
-dayFilterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    dayFilterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentDayFilter = btn.dataset.day;
-    applyFilters();
-  });
-});
-
-/* تشغيل أولي */
-applyFilters();
-
-/* تحديد الكل كمقروء */
-document.getElementById('btnMarkRead').addEventListener('click', () => {
-  document.querySelectorAll('.notif-row.unread').forEach(row => row.classList.remove('unread'));
-  document.getElementById('unreadCount').textContent = '0';
-  const unreadTabCount = document.querySelector('.notif-tab[data-filter="unread"] .tab-count');
-  if (unreadTabCount) unreadTabCount.textContent = '0';
-  const badge = document.querySelector('.sidebar-badge');
-  if (badge) badge.remove();
-});
-
-/* تحميل المزيد (مؤقت) */
-document.getElementById('btnLoadMore').addEventListener('click', () => {
-  alert('ما في إشعارات أقدم حالياً');
-});
-</script>
 
 </body>
 </html>

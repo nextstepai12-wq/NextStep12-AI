@@ -1,0 +1,212 @@
+/* =====================================================================
+   study-plan.css
+   خاص بصفحة الخطة الدراسية المقترحة (study-plan.html)
+   يعتمد على المتغيرات المعرّفة بـ app.css — حمّل app.css قبله
+   ===================================================================== */
+
+body{background:var(--light);}
+
+/* ======================= PLAN PAGE ======================= */
+.plan-wrap{flex:1;padding:40px 16px 90px;}
+.plan-inner{max-width:1180px;margin:0 auto;}
+
+.plan-head{margin-bottom:24px;}
+.plan-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;color:var(--blue);
+  background:rgba(47,107,255,0.08);
+  padding:6px 14px;border-radius:999px;margin-bottom:12px;
+}
+.plan-head h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(20px,3vw,27px);color:var(--navy);margin-bottom:6px;}
+.plan-head p{font-size:13.5px;color:var(--gray);max-width:520px;line-height:1.7;}
+
+/* ---- Major selector ---- */
+.major-select-row{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+.major-select-row label{font-size:13.5px;font-weight:700;color:var(--navy);flex-shrink:0;}
+.major-select{
+  flex:1;
+  min-width:220px;
+  padding:10px 14px;
+  border-radius:10px;
+  border:1.5px solid var(--border);
+  font-family:'Cairo',sans-serif;
+  font-size:13.5px;
+  font-weight:600;
+  color:var(--dark);
+  background:var(--light);
+  outline:none;
+  transition:border-color .2s ease;
+}
+.major-select:focus{border-color:var(--blue);}
+
+/* ---- Tabs ---- */
+.plan-tabs{
+  display:flex;
+  gap:6px;
+  border-bottom:2px solid var(--border);
+  margin-bottom:24px;
+  overflow-x:auto;
+}
+.plan-tab{
+  padding:12px 20px;
+  font-size:13.5px;
+  font-weight:700;
+  color:var(--gray);
+  background:none;
+  border:none;
+  border-bottom:2px solid transparent;
+  margin-bottom:-2px;
+  cursor:pointer;
+  font-family:'Cairo',sans-serif;
+  white-space:nowrap;
+  transition:color .2s ease;
+}
+.plan-tab:hover{color:var(--navy);}
+.plan-tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+
+/* ---- Main layout: stats | table | progress track ---- */
+.plan-layout{
+  display:grid;
+  grid-template-columns:200px 1fr 190px;
+  gap:20px;
+  align-items:start;
+}
+
+/* Left: stat cards */
+.plan-stats{display:flex;flex-direction:column;gap:14px;}
+.stat-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  text-align:center;
+}
+.stat-card .stat-value{font-family:'Poppins',sans-serif;font-weight:800;font-size:22px;color:var(--navy);}
+.stat-card .stat-value span{font-size:13px;color:var(--gray);font-weight:600;}
+.stat-card .stat-label{font-size:11.5px;color:var(--gray);margin-top:4px;font-weight:600;}
+.stat-card .stat-bar{height:6px;border-radius:999px;background:var(--border);margin-top:10px;overflow:hidden;}
+.stat-card .stat-bar-fill{height:100%;border-radius:999px;background:var(--mint);}
+
+.btn-download-pdf{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 14px;
+  border-radius:12px;
+  background:var(--navy);
+  color:#fff;
+  font-weight:700;
+  font-size:13px;
+  box-shadow:0 10px 20px rgba(23,59,115,0.22);
+  transition:transform .2s ease;
+  border:none;
+  font-family:'Cairo',sans-serif;
+  cursor:pointer;
+}
+.btn-download-pdf:hover{transform:translateY(-2px);}
+.btn-download-pdf svg{width:16px;height:16px;flex-shrink:0;}
+
+/* Center: semester table */
+.plan-table-wrap{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:22px;
+  overflow-x:auto;
+}
+.semesters-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.semester-block h3{
+  font-size:13.5px;font-weight:800;color:var(--navy);
+  margin-bottom:10px;padding-bottom:8px;
+  border-bottom:2px solid var(--border);
+}
+.course-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:8px;padding:9px 0;border-bottom:1px dashed var(--border);
+  font-size:12.5px;
+}
+.course-row:last-child{border-bottom:none;}
+.course-name{color:var(--dark);font-weight:600;}
+.course-meta{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.course-code{color:var(--gray);font-size:11px;background:var(--light);padding:2px 8px;border-radius:6px;}
+.course-hours{color:var(--blue);font-weight:700;font-size:11.5px;}
+
+/* Right: vertical progress track */
+.progress-track{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px 16px;
+}
+.progress-track h4{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:18px;text-align:center;}
+.level-item{display:flex;align-items:center;gap:10px;position:relative;padding-bottom:26px;}
+.level-item:last-child{padding-bottom:0;}
+.level-item::before{
+  content:"";
+  position:absolute;
+  right:12px;top:26px;
+  width:2px;height:100%;
+  background:var(--border);
+}
+.level-item:last-child::before{display:none;}
+.level-item.done::before{background:var(--mint);}
+.level-dot{
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--border);
+  background:#fff;color:var(--gray);
+  font-size:11px;font-weight:800;
+  flex-shrink:0;z-index:1;
+}
+.level-item.done .level-dot{background:var(--mint);border-color:var(--mint);color:#fff;}
+.level-item.active .level-dot{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 0 4px rgba(47,107,255,0.15);}
+.level-info .level-name{font-size:12px;font-weight:700;color:var(--dark);}
+.level-info .level-sub{font-size:10.5px;color:var(--gray);}
+
+/* ---- Weekly schedule ---- */
+.schedule-section{margin-top:32px;}
+.section-title{display:flex;align-items:center;gap:10px;font-size:15.5px;font-weight:800;color:var(--navy);margin-bottom:16px;}
+.section-title .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+.schedule-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.day-card{
+  background:#fff;border:1px solid var(--border);border-radius:14px;
+  padding:16px 12px;text-align:center;
+}
+.day-card .day-name{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.day-card .day-slot{font-size:11px;color:var(--dark);background:var(--light);border-radius:8px;padding:6px 4px;margin-bottom:6px;font-weight:600;}
+.day-card .day-slot:last-child{margin-bottom:0;}
+.day-card .day-empty{font-size:11px;color:#B7C2D0;padding:10px 0;}
+
+/* ---- Compare button ---- */
+.plan-compare-wrap{text-align:center;margin-top:36px;}
+.btn-compare{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 30px;border-radius:12px;
+  border:1.5px dashed var(--blue);
+  color:var(--blue);font-weight:700;font-size:13.5px;
+  background:rgba(47,107,255,0.05);
+  transition:all .2s ease;font-family:'Cairo',sans-serif;cursor:pointer;
+}
+.btn-compare:hover{background:rgba(47,107,255,0.1);}
+.btn-compare svg{width:16px;height:16px;}
+
+@media (max-width:960px){
+  .plan-layout{grid-template-columns:1fr;}
+  .plan-stats{flex-direction:row;flex-wrap:wrap;}
+  .plan-stats .stat-card{flex:1;min-width:140px;}
+  .progress-track{order:3;}
+  .progress-track .level-item{display:inline-flex;flex-direction:column;text-align:center;}
+}
+@media (max-width:640px){
+  .semesters-grid{grid-template-columns:1fr;}
+  .schedule-row{grid-template-columns:repeat(2,1fr);}
+  .plan-stats{flex-direction:column;}
+}

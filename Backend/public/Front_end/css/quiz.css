@@ -1,0 +1,257 @@
+/* =====================================================================
+   quiz.css
+   خاص بصفحة الاستبيان الذكي (quiz.html)
+   يعتمد على المتغيرات المعرّفة بـ app.css — حمّل app.css قبله
+
+   الفكرة: كل شي ضمن كرت واحد بس — بدون صناديق جانبية. الحلقة المضيئة
+   حوالين الكرت هي شريط التقدم نفسه (بتمتلئ تدريجيًا كل ما تجاوب)،
+   وكل إجابة بتطلق "burst" صغير من نقاط بألوان الهوية كمكافأة بصرية فورية،
+   واللمسة الختامية confetti عند الانتهاء.
+   ===================================================================== */
+
+@property --progress{
+  syntax:'<number>';
+  inherits:true;
+  initial-value:0;
+}
+
+body{background:var(--light);}
+
+.quiz-wrap{
+  min-height:100dvh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: calc(var(--header-height, 96px) + 24px) 16px 40px;
+  box-sizing:border-box;
+}
+
+/* ======================= الحلقة المضيئة = شريط التقدم ======================= */
+.ring-wrap{
+  --progress:16;
+  width:100%;
+  max-width:620px;
+  padding:4px;
+  border-radius:26px;
+  background: conic-gradient(var(--blue) calc(var(--progress) * 1%), var(--border) 0);
+  transition: --progress .5s ease;
+  box-shadow:0 20px 50px rgba(23,59,115,0.12);
+}
+.ring-wrap.complete{
+  background:var(--mint);
+}
+
+.quiz-card{
+  position:relative;
+  background:#fff;
+  border-radius:22px;
+  padding:32px 34px;
+  overflow:hidden;
+  animation:cardIn .3s ease;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ---- شريط علوي داخل الكرت: نقاط الأسئلة الصغيرة + العدّاد ---- */
+.card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:22px;
+}
+.mini-path{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.mini-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--border);
+  transition:all .25s ease;
+}
+.mini-dot.done{background:var(--mint);}
+.mini-dot.active{background:var(--blue);width:18px;border-radius:4px;}
+.q-counter{
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:13px;
+  color:var(--blue);
+  background:rgba(47,107,255,0.08);
+  padding:5px 12px;
+  border-radius:999px;
+}
+.q-counter b{color:var(--navy);}
+
+.quiz-question{
+  font-size:20px;
+  font-weight:800;
+  color:var(--navy);
+  line-height:1.6;
+  margin-bottom:24px;
+}
+
+.quiz-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:26px;
+}
+.quiz-option{
+  position:relative;
+  overflow:hidden;
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:15px 16px;
+  cursor:pointer;
+  font-size:13.5px;
+  font-weight:600;
+  color:var(--dark);
+  transition:transform .18s ease, border-color .18s ease, background .18s ease;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#fff;
+}
+.quiz-option:hover{border-color:var(--blue);transform:translateY(-2px);}
+.quiz-option.selected{
+  border-color:var(--blue);
+  background:rgba(47,107,255,0.06);
+  color:var(--navy);
+  transform:translateY(-2px);
+}
+.opt-check{
+  margin-inline-start:auto;
+  width:18px;height:18px;
+  border-radius:50%;
+  border:2px solid var(--border);
+  flex-shrink:0;
+  position:relative;
+  transition:border-color .2s ease, background .2s ease;
+}
+.quiz-option.selected .opt-check{border-color:var(--blue);background:var(--blue);}
+.quiz-option.selected .opt-check::after{
+  content:"";
+  position:absolute;
+  inset:3px;
+  border-radius:50%;
+  background:#fff;
+}
+
+/* burst particles — مكافأة بصرية صغيرة عند كل اختيار */
+.burst-dot{
+  position:absolute;
+  width:6px;height:6px;
+  border-radius:50%;
+  pointer-events:none;
+  animation:burst .55s ease-out forwards;
+  z-index:5;
+}
+@keyframes burst{
+  from{opacity:1;transform:translate(0,0) scale(1);}
+  to{opacity:0;transform:var(--fly) scale(.4);}
+}
+
+/* ---- Prev / Next / Finish ---- */
+.quiz-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+}
+.quiz-nav-btn{
+  padding:11px 18px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:13px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:all .2s ease;
+  border:1.5px solid var(--border);
+  color:var(--navy);
+  background:#fff;
+  cursor:pointer;
+  font-family:'Cairo',sans-serif;
+}
+.quiz-nav-btn svg{width:15px;height:15px;}
+.quiz-nav-btn:hover:not(:disabled){border-color:var(--navy);}
+.quiz-nav-btn.primary{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+  box-shadow:0 10px 22px rgba(47,107,255,0.28);
+}
+.quiz-nav-btn.primary:hover:not(:disabled){transform:translateY(-2px);}
+.quiz-nav-btn:disabled{opacity:.35;cursor:not-allowed;}
+
+.quiz-finish-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:11px 24px;
+  border-radius:12px;
+  background:var(--mint);
+  color:#fff;
+  font-weight:700;
+  font-size:13px;
+  box-shadow:0 10px 22px rgba(72,230,176,0.28);
+  transition:transform .2s ease;
+  border:none;
+  font-family:'Cairo',sans-serif;
+  cursor:pointer;
+}
+.quiz-finish-btn svg{width:15px;height:15px;}
+.quiz-finish-btn:hover:not(:disabled){transform:translateY(-2px) scale(1.03);}
+.quiz-finish-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+/* ======================= حالة الانتهاء + confetti ======================= */
+.quiz-done{
+  text-align:center;
+  padding:10px 4px 4px;
+  position:relative;
+}
+.quiz-done .done-icon{
+  width:62px;height:62px;
+  border-radius:50%;
+  background:rgba(72,230,176,0.12);
+  color:var(--mint);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;
+  animation:popIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn{
+  from{transform:scale(0);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+.quiz-done .done-icon svg{width:28px;height:28px;}
+.quiz-done h2{font-size:21px;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.quiz-done p{font-size:14px;color:var(--gray);margin-bottom:24px;line-height:1.7;}
+
+.confetti-piece{
+  position:absolute;
+  top:-10px;
+  width:7px;height:12px;
+  border-radius:2px;
+  pointer-events:none;
+  animation:confettiFall 1.6s ease-in forwards;
+  z-index:6;
+}
+@keyframes confettiFall{
+  from{transform:translateY(0) rotate(0deg);opacity:1;}
+  to{transform:var(--fall) rotate(var(--spin));opacity:0;}
+}
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width:640px){
+  .quiz-card{padding:24px 20px;}
+  .quiz-options{grid-template-columns:1fr;}
+  .quiz-question{font-size:17px;}
+}
+@media (prefers-reduced-motion:reduce){
+  .burst-dot, .confetti-piece, .quiz-option, .quiz-done .done-icon{animation:none !important;transition:none !important;}
+}

@@ -3,7 +3,7 @@
 @section('title', 'إعدادات الحساب — NextStep AI')
 
 @section('css')
-<link href="{{ asset('NextStepAi-front/css/settings.css') }}" rel="stylesheet">
+<link href="{{ asset('Front_end/css/settings.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -92,7 +92,7 @@
       <!-- Right: avatar -->
       <div class="avatar-col">
         <div class="avatar-frame">
-          <img src="{{ asset('NextStepAi-front/assets/5.jpg') }}" alt="صورة الطالب" id="avatarImg">
+          <img src="{{ asset('Front_end/assets/5.jpg') }}" alt="صورة الطالب" id="avatarImg">
           <button type="button" class="avatar-edit-btn" id="avatarEditBtn" aria-label="تغيير الصورة">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
           </button>

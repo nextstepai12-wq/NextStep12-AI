@@ -10,6 +10,7 @@ footer.site-footer {
   overflow: hidden;
   margin-top: auto;
   flex-shrink: 0;
+  direction:rtl;
 }
 
 footer.site-footer::before {
@@ -210,6 +211,7 @@ footer .brand-mark .brand-text span {
   font-size: 13px;
   color: #F1F5F9;
   margin: 0;
+  padding: 0px 348px;
 }
 
 .footer-bottom .legal-links {
@@ -239,6 +241,7 @@ footer .brand-mark .brand-text span {
   text-align: right;
   direction: rtl;
   margin-right: 24px;
+  margin-right: 2px;
 }
 
 @media (max-width: 860px) {

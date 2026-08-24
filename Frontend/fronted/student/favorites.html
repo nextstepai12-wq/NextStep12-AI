@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المفضلة — NextStep AI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<!-- CSS الخاص بالهيدر الأساسي -->
+<link rel="stylesheet" href="../../css/header.css">
+<!-- CSS الخاص بشعار الحساب + القائمة المنسدلة داخل الهيدر -->
+<link rel="stylesheet" href="../../css/header-dashboard-account.css">
+<!-- CSS الخاص بصفحة المفضلة -->
+<link href="../../css/favorites.css" rel="stylesheet">
+<link href="../css/footer.css" rel="stylesheet">
+</head>
+<body>
+<script src="../../js/header-dashboard.js"></script>
+<!-- ======================= HEADER ======================= -->
+
+<!-- ======================= PAGE BODY (sidebar + content) ======================= -->
+<div class="fav-page">
+  <div class="fav-page-inner">
+
+    <!-- ======================= MAIN COLUMN ======================= -->
+    <div class="fav-main">
+
+      <div class="fav-head">
+        <div class="fav-head-text">
+          <h1>المفضلة</h1>
+          <p>كل ما حفظته للرجوع إليه لاحقاً</p>
+        </div>
+        <span class="fav-head-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
+        </span>
+      </div>
+
+      <!-- Tabs -->
+      <div class="fav-tabs">
+        <button class="fav-tab active" data-tab="all">
+          الكل <span class="count" id="allCount">12</span>
+        </button>
+        <button class="fav-tab" data-tab="unis">
+          الجامعات <span class="count" id="unisCount">4</span>
+        </button>
+        <button class="fav-tab" data-tab="majors">
+          التخصصات <span class="count" id="majorsCount">4</span>
+        </button>
+        <button class="fav-tab" data-tab="articles">
+          المقالات والدلائل <span class="count" id="articlesCount">4</span>
+        </button>
+      </div>
+
+      <!-- ======================= UNIVERSITIES SECTION ======================= -->
+      <section class="fav-section" data-section="unis">
+        <div class="fav-section-head">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+            الجامعات
+          </h2>
+          <a href="universities.html" class="fav-view-all">عرض الكل</a>
+        </div>
+        <div class="fav-grid fav-grid-unis" id="unisGrid">
+
+          <div class="fav-uni-card2" data-detail-url="university-details.html?id=1">
+            <div class="fav-uni-thumb">
+              <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=500&q=80" alt="جامعة النجاح الوطنية">
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
+              </button>
+              <span class="fav-badge gov">حكومية</span>
+            </div>
+            <div class="fav-uni-body">
+              <div class="fav-uni-title-row">
+                <h3>جامعة النجاح الوطنية</h3>
+                <span class="fav-rating">★ 4.5</span>
+              </div>
+              <span class="fav-uni-location">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                نابلس، فلسطين
+              </span>
+              <a href="university-details.html?id=1" class="fav-detail-link">عرض التفاصيل</a>
+            </div>
+          </div>
+
+          <div class="fav-uni-card2" data-detail-url="university-details.html?id=2">
+            <div class="fav-uni-thumb">
+              <img src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=500&q=80" alt="جامعة القدس">
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="fav-heart-overlay active" aria-label="إزالة من المفضلة">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
+              </button>
+              <span class="fav-badge priv">خاصة</span>
+            </div>
+            <div class="fav-uni-body">
+              <div class="fav-uni-title-row">
+                <h3>جامعة القدس</h3>
+                <span class="fav-rating">★ 4.6</span>
+              </div>
+              <span class="fav-uni-location">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                أبو ديس، فلسطين
+              </span>
+              <a href="university-details.html?id=2" class="fav-detail-link">عرض التفاصيل</a>
+            </div>
+          </div>
+
+          <div class="fav-uni-card2" data-detail-url="university-details.html?id=3">
+            <div class="fav-uni-thumb">
+              <img src="https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?w=500&q=80" alt="الجامعة الإسلامية بغزة">
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="fav-heart-overlay" aria-label="إزالة من المفضلة">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
+              </button>
+              <span class="fav-badge gov">حكومية</span>
+            </div>
+            <div class="fav-uni-body">
+              <div class="fav-uni-title-row">
+                <h3>الجامعة الإسلامية بغزة</h3>
+                <span class="fav-rating">★ 4.3</span>
+              </div>
+              <span class="fav-uni-location">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                غزة، فلسطين
+              </span>
+              <a href="university-details.html?id=3" class="fav-detail-link">عرض التفاصيل</a>
+            </div>
+          </div>
+
+          <div class="fav-uni-card2" data-detail-url="university-details.html?id=4">
+            <div class="fav-uni-thumb">
+              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&q=80" alt="جامعة بيرزيت">
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="fav-heart-overlay active" aria-label="إزالة من المفضلة">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
+              </button>
+              <span class="fav-badge priv">خاصة</span>
+            </div>
+            <div class="fav-uni-body">
+              <div class="fav-uni-title-row">
+                <h3>جامعة بيرزيت</h3>
+                <span class="fav-rating">★ 4.7</span>
+              </div>
+              <span class="fav-uni-location">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                بيرزيت، فلسطين
+              </span>
+              <a href="university-details.html?id=4" class="fav-detail-link">عرض التفاصيل</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================= MAJORS SECTION ======================= -->
+      <section class="fav-section" data-section="majors">
+        <div class="fav-section-head">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M4 9h5"/></svg>
+            التخصصات
+          </h2>
+          <a href="specializations.html" class="fav-view-all">عرض الكل</a>
+        </div>
+        <div class="fav-grid fav-grid-majors" id="majorsGrid">
+
+          <div class="fav-major-card2" data-detail-url="specialization-detail.html?name=علوم الحاسوب">
+            <div class="fav-major-top">
+              <span class="fav-major-icon purple">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+              </span>
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+            </div>
+            <h3>علوم الحاسوب</h3>
+            <span class="fav-major-cat">تقنية المعلومات</span>
+            <span class="fav-match">92% توافق</span>
+            <a href="specialization-detail.html?name=علوم الحاسوب" class="fav-detail-link">عرض التخصص</a>
+          </div>
+
+          <div class="fav-major-card2" data-detail-url="specialization-detail.html?name=هندسة البرمجيات">
+            <div class="fav-major-top">
+              <span class="fav-major-icon teal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 4l-5 8 5 8M16 4l5 8-5 8"/></svg>
+              </span>
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+            </div>
+            <h3>هندسة البرمجيات</h3>
+            <span class="fav-major-cat">الهندسة</span>
+            <span class="fav-match">85% توافق</span>
+            <a href="specialization-detail.html?name=هندسة البرمجيات" class="fav-detail-link">عرض التخصص</a>
+          </div>
+
+          <div class="fav-major-card2" data-detail-url="specialization-detail.html?name=الأمن السيبراني">
+            <div class="fav-major-top">
+              <span class="fav-major-icon sky">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+            </div>
+            <h3>الأمن السيبراني</h3>
+            <span class="fav-major-cat">تقنية المعلومات</span>
+            <span class="fav-match">88% توافق</span>
+            <a href="specialization-detail.html?name=الأمن السيبراني" class="fav-detail-link">عرض التخصص</a>
+          </div>
+
+          <div class="fav-major-card2" data-detail-url="specialization-detail.html?name=نظم المعلومات">
+            <div class="fav-major-top">
+              <span class="fav-major-icon amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+              </span>
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+            </div>
+            <h3>نظم المعلومات</h3>
+            <span class="fav-major-cat">تقنية المعلومات</span>
+            <span class="fav-match">72% توافق</span>
+            <a href="specialization-detail.html?name=نظم المعلومات" class="fav-detail-link">عرض التخصص</a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================= ARTICLES SECTION ======================= -->
+      <section class="fav-section" data-section="articles">
+        <div class="fav-section-head">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            المقالات والدلائل
+          </h2>
+          <a href="articles.html" class="fav-view-all">عرض الكل</a>
+        </div>
+        <div class="fav-grid fav-grid-articles" id="articlesGrid">
+
+          <article class="fav-article-card2" data-url="#">
+            <div class="fav-article-thumb">
+              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&q=80" alt="كيف تختار التخصص الجامعي المناسب؟">
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="fav-bookmark-overlay" aria-label="إزالة من المفضلة">
+                <svg viewBox="0 0 24 24"><path d="M6 2h12v20l-6-4-6 4V2z"/></svg>
+              </button>
+              <span class="fav-badge tag-purple">دليل شامل</span>
+            </div>
+            <div class="fav-article-body">
+              <h3>كيف تختار التخصص الجامعي المناسب؟</h3>
+              <p>دليل تفصيلي يساعدك على فهم العوامل المهمة في اختيار تخصصك الجامعي...</p>
+              <div class="fav-article-foot">
+                <span>⏱ دقائق قراءة</span>
+                <span>12 مايو 2024</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="fav-article-card2" data-url="#">
+            <div class="fav-article-thumb dark">
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80" alt="مستقبل الذكاء الاصطناعي في سوق العمل">
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="fav-bookmark-overlay active" aria-label="إزالة من المفضلة">
+                <svg viewBox="0 0 24 24"><path d="M6 2h12v20l-6-4-6 4V2z"/></svg>
+              </button>
+              <span class="fav-badge tag-blue">مقالة</span>
+            </div>
+            <div class="fav-article-body">
+              <h3>مستقبل الذكاء الاصطناعي في سوق العمل</h3>
+              <p>تطورات الذكاء الاصطناعي والمرشح الوظيفية المتاحة في هذا المجال المتنامي...</p>
+              <div class="fav-article-foot">
+                <span>⏱ دقائق قراءة</span>
+                <span>10 مايو 2024</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="fav-article-card2" data-url="#">
+            <div class="fav-article-thumb">
+              <img src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=500&q=80" alt="دليل القبول الجامعي 2024">
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="fav-bookmark-overlay" aria-label="إزالة من المفضلة">
+                <svg viewBox="0 0 24 24"><path d="M6 2h12v20l-6-4-6 4V2z"/></svg>
+              </button>
+              <span class="fav-badge tag-teal">دليل الجامعات</span>
+            </div>
+            <div class="fav-article-body">
+              <h3>دليل القبول الجامعي 2024</h3>
+              <p>كل ما تحتاج معرفته عن شروط القبول والتسجيل في الجامعات الفلسطينية...</p>
+              <div class="fav-article-foot">
+                <span>⏱ دقائق قراءة</span>
+                <span>8 مايو 2024</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="fav-article-card2" data-url="#">
+            <div class="fav-article-thumb">
+              <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=500&q=80" alt="مهارات المستقبل التي تحتاجها">
+              <button class="fav-trash-btn" aria-label="حذف من المفضلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="fav-bookmark-overlay active" aria-label="إزالة من المفضلة">
+                <svg viewBox="0 0 24 24"><path d="M6 2h12v20l-6-4-6 4V2z"/></svg>
+              </button>
+              <span class="fav-badge tag-amber">نصائح</span>
+            </div>
+            <div class="fav-article-body">
+              <h3>مهارات المستقبل التي تحتاجها</h3>
+              <p>اكتشف أهم المهارات التي يستهدفها سوق العمل المستقبلي وكيف تطورها...</p>
+              <div class="fav-article-foot">
+                <span>⏱ دقائق قراءة</span>
+                <span>5 مايو 2024</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Empty states -->
+      <div class="fav-empty" id="allEmpty">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.9-10-9.3C.4 8 2.1 4 6 4c2 0 3.6 1 4 2.5C10.4 5 12 4 14 4c3.9 0 5.6 4 4 7.7C19.5 16.1 12 21 12 21z"/></svg>
+        </div>
+        <h3>ما في عناصر مفضلة بعد</h3>
+        <p>لما تلاقي جامعة أو تخصص أو مقال يعجبك، اضغط على أيقونة القلب لتضيفه هون.</p>
+      </div>
+
+    </div>
+
+    <!-- ======================= SITE NAV SIDEBAR ======================= -->
+    <aside class="sidebar">
+      <div class="group-label">القائمة الرئيسية</div>
+      <nav>
+          <a href="../" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+              لوحة الطالب
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              النتائج والتوصيات
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+              الاختيار الذكي
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l4 8H8l4-8z"/><rect x="4" y="14" width="16" height="7" rx="1.5"/></svg>
+              الجامعات
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M4 9h5"/></svg>
+              التخصصات
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.8 8.4 8.5 8.5 0 0 1-4-1L3 20l1.1-4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+              المساعد الذكي
+          </a>
+      </nav>
+
+      <div class="group-label">أدواتي</div>
+      <nav>
+          <a href="#" class="nav-item active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-6.2 3.6 1.6-7L2 9.2l7.1-.6L12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7z"/></svg>
+              المفضلة
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+              المقارنات
+          </a>
+      </nav>
+
+      <div class="group-label">حسابي</div>
+      <nav>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
+              ملفي الشخصي
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+              الإشعارات
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>
+              الإعدادات
+          </a>
+          <hr>
+          <a href="#" class="nav-item logout">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+              تسجيل الخروج
+          </a>
+      </nav>
+    </aside>
+
+  </div>
+</div>
+
+<!-- ======================= UNIVERSITY QUICK VIEW MODAL ======================= -->
+<div class="fav-quick-overlay" id="favUniModalOverlay">
+  <div class="fav-quick-box">
+    <button class="fav-quick-close" id="favUniModalClose" type="button" aria-label="إغلاق">&times;</button>
+    <div class="fav-quick-uni-logo">
+      <img id="favUniModalLogoImg" src="" alt="" style="display:none;">
+      <svg id="favUniModalLogoFallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+    </div>
+    <h3 id="favUniModalName">—</h3>
+    <span class="fav-quick-location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span id="favUniModalLocation">—</span>
+    </span>
+    <p id="favUniModalDesc" class="fav-quick-desc">—</p>
+    <a href="#" id="favUniModalMoreBtn" class="fav-quick-more-btn">شاهد المزيد ←</a>
+  </div>
+</div>
+
+<!-- ======================= ARTICLE QUICK VIEW MODAL ======================= -->
+<div class="fav-quick-overlay" id="favArticleModalOverlay">
+  <div class="fav-quick-box">
+    <button class="fav-quick-close" id="favArticleModalClose" type="button" aria-label="إغلاق">&times;</button>
+    <h3 id="favArticleModalTitle">—</h3>
+    <p id="favArticleModalDesc" class="fav-quick-desc">—</p>
+    <a href="#" id="favArticleModalMoreBtn" class="fav-quick-more-btn">شاهد المزيد ←</a>
+  </div>
+</div>
+
+<!-- ======================= FOOTER ======================= -->
+<div id="footer-placeholder"></div>
+
+<script>
+  const tabs = document.querySelectorAll('.fav-tab');
+  const sections = document.querySelectorAll('.fav-section');
+
+  function currentCounts(){
+    return {
+      unis: document.getElementById('unisGrid').children.length,
+      majors: document.getElementById('majorsGrid').children.length,
+      articles: document.getElementById('articlesGrid').children.length,
+    };
+  }
+
+  function updateAllViews(){
+    const c = currentCounts();
+    document.getElementById('unisCount').textContent = c.unis;
+    document.getElementById('majorsCount').textContent = c.majors;
+    document.getElementById('articlesCount').textContent = c.articles;
+    document.getElementById('allCount').textContent = c.unis + c.majors + c.articles;
+
+    const activeTab = document.querySelector('.fav-tab.active').dataset.tab;
+
+    sections.forEach(sec => {
+      const key = sec.dataset.section;
+      const show = activeTab === 'all' || activeTab === key;
+      const hasItems = c[key] > 0;
+      sec.style.display = (show && hasItems) ? 'block' : 'none';
+    });
+
+    const total = c.unis + c.majors + c.articles;
+    document.getElementById('allEmpty').classList.toggle('show', total === 0);
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      if (tab.classList.contains('active')) return;
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      updateAllViews();
+    });
+  });
+
+  function removeCard(card){
+    card.classList.add('removing');
+    setTimeout(() => { card.remove(); updateAllViews(); }, 280);
+  }
+
+  document.querySelectorAll('.fav-heart-overlay, .fav-bookmark-overlay, .fav-trash-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      removeCard(btn.closest('.fav-grid > *'));
+    });
+  });
+
+  updateAllViews();
+
+  /* Quick view: universities */
+  const favUniOverlay = document.getElementById('favUniModalOverlay');
+  document.querySelectorAll('.fav-uni-card2').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.fav-trash-btn, .fav-heart-overlay, .fav-detail-link')) return;
+      document.getElementById('favUniModalName').textContent = card.querySelector('h3').textContent;
+      document.getElementById('favUniModalLocation').textContent = card.querySelector('.fav-uni-location').textContent.trim();
+      document.getElementById('favUniModalMoreBtn').href = card.dataset.detailUrl || '#';
+      favUniOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  document.getElementById('favUniModalClose').addEventListener('click', () => {
+    favUniOverlay.classList.remove('open'); document.body.style.overflow = '';
+  });
+  favUniOverlay.addEventListener('click', (e) => { if (e.target === favUniOverlay){ favUniOverlay.classList.remove('open'); document.body.style.overflow=''; } });
+
+  /* Quick view: articles */
+  const favArticleOverlay = document.getElementById('favArticleModalOverlay');
+  document.querySelectorAll('.fav-article-card2').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.fav-trash-btn, .fav-bookmark-overlay')) return;
+      document.getElementById('favArticleModalTitle').textContent = card.querySelector('h3').textContent;
+      document.getElementById('favArticleModalDesc').textContent = card.querySelector('p').textContent;
+      document.getElementById('favArticleModalMoreBtn').href = card.dataset.url || '#';
+      favArticleOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  document.getElementById('favArticleModalClose').addEventListener('click', () => {
+    favArticleOverlay.classList.remove('open'); document.body.style.overflow = '';
+  });
+  favArticleOverlay.addEventListener('click', (e) => { if (e.target === favArticleOverlay){ favArticleOverlay.classList.remove('open'); document.body.style.overflow=''; } });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    favUniOverlay.classList.remove('open');
+    favArticleOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+</script>
+<script src="../js/footer-index.js"></script>
+
+</body>
+</html>

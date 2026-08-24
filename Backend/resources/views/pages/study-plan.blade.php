@@ -3,7 +3,7 @@
 @section('title', 'الخطة الدراسية — NextStep AI')
 
 @section('css')
-<link href="{{ asset('NextStepAi-front/css/study-plan.css') }}" rel="stylesheet">
+<link href="{{ asset('Front_end/css/study-plan.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

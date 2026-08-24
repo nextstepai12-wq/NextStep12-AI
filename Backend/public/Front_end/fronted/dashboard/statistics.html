@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الإحصائيات — لوحة تحكم الإدارة | NextStep AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- ====== CSS ====== -->
+  <link rel="stylesheet" href="../../css/app.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
+  <link rel="stylesheet" href="../../css/dashboardcss/statistics.css">
+</head>
+<body>
+
+<!-- ======================= TOP BAR ======================= -->
+<header class="admin-topbar" id="adminTopbar"></header>
+
+<!-- ======================= LAYOUT ======================= -->
+<div class="admin-layout">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="admin-main admin-main-content">
+
+    <!-- ====== PAGE HEADER ====== -->
+    <div class="admin-page-head">
+      <div>
+        <h1>الإحصائيات</h1>
+        <p>تحليلات شاملة عن الطلاب، البرامج، ونسب القبول عبر الجامعة.</p>
+      </div>
+      <span class="ai-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13 2L3 14h7v8l10-12h-7z"/>
+        </svg>
+        بواسطة AI
+      </span>
+    </div>
+
+    <!-- ====== FILTER BAR ====== -->
+    <div class="stats-filter-bar">
+      <select id="filterDeanship">
+        <option value="">كل العمادات</option>
+        <option value="1">الهندسة وتكنولوجيا المعلومات</option>
+        <option value="2">العلوم</option>
+        <option value="3">الطب</option>
+        <option value="4">الأعمال والاقتصاد</option>
+        <option value="5">الآداب</option>
+      </select>
+      
+      <select id="filterRange">
+        <option value="30">آخر 30 يوم</option>
+        <option value="90" selected>آخر فصل دراسي</option>
+        <option value="365">آخر سنة</option>
+      </select>
+      
+      <div class="stats-filter-spacer"></div>
+      
+      <button type="button" class="stats-export-btn" id="statsExportBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <path d="M7 10l5 5 5-5"/>
+          <path d="M12 15V3"/>
+        </svg>
+        تصدير التقرير
+      </button>
+    </div>
+
+    <!-- ====== KPI CARDS ====== -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">إجمالي الطلاب هذا الفصل</div>
+        <div class="kpi-value-row">
+          <span class="kpi-value">4,820</span>
+          <span class="kpi-delta up">▲ 9%</span>
+        </div>
+        <div class="kpi-sub">مقارنة بالفصل السابق</div>
+      </div>
+      
+      <!-- المصدر: recommendation_results.match_percentage — نسبة الطلاب اللي أعلى توصية إلهم match_percentage >= 80 -->
+      <div class="kpi-card">
+        <div class="kpi-label">نسبة الطلاب بتوافق مرتفع</div>
+        <div class="kpi-value-row">
+          <span class="kpi-value">58%</span>
+          <span class="kpi-delta down">▼ 2%</span>
+        </div>
+        <div class="kpi-sub">نسبة توافق ≥ 80% مع التخصص الموصى به</div>
+      </div>
+      
+      <!-- المصدر: الفرق الزمني بين آخر student_survey_responses.created_at للطالب و recommendation_results.created_at المرتبط فيه، بمعدل عام -->
+      <div class="kpi-card">
+        <div class="kpi-label">متوسط وقت صدور التوصية</div>
+        <div class="kpi-value-row">
+          <span class="kpi-value">0.4 يوم</span>
+          <span class="kpi-delta up">▲ أسرع 14%</span>
+        </div>
+        <div class="kpi-sub">من إكمال الاستبيان لصدور التوصية</div>
+      </div>
+      
+      <div class="kpi-card">
+        <div class="kpi-label">التخصص الأكثر إقبالاً</div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" style="font-size:1.1rem; font-weight:700;">هندسة البرمجيات</span>
+        </div>
+        <div class="kpi-sub">1,450 طالب مسجّل</div>
+      </div>
+    </div>
+
+    <!-- ====== CHARTS ROW 1 ====== -->
+    <div class="stats-chart-grid">
+      <div class="admin-panel">
+        <div class="chart-card-head">
+          <h3>نمو أعداد الطلاب عبر الوقت</h3>
+          <div class="chart-tabs">
+            <button type="button" class="chart-tab-btn active" data-range="6m">6 أشهر</button>
+            <button type="button" class="chart-tab-btn" data-range="1y">سنة</button>
+          </div>
+        </div>
+        <div class="chart-holder">
+          <canvas id="growthLineChart"></canvas>
+        </div>
+      </div>
+
+      <!-- المصدر: student_profiles.student_type (new_student / university_student) -->
+      <div class="admin-panel">
+        <div class="chart-card-head">
+          <h3>توزيع الطلاب حسب النوع</h3>
+        </div>
+        <div class="donut-wrap">
+          <canvas id="degreeDonut"></canvas>
+          <div class="donut-center">
+            <strong id="degreeCenterValue">64%</strong>
+            <span id="degreeCenterLabel">طالب جديد</span>
+          </div>
+        </div>
+        <div class="legend-list" id="degreeLegend"></div>
+      </div>
+    </div>
+
+    <!-- ====== CHARTS ROW 2 ====== -->
+    <div class="stats-chart-grid-2">
+      <div class="admin-panel">
+        <div class="chart-card-head">
+          <h3>عدد الطلاب حسب العمادة</h3>
+        </div>
+        <div class="chart-holder sm">
+          <canvas id="deanshipBarChart"></canvas>
+        </div>
+      </div>
+      
+      <!-- المصدر: recommendation_results.match_percentage — موزّع على فئات -->
+      <div class="admin-panel">
+        <div class="chart-card-head">
+          <h3>توزيع الطلاب حسب نسبة التوافق</h3>
+        </div>
+        <div class="chart-holder sm">
+          <canvas id="statusBarChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== TOP PROGRAMS TABLE ====== -->
+    <div class="admin-panel">
+      <div class="chart-card-head">
+        <h3 id="topProgramsTitle">أفضل التخصصات إقبالاً</h3>
+        <div class="chart-tabs" id="programsSortTabs">
+          <button type="button" class="chart-tab-btn active" data-sort="top">الأكثر إقبالاً</button>
+          <button type="button" class="chart-tab-btn" data-sort="bottom">الأقل إقبالاً</button>
+        </div>
+      </div>
+      <table class="top-programs-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>التخصص</th>
+            <th>عدد الطلاب</th>
+            <th>نسبة القبول</th>
+            <th>الاتجاه</th>
+          </tr>
+        </thead>
+        <tbody id="topProgramsBody"></tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<!-- ====== SCRIPTS ====== -->
+<script src="../../js/chart.umd.min.js"></script>
+<script>
+  (function() {
+    // ---- إعدادات الخطوط ----
+    const cairoFont = { family: "'Cairo', sans-serif", weight: '600' };
+
+    // ---- بيانات وهمية ----
+    const growthData6m = {
+      labels: ['أذار', 'نيسان', 'أيار', 'حزيران', 'تموز', 'آب'],
+      values: [9800, 10200, 10650, 11100, 11800, 12450]
+    };
+    const growthData1y = {
+      labels: ['أيلول', 'تشرين1', 'تشرين2', 'كانون1', 'كانون2', 'شباط', 'أذار', 'نيسان', 'أيار', 'حزيران', 'تموز', 'آب'],
+      values: [7200, 7600, 8000, 8400, 8900, 9300, 9800, 10200, 10650, 11100, 11800, 12450]
+    };
+
+    const degreeData = [
+      { label: 'طالب جديد (ثانوية)', value: 64, color: '#16233D' },
+      { label: 'طالب جامعي', value: 36, color: '#2F6BFF' },
+    ];
+
+    const deanshipBarData = [
+      { label: 'الهندسة وتكنولوجيا المعلومات', value: 4200, color: '#16233D' },
+      { label: 'العلوم', value: 2100, color: '#2F6BFF' },
+      { label: 'الطب', value: 1800, color: '#16C088' },
+      { label: 'الأعمال والاقتصاد', value: 2950, color: '#B4790C' },
+      { label: 'الآداب', value: 1400, color: '#5B6B79' },
+    ];
+
+    const statusBarData = [
+      { label: 'أقل من 60%', value: 18, color: '#C62828' },
+      { label: '60% - 80%', value: 24, color: '#2F6BFF' },
+      { label: 'أعلى من 80%', value: 58, color: '#16C088' },
+    ];
+
+    // المصدر: recommendation_results مجمّعة حسب major_id (عدد الترشيحات لكل تخصص)
+    const topPrograms = [
+      { name: 'هندسة البرمجيات', students: 1450, acceptance: 71, trend: 12 },
+      { name: 'علوم الحاسوب', students: 1180, acceptance: 66, trend: 8 },
+      { name: 'إدارة الأعمال', students: 980, acceptance: 74, trend: -3 },
+      { name: 'الطب البشري', students: 860, acceptance: 22, trend: 5 },
+      { name: 'الأمن السيبراني', students: 620, acceptance: 58, trend: 19 },
+    ];
+
+    const bottomPrograms = [
+      { name: 'الفلسفة', students: 45, acceptance: 88, trend: -6 },
+      { name: 'الآثار', students: 62, acceptance: 81, trend: -2 },
+      { name: 'اللغة الفرنسية', students: 78, acceptance: 85, trend: 1 },
+      { name: 'الجغرافيا', students: 95, acceptance: 79, trend: -4 },
+      { name: 'علم الاجتماع', students: 110, acceptance: 76, trend: 3 },
+    ];
+
+    // ---- 1. Line Chart: نمو الطلاب ----
+    const lineCtx = document.getElementById('growthLineChart');
+    let growthChart;
+    if (lineCtx) {
+      growthChart = new Chart(lineCtx, {
+        type: 'line',
+        data: {
+          labels: growthData6m.labels,
+          datasets: [{
+            data: growthData6m.values,
+            borderColor: '#2F6BFF',
+            backgroundColor: 'rgba(47,107,255,0.10)',
+            fill: true,
+            tension: 0.35,
+            pointRadius: 4,
+            pointBackgroundColor: '#2F6BFF',
+            borderWidth: 2.5,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: cairoFont, color: '#5B6B79' }
+            },
+            y: {
+              grid: { color: '#F0F2F5' },
+              ticks: { font: cairoFont, color: '#5B6B79' }
+            }
+          },
+          animation: { duration: 800 }
+        }
+      });
+    }
+
+    // ---- تبديل البيانات في Line Chart ----
+    document.querySelectorAll('.chart-tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.chart-tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        if (!growthChart) return;
+        const data = this.dataset.range === '1y' ? growthData1y : growthData6m;
+        growthChart.data.labels = data.labels;
+        growthChart.data.datasets[0].data = data.values;
+        growthChart.update();
+      });
+    });
+
+    // ---- 2. Donut Chart: توزيع الدرجات ----
+    const donutCtx = document.getElementById('degreeDonut');
+    if (donutCtx) {
+      new Chart(donutCtx, {
+        type: 'doughnut',
+        data: {
+          labels: degreeData.map(d => d.label),
+          datasets: [{
+            data: degreeData.map(d => d.value),
+            backgroundColor: degreeData.map(d => d.color),
+            borderWidth: 0,
+            cutout: '72%'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
+          },
+          animation: { animateRotate: true, duration: 900 }
+        }
+      });
+    }
+
+    // ---- Legend للـ Donut ----
+    const legendHost = document.getElementById('degreeLegend');
+    if (legendHost) {
+      degreeData.forEach(d => {
+        const row = document.createElement('div');
+        row.className = 'legend-row';
+        row.innerHTML = `
+          <span class="legend-label">
+            <span class="legend-dot" style="background:${d.color}"></span>
+            ${d.label}
+          </span>
+          <span class="legend-value">${d.value}%</span>
+        `;
+        legendHost.appendChild(row);
+      });
+    }
+
+    // ---- 3. Bar Chart: عدد الطلاب حسب العمادة ----
+    const deanshipCtx = document.getElementById('deanshipBarChart');
+    if (deanshipCtx) {
+      new Chart(deanshipCtx, {
+        type: 'bar',
+        data: {
+          labels: deanshipBarData.map(d => d.label),
+          datasets: [{
+            data: deanshipBarData.map(d => d.value),
+            backgroundColor: deanshipBarData.map(d => d.color),
+            borderRadius: 8,
+            maxBarThickness: 46
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
+          },
+          scales: {
+            x: {
+              grid: { color: '#F0F2F5' },
+              ticks: { font: cairoFont, color: '#5B6B79' }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { font: cairoFont, color: '#5B6B79' }
+            }
+          },
+          animation: { duration: 800 }
+        }
+      });
+    }
+
+    // ---- 4. Bar Chart: حالة الطلبات ----
+    const statusCtx = document.getElementById('statusBarChart');
+    if (statusCtx) {
+      new Chart(statusCtx, {
+        type: 'bar',
+        data: {
+          labels: statusBarData.map(d => d.label),
+          datasets: [{
+            data: statusBarData.map(d => d.value),
+            backgroundColor: statusBarData.map(d => d.color),
+            borderRadius: 8,
+            maxBarThickness: 60
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: cairoFont, color: '#5B6B79' }
+            },
+            y: {
+              grid: { color: '#F0F2F5' },
+              ticks: { font: cairoFont, color: '#5B6B79' },
+              beginAtZero: true,
+              max: 100
+            }
+          },
+          animation: { duration: 800 }
+        }
+      });
+    }
+
+    // ---- 5. جدول أفضل / أقل التخصصات إقبالاً ----
+    const topBody = document.getElementById('topProgramsBody');
+    const topProgramsTitle = document.getElementById('topProgramsTitle');
+
+    function renderPrograms(list) {
+      if (!topBody) return;
+      topBody.innerHTML = '';
+      list.forEach((p, i) => {
+        const tr = document.createElement('tr');
+        const trendUp = p.trend >= 0;
+        tr.innerHTML = `
+          <td><span class="rank-badge ${i === 0 ? 'top' : ''}">${i + 1}</span></td>
+          <td><strong>${p.name}</strong></td>
+          <td>${p.students.toLocaleString('en-US')}</td>
+          <td>${p.acceptance}%</td>
+          <td>
+            <span class="mini-trend ${trendUp ? 'up' : 'down'}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                ${trendUp ? '<path d="M7 17l9-9M8 8h8v8"/>' : '<path d="M7 7l9 9M16 8v8H8"/>'}
+              </svg>
+              ${Math.abs(p.trend)}%
+            </span>
+          </td>
+        `;
+        topBody.appendChild(tr);
+      });
+    }
+
+    renderPrograms(topPrograms);
+
+    document.getElementById('programsSortTabs')?.querySelectorAll('.chart-tab-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        document.getElementById('programsSortTabs')
+          .querySelectorAll('.chart-tab-btn')
+          .forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        if (this.dataset.sort === 'bottom') {
+          topProgramsTitle.textContent = 'أقل التخصصات إقبالاً';
+          renderPrograms(bottomPrograms);
+        } else {
+          topProgramsTitle.textContent = 'أفضل التخصصات إقبالاً';
+          renderPrograms(topPrograms);
+        }
+      });
+    });
+
+    // ---- زر تصدير التقرير ----
+    document.getElementById('statsExportBtn')?.addEventListener('click', () => {
+      alert('📊 جارٍ تجهيز التقرير... (محاكاة)');
+    });
+
+  })();
+</script>
+
+  <div id="admin-footer-slot"></div>
+  <script src="../../js/admin-shell.js"></script>
+
+</body>
+</html>

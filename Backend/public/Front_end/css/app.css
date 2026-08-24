@@ -1,0 +1,114 @@
+/* =====================================================================
+   app.css
+   نظام التصميم الأساسي المشترك — NextStep AI
+   ملاحظة: هاد ملف مُعاد بناؤه بالاعتماد على القيم المستخدمة فعلياً بالمشروع
+   (admin-dashboard.css و add-program.html). إذا في نسخة أصلية عندك، بلشي فيها.
+   ===================================================================== */
+
+:root{
+  /* ---- ألوان الهوية ---- */
+  --navy:#16233D;        /* نص أساسي / عناوين / برند */
+  --dark:#1F2937;        /* نص محتوى داكن */
+  --blue:#2F6BFF;        /* اللون الأساسي (أزرار، روابط فعّالة) */
+  --blue-dark:#1E4FD1;
+  --cyan:#35D0FF;        /* لون مساعد للـ gradients (نفس المستخدم بلوحة الإدارة) */
+  --mint:#16C088;        /* نجاح / إيجابي */
+  --mint-soft:#48E6B0;
+  --red:#C62828;         /* خطأ / سلبي */
+  --amber:#B4790C;       /* تنبيه / قيد المراجعة */
+  --gray:#5B6B79;        /* نص ثانوي */
+  --light:#F5F7FA;       /* خلفية الصفحة */
+  --border:#E4E9F0;      /* حدود عامة */
+  --white:#FFFFFF;
+
+  /* ---- خلفيات ذات مستويات (تُستخدم بصفحات auth وغيرها) ---- */
+  --bg-page:var(--light);   /* خلفية الصفحة العامة */
+  --bg-deep:#EEF2F7;        /* خلفية "غاطسة" للعناصر الداخلية: بادجات، toggle، حقول readonly */
+
+  --radius-sm:10px;
+  --radius-md:14px;
+  --radius-lg:18px;
+  --shadow-card:0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.04);
+
+  /* تدرج داكن موحّد (يُستخدم باللوحة الجانبية لصفحات auth وبهيدر هالصفحات) */
+  --grad-deep:linear-gradient(135deg, #10233F 0%, #173B73 55%, #2F6BFF 100%);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Cairo',sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(53,208,255,0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(47,107,255,0.16), transparent 30%),
+    linear-gradient(135deg, #f4f8ff 0%, #eef4ff 45%, #f8fbff 100%);
+  color:var(--dark);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+  overflow-x:hidden;
+}
+
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(40px);
+  opacity:0.8;
+  animation:floatGlow 8s ease-in-out infinite alternate;
+}
+
+body::before{
+  width:280px;
+  height:280px;
+  background:rgba(53,208,255,0.18);
+  top:-80px;
+  left:-60px;
+}
+
+body::after{
+  width:320px;
+  height:320px;
+  background:rgba(47,107,255,0.16);
+  bottom:-120px;
+  right:-80px;
+  animation-duration:10s;
+}
+
+@keyframes floatGlow{
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(20px, 20px) scale(1.08); }
+}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+ul{list-style:none;margin:0;padding:0;}
+img{max-width:100%;display:block;}
+h1,h2,h3,h4{margin:0;}
+p{margin:0;}
+
+:lang(en){
+  font-family:'Poppins', 'Cairo', sans-serif;
+}
+
+:lang(ar){
+  font-family:'Cairo', 'Poppins', sans-serif;
+}
+
+::selection{background:rgba(47,107,255,0.18);}
+
+/* focus visibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible{
+  outline:2px solid var(--blue);
+  outline-offset:2px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+}

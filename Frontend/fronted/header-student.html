@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Header — NextStep AI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --student-bg: #F4F7FC;
+    --student-primary: #173873;
+    --student-blue: #2F6BFF;
+    --student-cyan: #35D0FF;
+    --student-mint: #4BE6B5;
+    --student-green: #16C088;
+    --student-red: #C62828;
+    --student-gray: #5B6B79;
+    --student-gray-light: #D9DFE7;
+    --student-shadow: 0 4px 20px rgba(23,56,115,0.06);
+    --student-shadow-hover: 0 8px 40px rgba(23,56,115,0.10);
+    --student-radius: 20px;
+    --student-radius-sm: 12px;
+    --student-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    font-family:'Cairo', 'Tajawal', sans-serif;
+    background: var(--student-bg);
+    color:#0b1a33;
+    direction: rtl;
+  }
+
+  /* ============ TOP BAR — ثابت، شفاف، بعرض الصفحة كامل ============ */
+  .nsa-topbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 76px;
+    padding: 0 32px;
+    display:flex;
+    align-items:center;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: transform .4s cubic-bezier(0.4, 0, 0.2, 1),
+                background .35s ease,
+                border-color .35s ease,
+                backdrop-filter .35s ease,
+                box-shadow .35s ease;
+  }
+
+  /* حالة بعد أول سكرول بسيط: تبقى شفافة لكن بلمسة زجاجية خفيفة عشان النص يضل واضح فوق أي محتوى */
+  .nsa-topbar.tinted{
+    background: rgba(247,250,252,0.55);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border-bottom-color: rgba(47,107,255,0.08);
+  }
+
+  /* تختفي عند السكرول للأسفل */
+  .nsa-topbar.hidden{
+    transform: translateY(-110%);
+  }
+
+  /* خط متدرج لامع أسفل الهيدر تظهر مع اللمسة الزجاجية */
+  .nsa-topbar::after{
+    content:"";
+    position:absolute;
+    bottom:-1px; left:0; right:0;
+    height:3px;
+    background:linear-gradient(90deg, var(--student-primary), var(--student-blue), var(--student-cyan), var(--student-mint));
+    background-size:200% 100%;
+    opacity:0;
+    transition: opacity .35s ease;
+    animation: nsa-shimmer 6s linear infinite;
+    pointer-events:none;
+  }
+  .nsa-topbar.tinted::after{ opacity:1; }
+
+  @keyframes nsa-shimmer{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:200% 50%; }
+  }
+
+  .nsa-topbar-inner{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:24px;
+  }
+
+  /* ===== يمين: صورة واسم الطالب ===== */
+  .nsa-user{
+    position:relative;
+    flex-shrink:0;
+  }
+
+  .nsa-avatar-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:4px 12px 4px 4px;
+    border-radius:60px;
+    cursor:pointer;
+    transition: var(--student-transition);
+    background:transparent;
+    border:none;
+    font-family:inherit;
+  }
+  .nsa-avatar-btn:hover{ background: rgba(255,255,255,0.55); }
+
+  .nsa-avatar{
+    width:42px; height:42px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid rgba(255,255,255,0.8);
+    box-shadow: 0 2px 10px rgba(23,56,115,0.15);
+    flex-shrink:0;
+    background: linear-gradient(135deg, var(--student-primary), var(--student-blue));
+  }
+
+  .nsa-user-name{
+    font-weight:700;
+    font-size:0.92rem;
+    color:#0b1a33;
+    text-shadow: 0 1px 8px rgba(255,255,255,0.5);
+  }
+
+  .nsa-user-arrow{
+    width:16px; height:16px;
+    color: var(--student-gray);
+    transition: transform .3s ease;
+  }
+  .nsa-avatar-btn[aria-expanded="true"] .nsa-user-arrow{ transform: rotate(180deg); }
+
+  .nsa-user-panel{
+    position:absolute;
+    top: calc(100% + 12px);
+    right:0;
+    min-width:200px;
+    background:white;
+    border-radius:var(--student-radius-sm);
+    box-shadow: var(--student-shadow-hover);
+    border:1px solid rgba(47,107,255,0.08);
+    padding:8px;
+    opacity:0;
+    visibility:hidden;
+    transform: translateY(-8px);
+    transition: var(--student-transition);
+    z-index:200;
+  }
+  .nsa-user-panel.open{
+    opacity:1;
+    visibility:visible;
+    transform: translateY(0);
+  }
+  .nsa-panel-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:var(--student-radius-sm);
+    text-decoration:none;
+    color:#0b1a33;
+    font-weight:600;
+    font-size:0.88rem;
+    transition: var(--student-transition);
+  }
+  .nsa-panel-item svg{ width:18px; height:18px; color: var(--student-gray); }
+  .nsa-panel-item:hover{ background: var(--student-bg); color: var(--student-primary); }
+  .nsa-panel-item:hover svg{ color: var(--student-blue); }
+  .nsa-panel-item.logout{ color: var(--student-red); }
+  .nsa-panel-item.logout svg{ color: var(--student-red); }
+  .nsa-panel-item.logout:hover{ background: rgba(198,40,40,0.06); }
+  .nsa-panel-divider{ height:1px; background: var(--student-bg); margin:6px 4px; }
+
+  /* ===== وسط: البحث ===== */
+  .nsa-search{
+    flex:1;
+    max-width:460px;
+    display:flex;
+    align-items:center;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius:60px;
+    padding:0 18px;
+    border:2px solid rgba(255,255,255,0.6);
+    transition: var(--student-transition);
+  }
+  .nsa-search:focus-within{
+    border-color: var(--student-blue);
+    background:white;
+    box-shadow: 0 0 0 4px rgba(47,107,255,0.08), 0 8px 24px rgba(53,208,255,0.14);
+  }
+  .nsa-search svg{
+    width:20px; height:20px;
+    color: var(--student-gray);
+    flex-shrink:0;
+  }
+  .nsa-search input{
+    border:none;
+    background:transparent;
+    padding:10px 14px;
+    font-size:0.9rem;
+    font-family:inherit;
+    color:#0b1a33;
+    width:100%;
+    outline:none;
+  }
+  .nsa-search input::placeholder{ color: var(--student-gray); opacity:0.75; }
+
+  .nsa-search-clear{
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    color: var(--student-gray);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:26px; height:26px;
+    border-radius:50%;
+    flex-shrink:0;
+    transition: var(--student-transition);
+  }
+  .nsa-search-clear svg{ width:14px; height:14px; }
+  .nsa-search-clear:hover{ background: rgba(198,40,40,0.08); color: var(--student-red); }
+  .nsa-search.has-text .nsa-search-clear{ display:flex; }
+
+  /* ===== يسار: جرس + شعار المنصة ===== */
+  .nsa-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+
+  .nsa-notif-wrap{ position:relative; }
+
+  .nsa-icon-btn{
+    width:44px; height:44px;
+    border:none;
+    background:transparent;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition: var(--student-transition);
+    color:#0b1a33;
+    position:relative;
+  }
+  .nsa-icon-btn:hover{ background: rgba(255,255,255,0.55); }
+  .nsa-icon-btn svg{ width:22px; height:22px; }
+
+  .nsa-icon-btn .dot{
+    position:absolute;
+    top:8px; right:8px;
+    width:8px; height:8px;
+    background: var(--student-red);
+    border-radius:50%;
+    border:2px solid white;
+    animation: nsa-pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes nsa-pulse-dot{
+    0%, 100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.5; transform:scale(0.8); }
+  }
+
+  .nsa-notif-panel{
+    position:absolute;
+    top: calc(100% + 12px);
+    left:0;
+    width:300px;
+    background:white;
+    border-radius:var(--student-radius-sm);
+    box-shadow: var(--student-shadow-hover);
+    border:1px solid rgba(47,107,255,0.08);
+    padding:8px;
+    opacity:0;
+    visibility:hidden;
+    transform: translateY(-8px);
+    transition: var(--student-transition);
+    z-index:200;
+  }
+  .nsa-notif-panel.open{
+    opacity:1;
+    visibility:visible;
+    transform: translateY(0);
+  }
+  .nsa-notif-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 12px;
+    font-weight:700;
+    color: var(--student-primary);
+    font-size:0.9rem;
+  }
+  .nsa-notif-count{
+    background: linear-gradient(135deg, var(--student-mint), var(--student-cyan));
+    color:white;
+    font-size:0.7rem;
+    font-weight:700;
+    padding:2px 10px;
+    border-radius:60px;
+  }
+  .nsa-notif-item{
+    display:flex;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:var(--student-radius-sm);
+    transition: var(--student-transition);
+    cursor:pointer;
+  }
+  .nsa-notif-item:hover{ background: var(--student-bg); }
+  .nsa-notif-icon{ font-size:1.3rem; }
+  .nsa-notif-title{ font-size:0.85rem; font-weight:600; color:#0b1a33; }
+  .nsa-notif-time{ font-size:0.75rem; color: var(--student-gray); }
+  .nsa-notif-viewall{
+    display:block;
+    text-align:center;
+    padding:10px;
+    margin-top:4px;
+    border-top:1px solid var(--student-bg);
+    color: var(--student-blue);
+    font-weight:700;
+    font-size:0.85rem;
+    text-decoration:none;
+  }
+  .nsa-notif-viewall:hover{ color: var(--student-primary); }
+
+  /* شعار المنصة */
+  .nsa-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color: var(--student-primary);
+    font-weight:800;
+    font-size:1.2rem;
+    padding-right:6px;
+  }
+  .nsa-brand-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:38px; height:38px;
+    background: linear-gradient(135deg, var(--student-primary), var(--student-blue));
+    border-radius:var(--student-radius-sm);
+    color:white;
+    box-shadow: 0 2px 10px rgba(23,56,115,0.2);
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease;
+  }
+  .nsa-brand-icon svg{ width:22px; height:22px; }
+  .nsa-brand:hover .nsa-brand-icon{
+    transform: rotate(-8deg) scale(1.08);
+    box-shadow: 0 6px 18px rgba(53,208,255,0.45);
+  }
+  .nsa-brand-text{
+    background: linear-gradient(135deg, var(--student-primary), var(--student-blue));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    transition: letter-spacing .3s ease;
+  }
+  .nsa-brand:hover .nsa-brand-text{ letter-spacing:0.4px; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 992px){
+    .nsa-topbar{ padding:0 16px; }
+    .nsa-search{ max-width:220px; }
+  }
+
+  @media (max-width: 768px){
+    .nsa-topbar-inner{ gap:12px; flex-wrap:wrap; }
+    .nsa-search{
+      order:10;
+      max-width:100%;
+      width:100%;
+      flex-basis:100%;
+    }
+    .nsa-brand-text{ display:none; }
+    .nsa-user-name{ display:none; }
+  }
+
+  /* ===== محتوى تجريبي لعرض تأثير الشفافية والاختفاء عند السكرول ===== */
+  .demo-hero{
+    height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(53,208,255,0.18), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(75,230,181,0.18), transparent 45%),
+      linear-gradient(180deg, #EAF1FF, var(--student-bg));
+    padding: 0 24px;
+  }
+  .demo-hero h1{
+    font-size:2.2rem;
+    color:var(--student-primary);
+    margin-bottom:14px;
+  }
+  .demo-hero p{
+    color:var(--student-gray);
+    max-width:520px;
+    margin:0 auto 8px;
+    line-height:1.9;
+  }
+  .demo-hero span{
+    display:inline-block;
+    margin-top:18px;
+    font-size:0.85rem;
+    color: var(--student-blue);
+    font-weight:700;
+  }
+  .demo-content{
+    max-width:1000px;
+    margin:0 auto;
+    padding:60px 24px 100px;
+  }
+  .demo-content h2{ color:var(--student-primary); margin-bottom:12px; }
+  .demo-content p{ color:var(--student-gray); line-height:1.9; margin-bottom:16px; }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<!-- ثابت (fixed) + شفاف بالكامل عند الأعلى + يختفي عند السكرول للأسفل + يظهر عند السكرول للأعلى -->
+<header class="nsa-topbar" id="topbar">
+  <div class="nsa-topbar-inner">
+
+    <!-- يمين: صورة واسم الطالب -->
+    <div class="nsa-user">
+      <button type="button" class="nsa-avatar-btn" id="userBtn" aria-expanded="false">
+        <img src="../assets/student-avatar.png" alt="صورة الطالب" class="nsa-avatar" onerror="this.style.background='linear-gradient(135deg,#173873,#2F6BFF)'; this.removeAttribute('src');">
+        <span class="nsa-user-name">أحمد محمد</span>
+        <svg class="nsa-user-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+
+      <div class="nsa-user-panel" id="userPanel">
+        <a href="profile.html" class="nsa-panel-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          ملفي الشخصي
+        </a>
+        <a href="student-settings.html" class="nsa-panel-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          الإعدادات
+        </a>
+        <div class="nsa-panel-divider"></div>
+        <a href="#" class="nsa-panel-item logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+          تسجيل الخروج
+        </a>
+      </div>
+    </div>
+
+    <!-- وسط: البحث -->
+    <div class="nsa-search" id="searchWrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="ابحث عن تخصص، جامعة، أو دليل...">
+      <button type="button" class="nsa-search-clear" id="searchClear" aria-label="مسح البحث">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- يسار: جرس الإشعارات + شعار المنصة -->
+    <div class="nsa-left">
+      <div class="nsa-notif-wrap">
+        <button type="button" class="nsa-icon-btn" id="notifBtn" aria-label="الإشعارات" aria-expanded="false">
+          <span class="dot" id="notifDot"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </button>
+        <div class="nsa-notif-panel" id="notifPanel">
+          <div class="nsa-notif-head">
+            <span>الإشعارات</span>
+            <span class="nsa-notif-count">3 جديدة</span>
+          </div>
+          <div class="nsa-notif-item">
+            <span class="nsa-notif-icon">🎯</span>
+            <div>
+              <p class="nsa-notif-title">توصية جديدة متاحة</p>
+              <p class="nsa-notif-time">قبل 5 دقائق</p>
+            </div>
+          </div>
+          <div class="nsa-notif-item">
+            <span class="nsa-notif-icon">🏆</span>
+            <div>
+              <p class="nsa-notif-title">أنجزت اختبار الشخصية!</p>
+              <p class="nsa-notif-time">قبل ساعة</p>
+            </div>
+          </div>
+          <div class="nsa-notif-item">
+            <span class="nsa-notif-icon">🏛️</span>
+            <div>
+              <p class="nsa-notif-title">جامعة غزة أضافت تخصص جديد</p>
+              <p class="nsa-notif-time">أمس</p>
+            </div>
+          </div>
+          <a href="#" class="nsa-notif-viewall">عرض كل الإشعارات</a>
+        </div>
+      </div>
+
+      <a href="../index.html" class="nsa-brand">
+        <span class="nsa-brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+            <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+          </svg>
+        </span>
+        <span class="nsa-brand-text">NextStep AI</span>
+      </a>
+    </div>
+
+  </div>
+</header>
+
+
+</body>
+</html>

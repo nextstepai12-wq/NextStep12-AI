@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الطالب — Student Dashboard | NextStep AI</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../css/student-dashboard.css">
+</head>
+<body>
+
+<!-- ===== TOP BAR (موحد) ===== -->
+<header class="student-topbar" id="topbar">
+  <div class="student-topbar-inner">
+    <a href="../../index.html" class="student-brand">
+      <span class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+          <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+        </svg>
+      </span>
+      <span class="brand-text">NextStep AI</span>
+    </a>
+
+    <div class="student-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input type="text" placeholder="ابحث عن تخصص، جامعة، أو دليل...">
+    </div>
+
+    <div class="student-user-actions">
+      <button type="button" class="student-icon-btn" aria-label="المساعدة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/>
+          <path d="M12 17h.01"/>
+        </svg>
+      </button>
+      <button type="button" class="student-icon-btn" aria-label="الإشعارات">
+        <span class="dot"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </button>
+      <div class="student-avatar-dropdown">
+        <img src="../../assets/student-avatar.png" alt="صورة الطالب" class="student-avatar" onerror="this.style.display='none'">
+        <span class="student-name">أحمد</span>
+        <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== LAYOUT ===== -->
+<div class="student-layout">
+
+  <!-- ===== SIDEBAR (خاص بالطالب) ===== -->
+  <aside class="student-sidebar">
+    <div class="student-sidebar-head">
+      <h3>بوابة الطالب</h3>
+      <p>مرحباً، أحمد 👋</p>
+    </div>
+
+    <nav class="student-sidebar-nav">
+      <a href="student-dashboard.html" class="student-sidebar-link active">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+          نظرة عامة
+        </span>
+      </a>
+      <a href="../profile.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          ملفي الشخصي
+        </span>
+      </a>
+      <a href="../quiz.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6"/>
+            <path d="M9 13h6"/>
+            <path d="M9 17h4"/>
+          </svg>
+          الاختبارات الذكية
+        </span>
+      </a>
+      <a href="recommendations.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          التوصيات
+        </span>
+      </a>
+      <a href="universities.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3L2 9l10 6 10-6-10-6z"/>
+            <path d="M2 15l10 6 10-6"/>
+            <path d="M2 21l10-6 10 6"/>
+          </svg>
+          الجامعات
+        </span>
+      </a>
+      <!-- المفضلة -->
+      <a href="student/favorites.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+          </svg>
+          المفضلة
+        </span>
+      </a>
+
+      <!-- الإنجازات -->
+      <a href="student/achievements.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6"/>
+            <path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/>
+          </svg>
+          الإنجازات
+        </span>
+      </a>
+      <a href="ai-assistant.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.27A7.01 7.01 0 0 1 14 23h-4a7.01 7.01 0 0 1-5.73-3H3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+            <circle cx="9" cy="15" r="1"/>
+            <circle cx="15" cy="15" r="1"/>
+            <path d="M9 19c.83.6 2 1 3 1s2.17-.4 3-1"/>
+          </svg>
+          المساعد الذكي
+        </span>
+      </a>
+      <a href="../student-settings.html" class="student-sidebar-link">
+        <span class="link-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          الإعدادات
+        </span>
+      </a>
+    </nav>
+
+    <button type="button" class="student-sidebar-cta" onclick="window.location.href='tests.html'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      ابدأ الاختبار الآن
+    </button>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="student-main">
+    <div class="student-welcome">
+      <div>
+        <h1>مرحباً، أحمد! 👋</h1>
+        <p>اكتشف التخصص الأنسب لك، واستكشف الجامعات، واحصل على توصيات ذكية مبنية على شخصيتك ومهاراتك.</p>
+      </div>
+      <div class="student-progress-ring">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#E8F0FE" stroke-width="8"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#2F6BFF" stroke-width="8" 
+                  stroke-dasharray="314" stroke-dashoffset="78" 
+                  stroke-linecap="round" transform="rotate(-90 60 60)"/>
+          <text x="60" y="65" text-anchor="middle" font-family="Cairo" font-size="24" font-weight="800" fill="#173873">75%</text>
+        </svg>
+        <span>اكتمال الملف</span>
+      </div>
+    </div>
+
+    <!-- ===== CARDS ===== -->
+    <div class="student-stats-grid">
+      <div class="student-stat-card">
+        <div class="stat-icon" style="background:rgba(47,107,255,0.08);color:#2F6BFF;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+            <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-number">4</div>
+          <div class="stat-label">توصيات متاحة</div>
+        </div>
+      </div>
+      <div class="student-stat-card">
+        <div class="stat-icon" style="background:rgba(22,192,136,0.08);color:#16C088;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3L2 9l10 6 10-6-10-6z"/>
+            <path d="M2 15l10 6 10-6"/>
+            <path d="M2 21l10-6 10 6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-number">12</div>
+          <div class="stat-label">جامعة مستكشفة</div>
+        </div>
+      </div>
+      <div class="student-stat-card">
+        <div class="stat-icon" style="background:rgba(53,208,255,0.08);color:#35D0FF;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6"/>
+            <path d="M9 13h6"/>
+            <path d="M9 17h4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-number">3</div>
+          <div class="stat-label">اختبارات مكتملة</div>
+        </div>
+      </div>
+      <div class="student-stat-card">
+        <div class="stat-icon" style="background:rgba(180,121,12,0.08);color:#B4790C;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-number">92%</div>
+          <div class="stat-label">نسبة التوافق</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RECOMMENDATIONS ===== -->
+    <div class="student-section">
+      <div class="student-section-head">
+        <h2>🎯 التخصصات الموصى بها</h2>
+        <a href="recommendations.html" class="view-all">عرض الكل →</a>
+      </div>
+      <div class="recommendations-grid">
+        <div class="recommendation-card">
+          <span class="rec-badge top">#1</span>
+          <h3>علوم الحاسوب</h3>
+          <p>البرمجة، الخوارزميات، الذكاء الاصطناعي، وتطوير البرمجيات.</p>
+          <div class="rec-match">
+            <span class="match-bar"><span style="width:92%"></span></span>
+            <span class="match-value">92%</span>
+          </div>
+          <div class="rec-university">🏛️ جامعة غزة</div>
+        </div>
+        <div class="recommendation-card">
+          <span class="rec-badge">#2</span>
+          <h3>هندسة البرمجيات</h3>
+          <p>هندسة الأنظمة، إدارة المشاريع، وتطوير التطبيقات.</p>
+          <div class="rec-match">
+            <span class="match-bar"><span style="width:85%"></span></span>
+            <span class="match-value">85%</span>
+          </div>
+          <div class="rec-university">🏛️ الجامعة الإسلامية</div>
+        </div>
+        <div class="recommendation-card">
+          <span class="rec-badge">#3</span>
+          <h3>الأمن السيبراني</h3>
+          <p>حماية الأنظمة، أمن الشبكات، والتحقيق الرقمي.</p>
+          <div class="rec-match">
+            <span class="match-bar"><span style="width:78%"></span></span>
+            <span class="match-value">78%</span>
+          </div>
+          <div class="rec-university">🏛️ جامعة الأزهر</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== QUICK LINKS ===== -->
+    <div class="student-section">
+      <div class="student-section-head">
+        <h2>🚀 روابط سريعة</h2>
+      </div>
+      <div class="quick-links-grid">
+        <a href="tests.html" class="quick-link">
+          <span class="quick-icon">🧠</span>
+          <span class="quick-title">الاختبارات الذكية</span>
+          <span class="quick-desc">اكتشف ميولك وقدراتك</span>
+        </a>
+        <a href="universities.html" class="quick-link">
+          <span class="quick-icon">🏛️</span>
+          <span class="quick-title">استكشاف الجامعات</span>
+          <span class="quick-desc">تصفح الجامعات والتخصصات</span>
+        </a>
+        <a href="ai-assistant.html" class="quick-link">
+          <span class="quick-icon">🤖</span>
+          <span class="quick-title">المساعد الذكي</span>
+          <span class="quick-desc">اسأل و احصل على إجابات</span>
+        </a>
+        <a href="profile.html" class="quick-link">
+          <span class="quick-icon">👤</span>
+          <span class="quick-title">ملفي الشخصي</span>
+          <span class="quick-desc">حدّث بياناتك واهتماماتك</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== TASKS ===== -->
+    <div class="student-section">
+      <div class="student-section-head">
+        <h2>📋 المهام القادمة</h2>
+      </div>
+      <div class="tasks-list">
+        <div class="task-item">
+          <span class="task-status pending"></span>
+          <div>
+            <span class="task-title">إكمال اختبار تحليل الشخصية</span>
+            <span class="task-due">متبقي 3 أيام</span>
+          </div>
+          <a href="tests.html" class="task-action">ابدأ</a>
+        </div>
+        <div class="task-item">
+          <span class="task-status in-progress"></span>
+          <div>
+            <span class="task-title">مراجعة توصيات التخصصات</span>
+            <span class="task-due">متقدم 60%</span>
+          </div>
+          <a href="recommendations.html" class="task-action">استكمل</a>
+        </div>
+        <div class="task-item">
+          <span class="task-status completed"></span>
+          <div>
+            <span class="task-title">استكشاف جامعة غزة</span>
+            <span class="task-due">تم ✓</span>
+          </div>
+          <span class="task-done">✅</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  (function() {
+    const topbar = document.getElementById('topbar');
+    window.addEventListener('scroll', function() {
+      topbar?.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // عدادات متحركة
+    document.querySelectorAll('.stat-number').forEach(el => {
+      const text = el.textContent;
+      const num = parseFloat(text);
+      if (!isNaN(num) && !text.includes('%')) {
+        let current = 0;
+        const target = num;
+        const step = target / 40;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          el.textContent = Math.floor(current);
+        }, 30);
+      }
+    });
+
+    // أنيميشن الحلقة
+    const ring = document.querySelector('.student-progress-ring circle:last-child');
+    if (ring) {
+      const length = 314;
+      const offset = 78;
+      ring.style.strokeDasharray = length;
+      ring.style.strokeDashoffset = length;
+      setTimeout(() => {
+        ring.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        ring.style.strokeDashoffset = offset;
+      }, 300);
+    }
+  })();
+</script>
+
+</body>
+</html>

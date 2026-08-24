@@ -14,12 +14,12 @@ class HomeController extends Controller
         $universitiesCount = University::count();
         $majorsCount = Major::count();
         $studentsCount = User::where('role', 'student')->count();
-        
+
         // Ensure some nice baseline display if DB is empty for demo
         if ($universitiesCount == 0) $universitiesCount = 10;
         if ($majorsCount == 0) $majorsCount = 120;
         if ($studentsCount == 0) $studentsCount = '5K';
 
-        return view('home', compact('universitiesCount', 'majorsCount', 'studentsCount'));
+        return view('index', compact('universitiesCount', 'majorsCount', 'studentsCount'));
     }
 }

@@ -1,441 +1,254 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="ltr">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>NextStep AI - الشروط والأحكام</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
-<link href="../css/Terms and Conditions.css" rel="stylesheet"/>
-<!-- ربط ملف تنسيقات الـ Footer -->
-<link href="../css/footer.css" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+<link href="css/app.css" rel="stylesheet">
 
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "background": "#0F172A",
-                      "surface": "#1E293B",
-                      "surface-container": "#1E293B",
-                      "surface-container-low": "#111827",
-                      "surface-container-lowest": "#1E293B",
-                      "surface-container-highest": "#334155",
-                      "primary-container": "#173873",
-                      "secondary": "#2F6BFF",
-                      "secondary-container": "#35D0FF",
-                      "cyan": "#35D0FF",
-                      "mint": "#48E680",
-                      "navy": "#173873",
-                      "on-background": "#F7FAFC",
-                      "on-surface": "#F7FAFC",
-                      "on-surface-variant": "#94A3B8",
-                      "on-primary": "#ffffff",
-                      "outline-variant": "rgba(53, 208, 255, 0.2)"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.75rem",
-                      "xl": "1rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "sidebar-width": "280px",
-                      "container-padding": "32px",
-                      "gutter": "24px"
-              },
-              "fontFamily": {
-                      "body-md": ["Poppins", "Cairo", "sans-serif"],
-                      "headline-md": ["Cairo", "sans-serif"],
-                      "display-lg": ["Cairo", "sans-serif"]
-              }
-            }
+<link href="css/home.css" rel="stylesheet">
+<link href="css/footer.css" rel="stylesheet">
+</head>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const counters = document.querySelectorAll(".stat-number");
+
+    counters.forEach(counter => {
+      const target = +counter.getAttribute("data-target");
+      const isK = counter.textContent.includes("K");
+      let current = 0;
+      const increment = target / 80; // سرعة العدّ (كل ما زاد الرقم كل ما بطيء)
+
+      const updateCounter = () => {
+        if (current < target) {
+          current += increment;
+          if (current > target) current = target;
+
+          if (isK) {
+            counter.textContent = Math.ceil(current) + "K+";
+          } else {
+            counter.textContent = Math.ceil(current) + "+";
+          }
+          requestAnimationFrame(updateCounter);
+        } else {
+          // تثبيت الرقم النهائي
+          if (isK) {
+            counter.textContent = target + "K+";
+          } else {
+            counter.textContent = target + "+";
           }
         }
-    </script>
-<style>
-        :root {
-            --cyan: #35D0FF;
-            --mint: #48E680;
-            --blue: #2F6BFF;
-            --navy: #173873;
-        }
+      };
 
-        body {
-            font-family: 'Poppins', 'Cairo', sans-serif;
-            background-color: #0F172A;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(53, 208, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(72, 230, 128, 0.1) 0%, transparent 40%);
-            color: #F7FAFC;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        h1, h2, h3, h4, h5, h6, .cairo-font {
-            font-family: 'Cairo', sans-serif;
-        }
-        
-        /* تنسيقات الهيدر الجديد */
-        header.site-header {
-            position: fixed;
-            inset-block-start: 0;
-            inset-inline: 0;
-            width: 100%;
-            z-index: 1000;
-            background: transparent;
-            border-bottom: none;
-            direction: ltr;
-            padding-block: 0.25rem;
-            backdrop-filter: none;
-            box-shadow: none;
-            opacity: 0;
-            transform: translateY(-14px);
-            transition: opacity .35s ease, transform .35s ease;
-            overflow: hidden;
-            isolation: isolate;
-        }
+      updateCounter();
+    });
+  });
+</script>
+<body>
 
-        header.site-header.scrolled {
-            position: static !important;
-            transform: none;
-            box-shadow: none;
-            background: transparent;
-            padding-block: 0.35rem;
-            border-color: transparent;
-        }
-        header.site-header.ready {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .header-spacer {
-            height: var(--header-height, 6rem);
-            flex-shrink: 0;
-        }
-
-        .nav-inner {
-            max-width: 1520px;
-            margin: 0 auto;
-            padding: 0.85rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-            direction: ltr;
-            position: relative;
-            z-index: 1;
-        }
-
-        .brand-mark-header {
-            display: flex;
-            align-items: center;
-            gap: 0.625rem;
-            padding-inline-start: 0.25rem;
-            flex-shrink: 0;
-            text-decoration: none;
-        }
-        .brand-mark-header .brand-logo {
-            width: 5.125rem;
-            height: 5.125rem;
-            object-fit: contain;
-            flex-shrink: 0;
-        }
-        .brand-mark-header .brand-text {
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            color: #1E4FD1;
-            transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.28);
-        }
-        .brand-mark-header .brand-text span { color: var(--cyan); }
-        .brand-mark-header .brand-text:hover { transform: translateY(-0.35rem); }
-
-        nav.main-nav ul {
-            display: flex;
-            gap: 2.25rem;
-            font-size: 21px;
-            font-weight: 800;
-            color: #f7fbff;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        nav.main-nav a {
-            position: relative;
-            transition: color .25s ease, transform .25s ease, text-shadow .25s ease;
-            padding-block: 0.2rem;
-            text-decoration: none;
-        }
-        .main-nav ul li a:hover {
-            color: var(--cyan);
-            transform: translateY(-2px);
-        }
-        .main-nav ul li a:active {
-            transform: translateY(0);
-            opacity: 0.8;
-        }
-        .main-nav ul li a.active {
-            color: var(--cyan);
-            font-weight: 700;
-        }
-        nav.main-nav a::after {
-            content: "";
-            position: absolute;
-            inset-inline-start: 0;
-            inset-block-end: -0.25rem;
-            width: 0;
-            height: 2px;
-            background: transparent;
-            border-radius: 999px;
-            transition: width .25s ease;
-        }
-        nav.main-nav a:hover::after,
-        nav.main-nav a:focus-visible::after { width: 100%; }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-shrink: 0;
-        }
-
-        .btn-signin {
-            border-radius: 999px;
-            border: none;
-            background-color: #48E680;
-            color: #173873;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            font-size: 18px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 14px rgba(72, 230, 128, 0.3);
-            transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-            padding: 14px 16px;
-        }
-        .btn-signin:hover {
-            transform: translateY(-1px) scale(1.02);
-            box-shadow: 0 6px 18px rgba(72, 230, 128, 0.4);
-            filter: brightness(1.04);
-        }
-
-        /* تنسيقات القائمة الجانبية والأقسام */
-        .nav-link {
-            transition: all 0.2s ease-in-out;
-            position: relative;
-        }
-        .nav-link:hover {
-            color: #35D0FF;
-            background-color: rgba(53, 208, 255, 0.1);
-        }
-        .nav-link.active {
-            color: #35D0FF;
-            font-weight: 600;
-        }
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background-color: #35D0FF;
-            border-radius: 0 4px 4px 0;
-        }
-        
-        .tab-button {
-            transition: all 0.3s ease;
-        }
-        .tab-button.active {
-            border-bottom: 2px solid #35D0FF;
-            color: #35D0FF;
-            font-weight: 600;
-        }
-
-        /* أنماط القائمة المنسدلة Accordion */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            opacity: 0;
-        }
-        .accordion-content.open {
-            max-height: 1000px;
-            opacity: 1;
-        }
-        .accordion-arrow {
-            transition: transform 0.3s ease;
-        }
-        .accordion-header.open .accordion-arrow {
-            transform: rotate(180deg);
-        }
-    </style>
-</head>
-<body class="bg-background text-on-background min-h-screen flex flex-col">
-
-<!-- Header الجديد -->
-<header class="site-header ready">
+ <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline poster="assets/5.jpg">
+      <source src="assets/vedio-hero.mp4" type="video/mp4">
+    </video>
+  </div>
+<!-- ======================= HEADER ======================= -->
+<header class="site-header">
   <div class="nav-inner">
-    <a href="../Frontend/index.html" class="brand-mark-header">
-      <img src="../Frontend/assets/logo.png" alt="NextStep AI" class="brand-logo">
-      <div class="brand-text">NextStep<span>AI</span></div>
+    <a href="index.html" class="brand-mark">
+      <img src="assets/logo.png" alt="NextStep AI" class="brand-logo">
+      <div class="brand-text">NextStep<span>AI</span> </div>
     </a>
 
     <nav class="main-nav">
       <ul>
-        <li><a href="../Frontend/fronted/about.html">عن المنصة</a></li>
-        <li><a href="../Frontend/fronted/universities.html">الجامعات</a></li>
-        <li><a href="../Frontend/fronted/quiz.html">الاختبار الذكي</a></li>
-        <li><a href="../Frontend/index.html" class="active">الرئيسية</a></li>
+<li><a href="../Frontend/fronted/about.html">عن المنصة</a></li>
+<li><a href="../Frontend/fronted/universities.html">الجامعات</a></li>
+<li><a href="../Frontend/fronted/quiz.html">الاختبار الذكي</a></li>
+<li><a href="../Frontend/index.html" class="active">الرئيسية</a></li>
       </ul>
     </nav>
 
+  
+
     <div class="nav-actions">
-      <a href="../Frontend/fronted/auth/login.html" class="btn-signin">تسجيل دخول</a>
+     
+      <a href="../Frontend/fronted/signup.html" class="btn-signin">تسجيل دخول</a>
     </div>
   </div>
 </header>
-<div class="header-spacer"></div>
 
-<!-- Main Content Layout -->
-<div class="flex flex-1 h-full relative">
-<!-- Sidebar Navigation (Desktop) -->
-<aside class="hidden md:block w-sidebar-width fixed right-0 top-24 h-[calc(100vh-96px)] bg-surface-container-low border-l border-outline-variant overflow-y-auto z-20">
-<nav class="p-gutter flex flex-col gap-2">
-<div class="mb-4">
-<h3 class="text-lg text-white font-bold cairo-font">الإعدادات القانونية</h3>
-</div>
-<a class="nav-link active flex items-center gap-3 p-3 rounded-lg text-on-surface text-sm" href="#intro">
-<span class="material-symbols-outlined" data-icon="description">description</span>
-                    مقدمة
-                </a>
-<a class="nav-link flex items-center gap-3 p-3 rounded-lg text-on-surface-variant text-sm hover:text-white" href="#service">
-<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-                    طبيعة الخدمة
-                </a>
-<a class="nav-link flex items-center gap-3 p-3 rounded-lg text-on-surface-variant text-sm hover:text-white" href="#responsibilities">
-<span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
-                    مسؤوليات المستخدم
-                </a>
-</nav>
-</aside>
+<!-- ======================= HERO ======================= -->
+<section class="hero">
+  
+  <div class="hero-overlay" aria-hidden="true"></div>
 
-<!-- Main Content Area -->
-<main class="flex-1 md:mr-sidebar-width p-4 md:p-container-padding overflow-y-auto">
-<div class="max-w-4xl mx-auto">
-<!-- Page Header -->
-<div class="mb-8">
-<h1 class="text-3xl md:text-4xl text-white mb-4 font-bold cairo-font">الشروط والأحكام</h1>
-<p class="text-on-surface-variant text-base max-w-2xl">
-                        يرجى قراءة هذه الشروط بعناية قبل استخدام منصة NextStep AI. باستخدامك للمنصة، فإنك توافق على الالتزام بهذه الشروط.
-                    </p>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1>NextStep <span>AI</span></h1>
+      <h2>خطوتك الذكية نحو مستقبلك</h2>
+<p class="lead">منصة ذكية تساعدك على اكتشاف التخصص المناسب واختيار
+  <br>
+ الجامعة الأفضل لك من خلال الذكاء الاصطناعي</p>           <div class="hero-actions">
+        <a href="../Frontend/fronted/signup.html" class="btn-primary">
+          ابدأ الاختبار الذكي
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(252, 250, 255)" d="M41.4 297.4C28.9 309.9 28.9 330.2 41.4 342.7L169.4 470.7C181.9 483.2 202.2 483.2 214.7 470.7C227.2 458.2 227.2 437.9 214.7 425.4L141.3 352L576 352C593.7 352 608 337.7 608 320C608 302.3 593.7 288 576 288L141.3 288L214.7 214.6C227.2 202.1 227.2 181.8 214.7 169.3C202.2 156.8 181.9 156.8 169.4 169.3L41.4 297.3z"/></svg>
+        </a>
+        <a href="fronted/universities.html" class="btn-outline">استكشف الجامعات</a>
+      </div>
+      <div class="stats-container">
+<div class="stats-container">
+  <div class="stat-item">
+    <div class="stat-number" data-target="50">50 <span>+</span></div>
+    <div class="stat-label">جامعة</div>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="stat-item">
+    <div class="stat-number" data-target="2000">100<span>+</span></div>
+    <div class="stat-label">تخصص</div>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="stat-item">
+    <div class="stat-number" data-target="1000">1000K<span>+</span></div>
+    <div class="stat-label">طالب</div>
+  </div>
 </div>
-
-<!-- Tabs -->
-<div class="flex border-b border-outline-variant mb-8">
-<button class="tab-button active px-6 py-3 text-base cairo-font text-white" onclick="switchTab('student')">
-                        شروط الطالب
-                    </button>
-<button class="tab-button px-6 py-3 text-base cairo-font text-on-surface-variant" onclick="switchTab('university')">
-                        شروط الجامعة
-                    </button>
-</div>
-
-<!-- Content Container (Student Terms - Default) -->
-<div class="space-y-6 pb-12" id="student-terms">
-
-<!-- Section: Introduction -->
-<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-lg" id="intro">
-<div class="accordion-header open flex justify-between items-center cursor-pointer select-none pb-2" onclick="toggleAccordion(this)">
-<h2 class="text-xl text-white cairo-font font-semibold">1. مقدمة</h2>
-<span class="material-symbols-outlined accordion-arrow text-cyan">expand_more</span>
-</div>
-<div class="accordion-content open">
-<div class="border-t border-outline-variant pt-4 mt-2 text-on-surface-variant text-sm md:text-base leading-relaxed space-y-4">
-<p>
-                                مرحباً بك في منصة NextStep AI ("المنصة"، "نحن"، "لنا"). تحكم هذه الشروط والأحكام استخدامك للمنصة والخدمات المقدمة من خلالها كطالب ("المستخدم"، "أنت").
-                            </p>
-<p>
-                                تهدف المنصة إلى تقديم استشارات وتوجيهات تعليمية باستخدام تقنيات الذكاء الاصطناعي لمساعدتك في اتخاذ قرارات أكاديمية مستنيرة. يجب ألا تعتبر التوصيات بديلاً عن الاستشارة الأكاديمية الرسمية من المؤسسات التعليمية.
-                            </p>
-</div>
-</div>
+    </div>
+  </div>
 </section>
 
-<!-- Section: Nature of Service -->
-<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-lg" id="service">
-<div class="accordion-header flex justify-between items-center cursor-pointer select-none pb-2" onclick="toggleAccordion(this)">
-<h2 class="text-xl text-white cairo-font font-semibold">2. طبيعة الخدمة</h2>
-<span class="material-symbols-outlined accordion-arrow text-cyan">expand_more</span>
-</div>
-<div class="accordion-content">
-<div class="border-t border-outline-variant pt-4 mt-2 text-on-surface-variant text-sm md:text-base leading-relaxed space-y-4">
-<p>
-                                توفر المنصة أدوات تعتمد على الذكاء الاصطناعي لتحليل البيانات الأكاديمية والمهنية وتقديم مقترحات للمسارات التعليمية.
-                            </p>
-<ul class="list-disc list-inside space-y-2 mr-4 marker:text-cyan">
-<li>النتائج تعتمد على دقة البيانات المدخلة من قبلك.</li>
-<li>المقترحات مبنية على خوارزميات قد لا تغطي جميع الخيارات المتاحة.</li>
-<li>المنصة لا تضمن القبول في أي مؤسسة تعليمية.</li>
-</ul>
-</div>
-</div>
+<!-- ======================= FEATURES ROW ======================= -->
+<section class="features-section">
+  <div class="features-row">
+    <div class="feature-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
+      </div>
+      <div>
+        <h3>استبيان ذكي</h3>
+        <p>اكتشف مهاراتك واهتماماتك</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/></svg>
+      </div>
+      <div>
+        <h3>نسبة توافق دقيقة</h3>
+        <p>نقارن بياناتك وبين كل جامعة وتخصص</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+      </div>
+      <div>
+        <h3>خطة دراسية شخصية</h3>
+        <p>خطة مقترحة تناسب أهدافك</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+      </div>
+      <div>
+        <h3>جولات VR و 3D</h3>
+        <p>استكشف الكليات والحرم الجامعي</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Section: User Responsibilities -->
-<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-lg" id="responsibilities">
-<div class="accordion-header flex justify-between items-center cursor-pointer select-none pb-2" onclick="toggleAccordion(this)">
-<h2 class="text-xl text-white cairo-font font-semibold">3. مسؤوليات المستخدم</h2>
-<span class="material-symbols-outlined accordion-arrow text-cyan">expand_more</span>
+<!-- ======================= STATS BAR ======================= -->
+<section class="steps-section">
+        <!-- شارة العنوان العلوية -->
+        <div class="section-badge">
+            <span class="icon">⚡</span> كيف تعمل المنصة
+        </div>
+
+        <!-- العنوان الرئيسي -->
+        <h2 class="section-title">ثلاث خطوات تفصلك عن قرارك</h2>
+        <p class="section-subtitle">.رحلة بسيطة وواضحة من التسجيل إلى الخطة الدراسية المخصصة</p>
+        <!-- حاوية البطاقات -->
+        <div class="cards-container">
+            
+            <!-- البطاقة الأولى (3) -->
+               <div class="step-card">
+    <div class="step-badge">٣</div>
+    <div class="card-icon">
+      <!-- يمكنك الاحتفاظ بالأيقونة الحالية أو تغييرها بما يناسب المرشد الذكي -->
+      <svg xmlns="http://www.w3.org/2000/svg" height="64" width="64" viewBox="0 0 640 640">
+          <path fill="rgb(53, 208, 255)" d="M544 160C544 124.7 515.3 96 480 96L160 96C124.7 96 96 124.7 96 160L96 480C96 515.3 124.7 544 160 544L480 544C515.3 544 544 515.3 544 480L544 160zM352 216C352 229.3 341.3 240 328 240L216 240C202.7 240 192 229.3 192 216C192 202.7 202.7 192 216 192L328 192C341.3 192 352 202.7 352 216zM424 296C437.3 296 448 306.7 448 320C448 333.3 437.3 344 424 344L216 344C202.7 344 192 333.3 192 320C192 306.7 202.7 296 216 296L424 296zM288 424C288 437.3 277.3 448 264 448L216 448C202.7 448 192 437.3 192 424C192 410.7 202.7 400 216 400L264 400C277.3 400 288 410.7 288 424z"/>
+      </svg>
+    </div>
+    <h3>تواصل مع المرشد الذكي</h3>
+    <p>استشر مرشدك الذكي فوراً للحصول على إجابات دقيقة وتوصيات مخصصة لمسارك الأكاديمي.</p>
 </div>
-<div class="accordion-content">
-<div class="border-t border-outline-variant pt-4 mt-2 text-on-surface-variant text-sm md:text-base leading-relaxed space-y-4">
-<p>
-                                بصفتك مستخدماً للمنصة، أنت توافق على:
-                            </p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-<div class="bg-surface p-4 rounded-lg border border-outline-variant">
-<div class="flex items-center gap-2 mb-2">
-<span class="material-symbols-outlined text-cyan" data-icon="fact_check">fact_check</span>
-<h4 class="text-base cairo-font text-white font-semibold">دقة المعلومات</h4>
-</div>
-<p class="text-xs text-on-surface-variant">تقديم معلومات صحيحة ودقيقة ومحدثة عند إنشاء الحساب واستخدام أدوات التقييم.</p>
-</div>
-<div class="bg-surface p-4 rounded-lg border border-outline-variant">
-<div class="flex items-center gap-2 mb-2">
-<span class="material-symbols-outlined text-cyan" data-icon="lock">lock</span>
-<h4 class="text-base cairo-font text-white font-semibold">حماية الحساب</h4>
-</div>
-<p class="text-xs text-on-surface-variant">الحفاظ على سرية بيانات تسجيل الدخول الخاصة بك وتحمل مسؤولية جميع الأنشطة التي تحدث تحت حسابك.</p>
-</div>
-</div>
-</div>
-</div>
+
+            <!-- البطاقة الثانية (2) -->
+            <div class="step-card">
+                <div class="step-badge">٢</div>
+                <div class="card-icon">
+<svg xmlns="http://www.w3.org/2000/svg"height="32" width="32" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(53, 208, 255)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z"/></svg>
+
+                </div>
+                <h3>أكمل الاختبار الذكي</h3>
+                <p>أجب عن أسئلة تفاعلية تقيس ميولك وقدراتك، ويحللها الذكاء الاصطناعي فوراً.</p>
+            </div>
+
+            <!-- البطاقة الثالثة (1) -->
+            <div class="step-card">
+                <div class="step-badge">١</div>
+                <div class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="#35d0ff" d="M285.7 368C384.2 368 464 447.8 464 546.3C464 562.7 450.7 576 434.3 576L77.7 576C61.3 576 48 562.7 48 546.3C48 447.8 127.8 368 226.3 368L285.7 368zM528 144C541.3 144 552 154.7 552 168L552 216L600 216C613.3 216 624 226.7 624 240C624 253.3 613.3 264 600 264L552 264L552 312C552 325.3 541.3 336 528 336C514.7 336 504 325.3 504 312L504 264L456 264C442.7 264 432 253.3 432 240C432 226.7 442.7 216 456 216L504 216L504 168C504 154.7 514.7 144 528 144zM256 312C189.7 312 136 258.3 136 192C136 125.7 189.7 72 256 72C322.3 72 376 125.7 376 192C376 258.3 322.3 312 256 312z"/></svg>
+
+                </div>
+                <h3>أنشئ حسابك</h3>
+                <p>سجل بياناتك واختر مسارك: طالب جديد يبحث عن تخصص، أو طالب جامعي يطور مساره.</p>
+            </div>
+
+        </div>
+    </section>
+
+<!-- ======================= FOOTER ======================= -->
+
+<section class="cta-section">
+    <div class="cta-banner">
+        <h2>جاهز لاتخاذ خطوتك الذكية؟</h2>
+        <p>انضم إلى آلاف الطلاب الذين اكتشفوا مسارهم الجامعي المناسب مع NextStep AI.</p>
+        <div class="cta-buttons">
+            <a href="../Frontend/fronted/signup.html" class="btn-primary">أنشئ حسابك مجاناً ←</a>
+            <a href="../Frontend/fronted/login.html" class="btn-outline">لدي حساب بالفعل</a>
+        </div>
+    </div>
 </section>
 
+<div class="floating-widgets">
+  <!-- أيقونة المرشد الذكي -->
+  <a href="../Frontend/fronted/chatbot.html" class="float-btn ai-guide-btn" aria-label="المرشد الذكي">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2a10 10 0 0 1 7.54 16.6l1.46 3.4-3.4-1.46A10 10 0 1 1 12 2z"/>
+      <path d="M8 12h8M12 8v8"/>
+    </svg>
+    <span class="tooltip">المرشد الذكي</span>
+  </a>
+
+  <!-- أيقونة واتساب -->
+  <a href="https://wa.me/970597967157" target="_blank" rel="noopener noreferrer" class="float-btn whatsapp-btn" aria-label="تواصل عبر واتساب">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </svg>
+    <span class="tooltip">تواصل عبر واتساب</span>
+  </a>
 </div>
 
-<!-- Footer Meta Info -->
-<div class="mt-12 pt-6 border-t border-outline-variant flex flex-col sm:flex-row justify-between items-center text-xs text-on-surface-variant">
-<p>آخر تحديث: 24 أغسطس 2026</p>
-<p class="bg-surface-container px-3 py-1 rounded-full">الإصدار 0.1</p>
-</div>
-</div>
-</main>
-</div>
 
-<!-- Footer المطلوب إضافته -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
@@ -443,50 +256,52 @@
       <!-- Brand -->
       <div class="footer-col footer-brand">
         <div class="brand-mark">
-          <div class="brand-text"><span>AI</span>NextStep </div>
+            <div class="brand-text"> <span>AI</span>NextStep</div>
           <img src="../Frontend/assets/logo.png" alt="NextStep AI" class="brand-logo">
+        
         </div>
         <div class="logo2">   
-          <span>خطوتك الذكية نحو مستقبلك</span>
-          <p class="lead">منصة ذكية تساعدك على اكتشاف التخصص المناسب واختيار الجامعة الأفضل لك من خلال الذكاء الاصطناعي.</p>
+       <span>خطوتك الذكية نحو مستقبلك</span>
+      <p class="lead">منصة ذكية تساعدك على اكتشاف التخصص المناسب واختيار الجامعة الأفضل لك من خلال الذكاء الاصطناعي.</p>
         </div>
-        <div class="social-row">
-          <a href="https://www.instagram.com/nextstepai12?igsi=MWlwbm5wazl5dDJpdw==" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 448" width="448" height="448">
-              <defs>
-                <linearGradient id="instagram" x1="0%" y1="100%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#feda75"/>
-                  <stop offset="25%" stop-color="#fa7e1e"/>
-                  <stop offset="50%" stop-color="#d62976"/>
-                  <stop offset="75%" stop-color="#962fbf"/>
-                  <stop offset="100%" stop-color="#4f5bd5"/>
-                </linearGradient>
-              </defs>
-              <rect width="448" height="448" rx="100" ry="100" fill="url(#instagram)"/>
-              <path fill="#fff" fill-rule="evenodd" d="M112 80h224c17.7 0 32 14.3 32 32v224c0 17.7-14.3 32-32 32H112c-17.7 0-32-14.3-32-32V112c0-17.7 14.3-32 32-32zm0 32v224h224V112H112z"/>
-              <circle cx="224" cy="224" r="70" fill="none" stroke="#fff" stroke-width="32"/>
-              <circle cx="320" cy="128" r="22" fill="#fff"/>
-            </svg>         
-          </a>
+              <div class="social-row">
+          <a href="#" aria-label="Instagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 448" width="448" height="448">
+  <defs>
+    <linearGradient id="instagram" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#feda75"/>
+      <stop offset="25%" stop-color="#fa7e1e"/>
+      <stop offset="50%" stop-color="#d62976"/>
+      <stop offset="75%" stop-color="#962fbf"/>
+      <stop offset="100%" stop-color="#4f5bd5"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded square with gradient -->
+  <rect width="448" height="448" rx="100" ry="100" fill="url(#instagram)"/>
+  
+  <!-- Outer camera frame -->
+  <path fill="#fff" fill-rule="evenodd" d="M112 80h224c17.7 0 32 14.3 32 32v224c0 17.7-14.3 32-32 32H112c-17.7 0-32-14.3-32-32V112c0-17.7 14.3-32 32-32zm0 32v224h224V112H112z"/>
+  
+  <!-- Main lens circle -->
+  <circle cx="224" cy="224" r="70" fill="none" stroke="#fff" stroke-width="32"/>
+  
+  <!-- Small flash circle -->
+  <circle cx="320" cy="128" r="22" fill="#fff"/>
+</svg>          </a>
           <a href="#" aria-label="Twitter/X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512">
-              <path fill="#000000" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>         
-          </a>
-          <a href="https://www.linkedin.com/in/nextstepai/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512">
-              <path fill="#0A66C2" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>         
-          </a>
-          <div class="popover-wrapper">
-            <a href="#" aria-label="YouTube" class="soon-trigger">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
-                <path fill="#FFFFFF" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg> 
-            </a>
-            <div class="soon-popover">Soon</div>
-          </div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512">
+  <path fill="#000000" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+</svg>          </a>
+          <a href="#" aria-label="LinkedIn">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512">
+  <path fill="#0A66C2" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+</svg>          </a>
+          <a href="#" aria-label="YouTube">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512">
+  <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
+  <path fill="#FFFFFF" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+</svg>          </a>
         </div>
       </div>
 
@@ -495,8 +310,8 @@
         <h4>روابط الموقع</h4>
         <ul>
           <li><a href="../Frontend/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>الرئيسية</a></li>
-          <li><a href="../Frontend/fronted/auth/login.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>اختبار الاستكشاف</a></li>
-          <li><a href="../Frontend/fronted/auth/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>الخطة الدراسية</a></li>
+          <li><a href="../Frontend/fronted/signup.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>اختبار الاستكشاف</a></li>
+          <li><a href="../Frontend/fronted/signup.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>الخطة الدراسية</a></li>
           <li><a href="../Frontend/fronted/universities.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>الجامعات</a></li>
         </ul>
       </div>
@@ -506,8 +321,9 @@
         <h4>تواصل معنا</h4>
         <div class="contact-item">
           <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>
-          <a href="mailto:info@nextstepai.com?subject=استفسار من موقع NextStep AI&body=مرحباً فريق NextStep AI،">تواصل معنا</a>         
-        </div>
+<a href="mailto:info@nextstepai.com?subject=استفسار من موقع NextStep AI&body=مرحباً فريق NextStep AI،">
+  تواصل معنا
+</a>        </div>
         <div class="contact-item">
           <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.62a16 16 0 0 0 6 6l1.19-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg></div>
           <a href="tel:+970000000">+970 59 796 7157</a>
@@ -524,8 +340,8 @@
         <ul>
           <li><a href="../Frontend/fronted/about.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>من نحن</a></li>
           <li><a href="../Frontend/fronted/privacy-policy.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>سياسة الخصوصية</a></li>
-          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>الشروط والأحكام</a></li>
-          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5M12 17h.01"/></svg>الأسئلة الشائعة</a></li>
+          <li><a href="../Frontend/fronted/Terms and Conditions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>الشروط والأحكام</a></li>
+          <li><a href="../Frontend/fronted/Frequently AQuetions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5M12 17h.01"/></svg>الأسئلة الشائعة</a></li>
         </ul>
       </div>
 
@@ -533,45 +349,65 @@
 
     <div class="footer-bottom">
       <p>© 2026 NextStep AI. جميع الحقوق محفوظة.</p>
+      
     </div>
   </div>
 </footer>
-
-<!-- BottomNavBar (Mobile) -->
-<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant">
-<div class="flex flex-row-reverse justify-around items-center h-16 w-full px-4">
-<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-cyan pt-1" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
-<span class="text-xs">الرئيسية</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-cyan pt-1" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="psychology">psychology</span>
-<span class="text-xs">الاستشارات</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-cyan pt-1" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="quiz">quiz</span>
-<span class="text-xs">الأسئلة الشائعة</span>
-</a>
-<a class="flex flex-col items-center justify-center text-cyan border-t-2 border-cyan pt-1" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
-<span class="text-xs font-bold">الحساب</span>
-</a>
-</div>
-</nav>
+</body>
 
 <script>
-        // دالة طي وتوسيع القسم عند النقر عليه أو على السهم
-        function toggleAccordion(header) {
-            header.classList.toggle('open');
-            const content = header.nextElementSibling;
-            content.classList.toggle('open');
-        }
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.site-header');
+    const counters = document.querySelectorAll('.stat .num');
+    const navLinks = document.querySelectorAll('.main-nav a');
 
-        function switchTab(tabId) {
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(btn => btn.classList.remove('active', 'text-cyan', 'font-bold'));
-            event.target.classList.add('active', 'text-cyan', 'font-bold');
+    const toggleHeaderState = () => {
+      if (!header) return;
+      const scrolled = window.scrollY > 20;
+      header.classList.toggle('scrolled', scrolled);
+
+      navLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href && href !== '#' && window.location.pathname.endsWith(href)) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
         }
-    </script>
-</body>
+      });
+    };
+
+    if (header) {
+      requestAnimationFrame(() => {
+        header.classList.add('ready');
+      });
+    }
+
+    window.addEventListener('scroll', toggleHeaderState, { passive: true });
+    toggleHeaderState();
+
+    counters.forEach((counter, index) => {
+      const span = counter.querySelector('span');
+      const target = parseInt(counter.dataset.target || span.textContent, 10);
+      const suffix = counter.dataset.suffix || '';
+      const duration = 1400 + index * 180;
+      const startTime = performance.now();
+
+      const animate = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(eased * target);
+        span.textContent = `${value}${suffix}`;
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          span.textContent = `${target}${suffix}`;
+        }
+      };
+
+      requestAnimationFrame(animate);
+    });
+  });
+</script>
 </html>

@@ -249,6 +249,34 @@
         .accordion-header.open .accordion-arrow {
             transform: rotate(180deg);
         }
+        .popover-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.soon-popover {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1E293B;
+    color: #35D0FF;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    border: 1px solid rgba(53, 208, 255, 0.2);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
+}
+
+/* الكلاس الذي سيتم تفعيله عند الضغط عبر جافاسكريبت */
+.popover-wrapper.active .soon-popover {
+    visibility: visible;
+    opacity: 1;
+}
     </style>
 </head>
 <body class="bg-background text-on-background">
@@ -257,7 +285,7 @@
 <header class="site-header ready">
   <div class="nav-inner">
     <a href="../Frontend/index.html" class="brand-mark-header">
-      <img src="../Frontend/assets/logo.png" alt="NextStep AI" class="brand-logo">
+      <img src="../assets/logo.png" alt="NextStep AI" class="brand-logo">
       <div class="brand-text">NextStep<span>AI</span></div>
     </a>
 
@@ -317,9 +345,7 @@
         <button class="tab-button active px-6 py-3 text-base cairo-font text-white" onclick="switchTab('student')">
           شروط الطالب
         </button>
-        <button class="tab-button px-6 py-3 text-base cairo-font text-on-surface-variant" onclick="switchTab('university')">
-          شروط الجامعة
-        </button>
+       
       </div>
 
       <!-- Content Container (Student Terms - Default) -->
@@ -408,7 +434,7 @@
       <div class="footer-col footer-brand">
         <div class="brand-mark">
           <div class="brand-text"><span>AI</span>NextStep</div>
-          <img src="../Frontend/assets/logo.png" alt="NextStep AI" class="brand-logo">
+          <img src="../assets/logo.png" alt="NextStep AI" class="brand-logo">
         </div>
         <div class="logo2">   
           <span>خطوتك الذكية نحو مستقبلك</span>
@@ -513,6 +539,21 @@
         buttons.forEach(btn => btn.classList.remove('active', 'text-cyan', 'font-bold'));
         event.target.classList.add('active', 'text-cyan', 'font-bold');
     }
+</script>
+<script>
+    function togglePopover(event) {
+        event.preventDefault();
+        const wrapper = document.getElementById('youtubePopover');
+        wrapper.classList.toggle('active');
+    }
+
+    // إغلاق القائمة تلقائياً إذا ضغط المستخدم في أي مكان آخر بالصفحة
+    window.addEventListener('click', function(e) {
+        const wrapper = document.getElementById('youtubePopover');
+        if (!wrapper.contains(e.target)) {
+            wrapper.classList.remove('active');
+        }
+    });
 </script>
 </body>
 </html>

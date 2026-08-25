@@ -94,6 +94,7 @@ select{
   width:min(1140px, calc(100% - 64px));
   margin:0 auto;
   padding:63px;
+  margin-left: 497px;
 }
 
 .about-page{
@@ -2235,4 +2236,132 @@ footer .brand-mark .brand-text span{
     animation-iteration-count:1 !important;
     transition-duration:.01ms !important;
   }
+}
+/* إزالة الخط الأخضر أو الحدود عند التركيز أو التنشيط لهذه العناصر */
+nav.main-nav a.active::after,
+nav.main-nav a:hover::after,
+nav.main-nav a:focus-visible::after {
+  width: 0 !important;
+}
+
+/* إذا كان الخط الأخضر عبارة عن border-bottom مباشر */
+nav.main-nav a.active,
+nav.main-nav a:focus {
+  border-bottom: none !important;
+  outline: none !important;
+}
+.btn-signin {
+  padding: 0.5625rem 1.375rem;
+  border-radius: 999px;
+  border: none;
+  background-color: #48E680;
+  color: #173873;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(72, 230, 128, 0.3);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+padding: 14px 16px;}
+
+.btn-signin:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(72, 230, 128, 0.4);
+  filter: brightness(1.04);
+}
+
+.btn-signin:active {
+  transform: translateY(0) scale(0.98);
+  filter: brightness(0.96);
+}
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary-color);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.badge-pill .dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.cta-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.btn-secondary {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #fff;
+}
+.steps-container { /* استبدل هذا الاسم بالـ Class الفعلي لديك */
+    display: flex;
+    flex-direction: row-reverse; /* هذا السطر يحل المشكلة فوراً ويعكسهن من اليمين لليسار */
+    justify-content: center;
+    gap: 20px;
+    /* أو يمكنك استخدام نظام Grid مع اتجاه عربي صحيح: */
+    /* direction: rtl; */
+}
+.your-cards-container { /* استبدل هذا الاسم باسم الكلاس الخاص بحاوية البطاقات لديك */
+    display: flex;
+    flex-direction: row-reverse; /* لضمان البدء من اليمين لليسار باللغة العربية */
+    justify-content: center;     /* لتركيز العناصر في المنتصف أفقياً */
+    align-items: center;         /* لضبط المحاذاة العمودية */
+    flex-wrap: wrap;             /* لضمان نزول البطاقات للأسطر الجديدة بحالة الشاشات الصغيرة */
+    gap: 20px;                   /* المسافة بين البطاقات */
+    max-width: 1200px;           /* تحديد أقصى عرض للحاوية لتبقى متمركزة */
+    margin: 0 auto;              /* توسيط الحاوية نفسها داخل الصفحة */
+}
+.steps-container { /* استبدل هذا باسم الكلاس الخاص بحاويتك */
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap; /* السماح بالنزول للسطر التالي إذا لم تكف الشاشة */
+    gap: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* تحديد عرض مناسب لكل بطاقة لكي تتسع جميعها بجانب بعضها بالشاشات الكبيرة */
+.steps-container .step-card { /* استبدل step-card باسم كلاس البطاقة لديك */
+    flex: 1;
+    min-width: 250px;
+    max-width: 280px;
 }

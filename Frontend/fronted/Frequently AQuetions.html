@@ -386,5 +386,24 @@
             }
         });
     </script>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const trigger = document.querySelector(".soon-trigger");
+    const wrapper = document.querySelector(".popover-wrapper");
+
+    trigger.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      wrapper.classList.toggle("active");
+    });
+
+    // إغلاق القائمة عند الضغط خارجها
+    document.addEventListener("click", function (e) {
+      if (!wrapper.contains(e.target)) {
+        wrapper.classList.remove("active");
+      }
+    });
+  });
+</script>
 </body>
 </html>

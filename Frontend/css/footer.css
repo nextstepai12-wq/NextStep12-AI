@@ -11,6 +11,7 @@ footer.site-footer {
   margin-top: auto;
   flex-shrink: 0;
   direction:rtl;
+  margin-top: 284px;
 }
 
 footer.site-footer::before {

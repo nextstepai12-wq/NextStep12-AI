@@ -197,7 +197,7 @@ button, input { font-family: inherit; }
     grid-template-columns: 1fr 250px;
     direction: rtl;
     max-width: 1400px;
-    margin: 75px auto;
+    margin: 0 auto;
     gap: 24px;
     padding: 24px 28px 60px;
     align-items: start;

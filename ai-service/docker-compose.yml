@@ -1,0 +1,7 @@
+services:
+  ai-service:
+    image: nextstep-ai-service
+    container_name: nextstep-ai-service
+    ports:
+      - "8000:8000"
+    restart: always

@@ -6,21 +6,45 @@
 <title>الإشعارات — NextStep AI</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-<!-- CSS الخاص بالهيدر الأساسي (site-header, orbs, nav-inner...) -->
-<link rel="stylesheet" href="../../css/header.css">
-<!-- CSS الخاص بشعار الحساب + القائمة المنسدلة داخل الهيدر -->
-<link rel="stylesheet" href="../../css/header-dashboard-account.css">
-<!-- CSS الخاص بمحتوى صفحة الإشعارات -->
 <link rel="stylesheet" href="../../css/notifications.css">
 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body x-data="notificationsApp()" x-init="init()">
 
-<!-- الهيدر بيتكتب تلقائياً هون عن طريق header-dashboard.js -->
+<!-- ================= TOPBAR ================= -->
+<header class="topbar">
+    <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <span>NextStep <b>AI</b></span>
+    </div>
+
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="إبحث عن تخصص، جامعة، أو مقال...">
+    </div>
+
+    <div class="top-actions">
+        <button class="top-icon active" title="الإشعارات">
+            <i class="fa-regular fa-bell"></i>
+            <span class="ping" x-show="unreadCount() > 0"></span>
+        </button>
+        <button class="top-icon" title="المفضلة"><i class="fa-regular fa-heart"></i></button>
+        <button class="top-icon" title="المساعدة"><i class="fa-regular fa-circle-question"></i></button>
+
+        <div class="profile-mini">
+            <div class="profile-info">
+                <strong>أحمد محمد</strong>
+                <small>طالب جامعي</small>
+            </div>
+            <div class="avatar">أ</div>
+        </div>
+
+        <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+    </div>
+</header>
 
 <div class="page">
 
@@ -221,9 +245,6 @@
     </nav>
 </aside>
 </div>
-
-<!-- سكربت الهيدر يكتب الهيدر تلقائياً -->
-<script src="../../js/header-dashboard.js"></script>
 
 <!-- Toast -->
 <div class="toast" x-show="toastVisible" x-transition:enter="toast-enter" x-transition:enter-start="toast-enter-start" x-transition:enter-end="toast-enter-end" x-transition:leave="toast-leave" x-transition:leave-start="toast-leave-start" x-transition:leave-end="toast-leave-end">

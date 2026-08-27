@@ -484,6 +484,202 @@
 
 .semester-table tr:last-child td { border-bottom: none; }
 
+.semester-table th.col-actions,
+.semester-table td.col-actions {
+  text-align: left;
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* ===== COURSE ROW ACTIONS ===== */
+.course-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.course-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(47,107,255,0.12);
+  background: var(--gray-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.course-action-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--gray);
+  stroke-width: 2.2;
+  fill: none;
+  transition: var(--transition);
+}
+
+.course-action-btn:hover {
+  transform: translateY(-1px);
+}
+
+.course-action-btn.view-btn:hover {
+  background: rgba(47,107,255,0.1);
+  border-color: rgba(47,107,255,0.3);
+}
+.course-action-btn.view-btn:hover svg { stroke: var(--blue); }
+
+.course-action-btn.edit-btn:hover {
+  background: rgba(180,121,12,0.1);
+  border-color: rgba(180,121,12,0.3);
+}
+.course-action-btn.edit-btn:hover svg { stroke: var(--gold); }
+
+.course-action-btn.delete-btn:hover {
+  background: rgba(211,47,47,0.08);
+  border-color: rgba(211,47,47,0.3);
+}
+.course-action-btn.delete-btn:hover svg { stroke: var(--red); }
+
+/* زر ثانوي (إلغاء) داخل نافذة التأكيد العامة app-modal — احتياطي بحال ما كان معرّف بـ admin-shell.css */
+.app-modal-btn-secondary {
+  background: var(--gray-bg);
+  color: var(--gray-dark);
+}
+.app-modal-btn-secondary:hover {
+  background: #e6e8ee;
+}
+
+/* ===== COURSE MODAL (عرض / تعديل مادة) ===== */
+.course-modal {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px 26px;
+  text-align: right;
+}
+
+.course-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.course-modal-head h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.course-modal-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 60px;
+}
+
+.course-modal-badge.mode-view {
+  color: var(--blue);
+  background: rgba(47,107,255,0.08);
+}
+
+.course-modal-badge.mode-edit {
+  color: var(--gold);
+  background: rgba(180,121,12,0.1);
+}
+
+.course-modal-field {
+  margin-bottom: 16px;
+}
+
+.course-modal-field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gray);
+  margin-bottom: 6px;
+}
+
+.course-modal-field input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--gray-dark);
+  background: var(--gray-bg);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  transition: var(--transition);
+}
+
+.course-modal-field input:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(47,107,255,0.08);
+}
+
+.course-modal-field input:disabled {
+  background: var(--gray-bg);
+  color: var(--gray-dark);
+  cursor: default;
+  opacity: 0.85;
+}
+
+.course-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.course-modal-btn {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+}
+
+.course-modal-btn.cm-secondary {
+  background: var(--gray-bg);
+  color: var(--gray-dark);
+}
+
+.course-modal-btn.cm-secondary:hover {
+  background: #e6e8ee;
+}
+
+.course-modal-btn.cm-primary {
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: white;
+}
+
+.course-modal-btn.cm-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(47,107,255,0.25);
+}
+
+.course-modal-btn.cm-danger {
+  background: var(--red);
+  color: white;
+}
+
+.course-modal-btn.cm-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(211,47,47,0.25);
+}
+
 .empty-plan-hint {
   display: flex;
   align-items: center;
@@ -554,13 +750,41 @@
   .majors-count-badge {
     background: rgba(47,107,255,0.14);
   }
+
+  .course-action-btn {
+    background: #374151;
+    border-color: #4B5563;
+  }
+
+  .course-modal {
+    background: #1F2937;
+  }
+
+  .course-modal-field input {
+    background: #374151;
+    color: #E5E7EB;
+  }
+
+  .course-modal-field input:focus {
+    background: #1F2937;
+  }
+
+  .course-modal-btn.cm-secondary {
+    background: #374151;
+    color: #E5E7EB;
+  }
+
+  .course-modal-btn.cm-secondary:hover {
+    background: #4B5563;
+  }
 }
 
 /* ===== PRINT ===== */
 @media print {
   .browse-search,
   .admin-steps,
-  .plan-download-btn {
+  .plan-download-btn,
+  .semester-table .col-actions {
     display: none !important;
   }
 }

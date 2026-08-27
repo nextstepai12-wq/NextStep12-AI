@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>إضافة عمادة جديدة</title>
+  <title id="pageTitleTag">إضافة عمادة جديدة</title>
 
   <!-- الخطوط -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,7 +53,7 @@
       <path d="M15 18l-6-6 6-6"/>
     </svg>
 
-    <span class="current">
+    <span class="current" id="breadcrumbCurrent">
       إضافة عمادة جديدة
     </span>
 
@@ -65,9 +65,9 @@
   <div class="admin-page-head">
 
     <div>
-      <h1>إضافة عمادة جديدة</h1>
+      <h1 id="pageHeadTitle">إضافة عمادة جديدة</h1>
 
-      <p>
+      <p id="pageHeadDesc">
         اضف بيانات العمادة وتفاصيل التواصل الخاصة فيها. هذه البيانات بتُستخدم
         لربط التخصصات الأكاديمية بالعمادة وعرضها بشكل كامل للطلاب.
       </p>
@@ -103,7 +103,7 @@
 
           <div>
             <h4>المعلومات الأساسية</h4>
-            <p>الاسم، العميد، الشعار</p>
+            <p>الكلية، الاسم، العميد، الشعار</p>
           </div>
         </li>
 
@@ -170,6 +170,33 @@
           </svg>
 
           المعلومات الأساسية
+
+        </div>
+
+
+        <!-- فلتر اسم الكلية (قائمة منسدلة) -->
+
+        <div class="field-group">
+
+          <label for="deanCollege">
+            اسم الكلية
+          </label>
+
+          <select
+            id="deanCollege"
+            name="college_id"
+            required
+          >
+
+            <option value="" disabled selected>
+              اختر الكلية
+            </option>
+
+          </select>
+
+          <p class="field-hint">
+            اختر الكلية التي تتبعها هذه العمادة. القائمة بتنجلب من الكليات المسجّلة بالنظام.
+          </p>
 
         </div>
 
@@ -542,7 +569,7 @@
           id="saveBtn"
         >
 
-          نشر العمادة
+          <span id="saveBtnLabel">نشر العمادة</span>
 
           <svg
             viewBox="0 0 24 24"
@@ -637,14 +664,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =========================================================
+     EDIT MODE DETECTION
+     الصفحة بتشتغل كصفحة "إضافة" وكمان كصفحة "تعديل":
+     أي صفحة تانية بدها تفتح تعديل عمادة لازم تودّي المستخدم
+     لهاي الصفحة مع باراميتر ?id=<رقم العمادة> بالرابط، مثال:
+     add-deanship.html?id=3
+  ========================================================= */
+
+  const urlParams =
+    new URLSearchParams(window.location.search);
+
+  const editId =
+    urlParams.get('id');
+
+  const isEditMode =
+    !!editId;
+
+
+  /* =========================================================
+     MOCK DATA — الكليات والعمادات
+  ========================================================= */
+
+  const MOCK_COLLEGES = [
+    { id: 1, name: 'كلية الهندسة وتكنولوجيا المعلومات' },
+    { id: 2, name: 'كلية العلوم' },
+    { id: 3, name: 'كلية الآداب' },
+    { id: 4, name: 'كلية إدارة الأعمال والاقتصاد' },
+    { id: 5, name: 'كلية العلوم الطبية' },
+    { id: 6, name: 'كلية الشريعة والدراسات الإسلامية' }
+  ];
+
+
+  const MOCK_DEANSHIPS = {
+
+    1: {
+      college_id: 1,
+      name: 'عمادة كلية الهندسة وتكنولوجيا المعلومات',
+      dean_name: 'د. أحمد العلي',
+      code: 'ENG',
+      email: 'engineering@university.edu',
+      phone: '00970 59 123 4567',
+      description: 'عمادة كلية الهندسة وتكنولوجيا المعلومات تشرف على التخصصات الهندسية والتقنية وتقدّم برامج أكاديمية متطورة.',
+      departments: ['قسم هندسة البرمجيات', 'قسم علوم الحاسوب', 'قسم الهندسة الكهربائية'],
+      logo: null
+    },
+
+    2: {
+      college_id: 2,
+      name: 'عمادة كلية العلوم',
+      dean_name: 'د. سلمى حماد',
+      code: 'SCI',
+      email: 'science@university.edu',
+      phone: '00970 59 765 4321',
+      description: 'عمادة كلية العلوم تُعنى بالتخصصات العلمية الأساسية والتطبيقية.',
+      departments: ['قسم الفيزياء', 'قسم الكيمياء', 'قسم الأحياء'],
+      logo: null
+    }
+
+  };
+
+
+  /* =========================================================
      ELEMENTS
   ========================================================= */
 
-  const deanshipForm = document.getElementById('deanshipForm');
+  const deanshipForm =
+    document.getElementById('deanshipForm');
 
-  const saveBtn = document.getElementById('saveBtn');
+  const saveBtn =
+    document.getElementById('saveBtn');
 
-  const draftBtn = document.getElementById('draftBtn');
+  const saveBtnLabel =
+    document.getElementById('saveBtnLabel');
+
+  const draftBtn =
+    document.getElementById('draftBtn');
+
+  const deanCollege =
+    document.getElementById('deanCollege');
+
+  const pageHeadTitle =
+    document.getElementById('pageHeadTitle');
+
+  const pageHeadDesc =
+    document.getElementById('pageHeadDesc');
+
+  const breadcrumbCurrent =
+    document.getElementById('breadcrumbCurrent');
+
+  const pageTitleTag =
+    document.getElementById('pageTitleTag');
 
 
   /* =========================================================
@@ -899,6 +1008,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =========================================================
+     COLLEGES DROPDOWN (فلتر اسم الكلية)
+  ========================================================= */
+
+  async function loadColleges() {
+
+    let colleges = [];
+
+    if (USE_MOCK_DATA) {
+
+      colleges = MOCK_COLLEGES;
+
+    } else {
+
+      try {
+
+        const response =
+          await fetch(
+            `${API_BASE_URL}/admin/colleges`,
+            {
+              headers: {
+                'Accept': 'application/json'
+              }
+            }
+          );
+
+        const result =
+          await response.json();
+
+        colleges =
+          result.data || [];
+
+      } catch (error) {
+
+        console.error(
+          'Load colleges error:',
+          error
+        );
+
+      }
+
+    }
+
+
+    colleges.forEach(college => {
+
+      const option =
+        document.createElement('option');
+
+      option.value =
+        college.id;
+
+      option.textContent =
+        college.name;
+
+      deanCollege.appendChild(
+        option
+      );
+
+    });
+
+  }
+
+
+  /* =========================================================
      TAGS
   ========================================================= */
 
@@ -1055,6 +1228,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+  function fillTags(
+    containerId,
+    values
+  ) {
+
+    const container =
+      document.getElementById(
+        containerId
+      );
+
+    container.innerHTML = '';
+
+    (values || []).forEach(val => {
+
+      addTag(
+        containerId,
+        val
+      );
+
+    });
+
+  }
+
+
   /* =========================================================
      LOGO UPLOAD
   ========================================================= */
@@ -1127,6 +1324,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     deanLogoFileRow.hidden =
       true;
+
+  }
+
+
+  function showExistingLogo(
+    logo
+  ) {
+
+    if (!logo) return;
+
+    deanLogoFileName.textContent =
+      logo.name || 'الشعار الحالي';
+
+    deanLogoFileSize.textContent =
+      logo.size
+        ? formatFileSize(logo.size)
+        : 'مرفوع مسبقاً';
+
+    deanLogoFileRow.hidden =
+      false;
 
   }
 
@@ -1221,6 +1438,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       status,
 
+      college_id:
+        deanCollege.value || null,
+
       name:
         document
           .getElementById('deanName')
@@ -1276,6 +1496,22 @@ document.addEventListener('DOMContentLoaded', () => {
   function validateForm(
     status
   ) {
+
+    if (!deanCollege.value) {
+
+      openModal({
+        type: 'error',
+        title: 'الكلية مطلوبة',
+        message:
+          'تأكد من اختيار الكلية التي تتبعها العمادة.'
+      });
+
+      deanCollege.focus();
+
+      return false;
+
+    }
+
 
     const requiredFields = [
       document.getElementById('deanName'),
@@ -1341,6 +1577,161 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =========================================================
+     LOAD DEANSHIP FOR EDIT
+     بتنجيب بيانات العمادة (id من الرابط) وبتعبّي الفورم فيها،
+     سواء الصفحة اللي حوّلت هون كانت صفحة قائمة العمادات
+     أو أي صفحة تانية عندها زر "تعديل".
+  ========================================================= */
+
+  async function loadDeanshipForEdit(
+    id
+  ) {
+
+    let deanship = null;
+
+    if (USE_MOCK_DATA) {
+
+      deanship =
+        MOCK_DEANSHIPS[id] || null;
+
+      if (!deanship) {
+
+        openModal({
+          type: 'error',
+          title: 'العمادة غير موجودة',
+          message:
+            'تعذّر إيجاد بيانات هذه العمادة، رح ترجعي لقائمة العمادات.',
+          onConfirm: () => {
+            window.location.href =
+              'deanships.html';
+          }
+        });
+
+        return;
+
+      }
+
+    } else {
+
+      try {
+
+        const response =
+          await fetch(
+            `${API_BASE_URL}/admin/deanships/${id}`,
+            {
+              headers: {
+                'Accept': 'application/json'
+              }
+            }
+          );
+
+        const result =
+          await response.json();
+
+        if (
+          !response.ok ||
+          !result.data
+        ) {
+
+          throw new Error(
+            result.message ||
+            'تعذّر جلب بيانات العمادة.'
+          );
+
+        }
+
+        deanship =
+          result.data;
+
+      } catch (error) {
+
+        openModal({
+          type: 'error',
+          title: 'تعذّر تحميل بيانات العمادة',
+          message:
+            error.message ||
+            'تأكدي من تشغيل الباك اند وحاولي مرة ثانية.',
+          onConfirm: () => {
+            window.location.href =
+              'deanships.html';
+          }
+        });
+
+        return;
+
+      }
+
+    }
+
+
+    deanCollege.value =
+      deanship.college_id || '';
+
+    document.getElementById(
+      'deanName'
+    ).value =
+      deanship.name || '';
+
+    document.getElementById(
+      'deanDeanName'
+    ).value =
+      deanship.dean_name || '';
+
+    document.getElementById(
+      'deanCode'
+    ).value =
+      deanship.code || '';
+
+    document.getElementById(
+      'deanEmail'
+    ).value =
+      deanship.email || '';
+
+    document.getElementById(
+      'deanPhone'
+    ).value =
+      deanship.phone || '';
+
+    document.getElementById(
+      'deanDescription'
+    ).value =
+      deanship.description || '';
+
+    fillTags(
+      'departmentTags',
+      deanship.departments
+    );
+
+    showExistingLogo(
+      deanship.logo
+    );
+
+  }
+
+
+  function applyEditModeUI() {
+
+    pageTitleTag.textContent =
+      'تعديل بيانات العمادة';
+
+    breadcrumbCurrent.textContent =
+      'تعديل عمادة';
+
+    pageHeadTitle.textContent =
+      'تعديل بيانات العمادة';
+
+    pageHeadDesc.textContent =
+      'حدّثي بيانات العمادة وتفاصيل التواصل الخاصة فيها. أي تغيير رح ينعكس على صفحات التخصصات المرتبطة فيها.';
+
+    saveBtnLabel.textContent =
+      'حفظ التعديلات';
+
+    draftBtn.hidden = true;
+
+  }
+
+
+  /* =========================================================
      SUBMIT
   ========================================================= */
 
@@ -1374,9 +1765,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     triggerBtn.textContent =
-      status === 'draft'
-        ? 'جارٍ الحفظ...'
-        : 'جارٍ النشر...';
+      isEditMode
+        ? 'جارٍ حفظ التعديلات...'
+        : status === 'draft'
+          ? 'جارٍ الحفظ...'
+          : 'جارٍ النشر...';
 
 
     try {
@@ -1389,6 +1782,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const mockData = {
           ...data,
+          id:
+            isEditMode
+              ? editId
+              : undefined,
           logo:
             file
               ? {
@@ -1420,20 +1817,24 @@ document.addEventListener('DOMContentLoaded', () => {
           type: 'success',
 
           title:
-            status === 'draft'
-              ? 'تم حفظ المسودة'
-              : 'تم نشر العمادة بنجاح',
+            isEditMode
+              ? 'تم حفظ التعديلات بنجاح'
+              : status === 'draft'
+                ? 'تم حفظ المسودة'
+                : 'تم نشر العمادة بنجاح',
 
           message:
-            status === 'draft'
-              ? 'تم حفظ العمادة محلياً. البيانات موجودة في Console.'
-              : 'تم نشر العمادة بشكل تجريبي. البيانات موجودة في Console.',
+            isEditMode
+              ? 'تم تحديث بيانات العمادة بشكل تجريبي. البيانات موجودة في Console.'
+              : status === 'draft'
+                ? 'تم حفظ العمادة محلياً. البيانات موجودة في Console.'
+                : 'تم نشر العمادة بشكل تجريبي. البيانات موجودة في Console.',
 
           confirmText:
             'تمام',
 
           onConfirm:
-            status === 'published'
+            (isEditMode || status === 'published')
               ? () => {
                   window.location.href =
                     'deanships.html';
@@ -1465,6 +1866,11 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append(
         'status',
         data.status
+      );
+
+      formData.append(
+        'college_id',
+        data.college_id
       );
 
       formData.append(
@@ -1523,9 +1929,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
 
+      if (isEditMode) {
+
+        formData.append(
+          '_method',
+          'PUT'
+        );
+
+      }
+
+
+      const endpoint =
+        isEditMode
+          ? `${API_BASE_URL}/admin/deanships/${editId}`
+          : `${API_BASE_URL}/admin/deanships`;
+
+
       const response =
         await fetch(
-          `${API_BASE_URL}/admin/deanships`,
+          endpoint,
           {
             method: 'POST',
             headers: {
@@ -1552,17 +1974,21 @@ document.addEventListener('DOMContentLoaded', () => {
           type: 'success',
 
           title:
-            status === 'draft'
-              ? 'تم حفظ المسودة'
-              : 'تم نشر العمادة بنجاح',
+            isEditMode
+              ? 'تم حفظ التعديلات بنجاح'
+              : status === 'draft'
+                ? 'تم حفظ المسودة'
+                : 'تم نشر العمادة بنجاح',
 
           message:
-            status === 'draft'
-              ? 'تم حفظ العمادة كمسودة.'
-              : 'تم إضافة العمادة بنجاح.',
+            isEditMode
+              ? 'تم تحديث بيانات العمادة بنجاح.'
+              : status === 'draft'
+                ? 'تم حفظ العمادة كمسودة.'
+                : 'تم إضافة العمادة بنجاح.',
 
           onConfirm:
-            status === 'published'
+            (isEditMode || status === 'published')
               ? () => {
                   window.location.href =
                     'deanships.html';
@@ -1627,7 +2053,9 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       submitDeanship(
-        'published',
+        isEditMode
+          ? 'updated'
+          : 'published',
         saveBtn
       );
 
@@ -1646,6 +2074,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
   );
+
+
+  /* =========================================================
+     INIT
+  ========================================================= */
+
+  (async function init() {
+
+    await loadColleges();
+
+    if (isEditMode) {
+
+      applyEditModeUI();
+
+      await loadDeanshipForEdit(
+        editId
+      );
+
+    }
+
+  })();
 
 
   });

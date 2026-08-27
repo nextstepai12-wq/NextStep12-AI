@@ -33,6 +33,7 @@
      PAGE
 ========================================================= -->
 
+
 <div class="admin-layout">
 
   <!-- ======================= SIDEBAR (موحّد مع باقي صفحات لوحة الإدارة) ======================= -->
@@ -206,6 +207,39 @@
         </div>
 
 
+        <!-- الكلية والعمادة (تُختار من النافذة المنبثقة) -->
+
+        <div class="field-group">
+
+          <label>
+            الكلية والعمادة
+          </label>
+
+          <div class="college-deanship-display" id="collegeDeanshipDisplay">
+
+            <div class="cd-display-empty" id="cdDisplayEmpty">
+              لم يتم اختيار الكلية والعمادة بعد
+            </div>
+
+            <div class="cd-display-filled" id="cdDisplayFilled" hidden>
+              <div class="cd-display-text">
+                <strong id="cdCollegeName">—</strong>
+                <span id="cdDeanshipName">—</span>
+              </div>
+            </div>
+
+            <button type="button" class="cd-change-btn" id="cdChangeBtn">
+              تغيير
+            </button>
+
+          </div>
+
+          <input type="hidden" id="progCollege" name="college_id">
+          <input type="hidden" id="progDeanship" name="deanship_id">
+
+        </div>
+
+
         <!-- اسم البرنامج -->
 
         <div class="field-group">
@@ -225,7 +259,7 @@
         </div>
 
 
-        <!-- الدرجة والعمادة -->
+        <!-- الدرجة -->
 
         <div class="form-row-2">
 
@@ -266,81 +300,31 @@
           </div>
 
 
-          <!-- العمادة -->
+          <!-- مدة الدراسة -->
 
           <div class="field-group">
 
-            <label for="progDeanshipSearch">
-              العمادة
+            <label for="progDuration">
+              مدة الدراسة بالسنوات
             </label>
 
-            <div
-              class="searchable-select"
-              id="deanshipSearchWrap"
+            <input
+              type="number"
+              id="progDuration"
+              name="duration_years"
+              placeholder="4"
+              min="1"
+              max="8"
+              required
             >
-
-              <input
-                type="text"
-                id="progDeanshipSearch"
-                class="searchable-select-input"
-                placeholder="اكتب للبحث عن العمادة..."
-                autocomplete="off"
-              >
-
-              <input
-                type="hidden"
-                id="progDeanship"
-                name="deanship_id"
-              >
-
-              <button
-                type="button"
-                class="searchable-select-clear"
-                id="deanshipClearBtn"
-                aria-label="مسح الاختيار"
-                hidden
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-              </button>
-
-              <ul
-                class="searchable-select-list"
-                id="deanshipSearchList"
-                hidden
-              ></ul>
-
-            </div>
 
           </div>
 
         </div>
 
-<!-- مدة الدراسة والفرع الدراسي -->
+<!-- الفرع الدراسي -->
 
 <div class="form-row-2">
-
-  <div class="field-group">
-
-    <label for="progDuration">
-      مدة الدراسة بالسنوات
-    </label>
-
-    <input
-      type="number"
-      id="progDuration"
-      name="duration_years"
-      placeholder="4"
-      min="1"
-      max="8"
-      required
-    >
-
-  </div>
-
-
-  <!-- الفرع الدراسي -->
 
   <div class="field-group">
 
@@ -443,7 +427,7 @@
         
           <div class="field-group">
 
-            <label for="progScholarship">
+            <label for="progAdmissionRate">
 معدلات القبول 
             </label>
 
@@ -452,8 +436,8 @@
 
               <input
                 type="number"
-                id="progScholarship"
-                name="scholarship_percentage"
+                id="progAdmissionRate"
+                name="admission_rate"
                 placeholder="0"
                 min="0"
                 max="100"
@@ -585,6 +569,20 @@
 
         </div>
 
+        <div class="field-group">
+
+  <label for="progOverview">
+    نبذة عن التخصص
+  </label>
+
+  <textarea
+    id="progOverview"
+    name="overview"
+    placeholder="اكتب وصفاً قصيراً ومعلومات عامة عن التخصص..."
+    required
+  ></textarea>
+
+</div>
 
         <div class="field-group">
 
@@ -624,53 +622,115 @@
            SKILLS
       ==================================================== -->
 
-      <section
-        class="admin-panel"
-        id="sectionSkills"
-      >
+    <section
+  class="admin-panel"
+  id="sectionSkills"
+>
 
-        <div class="form-section-title">
 
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
-          </svg>
+  <div class="form-section-title">
 
-          المهارات والتعليم الأساسي
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+    </svg>
 
-        </div>
+    المهارات والتعليم الأساسي
 
-        <p class="field-hint skills-intro">
-          هذه المهارات بتظهر كبطاقات مفصّلة بصفحة التخصص للطالب.
+  </div>
+
+
+  <p class="field-hint skills-intro">
+    هذه المهارات بتظهر كبطاقات مفصّلة بصفحة التخصص للطالب.
+  </p>
+
+
+  <!-- =================================================
+       SKILLS REPEATER
+  ================================================== -->
+
+  <div
+    class="skills-repeater"
+    id="skillsRepeater"
+  ></div>
+
+
+  <button
+    type="button"
+    class="add-skill-btn"
+    id="addSkillBtn"
+  >
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.2"
+    >
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+
+    إضافة مهارة
+
+  </button>
+
+
+  <!-- =================================================
+       ACADEMIC JOURNEY
+       مسارك بعد الالتحاق بالتخصص
+  ================================================== -->
+<div class="journey-section">
+
+  <div class="journey-section-head">
+    <div>
+      <h3>مسارك بعد الالتحاق بالتخصص</h3>
+      <p class="field-hint">
+        أضف وصفاً مختصراً للمراحل التي يمر بها الطالب منذ التحاقه بالتخصص وحتى التخرج وسوق العمل.
+      </p>
+    </div>
+  </div>
+
+  <div class="journey-repeater" id="journeyRepeater"></div>
+
+  <button type="button" class="add-skill-btn" id="addJourneyBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+    إضافة مرحلة
+  </button>
+
+</div>
+  <!-- =================================================
+       CAREER OPPORTUNITIES
+       فرص العمل بعد التخرج
+  ================================================== -->
+
+  <div class="journey-section">
+
+    <div class="journey-section-head">
+      <div>
+        <h3>فرص العمل بعد التخرج</h3>
+        <p class="field-hint">
+          أضف الوظائف والفرص المهنية المتاحة لخريجي هذا التخصص، مع وصف مختصر لكل فرصة.
         </p>
+      </div>
+    </div>
 
+    <div class="skills-repeater" id="careerOppsRepeater"></div>
 
-        <div
-          class="skills-repeater"
-          id="skillsRepeater"
-        ></div>
+    <button type="button" class="add-skill-btn" id="addCareerOppBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      إضافة فرصة عمل
+    </button>
 
-
-        <button
-          type="button"
-          class="add-skill-btn"
-          id="addSkillBtn"
-        >
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.2"
-          >
-            <path d="M12 5v14M5 12h14"/>
-          </svg>
-
-          إضافة مهارة
-
-        </button>
-
-      </section>
-
+  </div>
+</section>
 
       <!-- ===================================================
            AI
@@ -879,7 +939,52 @@
 
 
 <!-- =========================================================
-     MODAL
+     COLLEGE / DEANSHIP MODAL (أول خطوة عند إضافة تخصص جديد)
+========================================================= -->
+
+<div class="cd-modal-overlay" id="cdModalOverlay">
+
+  <div class="cd-modal" role="dialog" aria-modal="true">
+
+    <h3>اختار الكلية والعمادة</h3>
+
+
+
+    <div class="field-group">
+
+      <label for="cdCollegeSelect">الكلية</label>
+
+      <select id="cdCollegeSelect">
+        <option value="">-- اختر الكلية --</option>
+      </select>
+
+    </div>
+
+    <div class="field-group">
+
+      <label for="cdDeanshipSelect">العمادة</label>
+
+      <select id="cdDeanshipSelect" disabled>
+        <option value="">-- اختاري الكلية أولاً --</option>
+      </select>
+
+    </div>
+
+    <div class="cd-modal-actions">
+
+      <button type="button" class="btn-save-primary" id="cdConfirmBtn" disabled>
+        متابعة
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL (رسائل النجاح / الخطأ العامة)
 ========================================================= -->
 
 <div
@@ -945,7 +1050,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =========================================================
-     MODAL
+     MODAL (رسائل عامة)
   ========================================================= */
 
   const appModalOverlay =
@@ -1197,482 +1302,449 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =========================================================
-     SKILLS REPEATER
+     الكلية والعمادة — نافذة منبثقة أول خطوة
   ========================================================= */
 
-  function addSkillRow() {
-
-    const row =
-      document.createElement('div');
-
-    row.className =
-      'skill-row';
-
-
-    row.innerHTML = `
-
-      <div class="skill-row-fields">
-
-        <div class="field-group">
-
-          <label>
-            اسم المهارة
-          </label>
-
-          <input
-            type="text"
-            class="skill-title"
-            placeholder="مثال: البرمجة"
-          >
-
-        </div>
-
-
-        <div class="field-group">
-
-          <label>
-            وصف المهارة
-          </label>
-
-          <input
-            type="text"
-            class="skill-desc"
-            placeholder="وصف مختصر للمهارة"
-          >
-
-        </div>
-
-      </div>
-
-
-      <button
-        type="button"
-        class="skill-row-remove"
-        aria-label="حذف المهارة"
-      >
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M18 6L6 18M6 6l12 12"/>
-        </svg>
-
-      </button>
-
-    `;
-
-
-    row
-      .querySelector(
-        '.skill-row-remove'
-      )
-      .addEventListener(
-        'click',
-        () => row.remove()
-      );
-
-
-    skillsRepeater.appendChild(row);
-
-  }
-
-
-  addSkillBtn.addEventListener(
-    'click',
-    addSkillRow
-  );
-
-
-  addSkillRow();
-
-
-  /* =========================================================
-     TAGS
-  ========================================================= */
-
-  function addTag(
-    containerId,
-    value
-  ) {
-
-    const val =
-      value.trim();
-
-    if (!val) return;
-
-
-    const container =
-      document.getElementById(
-        containerId
-      );
-
-
-    const chip =
-      document.createElement('span');
-
-    chip.className =
-      'tag-chip';
-
-
-    const text =
-      document.createElement('span');
-
-    text.textContent =
-      val;
-
-
-    const button =
-      document.createElement('button');
-
-    button.type = 'button';
-
-    button.setAttribute(
-      'aria-label',
-      'حذف'
-    );
-
-
-    button.innerHTML = `
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-      >
-        <path d="M18 6L6 18M6 6l12 12"/>
-      </svg>
-    `;
-
-
-    button.addEventListener(
-      'click',
-      () => chip.remove()
-    );
-
-
-    chip.appendChild(text);
-
-    chip.appendChild(button);
-
-    container.appendChild(chip);
-
-  }
-
-
-  document
-    .querySelectorAll('.tag-add-btn')
-    .forEach(btn => {
-
-      btn.addEventListener(
-        'click',
-        () => {
-
-          const input =
-            document.getElementById(
-              btn.dataset.input
-            );
-
-          addTag(
-            btn.dataset.target,
-            input.value
-          );
-
-          input.value = '';
-
-          input.focus();
-
-        }
-      );
-
-    });
-
-
-  [
-    'skillTagInput',
-    'careerTagInput'
-  ].forEach(inputId => {
-
-    const input =
-      document.getElementById(
-        inputId
-      );
-
-
-    input.addEventListener(
-      'keydown',
-      e => {
-
-        if (e.key !== 'Enter') {
-          return;
-        }
-
-        e.preventDefault();
-
-
-        const targetId =
-          inputId === 'skillTagInput'
-            ? 'skillTags'
-            : 'careerTags';
-
-
-        addTag(
-          targetId,
-          input.value
-        );
-
-
-        input.value = '';
-
-      }
-    );
-
-  });
-
-
-  function collectTags(
-    containerId
-  ) {
-
-    return Array
-      .from(
-        document
-          .getElementById(containerId)
-          .querySelectorAll('.tag-chip')
-      )
-      .map(
-        chip =>
-          chip
-            .querySelector('span')
-            .textContent
-            .trim()
-      );
-
-  }
-
-
-  /* =========================================================
-     DEANSHIPS
-  ========================================================= */
-
-  const deanshipSearchInput =
-    document.getElementById(
-      'progDeanshipSearch'
-    );
-
-  const deanshipHiddenInput =
-    document.getElementById(
-      'progDeanship'
-    );
-
-  const deanshipList =
-    document.getElementById(
-      'deanshipSearchList'
-    );
-
-  const deanshipClearBtn =
-    document.getElementById(
-      'deanshipClearBtn'
-    );
-
-
-  const deanshipsCache = [
-
-    {
-      id: 1,
-      name:
-        'عمادة كلية الهندسة وتكنولوجيا المعلومات'
-    },
-
-    {
-      id: 2,
-      name:
-        'عمادة كلية العلوم'
-    },
-
-    {
-      id: 3,
-      name:
-        'عمادة كلية الطب'
-    },
-
-    {
-      id: 4,
-      name:
-        'عمادة كلية الأعمال والاقتصاد'
-    },
-
-    {
-      id: 5,
-      name:
-        'عمادة كلية الآداب'
-    }
-
+  // بيانات وهمية للعرض — بالنسخة الحقيقية هاي تجي من الباك اند
+  const collegesCache = [
+    { id: 1, name: 'كلية الهندسة وتكنولوجيا المعلومات' },
+    { id: 2, name: 'كلية العلوم' },
+    { id: 3, name: 'كلية الطب' },
+    { id: 4, name: 'كلية الأعمال والاقتصاد' },
+    { id: 5, name: 'كلية الآداب' }
   ];
 
+  // كل عمادة مرتبطة بكلية عن طريق college_id
+  const deanshipsCache = [
+    { id: 1, college_id: 1, name: 'عمادة كلية الهندسة وتكنولوجيا المعلومات' },
+    { id: 2, college_id: 2, name: 'عمادة كلية العلوم' },
+    { id: 3, college_id: 3, name: 'عمادة كلية الطب' },
+    { id: 4, college_id: 4, name: 'عمادة كلية الأعمال والاقتصاد' },
+    { id: 5, college_id: 5, name: 'عمادة كلية الآداب' }
+  ];
 
-  function renderDeanshipList(
-    filterText = ''
-  ) {
+  const cdModalOverlay = document.getElementById('cdModalOverlay');
+  const cdCollegeSelect = document.getElementById('cdCollegeSelect');
+  const cdDeanshipSelect = document.getElementById('cdDeanshipSelect');
+  const cdConfirmBtn = document.getElementById('cdConfirmBtn');
+  const cdChangeBtn = document.getElementById('cdChangeBtn');
 
-    const q =
-      filterText
-        .trim()
-        .toLowerCase();
+  const progCollegeInput = document.getElementById('progCollege');
+  const progDeanshipInput = document.getElementById('progDeanship');
 
+  const cdDisplayEmpty = document.getElementById('cdDisplayEmpty');
+  const cdDisplayFilled = document.getElementById('cdDisplayFilled');
+  const cdCollegeName = document.getElementById('cdCollegeName');
+  const cdDeanshipName = document.getElementById('cdDeanshipName');
 
-    const filtered =
-      q
-        ? deanshipsCache.filter(
-            d =>
-              d.name
-                .toLowerCase()
-                .includes(q)
-          )
-        : deanshipsCache;
+  // تعبئة قائمة الكليات
+  collegesCache.forEach(college => {
+    const opt = document.createElement('option');
+    opt.value = college.id;
+    opt.textContent = college.name;
+    cdCollegeSelect.appendChild(opt);
+  });
 
+  function fillDeanshipOptions(collegeId) {
 
-    deanshipList.innerHTML = '';
+    cdDeanshipSelect.innerHTML = '';
 
+    const related = deanshipsCache.filter(
+      d => d.college_id === Number(collegeId)
+    );
 
-    if (!filtered.length) {
+    if (!collegeId || !related.length) {
 
-      const li =
-        document.createElement('li');
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = collegeId
+        ? 'لا توجد عمادات مرتبطة بهذه الكلية'
+        : '-- اختاري الكلية أولاً --';
 
-      li.className =
-        'empty';
-
-      li.textContent =
-        'لا توجد نتائج مطابقة';
-
-      deanshipList.appendChild(li);
-
-      deanshipList.hidden =
-        false;
+      cdDeanshipSelect.appendChild(opt);
+      cdDeanshipSelect.disabled = true;
 
       return;
 
     }
 
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '-- اختر العمادة --';
+    cdDeanshipSelect.appendChild(placeholder);
 
-    filtered.forEach(d => {
-
-      const li =
-        document.createElement('li');
-
-      li.textContent =
-        d.name;
-
-      li.dataset.id =
-        d.id;
-
-
-      li.addEventListener(
-        'click',
-        () => {
-
-          deanshipHiddenInput.value =
-            d.id;
-
-          deanshipSearchInput.value =
-            d.name;
-
-          deanshipList.hidden =
-            true;
-
-          deanshipClearBtn.hidden =
-            false;
-
-        }
-      );
-
-
-      deanshipList.appendChild(li);
-
+    related.forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d.id;
+      opt.textContent = d.name;
+      cdDeanshipSelect.appendChild(opt);
     });
 
-
-    deanshipList.hidden =
-      false;
+    cdDeanshipSelect.disabled = false;
 
   }
 
+  function updateCdConfirmState() {
+    cdConfirmBtn.disabled =
+      !(cdCollegeSelect.value && cdDeanshipSelect.value);
+  }
 
-  deanshipSearchInput.addEventListener(
-    'focus',
-    () => {
+  cdCollegeSelect.addEventListener('change', () => {
+    fillDeanshipOptions(cdCollegeSelect.value);
+    updateCdConfirmState();
+  });
 
-      renderDeanshipList(
-        deanshipSearchInput.value
-      );
-
-    }
+  cdDeanshipSelect.addEventListener(
+    'change',
+    updateCdConfirmState
   );
 
+  function openCdModal() {
+    cdModalOverlay.classList.add('is-open');
+  }
 
-  deanshipSearchInput.addEventListener(
-    'input',
-    () => {
+  function closeCdModal() {
+    cdModalOverlay.classList.remove('is-open');
+  }
 
-      deanshipHiddenInput.value =
-        '';
+  function renderCdDisplay() {
 
-      deanshipClearBtn.hidden =
-        !deanshipSearchInput.value;
+    const collegeId = progCollegeInput.value;
+    const deanshipId = progDeanshipInput.value;
 
-      renderDeanshipList(
-        deanshipSearchInput.value
-      );
-
+    if (!collegeId || !deanshipId) {
+      cdDisplayEmpty.hidden = false;
+      cdDisplayFilled.hidden = true;
+      return;
     }
-  );
 
+    const college =
+      collegesCache.find(c => c.id === Number(collegeId));
 
-  deanshipClearBtn.addEventListener(
-    'click',
-    () => {
+    const deanship =
+      deanshipsCache.find(d => d.id === Number(deanshipId));
 
-      deanshipSearchInput.value =
-        '';
+    cdCollegeName.textContent = college ? college.name : '—';
+    cdDeanshipName.textContent = deanship ? deanship.name : '—';
 
-      deanshipHiddenInput.value =
-        '';
+    cdDisplayEmpty.hidden = true;
+    cdDisplayFilled.hidden = false;
 
-      deanshipClearBtn.hidden =
-        true;
+  }
 
-      deanshipSearchInput.focus();
+  cdConfirmBtn.addEventListener('click', () => {
 
-      renderDeanshipList('');
-
+    if (!cdCollegeSelect.value || !cdDeanshipSelect.value) {
+      return;
     }
-  );
 
+    progCollegeInput.value = cdCollegeSelect.value;
+    progDeanshipInput.value = cdDeanshipSelect.value;
 
-  document.addEventListener(
-    'click',
-    e => {
+    renderCdDisplay();
+    closeCdModal();
 
-      const wrap =
-        document.getElementById(
-          'deanshipSearchWrap'
-        );
+  });
 
-      if (
-        wrap &&
-        !wrap.contains(e.target)
-      ) {
+  cdChangeBtn.addEventListener('click', () => {
 
-        deanshipList.hidden =
-          true;
+    cdCollegeSelect.value = progCollegeInput.value || '';
+    fillDeanshipOptions(cdCollegeSelect.value);
+    cdDeanshipSelect.value = progDeanshipInput.value || '';
 
-      }
+    updateCdConfirmState();
 
+    openCdModal();
+
+  });
+
+  // فتح النافذة تلقائياً أول ما تُفتح صفحة إضافة تخصص جديد
+  // (ما بتفتح لو إحنا بوضع تعديل — initEditMode() بتعبّي الاختيار مباشرة)
+  const isEditUrl =
+    new URLSearchParams(window.location.search).get('edit');
+
+  if (!isEditUrl) {
+    openCdModal();
+  }
+
+  renderCdDisplay();
+
+  /* =========================================================
+     ACADEMIC JOURNEY — مسارك بعد الالتحاق بالتخصص
+     (قائمة اختيارات ثابتة، متل قسم المهارات بالإضافة والحذف)
+  ========================================================= */
+
+  const journeyRepeater = document.getElementById('journeyRepeater');
+  const addJourneyBtn = document.getElementById('addJourneyBtn');
+
+  const journeyStageOptions = [
+    { key: 'first_second_year', title: 'السنة الأولى والسنة الثانية' },
+    { key: 'third_fourth_year', title: 'السنة الثالثة والرابعة' },
+    { key: 'internship', title: 'التدريب العملي' },
+    { key: 'graduation_career', title: 'التخرج وسوق العمل' }
+  ];
+
+  function getUsedJourneyKeys() {
+    return Array
+      .from(journeyRepeater.querySelectorAll('.journey-row'))
+      .map(row => row.dataset.key)
+      .filter(Boolean);
+  }
+
+  function getAvailableJourneyStages(excludeKey = null) {
+    const used = getUsedJourneyKeys();
+    return journeyStageOptions.filter(
+      stage => stage.key === excludeKey || !used.includes(stage.key)
+    );
+  }
+
+  function buildJourneySelectOptions(selectedKey) {
+    const available = getAvailableJourneyStages(selectedKey);
+
+    return `<option value="">-- اختر المرحلة --</option>` +
+      available
+        .map(stage => `
+          <option value="${stage.key}" ${stage.key === selectedKey ? 'selected' : ''}>
+            ${stage.title}
+          </option>
+        `)
+        .join('');
+  }
+
+  function refreshJourneySelects() {
+    journeyRepeater.querySelectorAll('.journey-row').forEach(row => {
+      const select = row.querySelector('.journey-title-select');
+      const currentKey = row.dataset.key;
+      select.innerHTML = buildJourneySelectOptions(currentKey);
+    });
+  }
+
+  function updateJourneyNumbers() {
+    journeyRepeater.querySelectorAll('.journey-row').forEach((row, index) => {
+      const number = row.querySelector('.journey-number span');
+      if (number) number.textContent = index + 1;
+    });
+  }
+
+  function updateAddJourneyBtnState() {
+    const totalRows = journeyRepeater.querySelectorAll('.journey-row').length;
+    addJourneyBtn.disabled = totalRows >= journeyStageOptions.length;
+  }
+
+  function addJourneyRow() {
+
+    const totalRows = journeyRepeater.querySelectorAll('.journey-row').length;
+
+    if (totalRows >= journeyStageOptions.length) {
+      return;
     }
-  );
+
+    const row = document.createElement('div');
+    row.className = 'journey-row';
+    row.dataset.key = '';
+
+    row.innerHTML = `
+      <div class="journey-number"><span></span></div>
+
+      <div class="journey-row-fields">
+
+        <div class="field-group">
+          <label>المرحلة</label>
+          <select class="journey-title-select"></select>
+        </div>
+
+        <div class="field-group">
+          <label>وصف المرحلة</label>
+          <input type="text" class="journey-description"
+                 placeholder="اكتب جملة مختصرة تصف هذه المرحلة...">
+        </div>
+
+      </div>
+
+      <button type="button" class="skill-remove journey-remove" aria-label="حذف المرحلة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    `;
+
+    const select = row.querySelector('.journey-title-select');
+
+    select.addEventListener('change', () => {
+      row.dataset.key = select.value;
+      refreshJourneySelects();
+      updateAddJourneyBtnState();
+    });
+
+    row.querySelector('.journey-remove').addEventListener('click', () => {
+      row.remove();
+      refreshJourneySelects();
+      updateJourneyNumbers();
+      updateAddJourneyBtnState();
+    });
+
+    journeyRepeater.appendChild(row);
+
+    refreshJourneySelects();
+    updateJourneyNumbers();
+    updateAddJourneyBtnState();
+  }
+
+  function collectJourney() {
+    return Array
+      .from(journeyRepeater.querySelectorAll('.journey-row'))
+      .map(row => {
+        const stage = journeyStageOptions.find(s => s.key === row.dataset.key);
+        return {
+          key: row.dataset.key,
+          title: stage ? stage.title : '',
+          description: row.querySelector('.journey-description').value.trim()
+        };
+      })
+      .filter(stage => stage.key !== '');
+  }
+
+  addJourneyBtn.addEventListener('click', addJourneyRow);
+
+  updateAddJourneyBtnState();
+
+
+  /* =========================================================
+     SKILLS REPEATER
+  ========================================================= */
+
+  function addSkillRow() {
+
+    const row = document.createElement('div');
+    row.className = 'skill-row';
+
+    row.innerHTML = `
+      <div class="field-group">
+        <label>عنوان المهارة</label>
+        <input type="text" class="skill-title" placeholder="مثال: حل المشكلات">
+      </div>
+      <div class="field-group">
+        <label>وصف المهارة</label>
+        <input type="text" class="skill-desc" placeholder="وصف مختصر للمهارة...">
+      </div>
+      <button type="button" class="skill-remove" aria-label="حذف المهارة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    `;
+
+    row.querySelector('.skill-remove').addEventListener('click', () => row.remove());
+
+    skillsRepeater.appendChild(row);
+  }
+
+  addSkillBtn.addEventListener('click', () => addSkillRow());
+  /* =========================================================
+     CAREER OPPORTUNITIES — فرص العمل بعد التخرج
+     (نفس فكرة المهارات: عنوان + وصف، إضافة وحذف حر)
+  ========================================================= */
+
+  const careerOppsRepeater = document.getElementById('careerOppsRepeater');
+  const addCareerOppBtn = document.getElementById('addCareerOppBtn');
+
+  function addCareerOppRow() {
+
+    const row = document.createElement('div');
+    row.className = 'skill-row';
+
+    row.innerHTML = `
+      <div class="field-group">
+        <label>المسمى الوظيفي</label>
+        <input type="text" class="career-opp-title" placeholder="مثال: مهندس برمجيات">
+      </div>
+      <div class="field-group">
+        <label>وصف الفرصة</label>
+        <input type="text" class="career-opp-desc" placeholder="وصف مختصر لطبيعة العمل والمهام...">
+      </div>
+      <button type="button" class="skill-remove" aria-label="حذف فرصة العمل">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    `;
+
+    row.querySelector('.skill-remove').addEventListener('click', () => row.remove());
+
+    careerOppsRepeater.appendChild(row);
+  }
+
+  addCareerOppBtn.addEventListener('click', () => addCareerOppRow());
+
+  function collectCareerOpportunities() {
+    return Array
+      .from(careerOppsRepeater.querySelectorAll('.skill-row'))
+      .map(row => ({
+        title: row.querySelector('.career-opp-title').value.trim(),
+        description: row.querySelector('.career-opp-desc').value.trim()
+      }))
+      .filter(opp => opp.title !== '');
+  }
+
+  /* =========================================================
+     TAGS
+  ========================================================= */
+
+  function addTag(containerId, value) {
+
+    const val = value.trim();
+    if (!val) return;
+
+    const container = document.getElementById(containerId);
+
+    const chip = document.createElement('span');
+    chip.className = 'tag-chip';
+
+    const text = document.createElement('span');
+    text.textContent = val;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('aria-label', 'حذف');
+
+    button.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    `;
+
+    button.addEventListener('click', () => chip.remove());
+
+    chip.appendChild(text);
+    chip.appendChild(button);
+    container.appendChild(chip);
+  }
+
+  document.querySelectorAll('.tag-add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.input);
+      addTag(btn.dataset.target, input.value);
+      input.value = '';
+      input.focus();
+    });
+  });
+
+  ['skillTagInput', 'careerTagInput'].forEach(inputId => {
+    const input = document.getElementById(inputId);
+    input.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      const targetId = inputId === 'skillTagInput' ? 'skillTags' : 'careerTags';
+      addTag(targetId, input.value);
+      input.value = '';
+    });
+  });
+
+  function collectTags(containerId) {
+    return Array
+      .from(document.getElementById(containerId).querySelectorAll('.tag-chip'))
+      .map(chip => chip.querySelector('span').textContent.trim());
+  }
 
 
   /* =========================================================
@@ -1687,197 +1759,83 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 5, name: "ريادي" },
   ];
 
-
   let selectedTrackIds = [];
 
-
-  const trackControl =
-    document.getElementById(
-      'trackMultiSelectControl'
-    );
-
-  const trackList =
-    document.getElementById(
-      'trackMultiSelectList'
-    );
-
-  const trackTagsWrap =
-    document.getElementById(
-      'trackSelectedTags'
-    );
-
-  const trackHiddenInput =
-    document.getElementById(
-      'progTracks'
-    );
-
+  const trackControl = document.getElementById('trackMultiSelectControl');
+  const trackList = document.getElementById('trackMultiSelectList');
+  const trackTagsWrap = document.getElementById('trackSelectedTags');
+  const trackHiddenInput = document.getElementById('progTracks');
 
   function renderTrackList() {
-
-    trackList.innerHTML =
-      studyTracks
-        .map(track => `
-          <li class="multi-select-item" data-id="${track.id}">
-            <input type="checkbox" ${
-              selectedTrackIds.includes(track.id)
-                ? 'checked'
-                : ''
-            }>
-            <span>${track.name}</span>
-          </li>
-        `)
-        .join('');
-
+    trackList.innerHTML = studyTracks
+      .map(track => `
+        <li class="multi-select-item" data-id="${track.id}">
+          <input type="checkbox" ${selectedTrackIds.includes(track.id) ? 'checked' : ''}>
+          <span>${track.name}</span>
+        </li>
+      `)
+      .join('');
   }
-
 
   function renderSelectedTracks() {
 
-    if (
-      selectedTrackIds.length === 0
-    ) {
-
-      trackTagsWrap.innerHTML =
-        `<span class="multi-select-placeholder">اختر فرع أو أكثر...</span>`;
-
+    if (selectedTrackIds.length === 0) {
+      trackTagsWrap.innerHTML = `<span class="multi-select-placeholder">اختر فرع أو أكثر...</span>`;
     } else {
-
-      trackTagsWrap.innerHTML =
-        selectedTrackIds
-          .map(id => {
-
-            const track =
-              studyTracks.find(
-                t => t.id === id
-              );
-
-            return `
-              <span class="multi-select-tag" data-id="${id}">
-                ${track.name}
-                <button type="button" class="track-tag-remove" data-id="${id}">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M18 6L6 18M6 6l12 12"/>
-                  </svg>
-                </button>
-              </span>
-            `;
-
-          })
-          .join('');
-
+      trackTagsWrap.innerHTML = selectedTrackIds
+        .map(id => {
+          const track = studyTracks.find(t => t.id === id);
+          return `
+            <span class="multi-select-tag" data-id="${id}">
+              ${track.name}
+              <button type="button" class="track-tag-remove" data-id="${id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </span>
+          `;
+        })
+        .join('');
     }
 
-    trackHiddenInput.value =
-      selectedTrackIds.join(',');
-
+    trackHiddenInput.value = selectedTrackIds.join(',');
   }
-
 
   function toggleTrack(id) {
-
-    if (
-      selectedTrackIds.includes(id)
-    ) {
-
-      selectedTrackIds =
-        selectedTrackIds.filter(
-          t => t !== id
-        );
-
+    if (selectedTrackIds.includes(id)) {
+      selectedTrackIds = selectedTrackIds.filter(t => t !== id);
     } else {
-
       selectedTrackIds.push(id);
-
     }
-
     renderTrackList();
-
     renderSelectedTracks();
-
   }
 
+  trackControl.addEventListener('click', () => {
+    trackList.hidden = !trackList.hidden;
+    if (!trackList.hidden) renderTrackList();
+  });
 
-  trackControl.addEventListener(
-    'click',
-    () => {
+  trackList.addEventListener('click', e => {
+    const item = e.target.closest('.multi-select-item');
+    if (item) toggleTrack(Number(item.dataset.id));
+  });
 
-      trackList.hidden =
-        !trackList.hidden;
-
-      if (!trackList.hidden) {
-        renderTrackList();
-      }
-
+  trackTagsWrap.addEventListener('click', e => {
+    const btn = e.target.closest('.track-tag-remove');
+    if (btn) {
+      e.stopPropagation();
+      toggleTrack(Number(btn.dataset.id));
     }
-  );
+  });
 
-
-  trackList.addEventListener(
-    'click',
-    e => {
-
-      const item =
-        e.target.closest(
-          '.multi-select-item'
-        );
-
-      if (item) {
-
-        toggleTrack(
-          Number(item.dataset.id)
-        );
-
-      }
-
+  document.addEventListener('click', e => {
+    const wrap = document.getElementById('trackMultiSelectWrap');
+    if (wrap && !wrap.contains(e.target)) {
+      trackList.hidden = true;
     }
-  );
-
-
-  trackTagsWrap.addEventListener(
-    'click',
-    e => {
-
-      const btn =
-        e.target.closest(
-          '.track-tag-remove'
-        );
-
-      if (btn) {
-
-        e.stopPropagation();
-
-        toggleTrack(
-          Number(btn.dataset.id)
-        );
-
-      }
-
-    }
-  );
-
-
-  document.addEventListener(
-    'click',
-    e => {
-
-      const wrap =
-        document.getElementById(
-          'trackMultiSelectWrap'
-        );
-
-      if (
-        wrap &&
-        !wrap.contains(e.target)
-      ) {
-
-        trackList.hidden =
-          true;
-
-      }
-
-    }
-  );
-
+  });
 
   renderSelectedTracks();
 
@@ -1945,109 +1903,49 @@ document.addEventListener('DOMContentLoaded', () => {
      BUILD PAYLOAD
   ========================================================= */
 
-  function buildData(
-    status
-  ) {
+  function buildData(status) {
 
-    const skills =
-      Array
-        .from(
-          skillsRepeater
-            .querySelectorAll(
-              '.skill-row'
-            )
-        )
-        .map(row => ({
-
-          title:
-            row
-              .querySelector(
-                '.skill-title'
-              )
-              .value
-              .trim(),
-
-          description:
-            row
-              .querySelector(
-                '.skill-desc'
-              )
-              .value
-              .trim()
-
-        }))
-        .filter(
-          skill =>
-            skill.title !== ''
-        );
-
+    const skills = Array
+      .from(skillsRepeater.querySelectorAll('.skill-row'))
+      .map(row => ({
+        title: row.querySelector('.skill-title').value.trim(),
+        description: row.querySelector('.skill-desc').value.trim()
+      }))
+      .filter(skill => skill.title !== '');
 
     return {
 
       status,
 
-      name:
-        document
-          .getElementById('progName')
-          .value
-          .trim(),
+      name: document.getElementById('progName').value.trim(),
 
-      degree:
-        document
-          .getElementById('progDegree')
-          .value,
+      degree: document.getElementById('progDegree').value,
 
-      deanship_id:
-        deanshipHiddenInput.value,
+      college_id: progCollegeInput.value,
 
-      duration_years:
-        document
-          .getElementById('progDuration')
-          .value,
+      deanship_id: progDeanshipInput.value,
 
-      track_ids:
-        selectedTrackIds,
+      duration_years: document.getElementById('progDuration').value,
 
-      scholarship_percentage:
-        document
-          .getElementById(
-            'progScholarship'
-          )
-          .value || 0,
+      track_ids: selectedTrackIds,
 
-      scholarship_note:
-        document
-          .getElementById(
-            'progScholarshipNote'
-          )
-          .value
-          .trim() || null,
+      scholarship_percentage: document.getElementById('progScholarship').value || 0,
 
-      goals:
-        document
-          .getElementById('progGoals')
-          .value
-          .trim(),
+      scholarship_note: document.getElementById('progScholarshipNote').value.trim() || null,
 
-      qualifications:
-        document
-          .getElementById(
-            'progQualifications'
-          )
-          .value
-          .trim(),
+      goals: document.getElementById('progGoals').value.trim(),
+
+      qualifications: document.getElementById('progQualifications').value.trim(),
 
       skills,
 
-      target_skills:
-        collectTags(
-          'skillTags'
-        ),
+      target_skills: collectTags('skillTags'),
 
-      career_paths:
-        collectTags(
-          'careerTags'
-        )
+      journey: collectJourney(),
+
+      career_paths: collectTags('careerTags'),
+
+      career_opportunities: collectCareerOpportunities()
 
     };
 
@@ -2058,9 +1956,20 @@ document.addEventListener('DOMContentLoaded', () => {
      VALIDATION
   ========================================================= */
 
-  function validateForm(
-    status
-  ) {
+  function validateForm(status) {
+
+    if (!progCollegeInput.value || !progDeanshipInput.value) {
+
+      openModal({
+        type: 'error',
+        title: 'ما تم اختيار الكلية والعمادة',
+        message: 'لازم تختاري الكلية والعمادة قبل ما تكملي باقي البيانات.',
+        confirmText: 'اختيار الآن',
+        onConfirm: () => { openCdModal(); }
+      });
+
+      return false;
+    }
 
     const requiredFields = [
       document.getElementById('progName'),
@@ -2070,77 +1979,30 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('progQualifications')
     ];
 
-
-    for (
-      const field of requiredFields
-    ) {
-
+    for (const field of requiredFields) {
       if (!field.value.trim()) {
-
         openModal({
           type: 'error',
-          title: 'بيانات غير  كاملة ',
-          message:
-            'تأكد من تعبئة جميع الحقول المطلوبة.'
+          title: 'بيانات غير كاملة',
+          message: 'تأكد من تعبئة جميع الحقول المطلوبة.'
         });
-
         field.focus();
-
         return false;
-
       }
-
     }
 
+    const scholarship = document.getElementById('progScholarship').value;
 
-    if (
-      !deanshipHiddenInput.value
-    ) {
-
-      openModal({
-        type: 'error',
-        title: 'ما تم اختيار العمادة',
-        message:
-          'لازم تختار العمادة من القائمة.'
-      });
-
-      deanshipSearchInput.focus();
-
-      return false;
-
-    }
-
-
-    const scholarship =
-      document
-        .getElementById(
-          'progScholarship'
-        )
-        .value;
-
-
-    if (
-      scholarship !== '' &&
-      (
-        scholarship < 0 ||
-        scholarship > 100
-      )
-    ) {
-
+    if (scholarship !== '' && (scholarship < 0 || scholarship > 100)) {
       openModal({
         type: 'error',
         title: 'نسبة منحة غير صحيحة',
-        message:
-          'نسبة المنحة يجب أن تكون بين 0 و100.'
+        message: 'نسبة المنحة يجب أن تكون بين 0 و100.'
       });
-
       return false;
-
     }
 
-
     return true;
-
   }
 
 
@@ -2148,335 +2010,159 @@ document.addEventListener('DOMContentLoaded', () => {
      SUBMIT
   ========================================================= */
 
-  async function submitProgram(
-    status,
-    triggerBtn
-  ) {
+  async function submitProgram(status, triggerBtn) {
 
-    if (
-      !validateForm(status)
-    ) {
+    if (!validateForm(status)) {
       return;
     }
 
+    const data = buildData(status);
 
-    const data =
-      buildData(status);
+    const planFile = studyPlanFile.files[0] || null;
 
+    triggerBtn.disabled = true;
 
-    const planFile =
-      studyPlanFile.files[0] ||
-      null;
+    const originalContent = triggerBtn.innerHTML;
 
-
-    triggerBtn.disabled =
-      true;
-
-
-    const originalContent =
-      triggerBtn.innerHTML;
-
-
-    triggerBtn.textContent =
-      status === 'draft'
-        ? 'جارٍ الحفظ...'
-        : 'جارٍ النشر...';
-
+    triggerBtn.textContent = status === 'draft' ? 'جارٍ الحفظ...' : 'جارٍ النشر...';
 
     try {
-
-      /* =====================================================
-         MOCK
-      ==================================================== */
 
       if (USE_MOCK_DATA) {
 
         const mockData = {
           ...data,
-          study_plan:
-            planFile
-              ? { name: planFile.name, size: planFile.size, type: planFile.type }
-              : null
+          study_plan: planFile ? { name: planFile.name, size: planFile.size, type: planFile.type } : null
         };
 
+        console.log('📦 Program data:', mockData);
 
-        console.log(
-          '📦 Program data:',
-          mockData
-        );
+        // حفظ بيانات البرنامج محلياً في وضع التجربة حتى تظهر نفسها في صفحة الاستعراض،
+        // بدون إعادة كتابة/توليد معلومات مختلفة هناك.
+        const PROGRAMS_STORAGE_KEY = 'nextstep_programs';
 
+        // ملاحظة الإصلاح: programId لازم يكون معرّف هون (برّا الـ try) عشان
+        // نقدر نستخدمه لاحقاً بالـ onConfirm بالأسفل بدون ما نطلع خطأ
+        // "programId is not defined" (كان سبب رجوعك دايماً لصفحة add-program.html).
+        let programId = data.id || Date.now();
 
-        await new Promise(
-          resolve =>
-            setTimeout(
-              resolve,
-              700
-            )
-        );
+        try {
+          const existing = JSON.parse(localStorage.getItem(PROGRAMS_STORAGE_KEY) || '[]');
+          const programs = Array.isArray(existing) ? existing : [];
+          const savedProgram = {
+            ...data,
+            id: programId,
+            study_plan: mockData.study_plan,
+            hasPlan: !!mockData.study_plan
+          };
+          const index = programs.findIndex(p => String(p.id) === String(programId));
+          if (index >= 0) programs[index] = savedProgram;
+          else programs.push(savedProgram);
+          localStorage.setItem(PROGRAMS_STORAGE_KEY, JSON.stringify(programs));
+        } catch (storageError) {
+          console.warn('تعذر حفظ البرنامج محلياً:', storageError);
+        }
 
+        await new Promise(resolve => setTimeout(resolve, 700));
 
         openModal({
-
           type: 'success',
-
-          title:
-            status === 'draft'
-              ? 'تم حفظ المسودة'
-              : 'تم نشر البرنامج بنجاح',
-
-          message:
-            status === 'draft'
-              ? 'تم حفظ البرنامج محلياً. البيانات موجودة في Console.'
-              : (planFile
-                  ? 'تم نشر البرنامج مع الخطة الدراسية بنجاح.'
-                  : 'تم نشر البرنامج بدون خطة دراسية. تقدري ترفعيها لاحقاً (يدوياً أو بالذكاء الاصطناعي) من صفحة "تحديث الخطط الدراسية".'),
-
-          confirmText:
-            'تمام',
-
-          onConfirm:
-            status === 'published'
-              ? () => {
-                  window.location.href =
-                    'browse-deanships.html';
-                }
-              : null
-
+          title: status === 'draft' ? 'تم حفظ المسودة' : 'تم نشر البرنامج بنجاح',
+          message: status === 'draft'
+            ? 'تم حفظ البرنامج محلياً. البيانات موجودة في Console.'
+            : (planFile ? 'تم نشر البرنامج مع الخطة الدراسية بنجاح.' : 'تم نشر البرنامج بدون خطة دراسية. تقدري ترفعيها لاحقاً.'),
+          confirmText: 'تمام',
+          onConfirm: status === 'published'
+            ? () => { window.location.href = `Browsedeanships.html?deanship=${data.deanship_id}&major=${programId}`; }
+            : null
         });
 
-
-        triggerBtn.disabled =
-          false;
-
-        triggerBtn.innerHTML =
-          originalContent;
-
+        triggerBtn.disabled = false;
+        triggerBtn.innerHTML = originalContent;
         return;
-
       }
 
+      const formData = new FormData();
 
-      /* =====================================================
-         REAL BACKEND
-      ==================================================== */
+      formData.append('status', data.status);
+      formData.append('name', data.name);
+      formData.append('degree', data.degree);
+      formData.append('college_id', data.college_id);
+      formData.append('deanship_id', data.deanship_id);
+      formData.append('duration_years', data.duration_years);
+      formData.append('track_ids', JSON.stringify(data.track_ids));
+      formData.append('scholarship_percentage', data.scholarship_percentage);
 
-      const formData =
-        new FormData();
-
-
-      formData.append(
-        'status',
-        data.status
-      );
-
-      formData.append(
-        'name',
-        data.name
-      );
-
-      formData.append(
-        'degree',
-        data.degree
-      );
-
-      formData.append(
-        'deanship_id',
-        data.deanship_id
-      );
-
-      formData.append(
-        'duration_years',
-        data.duration_years
-      );
-
-      formData.append(
-        'track_ids',
-        JSON.stringify(
-          data.track_ids
-        )
-      );
-
-      formData.append(
-        'scholarship_percentage',
-        data.scholarship_percentage
-      );
-
-      if (
-        data.scholarship_note
-      ) {
-
-        formData.append(
-          'scholarship_note',
-          data.scholarship_note
-        );
-
+      if (data.scholarship_note) {
+        formData.append('scholarship_note', data.scholarship_note);
       }
 
-      formData.append(
-        'goals',
-        data.goals
-      );
-
-      formData.append(
-        'qualifications',
-        data.qualifications
-      );
-
-      formData.append(
-        'skills',
-        JSON.stringify(
-          data.skills
-        )
-      );
-
-      formData.append(
-        'target_skills',
-        JSON.stringify(
-          data.target_skills
-        )
-      );
-
-      formData.append(
-        'career_paths',
-        JSON.stringify(
-          data.career_paths
-        )
-      );
+      formData.append('goals', data.goals);
+      formData.append('qualifications', data.qualifications);
+      formData.append('skills', JSON.stringify(data.skills));
+      formData.append('target_skills', JSON.stringify(data.target_skills));
+      formData.append('journey', JSON.stringify(data.journey));
+     formData.append('career_opportunities', JSON.stringify(data.career_opportunities));
 
       if (planFile) {
-        formData.append(
-          'study_plan',
-          planFile
-        );
+        formData.append('study_plan', planFile);
       }
 
+      const response = await fetch(`${API_BASE_URL}/admin/programs`, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      });
 
-      const response =
-        await fetch(
-          `${API_BASE_URL}/admin/programs`,
-          {
-            method: 'POST',
-            headers: {
+      const result = await response.json();
 
-              
-              'Accept':
-                'application/json'
-            },
-            body: formData
-          }
-        );
-
-
-      const result =
-        await response.json();
-
-
-      if (
-        response.ok &&
-        result.status === 'success'
-      ) {
+      if (response.ok && result.status === 'success') {
 
         openModal({
-
           type: 'success',
-
-          title:
-            status === 'draft'
-              ? 'تم حفظ المسودة'
-              : 'تم نشر البرنامج بنجاح',
-
-          message:
-            status === 'draft'
-              ? 'تم حفظ البرنامج كمسودة.'
-              : 'تم إضافة التخصص والخطة الدراسية بنجاح.',
-
-          onConfirm:
-            status === 'published'
-              ? () => {
-                  window.location.href =
-                    'programs.html';
-                }
-              : null
-
+          title: status === 'draft' ? 'تم حفظ المسودة' : 'تم نشر البرنامج بنجاح',
+          message: status === 'draft' ? 'تم حفظ البرنامج كمسودة.' : 'تم إضافة التخصص والخطة الدراسية بنجاح.',
+          onConfirm: status === 'published'
+            ? () => { window.location.href = `Browsedeanships.html?deanship=${data.deanship_id}&major=${result.data.id}`; }
+            : null
         });
 
-
       } else {
-
-        throw new Error(
-          result.message ||
-          'حدث خطأ أثناء الحفظ.'
-        );
-
+        throw new Error(result.message || 'حدث خطأ أثناء الحفظ.');
       }
-
 
     } catch (error) {
 
-      console.error(
-        'Save program error:',
-        error
-      );
-
+      console.error('Save program error:', error);
 
       openModal({
-
         type: 'error',
-
-        title:
-          'تعذّر حفظ البرنامج',
-
-        message:
-          error.message ||
-          'تأكدي من تشغيل الباك اند وحاولي مرة ثانية.'
-
+        title: 'تعذّر حفظ البرنامج',
+        message: error.message || 'تأكدي من تشغيل الباك اند وحاولي مرة ثانية.'
       });
 
     } finally {
-
-      triggerBtn.disabled =
-        false;
-
-      triggerBtn.innerHTML =
-        originalContent;
-
+      triggerBtn.disabled = false;
+      triggerBtn.innerHTML = originalContent;
     }
 
   }
 
-
   /* =========================================================
-     EVENTS
+     ربط زر النشر وزر المسودة بدالة الإرسال
   ========================================================= */
 
-  programForm.addEventListener(
-    'submit',
-    e => {
+  programForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submitProgram('published', saveBtn);
+  });
 
-      e.preventDefault();
-
-      submitProgram(
-        'published',
-        saveBtn
-      );
-
-    }
-  );
+  draftBtn.addEventListener('click', function () {
+    submitProgram('draft', draftBtn);
+  });
 
 
-  draftBtn.addEventListener(
-    'click',
-    () => {
-
-      submitProgram(
-        'draft',
-        draftBtn
-      );
-
-    }
-  );
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /* =========================================================
      EDIT MODE
      إذا الرابط فيه ?edit=<majorId> بنعبّي الفورم ببيانات
@@ -2544,7 +2230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'padding:12px 18px;margin-bottom:16px;font-size:0.9rem;font-weight:600;';
 
     banner.innerHTML =
-      '✏️ إنتِ هلق بتعدّلي على تخصص موجود: <strong style="color:var(--navy);">' + major.name + '</strong>';
+      '✏️ إنت الان تعدل على تخصص موجود: <strong style="color:var(--navy);">' + major.name + '</strong>';
 
     document
       .querySelector('.admin-page-head')
@@ -2560,10 +2246,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('saveBtnLabel').textContent =
       'حفظ التعديلات';
 
-    // تعبئة الحقول الأساسية
+    // تعبئة الكلية والعمادة المرتبطة بالتخصص
+    progDeanshipInput.value = major.deanship_id;
+
+    const relatedDeanship =
+      deanshipsCache.find(
+        d => d.id === Number(major.deanship_id)
+      );
+
+    progCollegeInput.value =
+      relatedDeanship
+        ? relatedDeanship.college_id
+        : '';
+
+    renderCdDisplay();
+
+    // تعبئة باقي الحقول الأساسية
     document.getElementById('progName').value = major.name;
     document.getElementById('progDegree').value = major.degree;
-    document.getElementById('progDeanship').value = major.deanship_id;
     document.getElementById('progDuration').value = major.duration_years;
     document.getElementById('progGoals').value = major.goals || '';
     document.getElementById('progQualifications').value = major.qualifications || '';

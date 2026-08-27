@@ -3,308 +3,1669 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>المحتوى الأكاديمي — الإعدادات | NextStep AI</title>
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
+  <!-- Shared CSS -->
   <link rel="stylesheet" href="../../css/app.css">
   <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
   <link rel="stylesheet" href="../../css/dashboardcss/settings-dashboard.css">
 
   <style>
-    .settings-stepper-wrapper { display: grid; grid-template-columns: 260px 1fr; gap: 2rem; align-items: start; }
-    .settings-stepper { background: var(--white); border-radius: var(--radius); padding: 1.5rem 1.25rem; box-shadow: var(--shadow); position: sticky; top: 90px; border: 1px solid rgba(47,107,255,0.04); }
-    .settings-stepper h3 { font-size: 1rem; font-weight: 700; color: var(--gray); margin-bottom: 1.5rem; padding-bottom: .75rem; border-bottom: 1px solid var(--gray-bg); }
-    .settings-stepper ul { list-style: none; display: flex; flex-direction: column; gap: .25rem; }
-    .stepper-item-settings { display: flex; align-items: center; gap: .75rem; padding: .75rem; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); border: none; background: transparent; width: 100%; text-align: right; }
-    .stepper-item-settings:hover { background: var(--gray-bg); }
-    .stepper-item-settings.active { background: rgba(47,107,255,0.06); }
-    .stepper-item-settings.active h4 { color: var(--blue); }
-    .stepper-dot { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--gray-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: var(--transition); }
-    .stepper-item-settings.active .stepper-dot { border-color: var(--blue); background: var(--blue); }
-    .stepper-item-settings.active .stepper-dot .dot-inner { background: white; }
-    .dot-inner { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-light); transition: var(--transition); }
-    .stepper-item-settings h4 { font-size: .9rem; font-weight: 600; color: var(--navy); }
-    .stepper-item-settings p { font-size: .75rem; color: var(--gray); margin-top: .1rem; }
-    .stepper-item-settings div { text-align: right; }
 
-    .settings-section { background: var(--white); border-radius: var(--radius); padding: 1.75rem 2rem; box-shadow: var(--shadow); border: 1px solid rgba(47,107,255,0.04); }
-    .settings-section-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: .75rem; padding-bottom: .75rem; border-bottom: 2px solid var(--gray-bg); margin-bottom: 1.5rem; }
-    .settings-section-title svg { width: 22px; height: 22px; color: var(--blue); }
-    .settings-section-title .section-hint { font-size: .8rem; font-weight: 400; color: var(--gray); margin-right: auto; }
+    /* =========================================================
+       PAGE
+    ========================================================= */
 
-    .field-group { margin-bottom: 1.25rem; }
-    .field-group label { display: block; font-weight: 600; font-size: .9rem; color: var(--navy); margin-bottom: .4rem; }
-    .field-group input, .field-group select { width: 100%; padding: .6rem 1rem; border: 1px solid var(--gray-bg); border-radius: var(--radius-sm); font-family: 'Cairo', sans-serif; font-size: .95rem; background: white; color: var(--navy); outline: none; }
-    .field-group input:focus, .field-group select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(47,107,255,0.12); }
-    .field-hint { font-size: .8rem; color: var(--gray); margin-top: .3rem; }
-    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-
-    /* جدول بسيط لعرض الكليات/الأقسام/التخصصات داخل كل تبويب */
-    .mini-table-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .btn-add-small { background: var(--blue); color: white; border: none; padding: .5rem 1.1rem; border-radius: var(--radius-sm); font-weight: 600; font-size: .85rem; cursor: pointer; font-family: 'Cairo', sans-serif; display: inline-flex; align-items: center; gap: .4rem; }
-    .mini-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
-    .mini-table thead th { text-align: right; padding: 10px 12px; font-weight: 700; color: var(--gray); font-size: .72rem; text-transform: uppercase; border-bottom: 2px solid var(--gray-bg); }
-    .mini-table tbody td { padding: 10px 12px; border-bottom: 1px solid var(--gray-bg); color: var(--gray-dark); }
-    .mini-table tbody tr:hover { background: var(--gray-bg); }
-    .row-action-btn { background: none; border: none; color: var(--blue); cursor: pointer; font-size: .8rem; font-weight: 600; }
-    .row-action-btn.danger { color: var(--red); }
-
-    .toggle-wrap { display: flex; align-items: center; gap: 1rem; }
-    .toggle { position: relative; width: 44px; height: 24px; background: #d1d9e6; border-radius: 40px; cursor: pointer; flex-shrink: 0; border: none; appearance: none; }
-    .toggle:checked { background: var(--blue); }
-    .toggle::after { content: ''; position: absolute; top: 3px; right: 3px; width: 18px; height: 18px; background: white; border-radius: 50%; transition: .2s; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
-    .toggle:checked::after { transform: translateX(-20px); }
-    .toggle-label { font-size: .9rem; color: var(--gray); }
-
-    /* شريط Matching (نطاق التوافق الأدنى) */
-    .matching-slider-box { background: rgba(47,107,255,0.05); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; }
-    .matching-slider-value { font-size: 1.8rem; font-weight: 800; color: var(--blue); }
-    input[type="range"] { width: 100%; margin-top: .75rem; accent-color: var(--blue); }
-    .matching-slider-labels { display: flex; justify-content: space-between; font-size: .75rem; color: var(--gray); margin-top: .25rem; }
-
-    .form-actions { display: flex; gap: 1rem; justify-content: flex-end; padding-top: 1.5rem; border-top: 1px solid var(--gray-bg); margin-top: 1.5rem; }
-    .btn-save-primary { background: var(--blue); color: white; border: none; padding: .75rem 2rem; border-radius: var(--radius-sm); font-weight: 700; font-size: 1rem; cursor: pointer; font-family: 'Cairo', sans-serif; }
-    .btn-cancel-outline { background: transparent; color: var(--gray); border: 1px solid var(--gray-bg); padding: .75rem 2rem; border-radius: var(--radius-sm); font-weight: 600; font-size: 1rem; cursor: pointer; font-family: 'Cairo', sans-serif; }
-
-    .settings-panel { display: none; animation: settingsPanelFade .25s ease; }
-    .settings-panel.active-panel { display: block; }
-    @keyframes settingsPanelFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-    @media (max-width: 1200px) {
-      .settings-stepper-wrapper { grid-template-columns: 1fr; }
-      .settings-stepper { position: relative; top: 0; }
-      .settings-stepper ul { flex-direction: row; flex-wrap: wrap; }
-      .stepper-item-settings { flex: 1; min-width: 170px; }
+    .academic-settings-wrapper {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
     }
-    @media (max-width: 768px) {
-      .settings-section { padding: 1.25rem; }
-      .form-row-2 { grid-template-columns: 1fr; }
-      .mini-table { display: block; overflow-x: auto; }
+
+
+    /* =========================================================
+       SIDE STEPPER
+    ========================================================= */
+
+    .academic-stepper {
+      background: var(--white);
+      border: 1px solid rgba(47,107,255,.06);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 90px;
     }
+
+    .academic-stepper-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--navy);
+      margin: 0 0 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--gray-bg);
+    }
+
+    .academic-stepper-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .academic-step {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: right;
+      font-family: 'Cairo', sans-serif;
+      transition: .2s ease;
+    }
+
+    .academic-step:hover {
+      background: var(--gray-bg);
+    }
+
+    .academic-step.active {
+      background: rgba(47,107,255,.07);
+    }
+
+    .academic-step-number {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--gray);
+      transition: .2s ease;
+    }
+
+    .academic-step.active .academic-step-number {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .academic-step-text strong {
+      display: block;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .academic-step.active .academic-step-text strong {
+      color: var(--blue);
+    }
+
+    .academic-step-text span {
+      display: block;
+      margin-top: 2px;
+      color: var(--gray);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+
+    /* =========================================================
+       MAIN PANEL
+    ========================================================= */
+
+    .academic-panel {
+      display: none;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid rgba(47,107,255,.05);
+      box-shadow: var(--shadow);
+      animation: academicFade .22s ease;
+    }
+
+    .academic-panel.active {
+      display: block;
+    }
+
+    @keyframes academicFade {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+    /* =========================================================
+       PANEL HEADER
+    ========================================================= */
+
+    .academic-panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--gray-bg);
+    }
+
+    .academic-panel-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .academic-panel-desc {
+      margin: 5px 0 0;
+      color: var(--gray);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+
+    /* =========================================================
+       STATS
+    ========================================================= */
+
+    .academic-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .academic-stat {
+      border: 1px solid var(--gray-bg);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fcfdff;
+    }
+
+    .academic-stat strong {
+      display: block;
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .academic-stat span {
+      display: block;
+      margin-top: 3px;
+      color: var(--gray);
+      font-size: 11px;
+    }
+
+
+    /* =========================================================
+       TABLE
+    ========================================================= */
+
+    .academic-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--gray-bg);
+      border-radius: 12px;
+    }
+
+    .academic-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    .academic-table th {
+      padding: 12px 14px;
+      background: #fafbfe;
+      color: var(--gray);
+      font-size: 11px;
+      font-weight: 800;
+      text-align: right;
+      border-bottom: 1px solid var(--gray-bg);
+    }
+
+    .academic-table td {
+      padding: 13px 14px;
+      color: var(--gray-dark);
+      font-size: 12px;
+      border-bottom: 1px solid var(--gray-bg);
+    }
+
+    .academic-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .academic-table tbody tr:hover {
+      background: #fbfcff;
+    }
+
+    .academic-table strong {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       BADGES
+    ========================================================= */
+
+    .academic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .academic-badge.success {
+      background: rgba(14,174,123,.10);
+      color: #0EAE7B;
+    }
+
+    .academic-badge.warning {
+      background: rgba(245,158,11,.10);
+      color: #b56d00;
+    }
+
+    .academic-badge.blue {
+      background: rgba(47,107,255,.08);
+      color: var(--blue);
+    }
+
+
+    /* =========================================================
+       ACTIONS
+    ========================================================= */
+
+    .academic-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .academic-action {
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      font-family: 'Cairo', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 5px 7px;
+      border-radius: 7px;
+    }
+
+    .academic-action:hover {
+      background: rgba(47,107,255,.07);
+    }
+
+    .academic-action.danger {
+      color: var(--red);
+    }
+
+
+    /* =========================================================
+       ADD BUTTON
+    ========================================================= */
+
+    .academic-add-btn {
+      border: 0;
+      background: var(--blue);
+      color: #fff;
+      padding: 9px 15px;
+      border-radius: 9px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .academic-add-btn:hover {
+      opacity: .92;
+    }
+
+
+    /* =========================================================
+       CONTENT CARDS
+    ========================================================= */
+
+    .academic-content-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .academic-content-card {
+      border: 1px solid var(--gray-bg);
+      border-radius: 13px;
+      padding: 16px;
+      background: #fcfdff;
+    }
+
+    .academic-content-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    .academic-content-card h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .academic-content-card p {
+      margin: 0;
+      color: var(--gray);
+      font-size: 11.5px;
+      line-height: 1.8;
+    }
+
+    .academic-content-card .edit-link {
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      font-family: 'Cairo', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+
+    /* =========================================================
+       AI BOX
+    ========================================================= */
+
+    .academic-ai-box {
+      border: 1px solid rgba(47,107,255,.12);
+      background: linear-gradient(
+        135deg,
+        rgba(47,107,255,.055),
+        rgba(14,174,123,.035)
+      );
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .academic-ai-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .academic-ai-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(47,107,255,.1);
+      color: var(--blue);
+    }
+
+    .academic-ai-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .academic-ai-head h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .academic-ai-box > p {
+      margin: 0;
+      color: var(--gray);
+      font-size: 11.5px;
+      line-height: 1.8;
+    }
+
+    .academic-ai-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .academic-ai-card {
+      background: #fff;
+      border: 1px solid var(--gray-bg);
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .academic-ai-card h4 {
+      margin: 0 0 7px;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .academic-ai-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .academic-ai-tag {
+      background: rgba(47,107,255,.07);
+      color: var(--blue);
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       PLAN STATUS
+    ========================================================= */
+
+    .plan-status-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border: 1px solid var(--gray-bg);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fcfdff;
+      margin-bottom: 12px;
+    }
+
+    .plan-status-info strong {
+      display: block;
+      color: var(--navy);
+      font-size: 13px;
+    }
+
+    .plan-status-info span {
+      display: block;
+      color: var(--gray);
+      font-size: 10.5px;
+      margin-top: 3px;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 1100px) {
+      .academic-settings-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .academic-stepper {
+        position: relative;
+        top: 0;
+      }
+
+      .academic-stepper-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .academic-step {
+        flex: 1;
+        min-width: 190px;
+      }
+    }
+
+    @media (max-width: 750px) {
+      .academic-panel {
+        padding: 17px;
+      }
+
+      .academic-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .academic-content-grid,
+      .academic-ai-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .academic-panel-head {
+        flex-direction: column;
+      }
+    }
+
   </style>
 </head>
+
 <body>
 
 <header class="admin-topbar" id="adminTopbar"></header>
 
 <div class="admin-layout">
+
   <aside class="admin-sidebar" id="adminSidebar"></aside>
 
   <main class="admin-main admin-main-content">
 
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
     <div class="admin-page-head">
       <div>
         <h1>المحتوى الأكاديمي</h1>
-        <p>الكليات، الأقسام، التخصصات، الخطط الدراسية، وإعدادات Matching.</p>
+
+        <p>
+          إدارة الكليات والعمادات والتخصصات والخطط الدراسية
+          والمحتوى الوصفي وبيانات التوافق الذكي.
+        </p>
       </div>
-      <button type="button" class="btn-cancel-outline" onclick="window.location.href='settings-dashboard.html'">→ رجوع للإعدادات</button>
     </div>
 
-    <div class="settings-stepper-wrapper">
 
-      <aside class="settings-stepper">
-        <h3>أقسام المحتوى الأكاديمي</h3>
-        <ul id="stepperList">
-          <li class="stepper-item-settings active" data-target="panelFaculties">
-            <span class="stepper-dot"><span class="dot-inner"></span></span>
-            <div><h4>الكليات</h4><p>عمادات وكليات الجامعة</p></div>
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <div class="academic-settings-wrapper">
+
+
+      <!-- ===================================================
+           STEPPER
+      ==================================================== -->
+
+      <aside class="academic-stepper">
+
+        <h3 class="academic-stepper-title">
+          أقسام المحتوى الأكاديمي
+        </h3>
+
+        <ul class="academic-stepper-list">
+
+          <li>
+            <button
+              type="button"
+              class="academic-step active"
+              data-target="panelDeanships"
+            >
+              <span class="academic-step-number">1</span>
+
+              <span class="academic-step-text">
+                <strong>العمادات والكليات</strong>
+                <span>الهيكل الأكاديمي للجامعة</span>
+              </span>
+            </button>
           </li>
-          <li class="stepper-item-settings" data-target="panelDepartments">
-            <span class="stepper-dot"><span class="dot-inner"></span></span>
-            <div><h4>الأقسام</h4><p>الأقسام داخل كل كلية</p></div>
+
+
+          <li>
+            <button
+              type="button"
+              class="academic-step"
+              data-target="panelMajors"
+            >
+              <span class="academic-step-number">2</span>
+
+              <span class="academic-step-text">
+                <strong>التخصصات</strong>
+                <span>إدارة البرامج الأكاديمية</span>
+              </span>
+            </button>
           </li>
-          <li class="stepper-item-settings" data-target="panelMajors">
-            <span class="stepper-dot"><span class="dot-inner"></span></span>
-            <div><h4>التخصصات</h4><p>إدارة التخصصات الأكاديمية</p></div>
+
+
+          <li>
+            <button
+              type="button"
+              class="academic-step"
+              data-target="panelPlans"
+            >
+              <span class="academic-step-number">3</span>
+
+              <span class="academic-step-text">
+                <strong>الخطط الدراسية</strong>
+                <span>ملفات الخطط والفصول والمواد</span>
+              </span>
+            </button>
           </li>
-          <li class="stepper-item-settings" data-target="panelPlans">
-            <span class="stepper-dot"><span class="dot-inner"></span></span>
-            <div><h4>الخطط الدراسية</h4><p>ملفات ورسومات الخطط</p></div>
+
+
+          <li>
+            <button
+              type="button"
+              class="academic-step"
+              data-target="panelContent"
+            >
+              <span class="academic-step-number">4</span>
+
+              <span class="academic-step-text">
+                <strong>محتوى التخصصات</strong>
+                <span>الوصف والأهداف والمهارات</span>
+              </span>
+            </button>
           </li>
-          <li class="stepper-item-settings" data-target="panelFaculty">
-            <span class="stepper-dot"><span class="dot-inner"></span></span>
-            <div><h4>هيئة التدريس والمختبرات</h4><p>الكادر التدريسي والمرافق</p></div>
+
+
+          <li>
+            <button
+              type="button"
+              class="academic-step"
+              data-target="panelAI"
+            >
+              <span class="academic-step-number">5</span>
+
+              <span class="academic-step-text">
+                <strong>التوافق الذكي AI</strong>
+                <span>المهارات والمسارات المهنية</span>
+              </span>
+            </button>
           </li>
-          <li class="stepper-item-settings" data-target="panelMatching">
-            <span class="stepper-dot"><span class="dot-inner"></span></span>
-            <div><h4>إعدادات Matching</h4><p>حد أدنى نسبة التوافق</p></div>
-          </li>
+
         </ul>
+
       </aside>
 
-      <form id="academicForm" novalidate>
 
-        <!-- ===== الكليات ===== -->
-        <!-- المصدر: deanships_faculties (WHERE university_id = هاي الجامعة) -->
-        <section class="settings-section settings-panel active-panel" id="panelFaculties">
-          <div class="settings-section-title">
-            العمادات
+      <!-- ===================================================
+           PANELS
+      ==================================================== -->
+
+      <div>
+
+
+        <!-- =================================================
+             1 — DEANSHIPS
+        ================================================== -->
+
+        <section
+          class="academic-panel active"
+          id="panelDeanships"
+        >
+
+          <div class="academic-panel-head">
+
+            <div>
+              <h2 class="academic-panel-title">
+                العمادات والكليات
+              </h2>
+
+              <p class="academic-panel-desc">
+                إدارة العمادات والكليات المرتبطة بالجامعة،
+                ثم استعراض التخصصات التابعة لكل واحدة.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              class="academic-add-btn"
+              onclick="window.location.href='adddeanship.html'"
+            >
+              + إضافة عمادة
+            </button>
+
           </div>
-          <div class="mini-table-head">
-            <p class="field-hint" style="margin:0;">عمادات  جامعتكم المسجّلة على المنصة.</p>
-            <button type="button" class="btn-add-small"  onclick="window.location.href='adddeanship.html'">+ إضافة عمادة</button>
+
+
+          <div class="academic-stats">
+
+            <div class="academic-stat">
+              <strong id="deanshipCount">3</strong>
+              <span>عمادات مسجلة</span>
+            </div>
+
+            <div class="academic-stat">
+              <strong id="majorCountA">13</strong>
+              <span>تخصصاً</span>
+            </div>
+
+            <div class="academic-stat">
+              <strong>3</strong>
+              <span>كليات / مجالات أكاديمية</span>
+            </div>
+
           </div>
-          <table class="mini-table">
-            <thead><tr><th>اسم العمادة </th><th>عدد الأقسام</th><th>عدد التخصصات</th><th></th></tr></thead>
-            <tbody id="facultiesBody"></tbody>
-          </table>
+
+
+          <div class="academic-table-wrap">
+
+            <table class="academic-table">
+
+              <thead>
+                <tr>
+                  <th>العمادة / الكلية</th>
+                  <th>عدد التخصصات</th>
+                  <th>حالة المحتوى</th>
+                  <th>الإجراء</th>
+                </tr>
+              </thead>
+
+              <tbody id="deanshipsBody"></tbody>
+
+            </table>
+
+          </div>
+
         </section>
 
-        <!-- ===== الأقسام ===== -->
-        <!-- ⚠️ ملاحظة: ما في جدول "أقسام" منفصل عن deanships_faculties بالمايجريشنز
-             الحالية — التخصصات (majors) مربوطة بالكلية مباشرة بدون مستوى وسيط
-             "قسم". لو فعلاً بدكم مستوى قسم منفصل عن الكلية، هاد جدول جديد لازم يتضاف. -->
-        <section class="settings-section settings-panel" id="panelDepartments">
-          <div class="settings-section-title">
-            الأقسام
-     
+
+        <!-- =================================================
+             2 — MAJORS
+        ================================================== -->
+
+        <section
+          class="academic-panel"
+          id="panelMajors"
+        >
+
+          <div class="academic-panel-head">
+
+            <div>
+              <h2 class="academic-panel-title">
+                التخصصات والبرامج الأكاديمية
+              </h2>
+
+              <p class="academic-panel-desc">
+                من هنا يتم إدارة بيانات التخصص الأساسية،
+                والكلية والعمادة والدرجة والفرع الدراسي.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              class="academic-add-btn"
+              onclick="window.location.href='add-program.html'"
+            >
+              + إضافة تخصص
+            </button>
+
           </div>
-          <div style="background:#FFF8E6;border:1px solid #F0D98C;border-radius:var(--radius-sm);padding:1rem 1.25rem;color:#8A6D1E;font-size:.88rem;">
-            بالتصميم الحالي، التخصصات مربوطة مباشرة بالكلية (deanships_faculties) بدون
-            مستوى "قسم" وسيط بينهم. لو فعلاً محتاجين هيك مستوى منفصل (كلية ← قسم ← تخصص)،
-            لازم جدول <code>departments</code> جديد يترَبط بـ deanship_faculty_id،
-            وبعدها majors تتربط بالقسم بدل الكلية مباشرة. أكدولي هالنقطة قبل ما نبنيها.
+
+
+          <div class="academic-table-wrap">
+
+            <table class="academic-table">
+
+              <thead>
+                <tr>
+                  <th>التخصص</th>
+                  <th>الكلية / العمادة</th>
+                  <th>الدرجة</th>
+                  <th>مدة الدراسة</th>
+                  <th>معدل القبول</th>
+                  <th>الإجراء</th>
+                </tr>
+              </thead>
+
+              <tbody id="majorsBody"></tbody>
+
+            </table>
+
           </div>
+
         </section>
 
-        <!-- ===== التخصصات ===== -->
-        <!-- المصدر: majors -->
-        <section class="settings-section settings-panel" id="panelMajors">
-          <div class="settings-section-title">
-            التخصصات
-           
+
+        <!-- =================================================
+             3 — PLANS
+        ================================================== -->
+
+        <section
+          class="academic-panel"
+          id="panelPlans"
+        >
+
+          <div class="academic-panel-head">
+
+            <div>
+              <h2 class="academic-panel-title">
+                الخطط الدراسية
+              </h2>
+
+              <p class="academic-panel-desc">
+                إدارة ملف الخطة الدراسية والانتقال إلى صفحة
+                عرض الفصول والمواد وتحديثها.
+              </p>
+            </div>
+
           </div>
-          <div class="mini-table-head">
-            <p class="field-hint" style="margin:0;">كل التخصصات الأكاديمية المسجّلة لجامعتكم.</p>
-            <button type="button" class="btn-add-small" onclick="window.location.href='add-program.html'">+ إضافة تخصص</button>
+
+
+          <div id="plansContainer"></div>
+
+
+          <div
+            style="
+              margin-top:18px;
+              padding:14px 16px;
+              border-radius:12px;
+              background:rgba(47,107,255,.05);
+              color:var(--gray);
+              font-size:11.5px;
+              line-height:1.8;
+            "
+          >
+            <strong style="color:var(--navy);">
+              ملاحظة:
+            </strong>
+
+            ملف PDF هو الملف الأصلي المرفوع،
+            بينما عرض الخطة الدراسية يعرض الفصول والمواد
+            التي تم إدخالها أو تحليلها داخل النظام.
           </div>
-          <table class="mini-table">
-            <thead><tr><th>اسم التخصص</th><th>الكلية</th><th>أدنى معدل قبول</th><th></th></tr></thead>
-            <tbody id="majorsBody"></tbody>
-          </table>
+
         </section>
 
-        <!-- ===== الخطط الدراسية ===== -->
-        <!-- المصدر: majors.study_plan_image, study_plan_file_url -->
-        <section class="settings-section settings-panel" id="panelPlans">
-          <div class="settings-section-title">
-            الخطط الدراسية
-            <span class="section-hint">من majors.study_plan_file_url</span>
+
+        <!-- =================================================
+             4 — CONTENT
+        ================================================== -->
+
+        <section
+          class="academic-panel"
+          id="panelContent"
+        >
+
+          <div class="academic-panel-head">
+
+            <div>
+              <h2 class="academic-panel-title">
+                محتوى التخصصات
+              </h2>
+
+              <p class="academic-panel-desc">
+                المحتوى الوصفي الذي يظهر للطالب داخل صفحة التخصص.
+              </p>
+            </div>
+
           </div>
-          <p class="field-hint" style="margin-bottom:1rem;">ملفات الخطط الدراسية مرتبطة بكل تخصص على حدة — عدّليها من صفحة التخصص نفسه.</p>
-          <table class="mini-table">
-            <thead><tr><th>التخصص</th><th>حالة ملف الخطة</th><th></th></tr></thead>
-            <tbody id="plansBody"></tbody>
-          </table>
+
+
+          <div class="academic-content-grid">
+
+
+            <div class="academic-content-card">
+
+              <div class="academic-content-card-head">
+                <h3>نبذة عن التخصص</h3>
+
+                <button
+                  type="button"
+                  class="edit-link"
+                  onclick="editMajor()"
+                >
+                  تعديل
+                </button>
+              </div>
+
+              <p>
+                تعريف مختصر بالتخصص وطبيعته ومجالاته الأكاديمية.
+              </p>
+
+            </div>
+
+
+            <div class="academic-content-card">
+
+              <div class="academic-content-card-head">
+                <h3>أهداف التخصص</h3>
+
+                <button
+                  type="button"
+                  class="edit-link"
+                  onclick="editMajor()"
+                >
+                  تعديل
+                </button>
+              </div>
+
+              <p>
+                الأهداف التعليمية والمخرجات التي يسعى البرنامج لتحقيقها.
+              </p>
+
+            </div>
+
+
+            <div class="academic-content-card">
+
+              <div class="academic-content-card-head">
+                <h3>مؤهلات الطالب</h3>
+
+                <button
+                  type="button"
+                  class="edit-link"
+                  onclick="editMajor()"
+                >
+                  تعديل
+                </button>
+              </div>
+
+              <p>
+                المهارات والقدرات التي يُفضّل أن يمتلكها الطالب قبل الالتحاق.
+              </p>
+
+            </div>
+
+
+            <div class="academic-content-card">
+
+              <div class="academic-content-card-head">
+                <h3>المهارات والتعليم الأساسي</h3>
+
+                <button
+                  type="button"
+                  class="edit-link"
+                  onclick="editMajor()"
+                >
+                  تعديل
+                </button>
+              </div>
+
+              <p>
+                المهارات التفصيلية والمراحل التعليمية التي يمر بها الطالب.
+              </p>
+
+            </div>
+
+
+            <div class="academic-content-card">
+
+              <div class="academic-content-card-head">
+                <h3>المسار الأكاديمي</h3>
+
+                <button
+                  type="button"
+                  class="edit-link"
+                  onclick="editMajor()"
+                >
+                  تعديل
+                </button>
+              </div>
+
+              <p>
+                المراحل التي يمر بها الطالب منذ بداية الدراسة وحتى التخرج.
+              </p>
+
+            </div>
+
+
+            <div class="academic-content-card">
+
+              <div class="academic-content-card-head">
+                <h3>فرص العمل بعد التخرج</h3>
+
+                <button
+                  type="button"
+                  class="edit-link"
+                  onclick="editMajor()"
+                >
+                  تعديل
+                </button>
+              </div>
+
+              <p>
+                الوظائف والفرص المهنية المحتملة لخريجي التخصص.
+              </p>
+
+            </div>
+
+
+            <div class="academic-content-card">
+
+              <div class="academic-content-card-head">
+                <h3>المنحة</h3>
+
+                <button
+                  type="button"
+                  class="edit-link"
+                  onclick="editMajor()"
+                >
+                  تعديل
+                </button>
+              </div>
+
+              <p>
+                نسبة المنحة والملاحظات الخاصة بها إن وجدت.
+              </p>
+
+            </div>
+
+
+            <div class="academic-content-card">
+
+              <div class="academic-content-card-head">
+                <h3>معدل القبول</h3>
+
+                <button
+                  type="button"
+                  class="edit-link"
+                  onclick="editMajor()"
+                >
+                  تعديل
+                </button>
+              </div>
+
+              <p>
+                الحد الأدنى لمعدل القبول في البرنامج الأكاديمي.
+              </p>
+
+            </div>
+
+          </div>
+
         </section>
 
-        <!-- ===== هيئة التدريس والمختبرات ===== -->
-        <section class="settings-section settings-panel" id="panelFaculty">
-          <div class="settings-section-title">
-            هيئة التدريس والمختبرات
-            <span class="section-hint">⚠️ جدول جديد بالكامل</span>
-          </div>
-          <div style="background:#FFF8E6;border:1px solid #F0D98C;border-radius:var(--radius-sm);padding:1rem 1.25rem;color:#8A6D1E;font-size:.88rem;">
-            ما في أي جدول حالياً لأعضاء هيئة التدريس ولا المختبرات — نطاق جديد
-            بالكامل خارج المايجريشنز الموجودة (<code>faculty_members</code>,
-            <code>labs</code> تقريباً). محتاجة توضيح: هل هاي بيانات نصية بسيطة
-            (وصف مختبر، اسم أستاذ) ولا فيها ربط أعمق (كل عضو هيئة تدريس بمواد
-            محددة مثلاً)؟
-          </div>
-        </section>
 
-        <!-- ===== إعدادات Matching ===== -->
-        <!-- المصدر: universities.min_recommendation_match (من المايجريشن المقترحة) -->
-        <section class="settings-section settings-panel" id="panelMatching">
-          <div class="settings-section-title">
-            إعدادات Matching
-            <span class="section-hint">universities.min_recommendation_match</span>
+        <!-- =================================================
+             5 — AI
+        ================================================== -->
+
+        <section
+          class="academic-panel"
+          id="panelAI"
+        >
+
+          <div class="academic-panel-head">
+
+            <div>
+              <h2 class="academic-panel-title">
+                التوافق الذكي AI
+              </h2>
+
+              <p class="academic-panel-desc">
+                البيانات التي يعتمد عليها NextStep AI لمطابقة
+                الطالب مع التخصص المناسب.
+              </p>
+            </div>
+
           </div>
-          <div class="matching-slider-box">
-            <label style="font-weight:700;color:var(--navy);display:block;margin-bottom:.25rem;">
-              حد أدنى لنسبة التوافق قبل ظهور التخصص كتوصية للطالب
-            </label>
-            <p class="field-hint" style="margin-bottom:.5rem;">
-              أي تخصص من تخصصات جامعتكم نسبة توافقه مع الطالب أقل من هاي النسبة،
-              ما رح يظهر إله كتوصية بنتيجة الاستبيان.
+
+
+          <div class="academic-ai-box">
+
+            <div class="academic-ai-head">
+
+              <div class="academic-ai-icon">
+
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 2a5 5 0 0 0-5 5c0 2 1 3 1 5v2h8v-2c0-2 1-3 1-5a5 5 0 0 0-5-5z"/>
+                  <path d="M9 21h6"/>
+                  <path d="M10 18h4"/>
+                </svg>
+
+              </div>
+
+              <h3>
+                بيانات المطابقة الذكية
+              </h3>
+
+            </div>
+
+            <p>
+              يتم استخدام هذه البيانات لفهم طبيعة التخصص
+              ومقارنته بميول ومهارات الطالب.
             </p>
-            <span class="matching-slider-value" id="matchValue">50%</span>
-            <input type="range" id="matchSlider" min="0" max="100" step="5" value="50">
-            <div class="matching-slider-labels"><span>0% (كل التوصيات تظهر)</span><span>100% (توافق تام بس)</span></div>
+
+
+            <div class="academic-ai-grid">
+
+
+              <div class="academic-ai-card">
+
+                <h4>
+                  المهارات المستهدفة
+                </h4>
+
+                <div class="academic-ai-tags">
+
+                  <span class="academic-ai-tag">
+                    التفكير التحليلي
+                  </span>
+
+                  <span class="academic-ai-tag">
+                    حل المشكلات
+                  </span>
+
+                  <span class="academic-ai-tag">
+                    البرمجة
+                  </span>
+
+                  <span class="academic-ai-tag">
+                    العمل الجماعي
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="academic-ai-card">
+
+                <h4>
+                  المسارات المهنية
+                </h4>
+
+                <div class="academic-ai-tags">
+
+                  <span class="academic-ai-tag">
+                    مهندس برمجيات
+                  </span>
+
+                  <span class="academic-ai-tag">
+                    مطور ويب
+                  </span>
+
+                  <span class="academic-ai-tag">
+                    محلل نظم
+                  </span>
+
+                  <span class="academic-ai-tag">
+                    مهندس بيانات
+                  </span>
+
+                </div>
+
+              </div>
+
+
+            </div>
+
           </div>
+
+
+          <div class="academic-table-wrap">
+
+            <table class="academic-table">
+
+              <thead>
+                <tr>
+                  <th>التخصص</th>
+                  <th>المهارات</th>
+                  <th>المسارات المهنية</th>
+                  <th>الحالة</th>
+                  <th>الإجراء</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr>
+
+                  <td>
+                    <strong>هندسة البرمجيات</strong>
+                  </td>
+
+                  <td>
+                    6 مهارات
+                  </td>
+
+                  <td>
+                    5 مسارات
+                  </td>
+
+                  <td>
+                    <span class="academic-badge success">
+                      مفعّل
+                    </span>
+                  </td>
+
+                  <td>
+
+                    <div class="academic-actions">
+
+                      <button
+                        type="button"
+                        class="academic-action"
+                        onclick="editMajor()"
+                      >
+                        تعديل
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+
+                <tr>
+
+                  <td>
+                    <strong>علوم الحاسوب</strong>
+                  </td>
+
+                  <td>
+                    7 مهارات
+                  </td>
+
+                  <td>
+                    6 مسارات
+                  </td>
+
+                  <td>
+                    <span class="academic-badge success">
+                      مفعّل
+                    </span>
+                  </td>
+
+                  <td>
+
+                    <div class="academic-actions">
+
+                      <button
+                        type="button"
+                        class="academic-action"
+                        onclick="editMajor()"
+                      >
+                        تعديل
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
         </section>
 
-        <div class="form-actions">
-          <button type="button" class="btn-cancel-outline" onclick="window.location.href='settings-dashboard.html'">إلغاء</button>
-          <button type="submit" class="btn-save-primary">حفظ التغييرات</button>
-        </div>
 
-      </form>
+      </div>
 
     </div>
 
   </main>
+
 </div>
 
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
 <div id="admin-footer-slot"></div>
+
+
+<!-- =========================================================
+     ADMIN SHELL
+========================================================= -->
+
 <script src="../../js/admin-shell.js"></script>
 
+
 <script>
-  (function() {
-    'use strict';
 
-    var stepperItems = document.querySelectorAll('.stepper-item-settings');
-    var panels = document.querySelectorAll('.settings-panel');
-    function showPanel(targetId) {
-      panels.forEach(function(p) { p.classList.toggle('active-panel', p.id === targetId); });
-      stepperItems.forEach(function(i) { i.classList.toggle('active', i.dataset.target === targetId); });
+(function () {
+
+  'use strict';
+
+
+  /* =========================================================
+     STEPPER
+  ========================================================= */
+
+  const steps =
+    document.querySelectorAll('.academic-step');
+
+  const panels =
+    document.querySelectorAll('.academic-panel');
+
+
+  function showPanel(targetId) {
+
+    panels.forEach(function (panel) {
+
+      panel.classList.toggle(
+        'active',
+        panel.id === targetId
+      );
+
+    });
+
+
+    steps.forEach(function (step) {
+
+      step.classList.toggle(
+        'active',
+        step.dataset.target === targetId
+      );
+
+    });
+
+  }
+
+
+  steps.forEach(function (step) {
+
+    step.addEventListener(
+      'click',
+      function () {
+
+        showPanel(
+          step.dataset.target
+        );
+
+      }
+    );
+
+  });
+
+
+  /* =========================================================
+     MOCK DATA
+  ========================================================= */
+
+  const DEANSHIPS = [
+
+    {
+      name: 'كلية الهندسة وتكنولوجيا المعلومات',
+      majors: 5,
+      status: 'مكتمل'
+    },
+
+    {
+      name: 'كلية العلوم',
+      majors: 4,
+      status: 'مكتمل'
+    },
+
+    {
+      name: 'كلية إدارة الأعمال والاقتصاد',
+      majors: 4,
+      status: 'يحتاج مراجعة'
     }
-    stepperItems.forEach(function(item) {
-      item.addEventListener('click', function() { showPanel(item.dataset.target); });
-    });
 
-    // ===== بيانات وهمية =====
-    var MOCK_FACULTIES = [
-      { name: 'كلية الهندسة وتكنولوجيا المعلومات', departments: 4, majors: 5 },
-      { name: 'كلية العلوم', departments: 3, majors: 4 },
-      { name: 'كلية إدارة الأعمال والاقتصاد', departments: 2, majors: 4 },
-    ];
-    var MOCK_MAJORS = [
-      { name: 'هندسة البرمجيات', faculty: 'كلية الهندسة وتكنولوجيا المعلومات', minScore: 85 },
-      { name: 'علوم الحاسوب', faculty: 'كلية الهندسة وتكنولوجيا المعلومات', minScore: 80 },
-      { name: 'إدارة الأعمال', faculty: 'كلية إدارة الأعمال والاقتصاد', minScore: 70 },
-    ];
+  ];
 
-    var facultiesBody = document.getElementById('facultiesBody');
-    MOCK_FACULTIES.forEach(function(f) {
-      facultiesBody.innerHTML += '<tr><td><strong>' + f.name + '</strong></td><td>' + f.departments + '</td><td>' + f.majors + '</td><td><button type="button" class="row-action-btn "العمادات >تعديل</button></td></tr>';
-    });
 
-    var majorsBody = document.getElementById('majorsBody');
-    MOCK_MAJORS.forEach(function(m) {
-      majorsBody.innerHTML += '<tr><td><strong>' + m.name + '</strong></td><td>' + m.faculty + '</td><td>' + m.minScore + '%</td><td><button type="button" class="row-action-btn" >تعديل</button> <button type="button" class="row-action-btn danger">حذف</button></td></tr>';
-    });
+  const MAJORS = [
 
-    var plansBody = document.getElementById('plansBody');
-    MOCK_MAJORS.forEach(function(m) {
-      plansBody.innerHTML += '<tr><td><strong>' + m.name + '</strong></td><td>✓ مرفوعة</td><td><button type="button" class="row-action-btn">استبدال الملف</button></td></tr>';
-    });
+    {
+      name: 'هندسة البرمجيات',
+      faculty: 'كلية الهندسة وتكنولوجيا المعلومات',
+      degree: 'بكالوريوس',
+      duration: '4 سنوات',
+      admission: '85%'
+    },
 
-    // ===== Matching slider =====
-    var slider = document.getElementById('matchSlider');
-    var valueEl = document.getElementById('matchValue');
-    slider.addEventListener('input', function() {
-      valueEl.textContent = this.value + '%';
-    });
+    {
+      name: 'علوم الحاسوب',
+      faculty: 'كلية الهندسة وتكنولوجيا المعلومات',
+      degree: 'بكالوريوس',
+      duration: '4 سنوات',
+      admission: '80%'
+    },
 
-    document.getElementById('academicForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('محاكاة محلية — لسا ما فيه ربط فعلي بالـ API.');
-    });
+    {
+      name: 'إدارة الأعمال',
+      faculty: 'كلية إدارة الأعمال والاقتصاد',
+      degree: 'بكالوريوس',
+      duration: '4 سنوات',
+      admission: '70%'
+    }
 
-  })();
+  ];
+
+
+  /* =========================================================
+     DEANSHIPS
+  ========================================================= */
+
+  const deanshipsBody =
+    document.getElementById(
+      'deanshipsBody'
+    );
+
+
+  DEANSHIPS.forEach(function (item) {
+
+    const statusClass =
+      item.status === 'مكتمل'
+        ? 'success'
+        : 'warning';
+
+
+    deanshipsBody.innerHTML += `
+
+      <tr>
+
+        <td>
+          <strong>${item.name}</strong>
+        </td>
+
+        <td>
+          ${item.majors}
+        </td>
+
+        <td>
+          <span class="academic-badge ${statusClass}">
+            ${item.status}
+          </span>
+        </td>
+
+        <td>
+
+          <div class="academic-actions">
+
+            <button
+              type="button"
+              class="academic-action"
+              onclick="window.location.href='browse-deanships.html'"
+            >
+              عرض
+            </button>
+
+            <button
+              type="button"
+              class="academic-action"
+              onclick="window.location.href='adddeanship.html'"
+            >
+              تعديل
+            </button>
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+
+  /* =========================================================
+     MAJORS
+  ========================================================= */
+
+  const majorsBody =
+    document.getElementById(
+      'majorsBody'
+    );
+
+
+  MAJORS.forEach(function (item) {
+
+    majorsBody.innerHTML += `
+
+      <tr>
+
+        <td>
+          <strong>${item.name}</strong>
+        </td>
+
+        <td>
+          ${item.faculty}
+        </td>
+
+        <td>
+          ${item.degree}
+        </td>
+
+        <td>
+          ${item.duration}
+        </td>
+
+        <td>
+          ${item.admission}
+        </td>
+
+        <td>
+
+          <div class="academic-actions">
+
+            <button
+              type="button"
+              class="academic-action"
+              onclick="editMajor()"
+            >
+              تعديل
+            </button>
+
+            <button
+              type="button"
+              class="academic-action"
+              onclick="viewPlan()"
+            >
+              الخطة
+            </button>
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+
+  /* =========================================================
+     PLANS
+  ========================================================= */
+
+  const plansContainer =
+    document.getElementById(
+      'plansContainer'
+    );
+
+
+  MAJORS.forEach(function (item) {
+
+    plansContainer.innerHTML += `
+
+      <div class="plan-status-box">
+
+        <div class="plan-status-info">
+
+          <strong>
+            ${item.name}
+          </strong>
+
+          <span>
+            ${item.faculty} — ${item.degree}
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <span class="academic-badge success">
+            ✓ ملف الخطة مرفوع
+          </span>
+
+          <button
+            type="button"
+            class="academic-action"
+            onclick="viewPlan()"
+          >
+            عرض الخطة
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  /* =========================================================
+     ACTIONS
+  ========================================================= */
+
+  window.editMajor = function () {
+
+    window.location.href =
+      'add-program.html';
+
+  };
+
+
+  window.viewPlan = function () {
+
+    /*
+      صفحة استعراض العمادات والتخصصات
+      ومنها الوصول إلى الخطة الدراسية.
+    */
+
+    window.location.href =
+      'browse-deanships.html';
+
+  };
+
+
+})();
+
 </script>
 
 </body>

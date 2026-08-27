@@ -762,7 +762,7 @@
 
       '<button type="button" ' +
         'class="admin-sidebar-cta" ' +
-        'onclick="window.location.href=\'adddeanship.html\'">' +
+        'onclick="window.location.href=\'Browsedeanships.html\'">' +
 
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' +
 
@@ -770,7 +770,7 @@
 
         '</svg>' +
 
-        'إضافة عمادة' +
+        'استعراض التخصصات  ' +
 
       '</button>';
 

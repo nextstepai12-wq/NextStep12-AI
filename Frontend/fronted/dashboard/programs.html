@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تحديث الخطط الدراسية — لوحة تحكم الإدارة | NextStep AI</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+
   <!-- ====== CSS ====== -->
   <link rel="stylesheet" href="../../css/app.css">
   <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
@@ -37,6 +37,27 @@
       cursor: pointer; width: 100%; margin-top: 4px;
     }
     .edit-add-course-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* دعم عمود ثالث (الكلية) بنفس شكل panel-selects الأصلي، بيرجع يلتف على الموبايل تلقائياً */
+    .panel-selects { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+    /* ====== Stepper التفاعلي ====== */
+    .admin-step-card { cursor: pointer; transition: opacity .15s ease, transform .15s ease; }
+    .admin-step-card.locked { opacity: 0.45; cursor: not-allowed; }
+    .admin-step-card.completed .step-num {
+      background: linear-gradient(135deg, var(--green, #0EAE7B), #0EAE7B);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+    }
+    .admin-step-card:not(.locked):not(.active):hover { transform: translateY(-1px); }
+
+    .step-nav-actions { display: flex; align-items: center; gap: 10px; margin-top: 20px; }
+    .step-nav-actions .step-btn-next { flex: 0 0 220px; max-width: 100%; }
+    .step-btn-back {
+      flex: 0 0 auto; background: none; border: 1.5px solid var(--gray-light); color: var(--gray-dark);
+      border-radius: var(--radius-sm); padding: 0 20px; height: 46px; font-family: inherit;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;
+    }
+    .step-btn-back:hover { border-color: var(--blue); color: var(--blue); }
   </style>
 </head>
 <body>
@@ -91,101 +112,150 @@
     <!-- ====== UPLOAD PANEL ====== -->
     <div class="admin-panel">
 
-      <div class="panel-selects">
-        <div class="panel-select-group">
-          <label for="deanship">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/>
-            </svg>
-            العمادة المستهدفة
-          </label>
-          <select id="deanship" name="deanship">
-            <option value="">-- اختر العمادة --</option>
-            <option value="1">عمادة كلية الهندسة وتكنولوجيا المعلومات</option>
-            <option value="2">عمادة كلية العلوم</option>
-            <option value="3">عمادة كلية الطب</option>
-            <option value="4">عمادة كلية الأعمال والاقتصاد</option>
-            <option value="5">عمادة كلية الآداب</option>
-          </select>
-        </div>
-        <div class="panel-select-group">
-          <label for="major">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
-              <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
-            </svg>
-            التخصص الدراسي
-          </label>
-          <select id="major" name="major" disabled>
-            <option value="">-- اختار العمادة أولاً --</option>
-          </select>
-        </div>
-      </div>
-
-      <p class="field-hint" id="planModeHint" style="margin:0 0 16px;color:var(--gray);font-size:0.85rem;">
-        بيرفع الملف ويحلله الذكاء الاصطناعي تلقائياً ويطلع منه الفصول والمواد.
-        (للرفع اليدوي بدون تحليل، استخدمي قسم "رفع الخطة" بصفحة إضافة التخصص).
-      </p>
-
-      <!-- ====== DROPZONE ====== -->
-      <label class="dropzone" id="dropzone" for="planFile">
-        <div class="dropzone-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <path d="M17 8l-5-5-5 5"/>
-            <path d="M12 3v12"/>
-          </svg>
-        </div>
-        <h4 id="dropzoneTitle">اسحب النسخة المحدّثة من الخطة هنا أو انقر للاختيار</h4>
-        <p>ندعم ملفات PDF, Excel, و CSV (الحد الأقصى 20 ميجابايت)</p>
-        <input type="file" id="planFile" accept=".pdf,.xlsx,.xls,.csv">
-      </label>
-
-      <!-- ====== FILE PREVIEW ====== -->
-      <div class="dropzone-file" id="fileRow">
-        <div class="file-info">
-          <span class="file-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <path d="M14 2v6h6"/>
-            </svg>
-          </span>
-          <div>
-            <div class="file-name" id="fileName">—</div>
-            <div class="file-size" id="fileSize">—</div>
+      <!-- ====== STEP 1: تحديد العمادة (كلية + عمادة) ====== -->
+      <div class="admin-step-panel" data-step-panel="1">
+        <div class="panel-selects">
+          <div class="panel-select-group">
+            <label for="college">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 21h18M4 21V10l8-6 8 6v11M9 21v-6h6v6"/>
+              </svg>
+              الكلية
+            </label>
+            <select id="college" name="college">
+              <option value="">-- اختر الكلية --</option>
+              <option value="1">كلية العلوم الهندسية والتطبيقية</option>
+              <option value="2">كلية العلوم الطبية</option>
+              <option value="3">كلية العلوم الإنسانية والاجتماعية</option>
+            </select>
+          </div>
+          <div class="panel-select-group">
+            <label for="deanship">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/>
+              </svg>
+              العمادة المستهدفة
+            </label>
+            <select id="deanship" name="deanship" disabled>
+              <option value="">-- اختاري الكلية أولاً --</option>
+            </select>
           </div>
         </div>
-        <button type="button" class="file-remove" id="removeFile" aria-label="إزالة الملف">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 6L6 18M6 6l12 12"/>
-          </svg>
-        </button>
+
+        <div class="step-nav-actions" style="justify-content:flex-end;">
+          <button type="button" class="panel-submit step-btn-next" id="step1NextBtn" disabled>
+            التالي
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
-      <!-- ====== PROCESS BUTTON ====== -->
-      <button type="button" class="panel-submit" id="processBtn" disabled>
-        <span id="processBtnLabel">تحديث الخطة بالذكاء الاصطناعي</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-          <path d="M5 12h14M13 5l7 7-7 7"/>
-        </svg>
-      </button>
-
-      <!-- ====== نتيجة المعالجة + تعديل المحتوى ====== -->
-      <div id="extractedContentBlock" hidden style="margin-top:22px;">
-
-        <div class="chart-card-head">
-          <h3>المحتوى المستخرج — عدّلي عليه قبل الحفظ</h3>
+      <!-- ====== STEP 2: تحديد التخصص ====== -->
+      <div class="admin-step-panel" data-step-panel="2" hidden>
+        <div class="panel-selects" style="grid-template-columns:1fr;">
+          <div class="panel-select-group">
+            <label for="major">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+                <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+              </svg>
+              التخصص الدراسي
+            </label>
+            <select id="major" name="major" disabled>
+              <option value="">-- اختار العمادة أولاً --</option>
+            </select>
+          </div>
         </div>
 
-        <div id="extractedSemesters"><!-- فصول ومواد قابلة للتعديل — تتعبى بـ JS --></div>
+        <div class="step-nav-actions">
+          <button type="button" class="step-btn-back" id="step2BackBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+            رجوع
+          </button>
+          <button type="button" class="panel-submit step-btn-next" id="step2NextBtn" disabled>
+            التالي
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
 
-        <button type="button" class="panel-submit" id="saveEditedContentBtn" style="margin-top:16px;background:linear-gradient(135deg, var(--green), #0EAE7B);">
-          حفظ التعديلات على المحتوى
+      <!-- ====== STEP 3: رفع نسخة محدّثة ====== -->
+      <div class="admin-step-panel" data-step-panel="3" hidden>
+
+        <button type="button" class="step-btn-back" id="step3BackBtn" style="margin-bottom:16px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+          رجوع
+        </button>
+
+        <p class="field-hint" id="planModeHint" style="margin:0 0 16px;color:var(--gray);font-size:0.85rem;">
+          بمجرد ما ترفعي الملف، الذكاء الاصطناعي بيحلله تلقائياً على طول ويطلع منه الفصول والمواد — مش لازم تدوسي أي زر.
+          (للرفع اليدوي بدون تحليل، استخدمي قسم "رفع الخطة" بصفحة إضافة التخصص).
+        </p>
+
+        <!-- ====== DROPZONE ====== -->
+        <label class="dropzone" id="dropzone" for="planFile">
+          <div class="dropzone-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <path d="M17 8l-5-5-5 5"/>
+              <path d="M12 3v12"/>
+            </svg>
+          </div>
+          <h4 id="dropzoneTitle">اسحب النسخة المحدّثة من الخطة هنا أو انقر للاختيار</h4>
+          <p>ندعم ملفات PDF, Excel, و CSV (الحد الأقصى 20 ميجابايت)</p>
+          <input type="file" id="planFile" accept=".pdf,.xlsx,.xls,.csv">
+        </label>
+
+        <!-- ====== FILE PREVIEW ====== -->
+        <div class="dropzone-file" id="fileRow">
+          <div class="file-info">
+            <span class="file-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 2v6h6"/>
+              </svg>
+            </span>
+            <div>
+              <div class="file-name" id="fileName">—</div>
+              <div class="file-size" id="fileSize">—</div>
+            </div>
+          </div>
+          <button type="button" class="file-remove" id="removeFile" aria-label="إزالة الملف">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- ====== PROCESS BUTTON ====== -->
+        <button type="button" class="panel-submit" id="processBtn" disabled>
+          <span id="processBtnLabel">إعادة تحليل الملف بالذكاء الاصطناعي</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M20 6L9 17l-5-5"/>
+            <path d="M5 12h14M13 5l7 7-7 7"/>
           </svg>
         </button>
 
+        <!-- ====== نتيجة المعالجة + تعديل المحتوى ====== -->
+        <div id="extractedContentBlock" hidden style="margin-top:22px;">
+
+          <div class="chart-card-head">
+            <h3>المحتوى المستخرج — عدّلي عليه قبل الحفظ</h3>
+          </div>
+
+          <div id="extractedSemesters"><!-- فصول ومواد قابلة للتعديل — تتعبى بـ JS --></div>
+
+          <button type="button" class="panel-submit" id="saveEditedContentBtn" style="margin-top:16px;background:linear-gradient(135deg, var(--green), #0EAE7B);">
+            حفظ التعديلات على المحتوى
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </button>
+
+        </div>
       </div>
 
     </div>
@@ -210,15 +280,54 @@
     'use strict';
 
     // ========================================================================
-    // 1. STEPPER - تبديل الخطوة النشطة
+    // 1. STEPPER - خطوة نشطة/مكتملة/مقفلة + إظهار محتوى كل خطوة لحالها
     // ========================================================================
     const stepCards = document.querySelectorAll('.admin-step-card');
+    const stepPanels = document.querySelectorAll('[data-step-panel]');
+
+    let currentStep = 1;
+    let maxUnlockedStep = 1; // أعلى خطوة مسموح توصلها الإدارة لحسب البيانات المكتملة
+
+    const CHECK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg>';
+
+    function updateStepperUI() {
+      stepCards.forEach(card => {
+        const step = Number(card.dataset.step);
+        const numEl = card.querySelector('.step-num');
+
+        card.classList.toggle('active', step === currentStep);
+        card.classList.toggle('completed', step < maxUnlockedStep);
+        card.classList.toggle('locked', step > maxUnlockedStep);
+
+        numEl.innerHTML = step < maxUnlockedStep ? CHECK_ICON : String(step);
+      });
+
+      stepPanels.forEach(panel => {
+        panel.hidden = Number(panel.dataset.stepPanel) !== currentStep;
+      });
+    }
+
+    function goToStep(step) {
+      if (step > maxUnlockedStep) {
+        openModal({
+          type: 'error',
+          title: 'كملي الخطوة الحالية أولاً',
+          message: 'لازم تخلّصي البيانات المطلوبة بهاي الخطوة قبل ما تنتقلي للي بعدها.'
+        });
+        return;
+      }
+      currentStep = step;
+      updateStepperUI();
+      document.querySelector('.admin-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     stepCards.forEach(card => {
       card.addEventListener('click', function() {
-        stepCards.forEach(c => c.classList.remove('active'));
-        this.classList.add('active');
+        goToStep(Number(this.dataset.step));
       });
     });
+
+    updateStepperUI();
 
     // ========================================================================
     // 2. MODAL - نافذة منبثقة موحدة
@@ -287,9 +396,24 @@
     });
 
     // ========================================================================
-    // 3. CASCADING SELECTS - العمادة → التخصص
+    // 3. CASCADING SELECTS - الكلية → العمادة → التخصص
     // ========================================================================
     const USE_MOCK_DATA = true;
+
+    // كل كلية بتضم عمادة أو أكثر
+    const MOCK_DEANSHIPS_BY_COLLEGE = {
+      1: [ // كلية العلوم الهندسية والتطبيقية
+        { id: 1, name: 'عمادة كلية الهندسة وتكنولوجيا المعلومات' },
+        { id: 2, name: 'عمادة كلية العلوم' },
+      ],
+      2: [ // كلية العلوم الطبية
+        { id: 3, name: 'عمادة كلية الطب' },
+      ],
+      3: [ // كلية العلوم الإنسانية والاجتماعية
+        { id: 4, name: 'عمادة كلية الأعمال والاقتصاد' },
+        { id: 5, name: 'عمادة كلية الآداب' },
+      ],
+    };
 
     const MOCK_MAJORS_BY_DEANSHIP = {
       1: [
@@ -325,18 +449,82 @@
       ],
     };
 
+    // إيجاد الكلية اللي تتبعها عمادة معينة (بنستخدمها لدعم روابط قديمة فيها deanship بس بدون college)
+    function findCollegeForDeanship(deanshipId) {
+      const id = Number(deanshipId);
+      for (const collegeId in MOCK_DEANSHIPS_BY_COLLEGE) {
+        if (MOCK_DEANSHIPS_BY_COLLEGE[collegeId].some(d => d.id === id)) return collegeId;
+      }
+      return null;
+    }
+
+    const collegeSelect = document.getElementById('college');
     const deanshipSelect = document.getElementById('deanship');
     const majorSelect = document.getElementById('major');
+
+    const step1NextBtn = document.getElementById('step1NextBtn');
+    const step2BackBtn = document.getElementById('step2BackBtn');
+    const step2NextBtn = document.getElementById('step2NextBtn');
+    const step3BackBtn = document.getElementById('step3BackBtn');
+
+    collegeSelect.addEventListener('change', async function() {
+      const collegeId = this.value;
+
+      // تصفير العمادة والتخصص كل ما تتغير الكلية
+      majorSelect.innerHTML = '<option value="">-- اختار العمادة أولاً --</option>';
+      majorSelect.disabled = true;
+      step1NextBtn.disabled = true;
+      step2NextBtn.disabled = true;
+      maxUnlockedStep = 1;
+      if (currentStep > 1) goToStep(1); else updateStepperUI();
+
+      if (!collegeId) {
+        deanshipSelect.disabled = true;
+        deanshipSelect.innerHTML = '<option value="">-- اختاري الكلية أولاً --</option>';
+        return;
+      }
+
+      deanshipSelect.disabled = true;
+      deanshipSelect.innerHTML = '<option value="">جاري تحميل العمادات...</option>';
+
+      if (USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        const deanships = MOCK_DEANSHIPS_BY_COLLEGE[collegeId] || [];
+        deanshipSelect.innerHTML = '<option value="">-- اختر العمادة --</option>';
+        deanships.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d.id;
+          opt.textContent = d.name;
+          deanshipSelect.appendChild(opt);
+        });
+        deanshipSelect.disabled = false;
+        return;
+      }
+
+      // TODO: ربط الباك اند الحقيقي هنا
+      // const response = await fetch(`${API_BASE_URL}/deanships?college_id=${collegeId}`);
+      // const data = await response.json();
+      // ...
+    });
 
     deanshipSelect.addEventListener('change', async function() {
       const deanshipId = this.value;
       majorSelect.innerHTML = '<option value="">-- اختر التخصص --</option>';
+      step2NextBtn.disabled = true;
 
       if (!deanshipId) {
         majorSelect.disabled = true;
         majorSelect.innerHTML = '<option value="">-- اختار العمادة أولاً --</option>';
+        step1NextBtn.disabled = true;
+        maxUnlockedStep = 1;
+        if (currentStep > 1) goToStep(1); else updateStepperUI();
         return;
       }
+
+      // اختيار عمادة صحيحة يفتح الخطوة الثانية
+      step1NextBtn.disabled = false;
+      maxUnlockedStep = Math.max(maxUnlockedStep, 2);
+      updateStepperUI();
 
       majorSelect.disabled = true;
       majorSelect.innerHTML = '<option value="">جاري تحميل التخصصات...</option>';
@@ -360,6 +548,25 @@
       // const data = await response.json();
       // ...
     });
+
+    // اختيار التخصص يفتح الخطوة الثالثة (الرفع)
+    majorSelect.addEventListener('change', function() {
+      const hasValue = !!this.value;
+      step2NextBtn.disabled = !hasValue;
+      if (hasValue) {
+        maxUnlockedStep = Math.max(maxUnlockedStep, 3);
+      } else {
+        maxUnlockedStep = Math.min(maxUnlockedStep, 2);
+        if (currentStep > 2) goToStep(2);
+      }
+      updateStepperUI();
+    });
+
+    // أزرار التنقّل بين الخطوات
+    step1NextBtn.addEventListener('click', () => goToStep(2));
+    step2BackBtn.addEventListener('click', () => goToStep(1));
+    step2NextBtn.addEventListener('click', () => goToStep(3));
+    step3BackBtn.addEventListener('click', () => goToStep(2));
 
     // ========================================================================
     // 4. DROPZONE - رفع الملفات
@@ -409,6 +616,9 @@
       fileSizeEl.textContent = formatFileSize(file.size);
       fileRow.classList.add('show');
       processBtn.disabled = false;
+
+      // نبلش التحليل بالذكاء الاصطناعي تلقائياً فور قبول الملف، من غير ما تحتاج تدوسي زر
+      runAiProcessing();
     }
 
     // اختيار الملف عن طريق النقر
@@ -443,6 +653,7 @@
       fileInput.value = '';
       fileRow.classList.remove('show');
       processBtn.disabled = true;
+      extractedContentBlock.hidden = true;
     });
 
     // ========================================================================
@@ -520,15 +731,26 @@
       }));
     }
 
-    processBtn.addEventListener('click', async function() {
+    processBtn.addEventListener('click', runAiProcessing);
+
+    async function runAiProcessing() {
       if (!fileInput.files.length) return;
 
+      const collegeVal = collegeSelect.value;
       const deanshipVal = deanshipSelect.value;
       const majorVal = majorSelect.value;
       const majorText = majorSelect.options[majorSelect.selectedIndex]
         ? majorSelect.options[majorSelect.selectedIndex].textContent
         : '';
 
+      if (!collegeVal) {
+        openModal({
+          type: 'error',
+          title: 'اختاري الكلية',
+          message: 'لازم تحددي الكلية قبل رفع الخطة الدراسية.'
+        });
+        return;
+      }
       if (!deanshipVal) {
         openModal({
           type: 'error',
@@ -546,22 +768,23 @@
         return;
       }
 
-      const originalContent = this.innerHTML;
-      this.disabled = true;
-      this.textContent = 'جارٍ التحليل...';
+      const originalContent = processBtn.innerHTML;
+      processBtn.disabled = true;
+      processBtn.textContent = 'جارٍ التحليل...';
 
       if (USE_MOCK_DATA) {
         console.log('📦 تحليل الخطة بالذكاء الاصطناعي (محاكاة):', {
           fileName: fileInput.files[0].name,
           fileSize: fileInput.files[0].size,
+          college_id: collegeVal,
           deanship_id: deanshipVal,
           major_id: majorVal,
         });
 
         await new Promise(resolve => setTimeout(resolve, 1200));
 
-        this.disabled = false;
-        this.innerHTML = originalContent;
+        processBtn.disabled = false;
+        processBtn.innerHTML = originalContent;
 
         // عرض المحتوى المستخرج بشكل قابل للتعديل
         const semesters = generateEditableSemesters(majorText || 'التخصص');
@@ -575,11 +798,12 @@
       // TODO: ربط الباك اند الحقيقي هنا
       // const formData = new FormData();
       // formData.append('file', fileInput.files[0]);
+      // formData.append('college_id', collegeVal);
       // formData.append('deanship_id', deanshipVal);
       // formData.append('major_id', majorVal);
       // const response = await fetch(`${API_BASE_URL}/upload-plan`, { method: 'POST', body: formData });
       // ثم عرض النتيجة المستخرجة من الباك اند بنفس renderEditableSemesters()
-    });
+    }
 
     // حفظ التعديلات على المحتوى المستخرج
     saveEditedContentBtn.addEventListener('click', async function() {
@@ -591,6 +815,7 @@
 
       if (USE_MOCK_DATA) {
         console.log('📦 حفظ المحتوى المعدَّل يدوياً بعد AI (محاكاة):', {
+          college_id: collegeSelect.value,
           deanship_id: deanshipSelect.value,
           major_id: majorSelect.value,
           semesters: editedSemesters
@@ -598,17 +823,30 @@
 
         await new Promise(resolve => setTimeout(resolve, 700));
 
-        openModal({
-          type: 'success',
-          title: 'تم حفظ الخطة بنجاح 🎉',
-          message: 'انحفظ المحتوى بعد تعديلاتك. هاي محاكاة محلية بدون باك اند — التفاصيل بالـ Console.',
-        });
+        // نحتفظ بمعرّفات الكلية والعمادة والتخصص قبل ما نصفّر الفورم، عشان نستخدمهم بالتوجيه
+        const targetCollege = collegeSelect.value;
+        const targetDeanship = deanshipSelect.value;
+        const targetMajor = majorSelect.value;
 
         this.disabled = false;
         this.innerHTML = originalContent;
         extractedContentBlock.hidden = true;
         fileInput.value = '';
         fileRow.classList.remove('show');
+
+        // بعد نجاح الحفظ، بنعرض تأكيد وبنوديها على صفحة استعراض العمادات
+        // مباشرة على الخطة الدراسية لنفس التخصص يلي حدّثته
+        openModal({
+          type: 'success',
+          title: 'تم حفظ الخطة بنجاح 🎉',
+          message: 'انحفظ المحتوى بعد تعديلاتك. بدك تنتقلي الآن لصفحة استعراض العمادات والتخصصات لمعاينة الخطة الدراسية المحدّثة؟',
+          confirmText: 'عرض الخطة الدراسية',
+          cancelText: 'البقاء بهاي الصفحة',
+          onConfirm: function () {
+            window.location.href = `browse-deanships.html?college=${targetCollege}&deanship=${targetDeanship}&major=${targetMajor}`;
+          }
+        });
+
         return;
       }
 
@@ -618,6 +856,7 @@
       //   headers: { 'Content-Type': 'application/json' },
       //   body: JSON.stringify({ semesters: editedSemesters })
       // });
+      // بعد نجاح الطلب، بنفس الأسلوب فوق نوديها على browse-deanships.html?college=...&deanship=...&major=...
     });
 
     // ========================================================================
@@ -633,48 +872,79 @@
     ];
 
     const programsBody = document.getElementById('programsTableBody');
-    MOCK_PROGRAMS.forEach(p => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><strong>${p.name}</strong></td>
-        <td><span class="deanship-chip">${p.deanship}</span></td>
-        <td>${p.degree}</td>
-        <td>${p.courses}</td>
-        <td>${p.updated}</td>
-      `;
-      programsBody.appendChild(tr);
-    });
+    if (programsBody) {
+      MOCK_PROGRAMS.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${p.name}</strong></td>
+          <td><span class="deanship-chip">${p.deanship}</span></td>
+          <td>${p.degree}</td>
+          <td>${p.courses}</td>
+          <td>${p.updated}</td>
+        `;
+        programsBody.appendChild(tr);
+      });
+    }
 
     // ========================================================================
-    // 7. وضع التحديث من الرابط: ?deanship=X&major=Y
+    // 7. وضع التحديث من الرابط: ?college=X&deanship=Y&major=Z
     //    (جاي غالباً من صفحة الاستعراض browse-deanships.html)
+    //    مدعوم كمان الرابط القديم بدون college (بنكتشف الكلية تلقائياً من العمادة)
     // ========================================================================
     (function initFromUrl() {
       const params = new URLSearchParams(window.location.search);
+      let collegeParam = params.get('college');
       const deanshipParam = params.get('deanship');
       const majorParam = params.get('major');
 
-      if (!deanshipParam) return;
+      // دعم روابط قديمة: إذا في عمادة بدون كلية، نلاقي الكلية التابعة إلها تلقائياً
+      if (!collegeParam && deanshipParam) {
+        collegeParam = findCollegeForDeanship(deanshipParam);
+      }
 
-      deanshipSelect.value = deanshipParam;
-      deanshipSelect.dispatchEvent(new Event('change'));
+      if (!collegeParam) return;
 
-      if (!majorParam) return;
+      collegeSelect.value = collegeParam;
+      collegeSelect.dispatchEvent(new Event('change'));
 
-      // بننتظر لحد ما التخصصات تتحمّل (نفس المدة المستخدمة بمحاكاة التحميل)
-      const trySelectMajor = setInterval(() => {
-        if (!majorSelect.disabled) {
-          majorSelect.value = majorParam;
-          clearInterval(trySelectMajor);
+      function showBanner() {
+        const banner = document.createElement('div');
+        banner.style.cssText =
+          'display:flex;align-items:center;gap:10px;background:rgba(47,107,255,0.08);' +
+          'border:1px solid rgba(47,107,255,0.18);color:var(--blue);border-radius:var(--radius-sm);' +
+          'padding:12px 18px;margin-bottom:16px;font-size:0.9rem;font-weight:600;';
+        banner.innerHTML = '📋 جاي من صفحة الاستعراض — الكلية والعمادة والتخصص محددين مسبقاً، بس ارفعي ملف الخطة.';
+        document.querySelector('.admin-page-head').insertAdjacentElement('beforebegin', banner);
+      }
 
-          // بانر توضيحي إنه هاي عملية تحديث
-          const banner = document.createElement('div');
-          banner.style.cssText =
-            'display:flex;align-items:center;gap:10px;background:rgba(47,107,255,0.08);' +
-            'border:1px solid rgba(47,107,255,0.18);color:var(--blue);border-radius:var(--radius-sm);' +
-            'padding:12px 18px;margin-bottom:16px;font-size:0.9rem;font-weight:600;';
-          banner.innerHTML = '📋 جاي من صفحة الاستعراض — العمادة والتخصص محددين مسبقاً، بس ارفعي ملف الخطة.';
-          document.querySelector('.admin-page-head').insertAdjacentElement('beforebegin', banner);
+      if (!deanshipParam) {
+        goToStep(1);
+        return;
+      }
+
+      // بننتظر لحد ما العمادات تتحمّل (نفس المدة المستخدمة بمحاكاة التحميل)
+      const trySelectDeanship = setInterval(() => {
+        if (!deanshipSelect.disabled) {
+          deanshipSelect.value = deanshipParam;
+          deanshipSelect.dispatchEvent(new Event('change'));
+          clearInterval(trySelectDeanship);
+
+          if (!majorParam) {
+            goToStep(2);
+            showBanner();
+            return;
+          }
+
+          // بننتظر لحد ما التخصصات تتحمّل
+          const trySelectMajor = setInterval(() => {
+            if (!majorSelect.disabled) {
+              majorSelect.value = majorParam;
+              majorSelect.dispatchEvent(new Event('change'));
+              clearInterval(trySelectMajor);
+              goToStep(3);
+              showBanner();
+            }
+          }, 100);
         }
       }, 100);
     })();

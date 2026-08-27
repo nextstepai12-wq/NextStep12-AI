@@ -16,6 +16,72 @@
 -->
 <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
 <link href="../../css/dashboardcss/notifications.css" rel="stylesheet">
+
+<!--
+  ⚠️ ملاحظة: أضفت هذا الـ style block لتنسيق النافذة المنبثقة (المودال) الخاصة
+  بـ "إدارة الإشعارات" لأنه ما كان عندي وصول لملف notifications.css الأصلي.
+  إذا بدك تنقلي هذا التنسيق لملف notifications.css حتى يصير كل شي بمكان واحد،
+  انسخي محتوى هذا الـ <style> وحطيه هناك واحذفيه من هون.
+-->
+<style>
+  .notif-modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, .55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  .notif-modal-overlay.open{
+    display: flex;
+  }
+  .notif-modal{
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 460px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    animation: notifModalIn .18s ease-out;
+  }
+  @keyframes notifModalIn{
+    from{ opacity: 0; transform: translateY(10px) scale(.98); }
+    to{ opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .notif-modal-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid #eef0f4;
+    position: sticky;
+    top: 0;
+    background: #fff;
+  }
+  .notif-modal-head h4{
+    margin: 0;
+    font-size: 17px;
+  }
+  .notif-modal-close{
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    color: #6b7280;
+  }
+  .notif-modal-close:hover{
+    background: #f3f4f6;
+    color: #111827;
+  }
+  .notif-modal-body{
+    padding: 8px 20px 20px;
+  }
+</style>
 </head>
 <body>
 
@@ -161,8 +227,9 @@
           <button class="notif-tab" data-filter="system" type="button">النظام</button>
         </div>
         <div class="notif-actions">
+          <!-- ⚠️ تم تغيير onclick هون: بدل ما يعمل scroll للأسفل، صار يفتح المودال -->
           <button class="btn-notif-manage" id="btnManageNotifications" type="button"
-                  onclick="document.getElementById('prefsPanel').scrollIntoView({behavior:'smooth'});">
+                  onclick="openNotifPrefsModal()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <circle cx="12" cy="12" r="3"/>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -197,7 +264,8 @@
             <div class="stat-value">12</div>
             <div class="stat-label">إشعارات هذا الأسبوع</div>
           </div>
-          <button class="btn-notif-settings" type="button" onclick="document.getElementById('prefsPanel').scrollIntoView({behavior:'smooth'});">
+          <!-- ⚠️ تم تغيير onclick هون كمان حتى يفتح نفس المودال -->
+          <button class="btn-notif-settings" type="button" onclick="openNotifPrefsModal()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             تفضيلات الإشعارات
           </button>
@@ -326,76 +394,12 @@
           <button class="btn-load-more" id="btnLoadMore" type="button">تحميل إشعارات أقدم</button>
         </div>
 
-        <!-- Right: preferences -->
-        <div class="notif-prefs" id="prefsPanel">
-          <h4>تفضيلات الإشعارات</h4>
-
-          <div class="pref-item">
-            <div class="pref-info">
-              <div class="pref-name">توصيات الطلاب</div>
-              <div class="pref-sub">عند حصول طالب على توصية بتخصص عندكم</div>
-            </div>
-            <label class="switch">
-              <input type="checkbox" checked>
-              <span class="switch-track"></span>
-            </label>
-          </div>
-
-          <div class="pref-item">
-            <div class="pref-info">
-              <div class="pref-name">تذاكر الدعم الفني</div>
-              <div class="pref-sub">عند فتح تذكرة دعم جديدة من طالب</div>
-            </div>
-            <label class="switch">
-              <input type="checkbox" checked>
-              <span class="switch-track"></span>
-            </label>
-          </div>
-
-          <div class="pref-item">
-            <div class="pref-info">
-              <div class="pref-name">البرامج الأكاديمية</div>
-              <div class="pref-sub">حالة مراجعة برنامج جديد أو تعديل عليه</div>
-            </div>
-            <label class="switch">
-              <input type="checkbox" checked>
-              <span class="switch-track"></span>
-            </label>
-          </div>
-
-          <div class="pref-item">
-            <div class="pref-info">
-              <div class="pref-name">الفريق</div>
-              <div class="pref-sub">دعوات وانضمام أعضاء جدد</div>
-            </div>
-            <label class="switch">
-              <input type="checkbox">
-              <span class="switch-track"></span>
-            </label>
-          </div>
-
-          <div class="pref-item">
-            <div class="pref-info">
-              <div class="pref-name">الاشتراك والفوترة</div>
-              <div class="pref-sub">تنبيهات التجديد والفواتير</div>
-            </div>
-            <label class="switch">
-              <input type="checkbox" checked>
-              <span class="switch-track"></span>
-            </label>
-          </div>
-
-          <div class="pref-item">
-            <div class="pref-info">
-              <div class="pref-name">الملخص الأسبوعي</div>
-              <div class="pref-sub">ملخص أداء أسبوعي عبر البريد</div>
-            </div>
-            <label class="switch">
-              <input type="checkbox" checked>
-              <span class="switch-track"></span>
-            </label>
-          </div>
-        </div>
+        <!--
+          ⚠️ ملاحظة: شلت قسم "تفضيلات الإشعارات" (aside notif-prefs) من هون
+          لأنه صار مكانه الجديد جوّا المودال تحت (notifPrefsModal)، حتى ما
+          يصير تكرار لنفس المحتوى بمكانين. إذا حاب تخليه ظاهر بجانب القائمة
+          أيضاً على الشاشات الكبيرة (مو بس بالمودال)، قوليلي وبرجعه.
+        -->
 
       </div>
 
@@ -405,6 +409,90 @@
 
 </div>
 <!-- ======================= END PAGE LAYOUT ======================= -->
+
+<!-- ======================= NOTIF PREFS MODAL (جديد) ======================= -->
+<div class="notif-modal-overlay" id="notifPrefsOverlay" onclick="if(event.target===this) closeNotifPrefsModal()">
+  <div class="notif-modal" role="dialog" aria-modal="true" aria-labelledby="notifModalTitle">
+    <div class="notif-modal-head">
+      <h4 id="notifModalTitle">تفضيلات الإشعارات</h4>
+      <button type="button" class="notif-modal-close" onclick="closeNotifPrefsModal()" aria-label="إغلاق">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="notif-modal-body">
+      <div class="notif-prefs" id="prefsPanel">
+
+        <div class="pref-item">
+          <div class="pref-info">
+            <div class="pref-name">توصيات الطلاب</div>
+            <div class="pref-sub">عند حصول طالب على توصية بتخصص عندكم</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="switch-track"></span>
+          </label>
+        </div>
+
+        <div class="pref-item">
+          <div class="pref-info">
+            <div class="pref-name">تذاكر الدعم الفني</div>
+            <div class="pref-sub">عند فتح تذكرة دعم جديدة من طالب</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="switch-track"></span>
+          </label>
+        </div>
+
+        <div class="pref-item">
+          <div class="pref-info">
+            <div class="pref-name">البرامج الأكاديمية</div>
+            <div class="pref-sub">حالة مراجعة برنامج جديد أو تعديل عليه</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="switch-track"></span>
+          </label>
+        </div>
+
+        <div class="pref-item">
+          <div class="pref-info">
+            <div class="pref-name">الفريق</div>
+            <div class="pref-sub">دعوات وانضمام أعضاء جدد</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="switch-track"></span>
+          </label>
+        </div>
+
+        <div class="pref-item">
+          <div class="pref-info">
+            <div class="pref-name">الاشتراك والفوترة</div>
+            <div class="pref-sub">تنبيهات التجديد والفواتير</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="switch-track"></span>
+          </label>
+        </div>
+
+        <div class="pref-item">
+          <div class="pref-info">
+            <div class="pref-name">الملخص الأسبوعي</div>
+            <div class="pref-sub">ملخص أداء أسبوعي عبر البريد</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="switch-track"></span>
+          </label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ======================= END NOTIF PREFS MODAL ======================= -->
 
 <!-- ======================= FOOTER ======================= -->
 <div id="footer-placeholder"></div>
@@ -485,6 +573,28 @@ document.getElementById('btnMarkRead').addEventListener('click', () => {
 /* تحميل المزيد (مؤقت) */
 document.getElementById('btnLoadMore').addEventListener('click', () => {
   alert('ما في إشعارات أقدم حالياً');
+});
+
+/* ============================================================
+   ⚠️ جديد: فتح وإغلاق نافذة "تفضيلات الإشعارات" المنبثقة (Modal)
+   ============================================================ */
+const notifPrefsOverlay = document.getElementById('notifPrefsOverlay');
+
+function openNotifPrefsModal(){
+  notifPrefsOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden'; // يمنع سكرول الخلفية وقت فتح المودال
+}
+
+function closeNotifPrefsModal(){
+  notifPrefsOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* إغلاق المودال بزر Escape */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && notifPrefsOverlay.classList.contains('open')){
+    closeNotifPrefsModal();
+  }
 });
 </script>
 

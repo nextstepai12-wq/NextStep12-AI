@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>علوم الحاسوب — NextStep AI</title>
+<title id="pageTitleTag">علوم الحاسوب — NextStep AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="../css/app.css" rel="stylesheet">
@@ -20,8 +20,12 @@
 
 :root{ --spark:#f59e0b; }
 
-/* ---------- الهيرو: تحويل الصندوق الثالث إلى بوصلة دائرية ---------- */
-.spec-hero-stats{ grid-template-columns: 1fr 1fr auto; align-items:center; gap:16px; }
+/* ---------- الهيرو: 4 مرباعات معلومات + بوصلة التوافق ---------- */
+.spec-hero-stats{ grid-template-columns: repeat(4, 1fr) auto; align-items:center; gap:14px; }
+@media (max-width:900px){
+  .spec-hero-stats{ grid-template-columns: repeat(2, 1fr); }
+  .spec-hero-stats .gauge-box{ grid-column: 1 / -1; }
+}
 @media (max-width:640px){ .spec-hero-stats{ grid-template-columns: 1fr; } }
 
 .gauge-box{
@@ -47,7 +51,21 @@
 
 /* ---------- خارطة الطريق: مسار زمني من أول سنة للسوق ---------- */
 .roadmap-section{ max-width:1080px; margin:32px auto 0; padding:0 16px; }
-.roadmap-section h2{ font-size:18px; color:var(--navy,#0f172a); margin-bottom:24px; font-weight:800; }
+.roadmap-header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin-bottom:24px; flex-wrap:wrap;
+}
+.roadmap-header h2{ font-size:18px; color:var(--navy,#0f172a); font-weight:800; margin-bottom:0; }
+.roadmap-actions{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+
+.view-plan-btn{
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(47,107,255,.08); color:var(--blue,#2f6bff); font-weight:700;
+  font-size:12.5px; padding:9px 16px; border-radius:10px; border:none; cursor:pointer;
+  font-family:'Cairo',sans-serif; transition:background .2s ease;
+}
+.view-plan-btn:hover{ background:rgba(47,107,255,.15); }
+.view-plan-btn svg{ flex-shrink:0; }
 
 .roadmap-track{
   position:relative; display:flex; justify-content:space-between; gap:8px;
@@ -78,15 +96,58 @@
   .roadmap-stop p{ max-width:none; }
 }
 
+/* ---------- نافذة منبثقة: عرض الخطة الدراسية ---------- */
+.plan-modal-overlay{
+  position:fixed; inset:0; background:rgba(15,23,42,.55); backdrop-filter:blur(2px);
+  display:none; align-items:center; justify-content:center; z-index:1000; padding:20px;
+}
+.plan-modal-overlay.open{ display:flex; animation:fadeUp .25s ease both; }
+.plan-modal{
+  position:relative; background:#fff; border-radius:18px; max-width:420px; width:100%;
+  padding:32px 28px; text-align:center; box-shadow:0 20px 50px rgba(15,23,42,.25);
+}
+.plan-modal-close{
+  position:absolute; top:14px; left:14px; background:none; border:none; cursor:pointer;
+  color:var(--gray,#64748b); padding:4px; line-height:0;
+}
+.plan-modal-icon{
+  width:52px; height:52px; border-radius:14px; background:rgba(47,107,255,.1); color:var(--blue,#2f6bff);
+  display:flex; align-items:center; justify-content:center; margin:0 auto 14px;
+}
+.plan-modal h3{ font-size:16px; font-weight:800; color:var(--navy,#0f172a); margin-bottom:8px; }
+.plan-modal p{ font-size:12.5px; color:var(--gray,#64748b); line-height:1.9; margin-bottom:20px; }
+.plan-modal p.plan-modal-text{ text-align:right; margin-bottom:0; }
+.plan-modal-download{
+  display:inline-flex; align-items:center; gap:8px; background:var(--blue,#2f6bff); color:#fff;
+  font-weight:700; font-size:13px; padding:11px 20px; border-radius:10px; text-decoration:none;
+}
+
+.plan-modal-wide{ max-width:560px; max-height:85vh; overflow-y:auto; }
+.plan-years{ display:flex; flex-direction:column; gap:16px; text-align:right; }
+.plan-year h4{
+  display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:800;
+  color:var(--navy,#0f172a); margin-bottom:8px;
+}
+.plan-year-num{
+  width:22px; height:22px; border-radius:50%; background:rgba(47,107,255,.1); color:var(--blue,#2f6bff);
+  display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; flex-shrink:0;
+}
+.plan-year ul{ list-style:none; padding-right:30px; margin:0; display:flex; flex-direction:column; gap:6px; }
+.plan-year ul li{ font-size:12.5px; color:var(--gray,#64748b); line-height:1.6; position:relative; }
+.plan-year ul li::before{
+  content:""; position:absolute; right:-14px; top:7px; width:5px; height:5px;
+  border-radius:50%; background:var(--blue,#2f6bff);
+}
+
 /* ---------- المهارات: حلقة ملوّنة حول الأيقونة (تناغم مع البوصلة) ---------- */
 .skill-card-icon{ position:relative; }
 .skill-card-icon::after{
   content:""; position:absolute; inset:-4px; border-radius:14px;
   border:1.5px dashed rgba(47,107,255,.35);
 }
-.skill-card:nth-child(2) .skill-card-icon::after{ border-color:rgba(16,185,129,.4); }
-.skill-card:nth-child(3) .skill-card-icon::after{ border-color:rgba(245,158,11,.4); }
-.skill-card:nth-child(4) .skill-card-icon::after{ border-color:rgba(53,208,255,.5); }
+.skill-card:nth-child(4n+2) .skill-card-icon::after{ border-color:rgba(16,185,129,.4); }
+.skill-card:nth-child(4n+3) .skill-card-icon::after{ border-color:rgba(245,158,11,.4); }
+.skill-card:nth-child(4n+4) .skill-card-icon::after{ border-color:rgba(53,208,255,.5); }
 
 /* ---------- حركة دخول خفيفة للأقسام ---------- */
 .spec-hero-box, .info-card, .skill-card, .roadmap-stop{
@@ -104,6 +165,16 @@
 @media (prefers-reduced-motion:reduce){
   .spec-hero-box, .info-card, .skill-card, .roadmap-stop{ animation:none; }
 }
+
+/* ---------- إضافات صغيرة لدعم الحقول الديناميكية (نبذة) ---------- */
+.spec-overview{
+  max-width:1080px; margin:28px auto 0; padding:0 16px;
+}
+.spec-overview p{
+  background:#fff; border:1px solid var(--border,#e2e8f0); border-radius:16px;
+  padding:18px 22px; font-size:13.5px; line-height:1.9; color:var(--gray,#64748b);
+  position:relative;
+}
 </style>
 </head>
 <body>
@@ -115,9 +186,9 @@
 <div class="spec-breadcrumb">
   <a href="universities.html">الجامعات</a>
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-  <a href="university-details.html">جامعة النجاح الوطنية</a>
+  <a href="university-details.html" id="breadcrumbDeanship">جامعة النجاح الوطنية</a>
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-  <span class="current">علوم الحاسوب</span>
+  <span class="current" id="breadcrumbCurrent">علوم الحاسوب</span>
 </div>
 
 <!-- ======================= HERO ======================= -->
@@ -128,14 +199,16 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
       </div>
       <div class="spec-hero-title">
-        <h1>علوم الحاسوب</h1>
-        <p>بكالوريوس · عمادة الهندسة وتكنولوجيا المعلومات</p>
+        <h1 id="heroTitle">علوم الحاسوب</h1>
+        <p id="heroSubtitle">بكالوريوس · عمادة الهندسة وتكنولوجيا المعلومات</p>
       </div>
     </div>
 
     <div class="spec-hero-stats">
-      <div class="spec-stat-box"><b>4 سنوات</b><span>مدة الدراسة</span></div>
-      <div class="spec-stat-box"><b>2,500$</b><span>متوسط الراتب الشهري المتوقع</span></div>
+      <div class="spec-stat-box"><b id="statDuration">4 سنوات</b><span>مدة الدراسة</span></div>
+      <div class="spec-stat-box"><b id="statAdmissionRate">70%</b><span>نسبة القبول</span></div>
+      <div class="spec-stat-box"><b id="statBranch">علمي</b><span>الفرع الدراسي المطلوب</span></div>
+      <div class="spec-stat-box"><b id="statScholarship">25%</b><span>نسبة المنحة</span></div>
       <div class="gauge-box">
         <div class="gauge-wrap">
           <svg viewBox="0 0 112 112">
@@ -158,29 +231,41 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.5" fill="currentColor"/></svg>
       </div>
       <h3>أهداف التخصص</h3>
-      <p>إعداد كوادر قادرة على تصميم وبرمجة الأنظمة الذكية، وتحليل المشكلات التقنية وحلّها بأساليب علمية حديثة.</p>
+      <p id="goalsText">إعداد كوادر قادرة على تصميم وبرمجة الأنظمة الذكية، وتحليل المشكلات التقنية وحلّها بأساليب علمية حديثة.</p>
     </div>
     <div class="info-card">
       <div class="info-card-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1z"/><path d="M9 5h6v2H9z"/></svg>
       </div>
       <h3>فرص العمل بعد التخرج</h3>
-      <p>مطوّر برمجيات، مهندس بيانات، محلل أنظمة، أخصائي أمن سيبراني، أو ريادة مشروعك التقني الخاص.</p>
+      <p id="careerText">مطوّر برمجيات، مهندس بيانات، محلل أنظمة، أخصائي أمن سيبراني، أو ريادة مشروعك التقني الخاص.</p>
     </div>
     <div class="info-card">
       <div class="info-card-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
       <h3>مؤهلات يجب أن تمتلكها</h3>
-      <p>تفكير منطقي وحل مشكلات، إجادة أساسيات الرياضيات، وصبر على التعلّم الذاتي المستمر.</p>
+      <p id="qualificationsText">تفكير منطقي وحل مشكلات، إجادة أساسيات الرياضيات، وصبر على التعلّم الذاتي المستمر.</p>
     </div>
   </div>
 </div>
 
-<!-- ======================= ROADMAP (جديد) ======================= -->
+<!-- ======================= ROADMAP ======================= -->
 <div class="roadmap-section">
-  <h2>مسارك بعد الالتحاق بالتخصص</h2>
-  <div class="roadmap-track">
+  <div class="roadmap-header">
+    <h2>مسارك بعد الالتحاق بالتخصص</h2>
+    <div class="roadmap-actions">
+      <button type="button" class="view-plan-btn" id="viewOverviewBtn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
+        <span>نبذة عن التخصص</span>
+      </button>
+      <button type="button" class="view-plan-btn" id="viewPlanBtn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        <span>شاهد الخطة</span>
+      </button>
+    </div>
+  </div>
+  <div class="roadmap-track" id="roadmapTrack">
     <div class="roadmap-stop">
       <div class="roadmap-dot">1</div>
       <h4>السنة الأولى والثانية</h4>
@@ -207,7 +292,7 @@
 <!-- ======================= SKILLS ======================= -->
 <div class="spec-section">
   <h2>المهارات والتعليم الأساسي</h2>
-  <div class="skills-grid">
+  <div class="skills-grid" id="skillsGrid">
     <div class="skill-card">
       <div class="skill-card-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
@@ -244,9 +329,74 @@
   <div class="spec-cta-box">
     <p>مش متأكد/ة إذا هاد التخصص مناسب إلك؟ خدي استبيانك الذكي واعرفي نسبة توافقك بدقة.</p>
     <a href="quiz.html" class="btn-start-quiz">
-      ابدأ الاختبار الذكي
+أعد  الاختبار الذكي 
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </a>
+  </div>
+</div>
+
+<!-- ======================= نافذة منبثقة: نبذة عن التخصص ======================= -->
+<div class="plan-modal-overlay" id="overviewModalOverlay">
+  <div class="plan-modal" role="dialog" aria-modal="true" aria-labelledby="overviewModalTitle">
+    <button type="button" class="plan-modal-close" id="overviewModalClose" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l18 18"/></svg>
+    </button>
+    <div class="plan-modal-icon">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
+    </div>
+    <h3 id="overviewModalTitle">نبذة عن التخصص</h3>
+    <p id="overviewModalText" class="plan-modal-text">تخصص علوم الحاسوب من التخصصات الأكثر طلبًا حاليًا، بيركّز على تعليمك أساسيات البرمجة، الخوارزميات، قواعد البيانات، والذكاء الاصطناعي، وبيفتحلك مجال واسع للعمل بالسوق المحلي والعالمي أو حتى بناء مشروعك التقني الخاص.</p>
+  </div>
+</div>
+
+<!-- ======================= نافذة منبثقة: الخطة الدراسية ======================= -->
+<div class="plan-modal-overlay" id="planModalOverlay">
+  <div class="plan-modal plan-modal-wide" role="dialog" aria-modal="true" aria-labelledby="planModalTitle">
+    <button type="button" class="plan-modal-close" id="planModalClose" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l18 18"/></svg>
+    </button>
+    <div class="plan-modal-icon">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+    </div>
+    <h3 id="planModalTitle">الخطة الدراسية</h3>
+    <p class="plan-modal-text" style="text-align:center;margin-bottom:18px;">الخطة الدراسية الكاملة لتخصص <span id="planModalMajorName">علوم الحاسوب</span> موزّعة على سنوات الدراسة:</p>
+    <div class="plan-years" id="planYears">
+      <div class="plan-year">
+        <h4><span class="plan-year-num">1</span> السنة الأولى</h4>
+        <ul>
+          <li>مقدمة في البرمجة</li>
+          <li>أساسيات الرياضيات</li>
+          <li>مبادئ علوم الحاسوب</li>
+          <li>مهارات اتصال ولغة إنجليزية</li>
+        </ul>
+      </div>
+      <div class="plan-year">
+        <h4><span class="plan-year-num">2</span> السنة الثانية</h4>
+        <ul>
+          <li>هياكل البيانات والخوارزميات</li>
+          <li>قواعد البيانات</li>
+          <li>أنظمة التشغيل</li>
+          <li>الرياضيات المتقطعة</li>
+        </ul>
+      </div>
+      <div class="plan-year">
+        <h4><span class="plan-year-num">3</span> السنة الثالثة</h4>
+        <ul>
+          <li>شبكات الحاسوب</li>
+          <li>هندسة البرمجيات</li>
+          <li>الذكاء الاصطناعي</li>
+          <li>أمن المعلومات</li>
+        </ul>
+      </div>
+      <div class="plan-year">
+        <h4><span class="plan-year-num">4</span> السنة الرابعة</h4>
+        <ul>
+          <li>مشروع التخرج</li>
+          <li>التدريب العملي</li>
+          <li>مواد اختيارية متقدمة</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -254,6 +404,182 @@
 <script src="../js/footer-index.js"></script>
 
 <script>
+/* =========================================================
+   💬 التحكم بالنافذة المنبثقة لعرض الخطة الدراسية
+   شغّالة دايمًا (حتى بصفحة المثال الافتراضي) بغض النظر عن
+   وجود بيانات ديناميكية للتخصص أو لا.
+========================================================= */
+(function(){
+  'use strict';
+
+  function wireModal(overlayId, openBtnId, closeBtnId){
+    const overlay  = document.getElementById(overlayId);
+    const openBtn  = document.getElementById(openBtnId);
+    const closeBtn = document.getElementById(closeBtnId);
+    if (!overlay || !openBtn || !closeBtn) return;
+
+    function openModal(){ overlay.classList.add('open'); }
+    function closeModal(){ overlay.classList.remove('open'); }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+  }
+
+  wireModal('overviewModalOverlay', 'viewOverviewBtn', 'overviewModalClose');
+  wireModal('planModalOverlay', 'viewPlanBtn', 'planModalClose');
+})();
+
+/* =========================================================
+   🔗 ربط الصفحة ببيانات التخصص المحفوظة من "إضافة برنامج"
+   لو ما في تخصص مطابق برقم الرابط (?major=) أو (?id=)،
+   الصفحة بتضل تعرض مثال "علوم الحاسوب" الافتراضي متل ما هو.
+========================================================= */
+(function(){
+  'use strict';
+
+  const collegesCache = [
+    { id:1, name:'كلية الهندسة وتكنولوجيا المعلومات' },
+    { id:2, name:'كلية العلوم' },
+    { id:3, name:'كلية الطب' },
+    { id:4, name:'كلية الأعمال والاقتصاد' },
+    { id:5, name:'كلية الآداب' }
+  ];
+
+  const deanshipsCache = [
+    { id:1, college_id:1, name:'عمادة كلية الهندسة وتكنولوجيا المعلومات' },
+    { id:2, college_id:2, name:'عمادة كلية العلوم' },
+    { id:3, college_id:3, name:'عمادة كلية الطب' },
+    { id:4, college_id:4, name:'عمادة كلية الأعمال والاقتصاد' },
+    { id:5, college_id:5, name:'عمادة كلية الآداب' }
+  ];
+
+  const degreeLabels = { diploma:'دبلوم', bachelor:'بكالوريوس', master:'ماجستير', phd:'دكتوراة' };
+
+  // نفس الأيقونات الأربعة الموجودة أصلاً بالصفحة — بتترجّع بالتناوب
+  // مهما كان عدد المهارات المضافة، حتى يضل الشكل البصري موحّد.
+  const skillIconPaths = [
+    '<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>',
+    '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18M3 9h6"/>',
+    '<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+    '<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/>'
+  ];
+
+  function esc(str){
+    const div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const wantedId = params.get('major') || params.get('id');
+
+  let program = null;
+
+  try {
+    const stored = JSON.parse(localStorage.getItem('nextstep_programs') || '[]');
+    if (Array.isArray(stored) && stored.length && wantedId) {
+      program = stored.find(p => String(p.id) === String(wantedId));
+    }
+  } catch (e) {
+    console.warn('تعذر قراءة بيانات التخصصات المحفوظة:', e);
+  }
+
+  // ما في تخصص مطابق؟ الصفحة بتضل بمثالها الافتراضي (علوم الحاسوب) بدون أي تغيير.
+  if (!program) return;
+
+  const college = collegesCache.find(c => c.id === Number(program.college_id));
+  const deanship = deanshipsCache.find(d => d.id === Number(program.deanship_id));
+  const degreeLabel = degreeLabels[program.degree] || 'برنامج أكاديمي';
+
+  /* ---------- العنوان والـ breadcrumb ---------- */
+  document.getElementById('pageTitleTag').textContent = program.name + ' — NextStep AI';
+  document.getElementById('breadcrumbCurrent').textContent = program.name;
+  if (deanship) document.getElementById('breadcrumbDeanship').textContent = deanship.name;
+
+  /* ---------- الهيرو ---------- */
+  document.getElementById('heroTitle').textContent = program.name;
+  document.getElementById('heroSubtitle').textContent =
+    degreeLabel + (deanship ? ' · ' + deanship.name : '');
+
+  document.getElementById('statDuration').textContent =
+    (program.duration_years ? program.duration_years : '—') + ' سنوات';
+
+  // نسبة القبول
+  if (program.admission_rate !== undefined && program.admission_rate !== null && program.admission_rate !== '') {
+    document.getElementById('statAdmissionRate').textContent = program.admission_rate + '%';
+  }
+
+  // الفرع الدراسي المطلوب (توجيهي)
+  if (program.required_branch) {
+    document.getElementById('statBranch').textContent = program.required_branch;
+  }
+
+  // نسبة المنحة
+  if (Number(program.scholarship_percentage) > 0) {
+    document.getElementById('statScholarship').textContent = program.scholarship_percentage + '%';
+  }
+
+  /* ---------- نبذة عن التخصص (نافذة منبثقة) ---------- */
+  if (program.overview) {
+    document.getElementById('overviewModalText').textContent = program.overview;
+  }
+
+  /* ---------- الخطة الدراسية (نافذة منبثقة تعرض المحتوى مباشرة) ---------- */
+  document.getElementById('planModalMajorName').textContent = program.name;
+  if (program.study_plan && program.study_plan.years && program.study_plan.years.length) {
+    const planYears = document.getElementById('planYears');
+    planYears.innerHTML = program.study_plan.years.map((year, i) => `
+      <div class="plan-year">
+        <h4><span class="plan-year-num">${i + 1}</span> ${esc(year.title)}</h4>
+        <ul>
+          ${(year.courses || []).map(course => `<li>${esc(course)}</li>`).join('')}
+        </ul>
+      </div>
+    `).join('');
+  }
+
+  /* ---------- بطاقات المعلومات ---------- */
+  if (program.goals) document.getElementById('goalsText').textContent = program.goals;
+
+  if (program.career_opportunities && program.career_opportunities.length) {
+    document.getElementById('careerText').textContent =
+      program.career_opportunities.map(c => c.title).filter(Boolean).join('، ');
+  }
+
+  if (program.qualifications) document.getElementById('qualificationsText').textContent = program.qualifications;
+
+  /* ---------- خارطة الطريق ---------- */
+  if (program.journey && program.journey.length) {
+    const track = document.getElementById('roadmapTrack');
+    track.innerHTML = program.journey.map((stage, i) => `
+      <div class="roadmap-stop">
+        <div class="roadmap-dot">${i === program.journey.length - 1 ? '✓' : (i + 1)}</div>
+        <h4>${esc(stage.title)}</h4>
+        <p>${esc(stage.description || '')}</p>
+      </div>
+    `).join('');
+  }
+
+  /* ---------- المهارات ---------- */
+  if (program.skills && program.skills.length) {
+    const grid = document.getElementById('skillsGrid');
+    grid.innerHTML = program.skills.map((skill, i) => `
+      <div class="skill-card">
+        <div class="skill-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            ${skillIconPaths[i % skillIconPaths.length]}
+          </svg>
+        </div>
+        <h3>${esc(skill.title)}</h3>
+        <p>${esc(skill.description || '')}</p>
+      </div>
+    `).join('');
+  }
+
+})();
+
 /* تعبئة حلقة نسبة التوافق بشكل متحرك — رقم 94% نفس القيمة الأصلية بالصفحة.
    لو التوافق جاي من الـ API مستقبلاً، بس بدّلي قيمة matchPercent هون. */
 (function animateGauge(){

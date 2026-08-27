@@ -1,271 +1,3256 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>الفريق والصلاحيات — الإعدادات | NextStep AI</title>
+
+  <!-- Google Fonts -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main CSS -->
 
   <link rel="stylesheet" href="../../css/app.css">
   <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
   <link rel="stylesheet" href="../../css/dashboardcss/settings-dashboard.css">
 
   <style>
-    .settings-stepper-wrapper { display: grid; grid-template-columns: 260px 1fr; gap: 2rem; align-items: start; }
-    .settings-stepper { background: var(--white); border-radius: var(--radius); padding: 1.5rem 1.25rem; box-shadow: var(--shadow); position: sticky; top: 90px; border: 1px solid rgba(47,107,255,0.04); }
-    .settings-stepper h3 { font-size: 1rem; font-weight: 700; color: var(--gray); margin-bottom: 1.5rem; padding-bottom: .75rem; border-bottom: 1px solid var(--gray-bg); }
-    .settings-stepper ul { list-style: none; display: flex; flex-direction: column; gap: .25rem; }
-    .stepper-item-settings { display: flex; align-items: center; gap: .75rem; padding: .75rem; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); border: none; background: transparent; width: 100%; text-align: right; }
-    .stepper-item-settings:hover { background: var(--gray-bg); }
-    .stepper-item-settings.active { background: rgba(47,107,255,0.06); }
-    .stepper-item-settings.active h4 { color: var(--blue); }
-    .stepper-dot { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--gray-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .stepper-item-settings.active .stepper-dot { border-color: var(--blue); background: var(--blue); }
-    .stepper-item-settings.active .stepper-dot .dot-inner { background: white; }
-    .dot-inner { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-light); }
-    .stepper-item-settings h4 { font-size: .9rem; font-weight: 600; color: var(--navy); }
-    .stepper-item-settings p { font-size: .75rem; color: var(--gray); margin-top: .1rem; }
-    .stepper-item-settings div { text-align: right; }
 
-    .settings-section { background: var(--white); border-radius: var(--radius); padding: 1.75rem 2rem; box-shadow: var(--shadow); border: 1px solid rgba(47,107,255,0.04); }
-    .settings-section-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: .75rem; padding-bottom: .75rem; border-bottom: 2px solid var(--gray-bg); margin-bottom: 1.5rem; }
-    .settings-section-title .section-hint { font-size: .8rem; font-weight: 400; color: var(--gray); margin-right: auto; }
+    /* =========================================================
+       GENERAL
+    ========================================================= */
 
-    .field-group { margin-bottom: 1.25rem; }
-    .field-group label { display: block; font-weight: 600; font-size: .9rem; color: var(--navy); margin-bottom: .4rem; }
-    .field-group input, .field-group select { width: 100%; padding: .6rem 1rem; border: 1px solid var(--gray-bg); border-radius: var(--radius-sm); font-family: 'Cairo', sans-serif; font-size: .95rem; outline: none; }
-    .field-group input:focus, .field-group select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(47,107,255,0.12); }
-    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-    .field-hint { font-size: .8rem; color: var(--gray); margin-top: .3rem; }
+    .settings-stepper-wrapper {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
 
-    .mini-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
-    .mini-table thead th { text-align: right; padding: 10px 12px; font-weight: 700; color: var(--gray); font-size: .72rem; text-transform: uppercase; border-bottom: 2px solid var(--gray-bg); }
-    .mini-table tbody td { padding: 10px 12px; border-bottom: 1px solid var(--gray-bg); color: var(--gray-dark); }
-    .mini-table tbody tr:hover { background: var(--gray-bg); }
-    .row-action-btn { background: none; border: none; color: var(--blue); cursor: pointer; font-size: .8rem; font-weight: 600; }
-    .row-action-btn.danger { color: var(--red); }
 
-    .role-badge { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 60px; font-size: .75rem; font-weight: 700; }
-    .role-badge.owner { background: rgba(198,40,40,0.1); color: var(--red); }
-    .role-badge.manager { background: rgba(47,107,255,0.1); color: var(--blue); }
-    .role-badge.viewer { background: var(--gray-bg); color: var(--gray); }
+    /* =========================================================
+       STEPPER
+    ========================================================= */
 
-    .status-pill-mini { display: inline-flex; align-items: center; gap: 5px; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 60px; }
-    .status-pill-mini.active { background: rgba(22,192,136,0.14); color: #0F9D6F; }
-    .status-pill-mini.pending { background: rgba(180,121,12,0.12); color: var(--gold); }
-    .status-pill-mini.suspended { background: #FDEDEE; color: var(--red); }
+    .settings-stepper {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.25rem;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 90px;
+      border: 1px solid rgba(47,107,255,0.04);
+    }
 
-    .btn-save-primary { background: var(--blue); color: white; border: none; padding: .65rem 1.5rem; border-radius: var(--radius-sm); font-weight: 700; font-size: .95rem; cursor: pointer; font-family: 'Cairo', sans-serif; }
-    .btn-cancel-outline { background: transparent; color: var(--gray); border: 1px solid var(--gray-bg); padding: .75rem 2rem; border-radius: var(--radius-sm); font-weight: 600; font-size: 1rem; cursor: pointer; font-family: 'Cairo', sans-serif; }
+    .settings-stepper h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--gray-bg);
+    }
 
-    .permission-row { display: flex; justify-content: space-between; align-items: center; padding: .9rem 0; border-bottom: 1px solid var(--gray-bg); }
-    .permission-row:last-child { border-bottom: none; }
-    .permission-row-title { font-weight: 600; color: var(--navy); font-size: .9rem; }
-    .permission-row-desc { font-size: .78rem; color: var(--gray); margin-top: .15rem; }
-    .permission-checks { display: flex; gap: 1.5rem; }
-    .permission-checks label { display: flex; align-items: center; gap: .4rem; font-size: .82rem; color: var(--gray); cursor: pointer; }
+    .settings-stepper ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+      padding: 0;
+      margin: 0;
+    }
 
-    .settings-panel { display: none; animation: settingsPanelFade .25s ease; }
-    .settings-panel.active-panel { display: block; }
-    @keyframes settingsPanelFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .stepper-item-settings {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .8rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: .2s ease;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: right;
+    }
+
+    .stepper-item-settings:hover {
+      background: var(--gray-bg);
+      transform: translateX(-2px);
+    }
+
+    .stepper-item-settings.active {
+      background: rgba(47,107,255,0.07);
+    }
+
+    .stepper-item-settings.active h4 {
+      color: var(--blue);
+    }
+
+    .stepper-dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: .2s ease;
+    }
+
+    .stepper-item-settings.active .stepper-dot {
+      border-color: var(--blue);
+      background: var(--blue);
+    }
+
+    .stepper-item-settings.active .dot-inner {
+      background: white;
+    }
+
+    .dot-inner {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gray-light);
+    }
+
+    .stepper-item-settings h4 {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .stepper-item-settings p {
+      font-size: .74rem;
+      color: var(--gray);
+      margin-top: .1rem;
+      margin-bottom: 0;
+    }
+
+
+    /* =========================================================
+       MAIN SECTIONS
+    ========================================================= */
+
+    .settings-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(47,107,255,0.04);
+    }
+
+    .settings-section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding-bottom: .9rem;
+      border-bottom: 2px solid var(--gray-bg);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-hint {
+      font-size: .78rem;
+      font-weight: 400;
+      color: var(--gray);
+      margin-right: auto;
+    }
+
+
+    /* =========================================================
+       TEAM STATS
+    ========================================================= */
+
+    .team-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-stat {
+      border: 1px solid var(--gray-bg);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      background: #fff;
+      transition: .2s ease;
+    }
+
+    .team-stat:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 18px rgba(0,0,0,.05);
+    }
+
+    .team-stat-label {
+      font-size: .76rem;
+      color: var(--gray);
+      margin-bottom: .35rem;
+    }
+
+    .team-stat-number {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .team-stat-number.blue {
+      color: var(--blue);
+    }
+
+    .team-stat-number.green {
+      color: #0F9D6F;
+    }
+
+    .team-stat-number.gold {
+      color: var(--gold);
+    }
+
+
+    /* =========================================================
+       SEARCH
+    ========================================================= */
+
+    .members-tools {
+      display: flex;
+      gap: .75rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: .7rem 2.5rem .7rem 1rem;
+      border: 1px solid var(--gray-bg);
+      border-radius: var(--radius-sm);
+      font-family: 'Cairo', sans-serif;
+      outline: none;
+      font-size: .88rem;
+      box-sizing: border-box;
+    }
+
+    .search-box input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47,107,255,.1);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: .8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+    }
+
+    .filter-select {
+      padding: .7rem .9rem;
+      border: 1px solid var(--gray-bg);
+      border-radius: var(--radius-sm);
+      font-family: 'Cairo', sans-serif;
+      outline: none;
+      background: white;
+      color: var(--gray-dark);
+      min-width: 145px;
+    }
+
+
+    /* =========================================================
+       TABLE
+    ========================================================= */
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+    }
+
+    .mini-table thead th {
+      text-align: right;
+      padding: 11px 12px;
+      font-weight: 700;
+      color: var(--gray);
+      font-size: .72rem;
+      border-bottom: 2px solid var(--gray-bg);
+      white-space: nowrap;
+    }
+
+    .mini-table tbody td {
+      padding: 13px 12px;
+      border-bottom: 1px solid var(--gray-bg);
+      color: var(--gray-dark);
+      white-space: nowrap;
+    }
+
+    .mini-table tbody tr:hover {
+      background: #fafbff;
+    }
+
+
+    /* =========================================================
+       MEMBER
+    ========================================================= */
+
+    .member-info {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+
+    .member-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), #6c8cff);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: .82rem;
+      flex-shrink: 0;
+    }
+
+    .member-name {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: .86rem;
+    }
+
+    .member-email {
+      color: var(--gray);
+      font-size: .73rem;
+      margin-top: 1px;
+    }
+
+
+    /* =========================================================
+       BADGES
+    ========================================================= */
+
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 60px;
+      font-size: .72rem;
+      font-weight: 700;
+    }
+
+    .role-badge.owner {
+      background: rgba(198,40,40,.1);
+      color: var(--red);
+    }
+
+    .role-badge.manager {
+      background: rgba(47,107,255,.1);
+      color: var(--blue);
+    }
+
+    .role-badge.viewer {
+      background: var(--gray-bg);
+      color: var(--gray);
+    }
+
+    .status-pill-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 60px;
+    }
+
+    .status-pill-mini::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .status-pill-mini.active {
+      background: rgba(22,192,136,.14);
+      color: #0F9D6F;
+    }
+
+    .status-pill-mini.pending {
+      background: rgba(180,121,12,.12);
+      color: var(--gold);
+    }
+
+    .status-pill-mini.suspended {
+      background: #FDEDEE;
+      color: var(--red);
+    }
+
+
+    /* =========================================================
+       ACTIONS
+    ========================================================= */
+
+    .actions-wrapper {
+      display: flex;
+      gap: .35rem;
+      align-items: center;
+    }
+
+    .row-action-btn {
+      background: transparent;
+      border: none;
+      color: var(--blue);
+      cursor: pointer;
+      font-size: .76rem;
+      font-weight: 700;
+      font-family: 'Cairo', sans-serif;
+      padding: 5px 7px;
+      border-radius: 6px;
+      transition: .2s;
+    }
+
+    .row-action-btn:hover {
+      background: rgba(47,107,255,.08);
+    }
+
+    .row-action-btn.danger {
+      color: var(--red);
+    }
+
+    .row-action-btn.danger:hover {
+      background: rgba(198,40,40,.07);
+    }
+
+
+    /* =========================================================
+       FORM
+    ========================================================= */
+
+    .field-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .field-group label {
+      display: block;
+      font-weight: 700;
+      font-size: .88rem;
+      color: var(--navy);
+      margin-bottom: .4rem;
+    }
+
+    .field-group input,
+    .field-group select {
+      width: 100%;
+      padding: .7rem 1rem;
+      border: 1px solid var(--gray-bg);
+      border-radius: var(--radius-sm);
+      font-family: 'Cairo', sans-serif;
+      font-size: .9rem;
+      outline: none;
+      background: white;
+      box-sizing: border-box;
+    }
+
+    .field-group input:focus,
+    .field-group select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47,107,255,.12);
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .field-hint {
+      font-size: .78rem;
+      color: var(--gray);
+      margin-top: .3rem;
+    }
+
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
+
+    .btn-save-primary {
+      background: var(--blue);
+      color: white;
+      border: none;
+      padding: .7rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: .9rem;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      transition: .2s;
+    }
+
+    .btn-save-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba(47,107,255,.2);
+    }
+
+    .btn-cancel-outline {
+      background: transparent;
+      color: var(--gray);
+      border: 1px solid var(--gray-bg);
+      padding: .7rem 1.4rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      transition: .2s;
+    }
+
+    .btn-cancel-outline:hover {
+      background: var(--gray-bg);
+    }
+
+
+    /* =========================================================
+       PANELS
+    ========================================================= */
+
+    .settings-panel {
+      display: none;
+      animation: settingsPanelFade .25s ease;
+    }
+
+    .settings-panel.active-panel {
+      display: block;
+    }
+
+    @keyframes settingsPanelFade {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+    /* =========================================================
+       EMPTY
+    ========================================================= */
+
+    .empty-state {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--gray);
+    }
+
+    .empty-state-icon {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: rgba(47,107,255,.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto .8rem;
+      font-size: 1.4rem;
+    }
+
+    .empty-state h4 {
+      color: var(--navy);
+      margin-bottom: .3rem;
+    }
+
+    .empty-state p {
+      font-size: .8rem;
+    }
+
+
+    /* =========================================================
+       ROLES & PERMISSIONS
+    ========================================================= */
+
+    .roles-layout {
+      display: grid;
+      grid-template-columns: 245px 1fr;
+      gap: 1.5rem;
+    }
+
+    .roles-list {
+      border-left: 1px solid var(--gray-bg);
+      padding-left: 1.25rem;
+    }
+
+    .roles-list-title {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--gray);
+      margin-bottom: .7rem;
+    }
+
+    .role-select-card {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .85rem .75rem;
+      margin-bottom: .5rem;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: right;
+      font-family: 'Cairo', sans-serif;
+      transition: .2s ease;
+    }
+
+    .role-select-card:hover {
+      background: var(--gray-bg);
+    }
+
+    .role-select-card.active {
+      background: rgba(47,107,255,.07);
+      border-color: rgba(47,107,255,.12);
+    }
+
+    .role-select-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .owner-icon {
+      background: rgba(198,40,40,.1);
+    }
+
+    .manager-icon {
+      background: rgba(47,107,255,.1);
+    }
+
+    .viewer-icon {
+      background: var(--gray-bg);
+    }
+
+    .role-select-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .role-select-info strong {
+      font-size: .84rem;
+      color: var(--navy);
+    }
+
+    .role-select-info span {
+      font-size: .68rem;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+
+    .role-arrow {
+      color: var(--gray);
+      font-size: .85rem;
+    }
+
+    .role-select-card.active .role-arrow {
+      color: var(--blue);
+    }
+
+
+    /* =========================================================
+       PERMISSIONS CONTAINER
+    ========================================================= */
+
+    .permissions-container {
+      border: 1px solid var(--gray-bg);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .permissions-header {
+      padding: 1.2rem 1.3rem;
+      background: #fafbff;
+      border-bottom: 1px solid var(--gray-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .permissions-header h3 {
+      margin: 0;
+      font-size: .98rem;
+      color: var(--navy);
+    }
+
+    .permissions-header p {
+      margin: .25rem 0 0;
+      color: var(--gray);
+      font-size: .74rem;
+    }
+
+    .permissions-count {
+      text-align: center;
+      background: white;
+      border: 1px solid var(--gray-bg);
+      border-radius: 10px;
+      padding: .45rem .8rem;
+      min-width: 80px;
+    }
+
+    .permissions-count strong {
+      display: block;
+      color: var(--blue);
+      font-size: 1.1rem;
+      line-height: 1.1;
+    }
+
+    .permissions-count span {
+      color: var(--gray);
+      font-size: .62rem;
+    }
+
+
+    /* =========================================================
+       PERMISSION ITEM
+    ========================================================= */
+
+    .permission-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--gray-bg);
+      transition: .2s ease;
+    }
+
+    .permission-item:hover {
+      background: #fcfdff;
+    }
+
+    .permission-info {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .permission-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(47,107,255,.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: .95rem;
+    }
+
+    .permission-title {
+      font-size: .83rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .permission-description {
+      color: var(--gray);
+      font-size: .7rem;
+      margin-top: .18rem;
+    }
+
+
+    /* =========================================================
+       SWITCH
+    ========================================================= */
+
+    .permission-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .permission-switch input {
+      display: none;
+    }
+
+    .switch-slider {
+      position: absolute;
+      inset: 0;
+      background: #d9dee8;
+      border-radius: 30px;
+      transition: .2s ease;
+    }
+
+    .switch-slider::before {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      right: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,.15);
+      transition: .2s ease;
+    }
+
+    .permission-switch input:checked + .switch-slider {
+      background: var(--blue);
+    }
+
+    .permission-switch input:checked + .switch-slider::before {
+      transform: translateX(-20px);
+    }
+
+
+    /* =========================================================
+       PERMISSIONS FOOTER
+    ========================================================= */
+
+    .permissions-footer {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: #fafbff;
+    }
+
+    .permissions-footer span {
+      color: var(--gray);
+      font-size: .72rem;
+    }
+
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,.45);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 9999;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 470px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+      padding: 1.5rem;
+      animation: modalIn .2s ease;
+    }
+
+    @keyframes modalIn {
+
+      from {
+        opacity: 0;
+        transform: scale(.96) translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-head h3 {
+      color: var(--navy);
+      font-size: 1.05rem;
+      margin: 0;
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--gray-bg);
+      color: var(--gray);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-start;
+      gap: .6rem;
+      margin-top: 1.3rem;
+    }
+
+    .danger-btn {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: .65rem 1.3rem;
+      border-radius: var(--radius-sm);
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      min-width: 280px;
+      max-width: 360px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.15);
+      padding: .9rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: .3s ease;
+      z-index: 10000;
+      border-right: 4px solid #16c088;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(22,192,136,.12);
+      color: #0F9D6F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .toast-text {
+      font-size: .8rem;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
 
     @media (max-width: 1200px) {
-      .settings-stepper-wrapper { grid-template-columns: 1fr; }
-      .settings-stepper { position: relative; top: 0; }
-      .settings-stepper ul { flex-direction: row; flex-wrap: wrap; }
-      .stepper-item-settings { flex: 1; min-width: 170px; }
+
+      .settings-stepper-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-stepper {
+        position: relative;
+        top: 0;
+      }
+
+      .settings-stepper ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .stepper-item-settings {
+        flex: 1;
+        min-width: 170px;
+      }
+
     }
+
+
+    @media (max-width: 900px) {
+
+      .roles-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .roles-list {
+        border-left: none;
+        padding-left: 0;
+      }
+
+      .role-select-card {
+        display: inline-flex;
+        width: calc(33.333% - .4rem);
+        vertical-align: top;
+      }
+
+      .role-arrow {
+        display: none;
+      }
+
+    }
+
+
     @media (max-width: 768px) {
-      .settings-section { padding: 1.25rem; }
-      .form-row-2 { grid-template-columns: 1fr; }
-      .mini-table { display: block; overflow-x: auto; }
-      .permission-row { flex-direction: column; align-items: flex-start; gap: .5rem; }
+
+      .settings-section {
+        padding: 1.25rem;
+      }
+
+      .form-row-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .team-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .members-tools {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-select {
+        width: 100%;
+      }
+
+      .permissions-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .permission-item {
+        align-items: flex-start;
+      }
+
+      .permission-info {
+        align-items: flex-start;
+      }
+
+      .permissions-footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .permissions-footer .btn-save-primary {
+        width: 100%;
+      }
+
+      .admin-page-head {
+        gap: .7rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .settings-stepper ul {
+        flex-direction: column;
+      }
+
+      .stepper-item-settings {
+        min-width: unset;
+      }
+
+      .role-select-card {
+        width: 100%;
+      }
+
     }
+
   </style>
+
 </head>
+
 <body>
 
-<header class="admin-topbar" id="adminTopbar"></header>
+<!-- =========================================================
+     TOP BAR
+========================================================= -->
+
+<header
+  class="admin-topbar"
+  id="adminTopbar">
+</header>
 
 <div class="admin-layout">
-  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <!-- =======================================================
+       SIDEBAR
+  ======================================================== -->
+
+  <aside
+    class="admin-sidebar"
+    id="adminSidebar">
+  </aside>
+
+  <!-- =======================================================
+       MAIN
+  ======================================================== -->
 
   <main class="admin-main admin-main-content">
 
-    <div class="admin-page-head">
-      <div>
-        <h1>الفريق والصلاحيات</h1>
-        <p>أعضاء الفريق الإداري، دعوة عضو جديد، والأدوار والصلاحيات.</p>
-      </div>
-      <button type="button" class="btn-cancel-outline" onclick="window.location.href='settings-dashboard.html'">→ رجوع للإعدادات</button>
-    </div>
+```
+<!-- PAGE HEADER -->
 
-    <!-- ⚠️ ملاحظة: كل هاي الصفحة معتمدة على جدول admin_users الجديد المقترح
-         بالمايجريشن (مش موجود بالمايجريشنز الأصلية) -->
-    <div class="settings-stepper-wrapper">
+<div class="admin-page-head">
 
-      <aside class="settings-stepper">
-        <h3>أقسام الفريق</h3>
-        <ul id="stepperList">
-          <li class="stepper-item-settings active" data-target="panelMembers">
-            <span class="stepper-dot"><span class="dot-inner"></span></span>
-            <div><h4>أعضاء الفريق</h4><p>القائمة الحالية</p></div>
-          </li>
-          <li class="stepper-item-settings" data-target="panelInvite">
-            <span class="stepper-dot"><span class="dot-inner"></span></span>
-            <div><h4>دعوة عضو</h4><p>إضافة عضو جديد</p></div>
-          </li>
-          <li class="stepper-item-settings" data-target="panelRoles">
-            <span class="stepper-dot"><span class="dot-inner"></span></span>
-            <div><h4>الأدوار والصلاحيات</h4><p>ماذا يقدر يفعل كل دور</p></div>
-          </li>
-        </ul>
-      </aside>
+  <div>
 
-      <div>
+    <h1>
+      الفريق والصلاحيات
+    </h1>
 
-        <!-- ===== أعضاء الفريق ===== -->
-        <!-- المصدر: admin_users JOIN users WHERE university_id = هاي الجامعة -->
-        <section class="settings-section settings-panel active-panel" id="panelMembers">
-          <div class="settings-section-title">
-            أعضاء الفريق
-            <span class="section-hint">من جدول admin_users المقترح</span>
-          </div>
-          <table class="mini-table">
-            <thead><tr><th>الاسم</th><th>البريد الإلكتروني</th><th>الدور</th><th>الحالة</th><th></th></tr></thead>
-            <tbody id="membersBody"></tbody>
-          </table>
-        </section>
+    <p>
+      إدارة أعضاء الفريق الإداري والتحكم في الأدوار والصلاحيات.
+    </p>
 
-        <!-- ===== دعوة عضو ===== -->
-        <section class="settings-section settings-panel" id="panelInvite">
-          <div class="settings-section-title">دعوة عضو جديد</div>
-          <form id="inviteForm">
-            <div class="form-row-2">
-              <div class="field-group">
-                <label for="inviteEmail">البريد الإلكتروني</label>
-                <input type="email" id="inviteEmail" placeholder="name@example.edu" required>
-              </div>
-              <div class="field-group">
-                <label for="inviteRole">الدور</label>
-                <select id="inviteRole">
-                  <option value="viewer" selected>مشاهد (قراءة فقط)</option>
-                  <option value="manager">مدير (يقدر يضيف/يعدّل محتوى)</option>
-                  <option value="owner">مالك (كل الصلاحيات)</option>
-                </select>
-              </div>
-            </div>
-            <p class="field-hint" style="margin-bottom:1.25rem;">رح يوصلهم إيميل دعوة فيه رابط لتفعيل الحساب. الدعوة بتضل معلّقة لحد ما يقبلوا.</p>
-            <button type="submit" class="btn-save-primary">إرسال الدعوة</button>
-          </form>
-        </section>
+  </div>
 
-        <!-- ===== الأدوار والصلاحيات ===== -->
-        <section class="settings-section settings-panel" id="panelRoles">
-          <div class="settings-section-title">الأدوار والصلاحيات</div>
-          <div class="permission-row">
-            <div>
-              <div class="permission-row-title">عرض بيانات الطلاب والإحصائيات</div>
-              <div class="permission-row-desc">الوصول لصفحات الطلاب والإحصائيات ونظرة عامة (قراءة فقط)</div>
-            </div>
-            <div class="permission-checks">
-              <label><input type="checkbox" checked disabled> مالك</label>
-              <label><input type="checkbox" checked disabled> مدير</label>
-              <label><input type="checkbox" checked disabled> مشاهد</label>
-            </div>
-          </div>
-          <div class="permission-row">
-            <div>
-              <div class="permission-row-title">إضافة/تعديل تخصصات وبرامج</div>
-              <div class="permission-row-desc">الوصول لصفحة إضافة برنامج وتعديل بيانات التخصصات</div>
-            </div>
-            <div class="permission-checks">
-              <label><input type="checkbox" checked disabled> مالك</label>
-              <label><input type="checkbox" checked disabled> مدير</label>
-              <label><input type="checkbox" disabled> مشاهد</label>
-            </div>
-          </div>
-          <div class="permission-row">
-            <div>
-              <div class="permission-row-title">دعوة/حذف أعضاء الفريق</div>
-              <div class="permission-row-desc">إدارة الفريق الإداري وصلاحياتهم</div>
-            </div>
-            <div class="permission-checks">
-              <label><input type="checkbox" checked disabled> مالك</label>
-              <label><input type="checkbox" disabled> مدير</label>
-              <label><input type="checkbox" disabled> مشاهد</label>
-            </div>
-          </div>
-          <div class="permission-row">
-            <div>
-              <div class="permission-row-title">إدارة الاشتراك والفوترة</div>
-              <div class="permission-row-desc">تغيير الباقة والاطلاع على الفواتير</div>
-            </div>
-            <div class="permission-checks">
-              <label><input type="checkbox" checked disabled> مالك</label>
-              <label><input type="checkbox" disabled> مدير</label>
-              <label><input type="checkbox" disabled> مشاهد</label>
-            </div>
-          </div>
-        </section>
 
-      </div>
+  <button
+    type="button"
+    class="btn-cancel-outline"
+    onclick="window.location.href='settings-dashboard.html'">
 
-    </div>
+    ← رجوع للإعدادات
 
-  </main>
+  </button>
+
 </div>
 
+
+<!-- =====================================================
+     STEPPER
+====================================================== -->
+
+<div class="settings-stepper-wrapper">
+
+
+  <aside class="settings-stepper">
+
+    <h3>
+      أقسام الفريق
+    </h3>
+
+
+    <ul id="stepperList">
+
+
+      <!-- MEMBERS -->
+
+      <li
+        class="stepper-item-settings active"
+        data-target="panelMembers">
+
+        <span class="stepper-dot">
+          <span class="dot-inner"></span>
+        </span>
+
+        <div>
+
+          <h4>
+            أعضاء الفريق
+          </h4>
+
+          <p>
+            القائمة الحالية
+          </p>
+
+        </div>
+
+      </li>
+
+
+      <!-- INVITE -->
+
+      <li
+        class="stepper-item-settings"
+        data-target="panelInvite">
+
+        <span class="stepper-dot">
+          <span class="dot-inner"></span>
+        </span>
+
+        <div>
+
+          <h4>
+            دعوة عضو
+          </h4>
+
+          <p>
+            إضافة عضو جديد
+          </p>
+
+        </div>
+
+      </li>
+
+
+      <!-- ROLES -->
+
+      <li
+        class="stepper-item-settings"
+        data-target="panelRoles">
+
+        <span class="stepper-dot">
+          <span class="dot-inner"></span>
+        </span>
+
+        <div>
+
+          <h4>
+            الأدوار والصلاحيات
+          </h4>
+
+          <p>
+            ماذا يقدر يفعل كل دور
+          </p>
+
+        </div>
+
+      </li>
+
+
+    </ul>
+
+  </aside>
+
+
+  <div>
+
+
+    <!-- ===================================================
+         PANEL MEMBERS
+    ==================================================== -->
+
+    <section
+      class="settings-section settings-panel active-panel"
+      id="panelMembers">
+
+
+      <div class="settings-section-title">
+
+        أعضاء الفريق
+
+        <span class="section-hint">
+          إدارة أعضاء الفريق الحاليين
+        </span>
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <div class="team-stats">
+
+
+        <div class="team-stat">
+
+          <div class="team-stat-label">
+            إجمالي الأعضاء
+          </div>
+
+          <div
+            class="team-stat-number blue"
+            id="totalMembers">
+            4
+          </div>
+
+        </div>
+
+
+        <div class="team-stat">
+
+          <div class="team-stat-label">
+            الأعضاء النشطون
+          </div>
+
+          <div
+            class="team-stat-number green"
+            id="activeMembers">
+            3
+          </div>
+
+        </div>
+
+
+        <div class="team-stat">
+
+          <div class="team-stat-label">
+            دعوات معلّقة
+          </div>
+
+          <div
+            class="team-stat-number gold"
+            id="pendingMembers">
+            1
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- SEARCH -->
+
+      <div class="members-tools">
+
+
+        <div class="search-box">
+
+          <span class="search-icon">
+            ⌕
+          </span>
+
+          <input
+            type="text"
+            id="memberSearch"
+            placeholder="ابحث بالاسم أو البريد الإلكتروني...">
+
+        </div>
+
+
+        <select
+          id="roleFilter"
+          class="filter-select">
+
+          <option value="all">
+            كل الأدوار
+          </option>
+
+          <option value="owner">
+            مالك
+          </option>
+
+          <option value="manager">
+            مدير
+          </option>
+
+          <option value="viewer">
+            مشاهد
+          </option>
+
+        </select>
+
+
+      </div>
+
+
+      <!-- TABLE -->
+
+      <div class="table-wrapper">
+
+        <table class="mini-table">
+
+
+          <thead>
+
+            <tr>
+
+              <th>
+                العضو
+              </th>
+
+              <th>
+                الدور
+              </th>
+
+              <th>
+                الحالة
+              </th>
+
+              <th>
+                الإجراءات
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="membersBody">
+          </tbody>
+
+
+        </table>
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ===================================================
+         PANEL INVITE
+    ==================================================== -->
+
+    <section
+      class="settings-section settings-panel"
+      id="panelInvite">
+
+
+      <div class="settings-section-title">
+        دعوة عضو جديد
+      </div>
+
+
+      <form id="inviteForm">
+
+
+        <div class="form-row-2">
+
+
+          <div class="field-group">
+
+            <label for="inviteEmail">
+              البريد الإلكتروني
+            </label>
+
+            <input
+              type="email"
+              id="inviteEmail"
+              placeholder="name@example.edu"
+              required>
+
+          </div>
+
+
+          <div class="field-group">
+
+            <label for="inviteRole">
+              الدور
+            </label>
+
+            <select id="inviteRole">
+
+              <option value="viewer" selected>
+                مشاهد — قراءة فقط
+              </option>
+
+              <option value="manager">
+                مدير — إدارة المحتوى
+              </option>
+
+              <option value="owner">
+                مالك — كل الصلاحيات
+              </option>
+
+            </select>
+
+          </div>
+
+
+        </div>
+
+
+        <p
+          class="field-hint"
+          style="margin-bottom:1.25rem;">
+
+          رح يوصل للعضو إيميل دعوة لتفعيل الحساب،
+          وتظل الدعوة معلّقة حتى يتم قبولها.
+
+        </p>
+
+
+        <button
+          type="submit"
+          class="btn-save-primary">
+
+          إرسال الدعوة
+
+        </button>
+
+
+      </form>
+
+
+    </section>
+
+
+    <!-- ===================================================
+         PANEL ROLES
+    ==================================================== -->
+
+    <section
+      class="settings-section settings-panel"
+      id="panelRoles">
+
+
+      <div class="settings-section-title">
+
+        الأدوار والصلاحيات
+
+        <span class="section-hint">
+          التحكم في الصلاحيات حسب الدور
+        </span>
+
+      </div>
+
+
+      <div class="roles-layout">
+
+
+        <!-- ===============================================
+             ROLES LIST
+        ================================================ -->
+
+        <div class="roles-list">
+
+
+          <div class="roles-list-title">
+            اختر الدور
+          </div>
+
+
+          <!-- OWNER -->
+
+          <button
+            type="button"
+            class="role-select-card active"
+            data-role="owner">
+
+
+            <div class="role-select-icon owner-icon">
+              👑
+            </div>
+
+
+            <div class="role-select-info">
+
+              <strong>
+                مالك
+              </strong>
+
+              <span>
+                يمتلك جميع صلاحيات النظام
+              </span>
+
+            </div>
+
+
+            <span class="role-arrow">
+              ←
+            </span>
+
+
+          </button>
+
+
+          <!-- MANAGER -->
+
+          <button
+            type="button"
+            class="role-select-card"
+            data-role="manager">
+
+
+            <div class="role-select-icon manager-icon">
+              ⚙
+            </div>
+
+
+            <div class="role-select-info">
+
+              <strong>
+                مدير
+              </strong>
+
+              <span>
+                إدارة المحتوى والبيانات
+              </span>
+
+            </div>
+
+
+            <span class="role-arrow">
+              ←
+            </span>
+
+
+          </button>
+
+
+          <!-- VIEWER -->
+
+          <button
+            type="button"
+            class="role-select-card"
+            data-role="viewer">
+
+
+            <div class="role-select-icon viewer-icon">
+              👁
+            </div>
+
+
+            <div class="role-select-info">
+
+              <strong>
+                مشاهد
+              </strong>
+
+              <span>
+                قراءة البيانات فقط
+              </span>
+
+            </div>
+
+
+            <span class="role-arrow">
+              ←
+            </span>
+
+
+          </button>
+
+
+        </div>
+
+
+        <!-- ===============================================
+             PERMISSIONS
+        ================================================ -->
+
+        <div class="permissions-container">
+
+
+          <!-- HEADER -->
+
+          <div class="permissions-header">
+
+
+            <div>
+
+              <h3 id="selectedRoleTitle">
+                صلاحيات المالك
+              </h3>
+
+              <p id="selectedRoleDescription">
+                يمتلك هذا الدور جميع الصلاحيات في النظام.
+              </p>
+
+            </div>
+
+
+            <div class="permissions-count">
+
+              <strong id="permissionCount">
+                6
+              </strong>
+
+              <span>
+                صلاحيات مفعلة
+              </span>
+
+            </div>
+
+
+          </div>
+
+
+          <!-- PERMISSION 1 -->
+
+          <div class="permission-item">
+
+
+            <div class="permission-info">
+
+
+              <div class="permission-icon">
+                👨‍🎓
+              </div>
+
+
+              <div>
+
+                <div class="permission-title">
+                  عرض بيانات الطلاب
+                </div>
+
+                <div class="permission-description">
+                  مشاهدة ملفات الطلاب والبيانات الأساسية والإحصائيات.
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+            <label class="permission-switch">
+
+              <input
+                type="checkbox"
+                data-permission="students_view">
+
+              <span class="switch-slider"></span>
+
+            </label>
+
+
+          </div>
+
+
+          <!-- PERMISSION 2 -->
+
+          <div class="permission-item">
+
+
+            <div class="permission-info">
+
+
+              <div class="permission-icon">
+                🎓
+              </div>
+
+
+              <div>
+
+                <div class="permission-title">
+                  إدارة التخصصات والبرامج
+                </div>
+
+                <div class="permission-description">
+                  إضافة وتعديل وحذف التخصصات والبرامج الأكاديمية.
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+            <label class="permission-switch">
+
+              <input
+                type="checkbox"
+                data-permission="majors_manage">
+
+              <span class="switch-slider"></span>
+
+            </label>
+
+
+          </div>
+
+
+          <!-- PERMISSION 3 -->
+
+          <div class="permission-item">
+
+
+            <div class="permission-info">
+
+
+              <div class="permission-icon">
+                🏫
+              </div>
+
+
+              <div>
+
+                <div class="permission-title">
+                  إدارة الجامعات والكليات
+                </div>
+
+                <div class="permission-description">
+                  إضافة وتعديل بيانات الجامعات والكليات التابعة لها.
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+            <label class="permission-switch">
+
+              <input
+                type="checkbox"
+                data-permission="universities_manage">
+
+              <span class="switch-slider"></span>
+
+            </label>
+
+
+          </div>
+
+
+          <!-- PERMISSION 4 -->
+
+          <div class="permission-item">
+
+
+            <div class="permission-info">
+
+
+              <div class="permission-icon">
+                📢
+              </div>
+
+
+              <div>
+
+                <div class="permission-title">
+                  إدارة الإشعارات
+                </div>
+
+                <div class="permission-description">
+                  إنشاء وتعديل وإرسال الإشعارات للطلاب.
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+            <label class="permission-switch">
+
+              <input
+                type="checkbox"
+                data-permission="notifications_manage">
+
+              <span class="switch-slider"></span>
+
+            </label>
+
+
+          </div>
+
+
+          <!-- PERMISSION 5 -->
+
+          <div class="permission-item">
+
+
+            <div class="permission-info">
+
+
+              <div class="permission-icon">
+                👥
+              </div>
+
+
+              <div>
+
+                <div class="permission-title">
+                  إدارة أعضاء الفريق
+                </div>
+
+                <div class="permission-description">
+                  دعوة أعضاء الفريق وتعديل أدوارهم وإزالتهم.
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+            <label class="permission-switch">
+
+              <input
+                type="checkbox"
+                data-permission="team_manage">
+
+              <span class="switch-slider"></span>
+
+            </label>
+
+
+          </div>
+
+
+          <!-- PERMISSION 6 -->
+
+          <div class="permission-item">
+
+
+            <div class="permission-info">
+
+
+              <div class="permission-icon">
+                💳
+              </div>
+
+
+              <div>
+
+                <div class="permission-title">
+                  إدارة الاشتراك والفوترة
+                </div>
+
+                <div class="permission-description">
+                  تغيير الباقة ومتابعة الاشتراك والفواتير.
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+            <label class="permission-switch">
+
+              <input
+                type="checkbox"
+                data-permission="billing_manage">
+
+              <span class="switch-slider"></span>
+
+            </label>
+
+
+          </div>
+
+
+          <!-- FOOTER -->
+
+          <div class="permissions-footer">
+
+            <span>
+              يمكنك تعديل الصلاحيات ثم حفظ التغييرات.
+            </span>
+
+
+            <button
+              type="button"
+              class="btn-save-primary"
+              id="savePermissionsBtn">
+
+              حفظ الصلاحيات
+
+            </button>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+  </div>
+
+</div>
+```
+
+  </main>
+
+</div>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
 <div id="admin-footer-slot"></div>
+
+<!-- =========================================================
+     EDIT ROLE MODAL
+========================================================= -->
+
+<div
+  class="modal-overlay"
+  id="editModal">
+
+  <div class="modal-box">
+
+```
+<div class="modal-head">
+
+  <h3>
+    تعديل دور العضو
+  </h3>
+
+
+  <button
+    type="button"
+    class="modal-close"
+    onclick="closeModal('editModal')">
+
+    ×
+
+  </button>
+
+</div>
+
+
+<div class="field-group">
+
+  <label>
+    العضو
+  </label>
+
+  <input
+    type="text"
+    id="editMemberName"
+    readonly>
+
+</div>
+
+
+<div class="field-group">
+
+  <label for="editRole">
+    الدور الجديد
+  </label>
+
+  <select id="editRole">
+
+    <option value="owner">
+      مالك — كل الصلاحيات
+    </option>
+
+    <option value="manager">
+      مدير — إدارة المحتوى
+    </option>
+
+    <option value="viewer">
+      مشاهد — قراءة فقط
+    </option>
+
+  </select>
+
+</div>
+
+
+<div class="modal-footer">
+
+
+  <button
+    type="button"
+    class="btn-save-primary"
+    id="saveRoleBtn">
+
+    حفظ التعديل
+
+  </button>
+
+
+  <button
+    type="button"
+    class="btn-cancel-outline"
+    onclick="closeModal('editModal')">
+
+    إلغاء
+
+  </button>
+
+
+</div>
+```
+
+  </div>
+
+</div>
+
+<!-- =========================================================
+     DELETE MODAL
+========================================================= -->
+
+<div
+  class="modal-overlay"
+  id="deleteModal">
+
+  <div class="modal-box">
+
+```
+<div class="modal-head">
+
+  <h3>
+    إزالة عضو
+  </h3>
+
+
+  <button
+    type="button"
+    class="modal-close"
+    onclick="closeModal('deleteModal')">
+
+    ×
+
+  </button>
+
+</div>
+
+
+<p
+  style="color:var(--gray);font-size:.88rem;line-height:1.8;">
+
+  هل أنت متأكد من إزالة
+
+  <strong
+    id="deleteMemberName"
+    style="color:var(--navy);">
+  </strong>
+
+  من الفريق؟
+
+  <br>
+
+  يمكنك دعوته مرة أخرى لاحقًا.
+
+</p>
+
+
+<div class="modal-footer">
+
+
+  <button
+    type="button"
+    class="danger-btn"
+    id="confirmDeleteBtn">
+
+    إزالة العضو
+
+  </button>
+
+
+  <button
+    type="button"
+    class="btn-cancel-outline"
+    onclick="closeModal('deleteModal')">
+
+    إلغاء
+
+  </button>
+
+
+</div>
+```
+
+  </div>
+
+</div>
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+  class="toast"
+  id="toast">
+
+  <div class="toast-icon">
+    ✓
+  </div>
+
+  <div
+    class="toast-text"
+    id="toastText">
+
+```
+تمت العملية بنجاح
+```
+
+  </div>
+
+</div>
+
+<!-- ADMIN SHELL -->
+
 <script src="../../js/admin-shell.js"></script>
 
 <script>
-  (function() {
-    'use strict';
 
-    var stepperItems = document.querySelectorAll('.stepper-item-settings');
-    var panels = document.querySelectorAll('.settings-panel');
-    function showPanel(targetId) {
-      panels.forEach(function(p) { p.classList.toggle('active-panel', p.id === targetId); });
-      stepperItems.forEach(function(i) { i.classList.toggle('active', i.dataset.target === targetId); });
-    }
+(function () {
+
+  'use strict';
+
+
+  /* =========================================================
+     STEPPER
+  ========================================================= */
+
+  const stepperItems =
+    document.querySelectorAll(
+      '.stepper-item-settings'
+    );
+
+  const panels =
+    document.querySelectorAll(
+      '.settings-panel'
+    );
+
+
+  function showPanel(targetId) {
+
+    panels.forEach(function(panel) {
+
+      panel.classList.toggle(
+        'active-panel',
+        panel.id === targetId
+      );
+
+    });
+
+
     stepperItems.forEach(function(item) {
-      item.addEventListener('click', function() { showPanel(item.dataset.target); });
+
+      item.classList.toggle(
+        'active',
+        item.dataset.target === targetId
+      );
+
     });
 
-    var roleLabels = { owner: 'مالك', manager: 'مدير', viewer: 'مشاهد' };
-    var statusLabels = { active: 'نشط', pending: 'معلّق', suspended: 'موقوف' };
+  }
 
-    var MOCK_MEMBERS = [
-      { name: 'مرح حمدان', email: 'marah@example.edu', role: 'owner', status: 'active' },
-      { name: 'عمر حمدية', email: 'omar@example.edu', role: 'manager', status: 'active' },
-      { name: 'مريم يوسف', email: 'mariam@example.edu', role: 'manager', status: 'pending' },
-      { name: 'عيد سالم', email: 'eid@example.edu', role: 'viewer', status: 'active' },
-    ];
 
-    var body = document.getElementById('membersBody');
-    MOCK_MEMBERS.forEach(function(m) {
-      body.innerHTML += '<tr>' +
-        '<td><strong>' + m.name + '</strong></td>' +
-        '<td>' + m.email + '</td>' +
-        '<td><span class="role-badge ' + m.role + '">' + roleLabels[m.role] + '</span></td>' +
-        '<td><span class="status-pill-mini ' + m.status + '">' + statusLabels[m.status] + '</span></td>' +
-        '<td><button type="button" class="row-action-btn">تعديل الدور</button> <button type="button" class="row-action-btn danger">إزالة</button></td>' +
-        '</tr>';
-    });
+  stepperItems.forEach(function(item) {
 
-    document.getElementById('inviteForm').addEventListener('submit', function(e) {
+    item.addEventListener(
+      'click',
+      function () {
+
+        showPanel(
+          item.dataset.target
+        );
+
+      }
+    );
+
+  });
+
+
+  /* =========================================================
+     MEMBERS DATA
+  ========================================================= */
+
+  const roleLabels = {
+
+    owner: 'مالك',
+    manager: 'مدير',
+    viewer: 'مشاهد'
+
+  };
+
+
+  const statusLabels = {
+
+    active: 'نشط',
+    pending: 'معلّق',
+    suspended: 'موقوف'
+
+  };
+
+
+  let members = [
+
+    {
+      id: 1,
+      name: 'مرح حمدان',
+      email: 'marah@example.edu',
+      role: 'owner',
+      status: 'active'
+    },
+
+    {
+      id: 2,
+      name: 'عمر حمدية',
+      email: 'omar@example.edu',
+      role: 'manager',
+      status: 'active'
+    },
+
+    {
+      id: 3,
+      name: 'مريم يوسف',
+      email: 'mariam@example.edu',
+      role: 'manager',
+      status: 'pending'
+    },
+
+    {
+      id: 4,
+      name: 'عيد سالم',
+      email: 'eid@example.edu',
+      role: 'viewer',
+      status: 'active'
+    }
+
+  ];
+
+
+  let editingMemberId = null;
+  let deletingMemberId = null;
+
+
+  /* =========================================================
+     INITIALS
+  ========================================================= */
+
+  function getInitials(name) {
+
+    const words =
+      name.trim().split(' ');
+
+
+    if (words.length >= 2) {
+
+      return (
+        words[0].charAt(0) +
+        words[1].charAt(0)
+      );
+
+    }
+
+
+    return name.charAt(0);
+
+  }
+
+
+  /* =========================================================
+     RENDER MEMBERS
+  ========================================================= */
+
+  function renderMembers() {
+
+    const body =
+      document.getElementById(
+        'membersBody'
+      );
+
+
+    const search =
+      document.getElementById(
+        'memberSearch'
+      ).value.trim().toLowerCase();
+
+
+    const filter =
+      document.getElementById(
+        'roleFilter'
+      ).value;
+
+
+    const filteredMembers =
+      members.filter(function(member) {
+
+        const matchesSearch =
+          member.name
+            .toLowerCase()
+            .includes(search) ||
+
+          member.email
+            .toLowerCase()
+            .includes(search);
+
+
+        const matchesRole =
+          filter === 'all' ||
+          member.role === filter;
+
+
+        return (
+          matchesSearch &&
+          matchesRole
+        );
+
+      });
+
+
+    body.innerHTML = '';
+
+
+    if (filteredMembers.length === 0) {
+
+      body.innerHTML = `
+
+        <tr>
+
+          <td colspan="4">
+
+            <div class="empty-state">
+
+              <div class="empty-state-icon">
+                ⌕
+              </div>
+
+              <h4>
+                ما لقينا أعضاء
+              </h4>
+
+              <p>
+                جربي تغيير كلمة البحث أو الفلتر.
+              </p>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      `;
+
+
+      updateStats();
+
+      return;
+
+    }
+
+
+    filteredMembers.forEach(
+      function(member) {
+
+
+        const row =
+          document.createElement('tr');
+
+
+        row.innerHTML = `
+
+          <td>
+
+            <div class="member-info">
+
+              <div class="member-avatar">
+                ${getInitials(member.name)}
+              </div>
+
+              <div>
+
+                <div class="member-name">
+                  ${member.name}
+                </div>
+
+                <div class="member-email">
+                  ${member.email}
+                </div>
+
+              </div>
+
+            </div>
+
+          </td>
+
+
+          <td>
+
+            <span class="role-badge ${member.role}">
+              ${roleLabels[member.role]}
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="status-pill-mini ${member.status}">
+              ${statusLabels[member.status]}
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <div class="actions-wrapper">
+
+              <button
+                type="button"
+                class="row-action-btn edit-btn"
+                data-id="${member.id}">
+
+                تعديل الدور
+
+              </button>
+
+
+              <button
+                type="button"
+                class="row-action-btn danger delete-btn"
+                data-id="${member.id}">
+
+                إزالة
+
+              </button>
+
+            </div>
+
+          </td>
+
+        `;
+
+
+        body.appendChild(row);
+
+      }
+    );
+
+
+    attachRowActions();
+
+    updateStats();
+
+  }
+
+
+  /* =========================================================
+     ROW ACTIONS
+  ========================================================= */
+
+  function attachRowActions() {
+
+
+    document
+      .querySelectorAll('.edit-btn')
+      .forEach(function(button) {
+
+
+        button.addEventListener(
+          'click',
+          function () {
+
+            openEditModal(
+              Number(button.dataset.id)
+            );
+
+          }
+        );
+
+      });
+
+
+    document
+      .querySelectorAll('.delete-btn')
+      .forEach(function(button) {
+
+
+        button.addEventListener(
+          'click',
+          function () {
+
+            openDeleteModal(
+              Number(button.dataset.id)
+            );
+
+          }
+        );
+
+      });
+
+  }
+
+
+  /* =========================================================
+     EDIT MEMBER
+  ========================================================= */
+
+  function openEditModal(id) {
+
+    const member =
+      members.find(function(m) {
+
+        return m.id === id;
+
+      });
+
+
+    if (!member) return;
+
+
+    editingMemberId = id;
+
+
+    document.getElementById(
+      'editMemberName'
+    ).value = member.name;
+
+
+    document.getElementById(
+      'editRole'
+    ).value = member.role;
+
+
+    document.getElementById(
+      'editModal'
+    ).classList.add('show');
+
+  }
+
+
+  window.closeModal =
+    function(id) {
+
+      document.getElementById(
+        id
+      ).classList.remove('show');
+
+    };
+
+
+  document.getElementById(
+    'saveRoleBtn'
+  ).addEventListener(
+    'click',
+    function () {
+
+
+      const member =
+        members.find(function(m) {
+
+          return m.id ===
+            editingMemberId;
+
+        });
+
+
+      if (!member) return;
+
+
+      member.role =
+        document.getElementById(
+          'editRole'
+        ).value;
+
+
+      closeModal('editModal');
+
+      renderMembers();
+
+
+      showToast(
+        'تم تعديل دور ' +
+        member.name +
+        ' بنجاح'
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     DELETE MEMBER
+  ========================================================= */
+
+  function openDeleteModal(id) {
+
+    const member =
+      members.find(function(m) {
+
+        return m.id === id;
+
+      });
+
+
+    if (!member) return;
+
+
+    deletingMemberId = id;
+
+
+    document.getElementById(
+      'deleteMemberName'
+    ).textContent =
+      member.name;
+
+
+    document.getElementById(
+      'deleteModal'
+    ).classList.add('show');
+
+  }
+
+
+  document.getElementById(
+    'confirmDeleteBtn'
+  ).addEventListener(
+    'click',
+    function () {
+
+
+      const member =
+        members.find(function(m) {
+
+          return m.id ===
+            deletingMemberId;
+
+        });
+
+
+      if (!member) return;
+
+
+      members =
+        members.filter(function(m) {
+
+          return m.id !==
+            deletingMemberId;
+
+        });
+
+
+      closeModal('deleteModal');
+
+      renderMembers();
+
+
+      showToast(
+        'تمت إزالة ' +
+        member.name +
+        ' من الفريق'
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     INVITE MEMBER
+  ========================================================= */
+
+  document.getElementById(
+    'inviteForm'
+  ).addEventListener(
+    'submit',
+    function (e) {
+
+
       e.preventDefault();
-      var email = document.getElementById('inviteEmail').value;
+
+
+      const email =
+        document.getElementById(
+          'inviteEmail'
+        ).value.trim();
+
+
+      const role =
+        document.getElementById(
+          'inviteRole'
+        ).value;
+
+
       if (!email) return;
-      alert('محاكاة محلية — رح يتبعت دعوة إلى: ' + email);
-      document.getElementById('inviteEmail').value = '';
+
+
+      const existing =
+        members.some(function(member) {
+
+          return (
+            member.email.toLowerCase() ===
+            email.toLowerCase()
+          );
+
+        });
+
+
+      if (existing) {
+
+        showToast(
+          'هذا البريد موجود بالفعل في الفريق'
+        );
+
+        return;
+
+      }
+
+
+      const newMember = {
+
+        id: Date.now(),
+
+        name:
+          email.split('@')[0],
+
+        email: email,
+
+        role: role,
+
+        status: 'pending'
+
+      };
+
+
+      members.push(newMember);
+
+
+      this.reset();
+
+
+      renderMembers();
+
+
+      showPanel('panelMembers');
+
+
+      showToast(
+        'تم إرسال الدعوة إلى ' +
+        email
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     SEARCH
+  ========================================================= */
+
+  document.getElementById(
+    'memberSearch'
+  ).addEventListener(
+    'input',
+    renderMembers
+  );
+
+
+  document.getElementById(
+    'roleFilter'
+  ).addEventListener(
+    'change',
+    renderMembers
+  );
+
+
+  /* =========================================================
+     STATS
+  ========================================================= */
+
+  function updateStats() {
+
+
+    document.getElementById(
+      'totalMembers'
+    ).textContent =
+      members.length;
+
+
+    document.getElementById(
+      'activeMembers'
+    ).textContent =
+      members.filter(function(m) {
+
+        return m.status ===
+          'active';
+
+      }).length;
+
+
+    document.getElementById(
+      'pendingMembers'
+    ).textContent =
+      members.filter(function(m) {
+
+        return m.status ===
+          'pending';
+
+      }).length;
+
+  }
+
+
+  /* =========================================================
+     TOAST
+  ========================================================= */
+
+  let toastTimer;
+
+
+  function showToast(message) {
+
+
+    const toast =
+      document.getElementById(
+        'toast'
+      );
+
+
+    document.getElementById(
+      'toastText'
+    ).textContent = message;
+
+
+    toast.classList.add('show');
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+      setTimeout(
+        function () {
+
+          toast.classList.remove(
+            'show'
+          );
+
+        },
+        3000
+      );
+
+  }
+
+
+  /* =========================================================
+     CLOSE MODAL OUTSIDE
+  ========================================================= */
+
+  document
+    .querySelectorAll('.modal-overlay')
+    .forEach(function(modal) {
+
+
+      modal.addEventListener(
+        'click',
+        function(e) {
+
+
+          if (e.target === modal) {
+
+            modal.classList.remove(
+              'show'
+            );
+
+          }
+
+        }
+      );
+
     });
 
-  })();
+
+  /* =========================================================
+     ROLES & PERMISSIONS DATA
+  ========================================================= */
+
+  const permissionsData = {
+
+
+    owner: {
+
+      title:
+        'صلاحيات المالك',
+
+      description:
+        'يمتلك هذا الدور جميع الصلاحيات في النظام.',
+
+      permissions: {
+
+        students_view: true,
+        majors_manage: true,
+        universities_manage: true,
+        notifications_manage: true,
+        team_manage: true,
+        billing_manage: true
+
+      }
+
+    },
+
+
+    manager: {
+
+      title:
+        'صلاحيات المدير',
+
+      description:
+        'يستطيع إدارة المحتوى والبيانات، بدون صلاحيات الفوترة والفريق.',
+
+      permissions: {
+
+        students_view: true,
+        majors_manage: true,
+        universities_manage: true,
+        notifications_manage: true,
+        team_manage: false,
+        billing_manage: false
+
+      }
+
+    },
+
+
+    viewer: {
+
+      title:
+        'صلاحيات المشاهد',
+
+      description:
+        'يستطيع الاطلاع على البيانات والإحصائيات فقط.',
+
+      permissions: {
+
+        students_view: true,
+        majors_manage: false,
+        universities_manage: false,
+        notifications_manage: false,
+        team_manage: false,
+        billing_manage: false
+
+      }
+
+    }
+
+  };
+
+
+  let selectedPermissionRole =
+    'owner';
+
+
+  const roleCards =
+    document.querySelectorAll(
+      '.role-select-card'
+    );
+
+
+  const permissionInputs =
+    document.querySelectorAll(
+      '.permission-switch input'
+    );
+
+
+  /* =========================================================
+     LOAD ROLE PERMISSIONS
+  ========================================================= */
+
+  function loadRolePermissions(role) {
+
+
+    selectedPermissionRole =
+      role;
+
+
+    const roleData =
+      permissionsData[role];
+
+
+    document.getElementById(
+      'selectedRoleTitle'
+    ).textContent =
+      roleData.title;
+
+
+    document.getElementById(
+      'selectedRoleDescription'
+    ).textContent =
+      roleData.description;
+
+
+    roleCards.forEach(
+      function(card) {
+
+
+        card.classList.toggle(
+          'active',
+          card.dataset.role ===
+          role
+        );
+
+      }
+    );
+
+
+    permissionInputs.forEach(
+      function(input) {
+
+
+        const permission =
+          input.dataset.permission;
+
+
+        input.checked =
+          roleData.permissions[
+            permission
+          ];
+
+      }
+    );
+
+
+    updatePermissionCount();
+
+  }
+
+
+  /* =========================================================
+     PERMISSION COUNT
+  ========================================================= */
+
+  function updatePermissionCount() {
+
+
+    const checked =
+      Array.from(
+        permissionInputs
+      ).filter(
+        function(input) {
+
+          return input.checked;
+
+        }
+      ).length;
+
+
+    document.getElementById(
+      'permissionCount'
+    ).textContent =
+      checked;
+
+  }
+
+
+  /* =========================================================
+     ROLE CLICK
+  ========================================================= */
+
+  roleCards.forEach(
+    function(card) {
+
+
+      card.addEventListener(
+        'click',
+        function () {
+
+
+          loadRolePermissions(
+            card.dataset.role
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     PERMISSION SWITCH
+  ========================================================= */
+
+  permissionInputs.forEach(
+    function(input) {
+
+
+      input.addEventListener(
+        'change',
+        function () {
+
+
+          permissionsData[
+            selectedPermissionRole
+          ].permissions[
+            input.dataset.permission
+          ] = input.checked;
+
+
+          updatePermissionCount();
+
+        }
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     SAVE PERMISSIONS
+  ========================================================= */
+
+  document.getElementById(
+    'savePermissionsBtn'
+  ).addEventListener(
+    'click',
+    function () {
+
+
+      const roleName = {
+
+        owner: 'المالك',
+
+        manager: 'المدير',
+
+        viewer: 'المشاهد'
+
+      };
+
+
+      showToast(
+        'تم حفظ صلاحيات ' +
+        roleName[
+          selectedPermissionRole
+        ] +
+        ' بنجاح'
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     INITIAL LOAD
+  ========================================================= */
+
+  loadRolePermissions(
+    'owner'
+  );
+
+
+  renderMembers();
+
+
+})();
+
 </script>
 
 </body>
+
 </html>

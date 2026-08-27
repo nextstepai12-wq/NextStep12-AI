@@ -438,7 +438,7 @@ body {
 
 
 /* ============================================================
-   SEARCHABLE DEANSHIP
+   SEARCHABLE DEANSHIP (لسه مستخدمة بأماكن ثانية بالنظام)
 ============================================================ */
 
 .searchable-select {
@@ -543,6 +543,171 @@ body {
 .searchable-select-list li.empty:hover {
   background: transparent;
   color: var(--add-muted);
+}
+
+
+/* ============================================================
+   COLLEGE / DEANSHIP — صندوق العرض داخل الفورم
+============================================================ */
+
+.college-deanship-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  padding: 12px 14px;
+
+  border: 1px solid var(--add-line);
+  border-radius: 11px;
+
+  background: #fafbfd;
+}
+
+
+.cd-display-empty {
+  color: var(--add-muted);
+
+  font-size: .82rem;
+}
+
+
+.cd-display-filled {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+
+.cd-display-text strong {
+  display: block;
+
+  color: var(--add-text);
+
+  font-size: .87rem;
+  font-weight: 800;
+}
+
+
+.cd-display-text span {
+  color: var(--add-muted);
+
+  font-size: .74rem;
+}
+
+
+.cd-change-btn {
+  flex: 0 0 auto;
+
+  padding: 7px 13px;
+
+  border: 1px solid #cfe0f7;
+  border-radius: 9px;
+
+  background: #f3f8ff;
+
+  color: var(--add-blue);
+
+  font-family: 'Cairo', sans-serif;
+
+  font-size: .74rem;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.cd-change-btn:hover {
+  background: #eaf3ff;
+}
+
+
+/* ============================================================
+   COLLEGE / DEANSHIP — النافذة المنبثقة (أول خطوة)
+============================================================ */
+
+.cd-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 6000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(10, 25, 40, .55);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity .2s ease,
+    visibility .2s ease;
+}
+
+
+.cd-modal-overlay.is-open {
+  opacity: 1;
+
+  visibility: visible;
+}
+
+
+.cd-modal {
+  width: min(440px, 100%);
+
+  padding: 30px;
+
+  border-radius: 18px;
+
+  background: #fff;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, .22);
+}
+
+
+.cd-modal h3 {
+  margin: 0 0 8px;
+
+  color: var(--add-text);
+
+  font-size: 1.08rem;
+  font-weight: 800;
+}
+
+
+.cd-modal p {
+  margin: 0 0 22px;
+
+  color: var(--add-muted);
+
+  font-size: .8rem;
+
+  line-height: 1.85;
+}
+
+
+.cd-modal .field-group {
+  margin-bottom: 18px;
+}
+
+
+.cd-modal-actions {
+  margin-top: 6px;
+}
+
+
+.cd-modal-actions .btn-save-primary {
+  width: 100%;
+
+  justify-content: center;
 }
 
 
@@ -1399,7 +1564,7 @@ body {
 
 
 /* ============================================================
-   MODAL
+   MODAL (رسائل عامة)
 ============================================================ */
 
 .app-modal-overlay {
@@ -1671,6 +1836,22 @@ body {
 
   .btn-save-primary,
   .btn-cancel-outline {
+    width: 100%;
+  }
+
+
+  .cd-modal {
+    padding: 22px;
+  }
+
+
+  .college-deanship-display {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  .cd-change-btn {
     width: 100%;
   }
 

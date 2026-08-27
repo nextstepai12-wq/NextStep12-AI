@@ -11,6 +11,122 @@
   <link rel="stylesheet" href="../../css/app.css">
   <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
   <link rel="stylesheet" href="../../css/dashboardcss/students.css">
+  <style>
+    .filter-modal-header h3 {
+      display:flex; align-items:center; gap:8px;
+      font-size:1.05rem;
+    }
+    .filter-modal-header .header-icon {
+      width:34px; height:34px; flex:0 0 34px; border-radius:10px;
+      background:linear-gradient(135deg, #2F6BFF, #6C8CFF);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 4px 10px rgba(47,107,255,0.25);
+    }
+    .filter-modal-header .header-icon svg { width:18px; height:18px; stroke:#fff; }
+
+    .cascade-fields {
+      display:flex; flex-direction:column;
+      margin-top:18px; position:relative;
+    }
+
+    .cascade-step {
+      display:flex; align-items:flex-start; gap:14px;
+      position:relative; padding-bottom:22px;
+    }
+    .cascade-step:last-child { padding-bottom:2px; }
+
+    /* الخط الواصل بين الخطوات */
+    .cascade-step:not(:last-child)::before {
+      content:'';
+      position:absolute;
+      top:30px; right:14.5px;
+      width:1px; height:calc(100% - 26px);
+      background:#E2E6EB;
+      transition:background .2s;
+    }
+    .cascade-step.is-complete:not(:last-child)::before { background:#B7C7FF; }
+
+    .cascade-step-num {
+      width:30px; height:30px; flex:0 0 30px; border-radius:50%;
+      background:#EEF2FF; color:#2F6BFF; font-size:0.82rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      position:relative; z-index:1;
+      border:2px solid #fff;
+      box-shadow:0 0 0 1px #DCE4FF;
+      transition:all .2s;
+    }
+    .cascade-step.is-complete .cascade-step-num {
+      background:#2F6BFF; color:#fff; box-shadow:0 0 0 1px #2F6BFF;
+    }
+    .cascade-step.is-disabled .cascade-step-num {
+      background:#F4F5F7; color:#C3C9D1; box-shadow:0 0 0 1px #EDEFF2;
+    }
+
+    .cascade-step-body { flex:1; min-width:0; padding-top:2px; }
+    .cascade-step-body label {
+      display:flex; align-items:center; justify-content:space-between;
+      font-size:0.82rem; font-weight:600; color:#16233D; margin-bottom:6px;
+    }
+    .cascade-step.is-disabled .cascade-step-body label { color:#B0B6BD; }
+    .cascade-step-optional-tag {
+      font-size:0.68rem; font-weight:500; color:#8A93A1;
+      background:#F4F5F7; padding:2px 8px; border-radius:20px;
+    }
+
+    .cascade-step-body select {
+      width:100%; padding:11px 14px; border-radius:10px;
+      border:1.5px solid #E2E6EB; font-family:'Cairo',sans-serif;
+      font-size:0.9rem; color:#16233D; background:#fff;
+      cursor:pointer; transition:border-color .15s, box-shadow .15s, background .15s;
+      appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235B6B79' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;
+      background-position:left 12px center;
+      padding-left:34px;
+    }
+    .cascade-step-body select:focus {
+      outline:none; border-color:#2F6BFF;
+      box-shadow:0 0 0 3px rgba(47,107,255,0.12);
+    }
+    .cascade-step-body select:disabled {
+      background-color:#F9FAFB; color:#B0B6BD; cursor:not-allowed;
+      border-color:#EDEFF2;
+    }
+
+    .cascade-hint { display:flex; align-items:flex-start; gap:8px; font-size:0.8rem; color:#5B6B79; margin-top:16px; background:#F7F9FB; border:1px solid #EDEFF2; border-radius:10px; padding:10px 12px; }
+    .cascade-hint::before { content:'💡'; flex:0 0 auto; font-size:0.85rem; line-height:1.3; }
+    #applyFilterBtn:disabled { opacity:0.45; cursor:not-allowed; }
+
+    /* ===== PAGINATION ===== */
+    .students-pagination {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:14px 4px 4px; flex-wrap:wrap;
+    }
+    .students-pagination .pagination-info {
+      font-size:0.82rem; color:#5B6B79;
+    }
+    .pagination-controls {
+      display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+    }
+    .pagination-controls button {
+      min-width:34px; height:34px; padding:0 10px;
+      border-radius:8px; border:1.5px solid #E2E6EB; background:#fff;
+      color:#16233D; font-family:'Cairo',sans-serif; font-size:0.85rem; font-weight:600;
+      cursor:pointer; transition:all .15s;
+    }
+    .pagination-controls button:hover:not(:disabled) {
+      border-color:#2F6BFF; color:#2F6BFF; background:#F3F6FF;
+    }
+    .pagination-controls button.active {
+      background:#2F6BFF; border-color:#2F6BFF; color:#fff;
+    }
+    .pagination-controls button:disabled {
+      opacity:0.4; cursor:not-allowed;
+    }
+    .pagination-controls .pagination-ellipsis {
+      padding:0 4px; color:#8A93A1; font-size:0.85rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -82,7 +198,7 @@
         <h3>قائمة الطلاب <span id="studentCount" style="font-weight:400;color:var(--gray);font-size:0.85rem;"></span></h3>
         <div class="table-actions">
           <input type="text" placeholder="بحث عن طالب..." id="studentSearchInput">
-          <button type="button" class="export-btn" id="exportCsvBtn">تصدير CSV</button>
+          <button type="button" class="export-btn" id="exportCsvBtn">تصدير PDF</button>
         </div>
       </div>
       <div style="overflow-x:auto;">
@@ -104,6 +220,10 @@
           </tbody>
         </table>
       </div>
+      <div class="students-pagination" id="studentsPagination" style="display:none;">
+        <span class="pagination-info" id="paginationInfo"></span>
+        <div class="pagination-controls" id="paginationControls"></div>
+      </div>
     </div>
 
   </main>
@@ -111,41 +231,72 @@
 
 <!-- =========================================================
      FILTER SELECTION MODAL (يظهر أول ما تدخل الصفحة)
+     فلتر متسلسل واحد: كلية → عمادة → تخصص
+     كل مستوى فيه خيار "الكل" فبتقدر توقف عند أي مرحلة
 ========================================================= -->
 <div class="app-modal-overlay" id="filterModalOverlay" style="z-index:9999;">
   <div class="app-modal filter-modal" role="dialog" aria-modal="true" style="max-width:520px;">
     <div class="filter-modal-header">
-      <h3>🔍 اختيار العمادة والتخصص</h3>
-      <p style="font-size:0.85rem;color:var(--gray);font-weight:400;margin:0;">اختر العمادة والتخصص لعرض بيانات الطلاب الخاصة بهم.</p>
+      <h3>
+        <span class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </span>
+        اختيار الكلية والعمادة والتخصص
+      </h3>
     </div>
+
     <div class="filter-modal-body">
-      <div class="field-group">
-        <label for="filterDeanship">العمادة</label>
-        <select id="filterDeanship">
-          <option value="">-- اختر العمادة --</option>
-          <option value="1">عمادة كلية الهندسة وتكنولوجيا المعلومات</option>
-          <option value="2">عمادة كلية العلوم</option>
-          <option value="3">عمادة كلية الطب</option>
-          <option value="4">عمادة كلية الأعمال والاقتصاد</option>
-          <option value="5">عمادة كلية الآداب</option>
-        </select>
+      <div class="cascade-fields" id="cascadeFields">
+
+        <!-- خطوة 1: الكلية -->
+        <div class="cascade-step" id="stepCollege">
+          <span class="cascade-step-num">1</span>
+          <div class="cascade-step-body">
+            <label for="filterCollege">الكلية</label>
+            <select id="filterCollege">
+              <option value="" disabled selected>-- اختر --</option>
+              <option value="ALL">🔎 الكل (كل الكليات)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- خطوة 2: العمادة -->
+        <div class="cascade-step is-disabled" id="stepDeanship">
+          <span class="cascade-step-num">2</span>
+          <div class="cascade-step-body">
+            <label for="filterDeanship">العمادة</label>
+            <select id="filterDeanship" disabled>
+              <option value="" disabled selected>-- اختر --</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- خطوة 3: التخصص -->
+        <div class="cascade-step is-disabled" id="stepMajor">
+          <span class="cascade-step-num">3</span>
+          <div class="cascade-step-body">
+            <label for="filterMajor">التخصص</label>
+            <select id="filterMajor" disabled>
+              <option value="" disabled selected>-- اختر --</option>
+            </select>
+          </div>
+        </div>
+
       </div>
-      <div class="field-group">
-        <label for="filterMajor">التخصص</label>
-        <select id="filterMajor" disabled>
-          <option value="">-- اختر التخصص --</option>
-        </select>
-      </div>
+      <p class="cascade-hint" id="cascadeHint">اختر من قائمة الكلية للبدء (فيها خيار "الكل" لو ما بدك تحديد).</p>
     </div>
+
     <div class="filter-modal-footer">
       <button type="button" class="btn-cancel-outline" id="resetFilterBtn">إعادة تعيين</button>
-      <button type="button" class="btn-save-primary" id="applyFilterBtn">عرض الطلاب</button>
+      <button type="button" class="btn-save-primary" id="applyFilterBtn" disabled>عرض الطلاب</button>
     </div>
   </div>
 </div>
 
 <div id="admin-footer-slot"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script src="../../js/admin-shell.js"></script>
 
 <script>
@@ -153,53 +304,117 @@
     'use strict';
 
     // ========================================================================
-    // 1. MOCK DATA (مع تواريخ)
+    // 1. MOCK DATA
     // ========================================================================
-    // ⚠️ تعديل: هاي الصفحة بتعرض الطلاب المسجّلين فعلياً بس (student_profiles)،
-    // فحالة 'محتمل' (طالب مرشّح من AI بس لسا مش مسجل) اتشالت نهائياً من هون.
-    // status صارت قيمتين بس: 'نشط' و 'خريج'.
-    var MOCK_STUDENTS = [
-      { id: 1, name: 'أحمد محمود', universityId: '202310001', major: 'علوم الحاسوب', level: 'رابع', gpa: 3.8, status: 'نشط', enrolled: '2026-09-01' },
-      { id: 2, name: 'سارة خالد', universityId: '202310002', major: 'هندسة البرمجيات', level: 'ثالث', gpa: 3.5, status: 'نشط', enrolled: '2026-08-15' },
-      { id: 3, name: 'عمر عبدالله', universityId: '202310003', major: 'الأمن السيبراني', level: 'ثاني', gpa: 2.9, status: 'نشط', enrolled: '2026-07-20' },
-      { id: 4, name: 'ليلى محمد', universityId: '202310004', major: 'علوم الحاسوب', level: 'أول', gpa: 4.0, status: 'نشط', enrolled: '2026-09-10' },
-      { id: 5, name: 'خالد يوسف', universityId: '202310005', major: 'إدارة الأعمال', level: 'رابع', gpa: 3.2, status: 'خريج', enrolled: '2026-06-01' },
-      { id: 6, name: 'منى إبراهيم', universityId: '202310006', major: 'الطب البشري', level: 'خامس', gpa: 3.9, status: 'نشط', enrolled: '2026-08-01' },
-      { id: 7, name: 'ناصر علي', universityId: '202310007', major: 'هندسة البرمجيات', level: 'ثاني', gpa: 1.8, status: 'نشط', enrolled: '2026-07-05' },
-      { id: 8, name: 'هدى سامي', universityId: '202310008', major: 'الأمن السيبراني', level: 'ثالث', gpa: 3.7, status: 'نشط', enrolled: '2026-09-05' },
-      { id: 9, name: 'رامي نادر', universityId: '202310009', major: 'علوم الحاسوب', level: 'ثاني', gpa: 3.1, status: 'نشط', enrolled: '2026-07-25' },
-      { id: 10, name: 'دينا عصام', universityId: '202310010', major: 'إدارة الأعمال', level: 'ثالث', gpa: 3.6, status: 'نشط', enrolled: '2026-08-20' },
-      { id: 11, name: 'سامر زياد', universityId: '202310011', major: 'هندسة البرمجيات', level: 'رابع', gpa: 1.9, status: 'نشط', enrolled: '2026-05-30' },
-      { id: 12, name: 'نورا هشام', universityId: '202310012', major: 'علوم الحاسوب', level: 'ثالث', gpa: 3.9, status: 'نشط', enrolled: '2026-09-12' },
+    // ملاحظة: التواريخ محسوبة نسبةً لتاريخ اليوم (لحظة توليد البيانات) عشان فلاتر
+    // "هذا الأسبوع / هذا الشهر / هذه السنة" تشتغل صح وتظهر بيانات فعلية.
+    var MOCK_STUDENTS = (function() {
+      var today = new Date();
+      function daysAgo(n) {
+        var d = new Date(today);
+        d.setDate(d.getDate() - n);
+        return d.toISOString().slice(0, 10);
+      }
+
+      return [
+        { id: 1, name: 'أحمد محمود', universityId: '202310001', major: 'علوم الحاسوب', level: 'رابع', gpa: 3.8, status: 'نشط', enrolled: daysAgo(2) },
+        { id: 2, name: 'سارة خالد', universityId: '202310002', major: 'هندسة البرمجيات', level: 'ثالث', gpa: 3.5, status: 'نشط', enrolled: daysAgo(4) },
+        { id: 3, name: 'عمر عبدالله', universityId: '202310003', major: 'الأمن السيبراني', level: 'ثاني', gpa: 2.9, status: 'نشط', enrolled: daysAgo(6) },
+        { id: 4, name: 'ليلى محمد', universityId: '202310004', major: 'علوم الحاسوب', level: 'أول', gpa: 4.0, status: 'نشط', enrolled: daysAgo(1) },
+        { id: 5, name: 'خالد يوسف', universityId: '202310005', major: 'إدارة الأعمال', level: 'رابع', gpa: 3.2, status: 'خريج', enrolled: daysAgo(3) },
+        { id: 6, name: 'منى إبراهيم', universityId: '202310006', major: 'الطب البشري', level: 'خامس', gpa: 3.9, status: 'نشط', enrolled: daysAgo(5) },
+        { id: 7, name: 'ناصر علي', universityId: '202310007', major: 'هندسة البرمجيات', level: 'ثاني', gpa: 1.8, status: 'نشط', enrolled: daysAgo(7) },
+        { id: 8, name: 'هدى سامي', universityId: '202310008', major: 'الأمن السيبراني', level: 'ثالث', gpa: 3.7, status: 'نشط', enrolled: daysAgo(0) },
+        { id: 9, name: 'رامي نادر', universityId: '202310009', major: 'علوم الحاسوب', level: 'ثاني', gpa: 3.1, status: 'نشط', enrolled: daysAgo(3) },
+        { id: 10, name: 'دينا عصام', universityId: '202310010', major: 'إدارة الأعمال', level: 'ثالث', gpa: 3.6, status: 'نشط', enrolled: daysAgo(6) },
+        { id: 11, name: 'سامر زياد', universityId: '202310011', major: 'هندسة البرمجيات', level: 'رابع', gpa: 1.9, status: 'نشط', enrolled: daysAgo(15) },
+        { id: 12, name: 'نورا هشام', universityId: '202310012', major: 'علوم الحاسوب', level: 'ثالث', gpa: 3.9, status: 'نشط', enrolled: daysAgo(20) },
+        { id: 13, name: 'يوسف كمال', universityId: '202310013', major: 'الذكاء الاصطناعي', level: 'ثاني', gpa: 3.4, status: 'نشط', enrolled: daysAgo(12) },
+        { id: 14, name: 'رنا فؤاد', universityId: '202310014', major: 'الفيزياء', level: 'أول', gpa: 2.7, status: 'نشط', enrolled: daysAgo(25) },
+        { id: 15, name: 'محمود عادل', universityId: '202310015', major: 'الكيمياء', level: 'ثالث', gpa: 3.3, status: 'نشط', enrolled: daysAgo(28) },
+        { id: 16, name: 'شذى وليد', universityId: '202310016', major: 'طب الأسنان', level: 'خامس', gpa: 3.85, status: 'نشط', enrolled: daysAgo(18) },
+        { id: 17, name: 'إياد رشيد', universityId: '202310017', major: 'المحاسبة', level: 'رابع', gpa: 3.0, status: 'خريج', enrolled: daysAgo(22) },
+        { id: 18, name: 'ريم صالح', universityId: '202310018', major: 'الاقتصاد', level: 'ثاني', gpa: 1.6, status: 'نشط', enrolled: daysAgo(9) },
+        { id: 19, name: 'طارق منير', universityId: '202310019', major: 'التسويق', level: 'ثالث', gpa: 3.45, status: 'نشط', enrolled: daysAgo(60) },
+        { id: 20, name: 'جنى باسم', universityId: '202310020', major: 'الصيدلة', level: 'رابع', gpa: 3.95, status: 'نشط', enrolled: daysAgo(75) },
+        { id: 21, name: 'كريم أنس', universityId: '202310021', major: 'التمريض', level: 'ثاني', gpa: 2.3, status: 'نشط', enrolled: daysAgo(120) },
+        { id: 22, name: 'لينا عمرو', universityId: '202310022', major: 'اللغة الإنجليزية', level: 'أول', gpa: 3.15, status: 'نشط', enrolled: daysAgo(150) },
+        { id: 23, name: 'بشار حاتم', universityId: '202310023', major: 'اللغة العربية', level: 'خامس', gpa: 3.6, status: 'خريج', enrolled: daysAgo(200) },
+        { id: 24, name: 'وئام سليم', universityId: '202310024', major: 'علم النفس', level: 'ثالث', gpa: 1.95, status: 'نشط', enrolled: daysAgo(250) },
+        { id: 25, name: 'فادي جمال', universityId: '202310025', major: 'تأهيل ذوي الإعاقة', level: 'ثاني', gpa: 3.55, status: 'نشط', enrolled: daysAgo(300) },
+      ];
+    })();
+
+    // هرم: كليات ← عمادات ← تخصصات
+    var MOCK_COLLEGES = [
+      { id: 1, name: 'كلية الهندسة وتكنولوجيا المعلومات' },
+      { id: 2, name: 'كلية العلوم' },
+      { id: 3, name: 'كلية الطب' },
+      { id: 4, name: 'كلية الأعمال والاقتصاد' },
+      { id: 5, name: 'كلية الآداب' },
     ];
 
-    var MOCK_MAJORS = {
-      1: ['علوم الحاسوب', 'هندسة البرمجيات', 'هندسة الحاسوب', 'الأمن السيبراني', 'الذكاء الاصطناعي'],
-      2: ['الفيزياء', 'الكيمياء', 'الرياضيات', 'الأحياء'],
-      3: ['الطب البشري', 'طب الأسنان', 'الصيدلة', 'التمريض'],
-      4: ['إدارة الأعمال', 'المحاسبة', 'الاقتصاد', 'التسويق'],
-      5: ['اللغة العربية', 'اللغة الإنجليزية', 'تأهيل ذوي الإعاقة', 'علم النفس'],
+    var MOCK_DEANSHIPS = [
+      { id: 1, collegeId: 1, name: 'عمادة علوم الحاسوب وتكنولوجيا المعلومات' },
+      { id: 2, collegeId: 1, name: 'عمادة الهندسة' },
+      { id: 3, collegeId: 2, name: 'عمادة العلوم الأساسية' },
+      { id: 4, collegeId: 3, name: 'عمادة الطب البشري' },
+      { id: 5, collegeId: 3, name: 'عمادة العلوم الصحية' },
+      { id: 6, collegeId: 4, name: 'عمادة الأعمال والاقتصاد' },
+      { id: 7, collegeId: 5, name: 'عمادة الآداب والعلوم الإنسانية' },
+    ];
+
+    var MOCK_MAJORS_BY_DEANSHIP = {
+      1: ['علوم الحاسوب', 'هندسة البرمجيات', 'الأمن السيبراني', 'الذكاء الاصطناعي'],
+      2: ['هندسة الحاسوب'],
+      3: ['الفيزياء', 'الكيمياء', 'الرياضيات', 'الأحياء'],
+      4: ['الطب البشري', 'طب الأسنان'],
+      5: ['الصيدلة', 'التمريض'],
+      6: ['إدارة الأعمال', 'المحاسبة', 'الاقتصاد', 'التسويق'],
+      7: ['اللغة العربية', 'اللغة الإنجليزية', 'تأهيل ذوي الإعاقة', 'علم النفس'],
     };
 
-    // حد المعدل التراكمي اللي تحته الطالب يعتبر تحت الإنذار الأكاديمي
+    function getDeanshipsByCollege(collegeId) {
+      return MOCK_DEANSHIPS.filter(function(d) { return d.collegeId == collegeId; });
+    }
+
+    function getMajorsByCollege(collegeId) {
+      var deanships = getDeanshipsByCollege(collegeId);
+      var majors = [];
+      deanships.forEach(function(d) {
+        majors = majors.concat(MOCK_MAJORS_BY_DEANSHIP[d.id] || []);
+      });
+      return majors;
+    }
+
     var ACADEMIC_WARNING_GPA = 2.0;
 
     // ========================================================================
     // 2. STATE
     // ========================================================================
+    // الفلتر متسلسل واحد بس: أي مستوى فاضي ("") يعني "الكل" على هاد المستوى
     var state = {
+      collegeId: '',
       deanshipId: '',
       majorName: '',
       timeRange: 'week',
-      filteredStudents: []
+      filteredStudents: [],
+      currentPage: 1,
+      pageSize: 10
     };
 
     // ========================================================================
     // 3. ELEMENTS
     // ========================================================================
     var filterModal = document.getElementById('filterModalOverlay');
+    var filterCollege = document.getElementById('filterCollege');
     var filterDeanship = document.getElementById('filterDeanship');
     var filterMajor = document.getElementById('filterMajor');
+    var cascadeFields = document.getElementById('cascadeFields');
+    var stepCollege = document.getElementById('stepCollege');
+    var stepDeanship = document.getElementById('stepDeanship');
+    var stepMajor = document.getElementById('stepMajor');
+    var cascadeHint = document.getElementById('cascadeHint');
     var applyBtn = document.getElementById('applyFilterBtn');
     var resetBtn = document.getElementById('resetFilterBtn');
     var changeFilterBtn = document.getElementById('changeFilterBtn');
@@ -210,6 +425,9 @@
     var timeFilterBtns = document.querySelectorAll('.time-filter-btn');
     var timeRangeInfo = document.getElementById('timeRangeInfo');
     var pageSubtitle = document.getElementById('pageSubtitle');
+    var paginationWrap = document.getElementById('studentsPagination');
+    var paginationInfo = document.getElementById('paginationInfo');
+    var paginationControls = document.getElementById('paginationControls');
 
     // ========================================================================
     // 4. MODAL CONTROLS
@@ -223,7 +441,6 @@
       document.body.style.overflow = '';
     }
 
-    // فتح المودال تلقائياً عند تحميل الصفحة إذا لم يختر الفلتر بعد
     setTimeout(openModal, 400);
 
     changeFilterBtn.addEventListener('click', openModal);
@@ -235,22 +452,125 @@
     });
 
     // ========================================================================
-    // 5. CASCADING SELECTS
+    // 5. CASCADING SELECTS (كلية → عمادة → تخصص)
     // ========================================================================
+    function populateCollegeSelect() {
+      MOCK_COLLEGES.forEach(function(c) {
+        var opt = document.createElement('option');
+        opt.value = c.id;
+        opt.textContent = c.name;
+        filterCollege.appendChild(opt);
+      });
+    }
+    populateCollegeSelect();
+
+    function resetDeanshipSelect() {
+      filterDeanship.innerHTML = '<option value="" disabled selected>-- اختر --</option>';
+    }
+    function resetMajorSelect() {
+      filterMajor.innerHTML = '<option value="" disabled selected>-- اختر --</option>';
+    }
+
+    // بتفحص إذا كل قائمة مفعّلة اختار منها المستخدم فعلياً (ولو "ALL")
+    // قبل ما تسمح بالضغط على "عرض الطلاب"
+    function updateApplyButtonState() {
+      var collegeOk = filterCollege.value !== '';
+      var deanshipOk = filterDeanship.disabled || filterDeanship.value !== '';
+      var majorOk = filterMajor.disabled || filterMajor.value !== '';
+      applyBtn.disabled = !(collegeOk && deanshipOk && majorOk);
+    }
+
+    // خطوة 1: لما تنتخب كلية → فعّل خطوة العمادة وعبّيها (إجباري تختار منها)
+    filterCollege.addEventListener('change', function() {
+      var collegeVal = this.value;
+
+      resetDeanshipSelect();
+      resetMajorSelect();
+      filterMajor.disabled = true;
+      stepMajor.classList.add('is-disabled');
+      stepMajor.classList.remove('is-complete');
+      stepDeanship.classList.remove('is-complete');
+
+      if (collegeVal === 'ALL') {
+        // اختار "الكل" بالكلية → ما في داعي لعمادة/تخصص محددين، بتضل معطّلة
+        stepCollege.classList.add('is-complete');
+        filterDeanship.disabled = true;
+        stepDeanship.classList.add('is-disabled');
+        cascadeHint.textContent = 'اخترت "الكل" بالكلية، فرح تنعرض بيانات كل الطلاب مباشرة.';
+      } else if (collegeVal) {
+        stepCollege.classList.add('is-complete');
+        var deanships = getDeanshipsByCollege(collegeVal);
+        var allOpt = document.createElement('option');
+        allOpt.value = 'ALL';
+        allOpt.textContent = '🔎 الكل (كل عمادات الكلية)';
+        filterDeanship.appendChild(allOpt);
+        deanships.forEach(function(d) {
+          var opt = document.createElement('option');
+          opt.value = d.id;
+          opt.textContent = d.name;
+          filterDeanship.appendChild(opt);
+        });
+        filterDeanship.disabled = false;
+        stepDeanship.classList.remove('is-disabled');
+        cascadeHint.textContent = 'اختر من قائمة العمادة (فيها خيار "الكل" لو ما بدك تحديد).';
+      } else {
+        stepCollege.classList.remove('is-complete');
+        filterDeanship.disabled = true;
+        stepDeanship.classList.add('is-disabled');
+        cascadeHint.textContent = 'اختر من قائمة الكلية للبدء (فيها خيار "الكل" لو ما بدك تحديد).';
+      }
+
+      updateApplyButtonState();
+    });
+
+    // خطوة 2: لما تنتخب عمادة → فعّل خطوة التخصص وعبّيها (إجباري تختار منها)
     filterDeanship.addEventListener('change', function() {
-      var deanshipId = this.value;
-      filterMajor.innerHTML = '<option value="">-- اختر التخصص --</option>';
-      if (deanshipId && MOCK_MAJORS[deanshipId]) {
-        MOCK_MAJORS[deanshipId].forEach(function(major) {
+      var deanshipVal = this.value;
+      resetMajorSelect();
+      stepMajor.classList.remove('is-complete');
+
+      if (deanshipVal === 'ALL') {
+        stepDeanship.classList.add('is-complete');
+        filterMajor.disabled = true;
+        stepMajor.classList.add('is-disabled');
+        cascadeHint.textContent = 'اخترت "الكل" بالعمادة، فرح تنعرض بيانات كل طلاب الكلية.';
+      } else if (deanshipVal && MOCK_MAJORS_BY_DEANSHIP[deanshipVal]) {
+        stepDeanship.classList.add('is-complete');
+        var allOpt = document.createElement('option');
+        allOpt.value = 'ALL';
+        allOpt.textContent = '🔎 الكل (كل تخصصات العمادة)';
+        filterMajor.appendChild(allOpt);
+        MOCK_MAJORS_BY_DEANSHIP[deanshipVal].forEach(function(major) {
           var opt = document.createElement('option');
           opt.value = major;
           opt.textContent = major;
           filterMajor.appendChild(opt);
         });
         filterMajor.disabled = false;
+        stepMajor.classList.remove('is-disabled');
+        cascadeHint.textContent = 'اختر من قائمة التخصص (فيها خيار "الكل" لو ما بدك تحديد).';
       } else {
+        stepDeanship.classList.remove('is-complete');
         filterMajor.disabled = true;
+        stepMajor.classList.add('is-disabled');
+        cascadeHint.textContent = 'اختر من قائمة العمادة (فيها خيار "الكل" لو ما بدك تحديد).';
       }
+
+      updateApplyButtonState();
+    });
+
+    // خطوة 3: لما تنتخب تخصص
+    filterMajor.addEventListener('change', function() {
+      if (this.value === 'ALL') {
+        stepMajor.classList.add('is-complete');
+        cascadeHint.textContent = 'اخترت "الكل" بالتخصص، فرح تنعرض بيانات كل طلاب العمادة.';
+      } else if (this.value) {
+        stepMajor.classList.add('is-complete');
+        cascadeHint.textContent = 'رح تنعرض بيانات هاد التخصص بس.';
+      } else {
+        stepMajor.classList.remove('is-complete');
+      }
+      updateApplyButtonState();
     });
 
     // ========================================================================
@@ -259,6 +579,7 @@
     function getDateRange(range) {
       var now = new Date();
       var start = new Date(now);
+      var end = new Date(now);
       var labels = {
         week: 'آخر 7 أيام',
         month: 'آخر 30 يوم',
@@ -269,9 +590,12 @@
         case 'week': start.setDate(now.getDate() - 7); break;
         case 'month': start.setDate(now.getDate() - 30); break;
         case 'year': start.setFullYear(now.getFullYear() - 1); break;
-        case 'all': start = new Date(2000, 0, 1); break;
+        case 'all':
+          start = new Date(2000, 0, 1);
+          end = new Date(2100, 0, 1); // حتى ما تستبعد تواريخ تسجيل مستقبلية
+          break;
       }
-      return { start: start, end: now, label: labels[range] || labels.week };
+      return { start: start, end: end, label: labels[range] || labels.week };
     }
 
     timeFilterBtns.forEach(function(btn) {
@@ -281,6 +605,7 @@
         state.timeRange = this.dataset.range;
         var range = getDateRange(state.timeRange);
         timeRangeInfo.textContent = range.label;
+        state.currentPage = 1;
         applyFilters();
       });
     });
@@ -288,22 +613,27 @@
     // ========================================================================
     // 7. FILTER STUDENTS
     // ========================================================================
-    function filterStudents(deanshipId, majorName, timeRange, searchQuery) {
+    function filterStudents(state, searchQuery) {
       var filtered = MOCK_STUDENTS;
 
-      // فلتر التخصص
-      if (majorName) {
-        filtered = filtered.filter(function(s) { return s.major === majorName; });
+      // أدق مستوى محدد هو اللي بيحكم الفلترة: تخصص > عمادة > كلية > الكل
+      if (state.majorName) {
+        filtered = filtered.filter(function(s) { return s.major === state.majorName; });
+      } else if (state.deanshipId && MOCK_MAJORS_BY_DEANSHIP[state.deanshipId]) {
+        var deanshipMajors = MOCK_MAJORS_BY_DEANSHIP[state.deanshipId];
+        filtered = filtered.filter(function(s) { return deanshipMajors.includes(s.major); });
+      } else if (state.collegeId) {
+        var collegeMajors = getMajorsByCollege(state.collegeId);
+        filtered = filtered.filter(function(s) { return collegeMajors.includes(s.major); });
       }
+      // ولا واحد محدد → بدون فلترة، أي كل الطلاب
 
-      // فلتر الزمن
-      var range = getDateRange(timeRange);
+      var range = getDateRange(state.timeRange);
       filtered = filtered.filter(function(s) {
         var date = new Date(s.enrolled);
         return date >= range.start && date <= range.end;
       });
 
-      // فلتر البحث
       if (searchQuery) {
         var q = searchQuery.toLowerCase();
         filtered = filtered.filter(function(s) {
@@ -328,9 +658,6 @@
       }).length;
       var graduated = students.filter(function(s) { return s.status === 'خريج'; }).length;
 
-      // ⚠️ تعديل: بطاقة "على المحك" كانت بتعتمد على status === 'محتمل' اللي
-      // ما إلها معنى ضمن قرارنا (بس طلاب مسجّلين). هلق بتحسب طلاب تحت
-      // الإنذار الأكاديمي بناءً على gpa < 2.0 (عمود موجود فعلياً بالجدول).
       var academicWarning = students.filter(function(s) {
         return s.gpa < ACADEMIC_WARNING_GPA;
       }).length;
@@ -385,7 +712,6 @@
         </div>
       `;
 
-      // تشغيل أنيميشن للأرقام
       document.querySelectorAll('.stat-number[data-count]').forEach(function(el) {
         var target = parseFloat(el.dataset.count);
         var isFloat = target % 1 !== 0;
@@ -405,21 +731,29 @@
     function renderTable(students) {
       studentCount.textContent = '(' + students.length + ' طالب)';
       tableBody.innerHTML = '';
+
       if (!students.length) {
         tableBody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--gray);">لا يوجد طلاب مطابقين للفلتر</td></tr>`;
+        paginationWrap.style.display = 'none';
         return;
       }
-      students.forEach(function(s, i) {
-        // ⚠️ تعديل: status صارت بس 'نشط' / 'خريج' (بعد ما شلنا 'محتمل')،
-        // فما عاد في داعي لفرع 'rejected' الاحتياطي
+
+      var pageSize = state.pageSize;
+      var totalPages = Math.max(1, Math.ceil(students.length / pageSize));
+      if (state.currentPage > totalPages) state.currentPage = totalPages;
+      if (state.currentPage < 1) state.currentPage = 1;
+
+      var startIdx = (state.currentPage - 1) * pageSize;
+      var pageStudents = students.slice(startIdx, startIdx + pageSize);
+
+      pageStudents.forEach(function(s, i) {
         var statusClass = s.status === 'نشط' ? 'done' : 'review';
-        // تنبيه بصري إضافي (مش استبدال للحالة) للطالب تحت الإنذار الأكاديمي
         var warningBadge = s.gpa < ACADEMIC_WARNING_GPA
           ? ' <span class="status-pill rejected" title="تحت الإنذار الأكاديمي"><span class="dot"></span> إنذار</span>'
           : '';
         var tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${i + 1}</td>
+          <td>${startIdx + i + 1}</td>
           <td><strong>${s.name}</strong></td>
           <td>${s.universityId}</td>
           <td>${s.major}</td>
@@ -430,16 +764,79 @@
         `;
         tableBody.appendChild(tr);
       });
+
+      renderPagination(students.length, totalPages);
+    }
+
+    function renderPagination(totalItems, totalPages) {
+      if (totalPages <= 1) {
+        paginationWrap.style.display = 'none';
+        return;
+      }
+      paginationWrap.style.display = 'flex';
+
+      var pageSize = state.pageSize;
+      var startItem = (state.currentPage - 1) * pageSize + 1;
+      var endItem = Math.min(state.currentPage * pageSize, totalItems);
+      paginationInfo.textContent = 'عرض ' + startItem + '–' + endItem + ' من أصل ' + totalItems + ' طالب';
+
+      paginationControls.innerHTML = '';
+
+      function makeBtn(label, page, opts) {
+        opts = opts || {};
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = label;
+        if (opts.active) btn.classList.add('active');
+        if (opts.disabled) btn.disabled = true;
+        if (!opts.disabled) {
+          btn.addEventListener('click', function() {
+            state.currentPage = page;
+            renderTable(state.filteredStudents);
+          });
+        }
+        return btn;
+      }
+
+      // زر السابق
+      paginationControls.appendChild(
+        makeBtn('السابق', state.currentPage - 1, { disabled: state.currentPage === 1 })
+      );
+
+      // أرقام الصفحات (مع تقصير إذا كانت كثيرة)
+      var pages = [];
+      var cur = state.currentPage;
+      pages.push(1);
+      for (var p = cur - 1; p <= cur + 1; p++) {
+        if (p > 1 && p < totalPages) pages.push(p);
+      }
+      if (totalPages > 1) pages.push(totalPages);
+      pages = pages.filter(function(v, i, arr) { return arr.indexOf(v) === i; }).sort(function(a, b) { return a - b; });
+
+      var prevPage = null;
+      pages.forEach(function(p) {
+        if (prevPage !== null && p - prevPage > 1) {
+          var ell = document.createElement('span');
+          ell.className = 'pagination-ellipsis';
+          ell.textContent = '…';
+          paginationControls.appendChild(ell);
+        }
+        paginationControls.appendChild(makeBtn(String(p), p, { active: p === cur }));
+        prevPage = p;
+      });
+
+      // زر التالي
+      paginationControls.appendChild(
+        makeBtn('التالي', state.currentPage + 1, { disabled: state.currentPage === totalPages })
+      );
     }
 
     function updateCharts(students) {
-      // تحضير بيانات المستويات
       var levels = ['أول', 'ثاني', 'ثالث', 'رابع', 'خامس'];
       var levelCounts = levels.map(function(l) {
         return students.filter(function(s) { return s.level === l; }).length;
       });
 
-      // تحضير بيانات GPA
       var gpaRanges = ['0-2', '2-2.5', '2.5-3', '3-3.5', '3.5-4'];
       var gpaCounts = gpaRanges.map(function(range) {
         var parts = range.split('-').map(Number);
@@ -450,7 +847,6 @@
 
       var colors = ['#2F6BFF', '#16C088', '#B4790C', '#5B6B79', '#35D0FF'];
 
-      // Level Chart
       var ctx1 = document.getElementById('levelChart').getContext('2d');
       if (window._levelChart) {
         window._levelChart.destroy();
@@ -470,7 +866,6 @@
         }
       });
 
-      // GPA Chart
       var ctx2 = document.getElementById('gpaChart').getContext('2d');
       if (window._gpaChart) {
         window._gpaChart.destroy();
@@ -497,40 +892,62 @@
     // ========================================================================
     function applyFilters() {
       var searchQuery = searchInput.value;
-      var filtered = filterStudents(state.deanshipId, state.majorName, state.timeRange, searchQuery);
+      var filtered = filterStudents(state, searchQuery);
       state.filteredStudents = filtered;
       renderStats(filtered);
       renderTable(filtered);
       updateCharts(filtered);
 
-      // تحديث العنوان الفرعي
-      var deanshipName = filterDeanship.options[filterDeanship.selectedIndex]?.text || 'العمادة';
-      var majorName = state.majorName || 'جميع التخصصات';
-      pageSubtitle.textContent = 'عرض بيانات طلاب ' + majorName + ' — ' + deanshipName;
+      var parts = [];
+      if (state.majorName) {
+        parts.push(state.majorName);
+      } else if (state.deanshipId) {
+        var deanshipObj = MOCK_DEANSHIPS.find(function(d) { return d.id == state.deanshipId; });
+        if (deanshipObj) parts.push(deanshipObj.name);
+      } else if (state.collegeId) {
+        var collegeObj = MOCK_COLLEGES.find(function(c) { return c.id == state.collegeId; });
+        if (collegeObj) parts.push(collegeObj.name);
+      }
+
+      pageSubtitle.textContent = parts.length
+        ? 'عرض بيانات طلاب ' + parts.join(' — ')
+        : 'عرض بيانات جميع الطلاب';
     }
 
     // ========================================================================
     // 10. APPLY FILTER FROM MODAL
     // ========================================================================
     applyBtn.addEventListener('click', function() {
-      var deanshipId = filterDeanship.value;
-      var majorName = filterMajor.value;
-      if (!deanshipId) {
-        alert('يرجى اختيار العمادة أولاً.');
-        return;
-      }
-      state.deanshipId = deanshipId;
-      state.majorName = majorName;
+      if (applyBtn.disabled) return; // حماية إضافية، الزر أصلاً معطّل لحد ما يختار المستخدم من كل قائمة
+
+      state.collegeId = (filterCollege.value === 'ALL') ? '' : filterCollege.value;
+      state.deanshipId = (filterDeanship.disabled || filterDeanship.value === 'ALL') ? '' : filterDeanship.value;
+      state.majorName = (filterMajor.disabled || filterMajor.value === 'ALL') ? '' : filterMajor.value;
+      state.currentPage = 1;
+
       closeModal();
       applyFilters();
     });
 
     resetBtn.addEventListener('click', function() {
-      filterDeanship.value = '';
-      filterMajor.innerHTML = '<option value="">-- اختر التخصص --</option>';
+      filterCollege.selectedIndex = 0;
+      resetDeanshipSelect();
+      resetMajorSelect();
+      filterDeanship.disabled = true;
       filterMajor.disabled = true;
+      stepDeanship.classList.add('is-disabled');
+      stepMajor.classList.add('is-disabled');
+      stepCollege.classList.remove('is-complete');
+      stepDeanship.classList.remove('is-complete');
+      stepMajor.classList.remove('is-complete');
+      cascadeHint.textContent = 'اختر من قائمة الكلية للبدء (فيها خيار "الكل" لو ما بدك تحديد).';
+      updateApplyButtonState();
+
+      state.collegeId = '';
       state.deanshipId = '';
       state.majorName = '';
+      state.currentPage = 1;
+
       closeModal();
       applyFilters();
     });
@@ -539,11 +956,12 @@
     // 11. SEARCH
     // ========================================================================
     searchInput.addEventListener('input', function() {
+      state.currentPage = 1;
       applyFilters();
     });
 
     // ========================================================================
-    // 12. EXPORT CSV
+    // 12. EXPORT PDF
     // ========================================================================
     document.getElementById('exportCsvBtn').addEventListener('click', function() {
       var students = state.filteredStudents;
@@ -551,26 +969,42 @@
         alert('لا يوجد طلاب لتصديرهم.');
         return;
       }
-      var headers = ['الاسم', 'المعرف الجامعي', 'التخصص', 'المستوى', 'المعدل', 'الحالة', 'تاريخ التسجيل'];
-      var rows = students.map(function(s) {
-        return [s.name, s.universityId, s.major, s.level, s.gpa, s.status, s.enrolled].join(',');
+
+      var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
+      if (!jsPDFCtor) {
+        alert('تعذر تحميل مكتبة PDF. تأكد من الاتصال بالإنترنت وحاول مرة أخرى.');
+        return;
+      }
+
+      var doc = new jsPDFCtor({ orientation: 'landscape', unit: 'pt', format: 'a4' });
+
+      var headers = [['#', 'Name', 'University ID', 'Major', 'Level', 'GPA', 'Status', 'Enrolled']];
+      var rows = students.map(function(s, i) {
+        return [i + 1, s.name, s.universityId, s.major, s.level, s.gpa, s.status, s.enrolled];
       });
-      var csv = headers.join(',') + '\n' + rows.join('\n');
-      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      var link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'students_' + state.majorName + '_' + new Date().toISOString().slice(0,10) + '.csv';
-      link.click();
-      URL.revokeObjectURL(link.href);
+
+      doc.setFontSize(14);
+      doc.text('Students List', 40, 32);
+      doc.setFontSize(9);
+      doc.text('Generated: ' + new Date().toISOString().slice(0, 10) + '   |   Total: ' + students.length, 40, 48);
+
+      doc.autoTable({
+        head: headers,
+        body: rows,
+        startY: 60,
+        styles: { font: 'helvetica', fontSize: 9, cellPadding: 5 },
+        headStyles: { fillColor: [47, 107, 255], textColor: 255, fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [247, 249, 251] },
+        margin: { left: 40, right: 40 }
+      });
+
+      var fileNamePart = state.majorName || state.deanshipId || state.collegeId || 'all';
+      doc.save('students_' + fileNamePart + '_' + new Date().toISOString().slice(0, 10) + '.pdf');
     });
 
     // ========================================================================
     // 13. INIT
     // ========================================================================
-    // منعرض الكروت والجدول (وراء المودال) من أول تحميل، بس بعد ما كل أزرار
-    // وقوائم الصفحة صارت مربوطة بمستمعيها (listeners) فوق. حطينا try/catch
-    // عشان لو تأخرت مكتبة Chart.js بالتحميل، الصفحة تضل شغالة وبس الرسمتين
-    // البيانيتين يلي بتأخروا، مش كل شي.
     try {
       applyFilters();
     } catch (err) {

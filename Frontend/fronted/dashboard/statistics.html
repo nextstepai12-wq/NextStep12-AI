@@ -6,11 +6,15 @@
   <title>الإحصائيات — لوحة تحكم الإدارة | NextStep AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+
   <!-- ====== CSS ====== -->
   <link rel="stylesheet" href="../../css/app.css">
   <link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
   <link rel="stylesheet" href="../../css/dashboardcss/statistics.css">
+
+  <style>
+
+  </style>
 </head>
 <body>
 
@@ -30,7 +34,7 @@
     <div class="admin-page-head">
       <div>
         <h1>الإحصائيات</h1>
-        <p>تحليلات شاملة عن الطلاب، البرامج، ونسب القبول عبر الجامعة.</p>
+        <p id="pageSubtitle">تحليلات شاملة عن الطلاب، البرامج، ونسب القبول عبر الجامعة.</p>
       </div>
       <span class="ai-badge">
         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -42,30 +46,26 @@
 
     <!-- ====== FILTER BAR ====== -->
     <div class="stats-filter-bar">
-      <select id="filterDeanship">
-        <option value="">كل العمادات</option>
-        <option value="1">الهندسة وتكنولوجيا المعلومات</option>
-        <option value="2">العلوم</option>
-        <option value="3">الطب</option>
-        <option value="4">الأعمال والاقتصاد</option>
-        <option value="5">الآداب</option>
-      </select>
-      
+      <button type="button" class="pill-btn" id="changeFilterBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+        تغيير الفلتر
+      </button>
+
       <select id="filterRange">
         <option value="30">آخر 30 يوم</option>
         <option value="90" selected>آخر فصل دراسي</option>
         <option value="365">آخر سنة</option>
       </select>
-      
+
       <div class="stats-filter-spacer"></div>
-      
+
       <button type="button" class="stats-export-btn" id="statsExportBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <path d="M7 10l5 5 5-5"/>
           <path d="M12 15V3"/>
         </svg>
-        تصدير التقرير
+        تصدير التقرير PDF
       </button>
     </div>
 
@@ -74,12 +74,12 @@
       <div class="kpi-card">
         <div class="kpi-label">إجمالي الطلاب هذا الفصل</div>
         <div class="kpi-value-row">
-          <span class="kpi-value">4,820</span>
-          <span class="kpi-delta up">▲ 9%</span>
+          <span class="kpi-value" id="kpiTotalStudents">4,820</span>
+          <span class="kpi-delta up" id="kpiTotalDelta">▲ 9%</span>
         </div>
         <div class="kpi-sub">مقارنة بالفصل السابق</div>
       </div>
-      
+
       <!-- المصدر: recommendation_results.match_percentage — نسبة الطلاب اللي أعلى توصية إلهم match_percentage >= 80 -->
       <div class="kpi-card">
         <div class="kpi-label">نسبة الطلاب بتوافق مرتفع</div>
@@ -89,7 +89,7 @@
         </div>
         <div class="kpi-sub">نسبة توافق ≥ 80% مع التخصص الموصى به</div>
       </div>
-      
+
       <!-- المصدر: الفرق الزمني بين آخر student_survey_responses.created_at للطالب و recommendation_results.created_at المرتبط فيه، بمعدل عام -->
       <div class="kpi-card">
         <div class="kpi-label">متوسط وقت صدور التوصية</div>
@@ -99,13 +99,13 @@
         </div>
         <div class="kpi-sub">من إكمال الاستبيان لصدور التوصية</div>
       </div>
-      
+
       <div class="kpi-card">
         <div class="kpi-label">التخصص الأكثر إقبالاً</div>
         <div class="kpi-value-row">
-          <span class="kpi-value" style="font-size:1.1rem; font-weight:700;">هندسة البرمجيات</span>
+          <span class="kpi-value" id="kpiTopMajor" style="font-size:1.1rem; font-weight:700;">هندسة البرمجيات</span>
         </div>
-        <div class="kpi-sub">1,450 طالب مسجّل</div>
+        <div class="kpi-sub" id="kpiTopMajorSub">1,450 طالب مسجّل</div>
       </div>
     </div>
 
@@ -144,13 +144,13 @@
     <div class="stats-chart-grid-2">
       <div class="admin-panel">
         <div class="chart-card-head">
-          <h3>عدد الطلاب حسب العمادة</h3>
+          <h3 id="deanshipChartTitle">عدد الطلاب حسب الكلية</h3>
         </div>
         <div class="chart-holder sm">
           <canvas id="deanshipBarChart"></canvas>
         </div>
       </div>
-      
+
       <!-- المصدر: recommendation_results.match_percentage — موزّع على فئات -->
       <div class="admin-panel">
         <div class="chart-card-head">
@@ -188,12 +188,130 @@
   </main>
 </div>
 
+<!-- =========================================================
+     FILTER SELECTION MODAL — نفس المودال المتسلسل من صفحة الطلاب
+     كلية → عمادة → تخصص، كل مستوى فيه خيار "الكل"
+========================================================= -->
+<div class="app-modal-overlay" id="filterModalOverlay" style="z-index:9999;">
+  <div class="app-modal filter-modal" role="dialog" aria-modal="true" style="max-width:520px;">
+    <div class="filter-modal-header">
+      <h3>
+        <span class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </span>
+        اختيار الكلية والعمادة والتخصص
+      </h3>
+      <p style="font-size:0.85rem;color:var(--gray);font-weight:400;margin:8px 0 0;">لازم تختار من كل قائمة قبل ما تقدر تعرض الإحصائيات — ولو كان اختيارك "الكل".</p>
+    </div>
+
+    <div class="filter-modal-body">
+      <div class="cascade-fields" id="cascadeFields">
+
+        <!-- خطوة 1: الكلية -->
+        <div class="cascade-step" id="stepCollege">
+          <span class="cascade-step-num">1</span>
+          <div class="cascade-step-body">
+            <label for="filterCollege">الكلية</label>
+            <select id="filterCollege">
+              <option value="" disabled selected>-- اختر --</option>
+              <option value="ALL">🔎 الكل (كل الكليات)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- خطوة 2: العمادة -->
+        <div class="cascade-step is-disabled" id="stepDeanship">
+          <span class="cascade-step-num">2</span>
+          <div class="cascade-step-body">
+            <label for="filterDeanship">العمادة</label>
+            <select id="filterDeanship" disabled>
+              <option value="" disabled selected>-- اختر --</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- خطوة 3: التخصص -->
+        <div class="cascade-step is-disabled" id="stepMajor">
+          <span class="cascade-step-num">3</span>
+          <div class="cascade-step-body">
+            <label for="filterMajor">التخصص</label>
+            <select id="filterMajor" disabled>
+              <option value="" disabled selected>-- اختر --</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <p class="cascade-hint" id="cascadeHint">اختر من قائمة الكلية للبدء (فيها خيار "الكل" لو ما بدك تحديد).</p>
+    </div>
+
+    <div class="filter-modal-footer">
+      <button type="button" class="btn-cancel-outline" id="resetFilterBtn">إعادة تعيين</button>
+      <button type="button" class="btn-save-primary" id="applyFilterBtn" disabled>عرض الإحصائيات</button>
+    </div>
+  </div>
+</div>
+
 <!-- ====== SCRIPTS ====== -->
 <script src="../../js/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script>
   (function() {
     // ---- إعدادات الخطوط ----
     const cairoFont = { family: "'Cairo', sans-serif", weight: '600' };
+
+    // ========================================================================
+    // 0. هرم الكلية ← العمادة ← التخصص (نفس هيكل صفحة الطلاب)
+    // ========================================================================
+    const MOCK_COLLEGES = [
+      { id: 1, name: 'الهندسة وتكنولوجيا المعلومات' },
+      { id: 2, name: 'العلوم' },
+      { id: 3, name: 'الطب' },
+      { id: 4, name: 'الأعمال والاقتصاد' },
+      { id: 5, name: 'الآداب' },
+    ];
+
+    const MOCK_DEANSHIPS = [
+      { id: 1, collegeId: 1, name: 'عمادة علوم الحاسوب وتكنولوجيا المعلومات' },
+      { id: 2, collegeId: 1, name: 'عمادة الهندسة' },
+      { id: 3, collegeId: 2, name: 'عمادة العلوم الأساسية' },
+      { id: 4, collegeId: 3, name: 'عمادة الطب البشري' },
+      { id: 5, collegeId: 3, name: 'عمادة العلوم الصحية' },
+      { id: 6, collegeId: 4, name: 'عمادة الأعمال والاقتصاد' },
+      { id: 7, collegeId: 5, name: 'عمادة الآداب والعلوم الإنسانية' },
+    ];
+
+    const MOCK_MAJORS_BY_DEANSHIP = {
+      1: ['علوم الحاسوب', 'هندسة البرمجيات', 'الأمن السيبراني', 'الذكاء الاصطناعي'],
+      2: ['هندسة الحاسوب'],
+      3: ['الفيزياء', 'الكيمياء', 'الرياضيات', 'الأحياء'],
+      4: ['الطب البشري', 'طب الأسنان'],
+      5: ['الصيدلة', 'التمريض'],
+      6: ['إدارة الأعمال', 'المحاسبة', 'الاقتصاد', 'التسويق'],
+      7: ['اللغة العربية', 'اللغة الإنجليزية', 'اللغة الفرنسية', 'تأهيل ذوي الإعاقة', 'علم النفس', 'علم الاجتماع', 'الفلسفة', 'الآثار', 'الجغرافيا'],
+    };
+
+    // عدد الطلاب لكل كلية (نفس أرقام مخطط "عدد الطلاب حسب الكلية")
+    const COLLEGE_STUDENT_COUNTS = { 1: 4200, 2: 2100, 3: 1800, 4: 2950, 5: 1400 };
+    const TOTAL_STUDENTS_ALL_COLLEGES = Object.values(COLLEGE_STUDENT_COUNTS).reduce((a, b) => a + b, 0);
+
+    function getDeanshipsByCollege(collegeId) {
+      return MOCK_DEANSHIPS.filter(d => d.collegeId == collegeId);
+    }
+    function getMajorsByCollege(collegeId) {
+      return getDeanshipsByCollege(collegeId).reduce((acc, d) => acc.concat(MOCK_MAJORS_BY_DEANSHIP[d.id] || []), []);
+    }
+    function getCollegeIdOfDeanship(deanshipId) {
+      const d = MOCK_DEANSHIPS.find(d => d.id == deanshipId);
+      return d ? d.collegeId : null;
+    }
+    function getDeanshipIdOfMajor(majorName) {
+      for (const key in MOCK_MAJORS_BY_DEANSHIP) {
+        if (MOCK_MAJORS_BY_DEANSHIP[key].includes(majorName)) return Number(key);
+      }
+      return null;
+    }
 
     // ---- بيانات وهمية ----
     const growthData6m = {
@@ -210,12 +328,12 @@
       { label: 'طالب جامعي', value: 36, color: '#2F6BFF' },
     ];
 
-    const deanshipBarData = [
-      { label: 'الهندسة وتكنولوجيا المعلومات', value: 4200, color: '#16233D' },
-      { label: 'العلوم', value: 2100, color: '#2F6BFF' },
-      { label: 'الطب', value: 1800, color: '#16C088' },
-      { label: 'الأعمال والاقتصاد', value: 2950, color: '#B4790C' },
-      { label: 'الآداب', value: 1400, color: '#5B6B79' },
+    const deanshipBarDataAll = [
+      { collegeId: 1, label: 'الهندسة وتكنولوجيا المعلومات', value: 4200, color: '#16233D' },
+      { collegeId: 2, label: 'العلوم', value: 2100, color: '#2F6BFF' },
+      { collegeId: 3, label: 'الطب', value: 1800, color: '#16C088' },
+      { collegeId: 4, label: 'الأعمال والاقتصاد', value: 2950, color: '#B4790C' },
+      { collegeId: 5, label: 'الآداب', value: 1400, color: '#5B6B79' },
     ];
 
     const statusBarData = [
@@ -241,7 +359,221 @@
       { name: 'علم الاجتماع', students: 110, acceptance: 76, trend: 3 },
     ];
 
-    // ---- 1. Line Chart: نمو الطلاب ----
+    // ========================================================================
+    // 1. STATE
+    // ========================================================================
+    const state = {
+      collegeId: '',   // '' = الكل
+      deanshipId: '',
+      majorName: '',
+      sort: 'top'
+    };
+
+    // ========================================================================
+    // 2. عناصر مودال الفلتر
+    // ========================================================================
+    const filterModal = document.getElementById('filterModalOverlay');
+    const filterCollege = document.getElementById('filterCollege');
+    const filterDeanship = document.getElementById('filterDeanship');
+    const filterMajor = document.getElementById('filterMajor');
+    const stepCollege = document.getElementById('stepCollege');
+    const stepDeanship = document.getElementById('stepDeanship');
+    const stepMajor = document.getElementById('stepMajor');
+    const cascadeHint = document.getElementById('cascadeHint');
+    const applyBtn = document.getElementById('applyFilterBtn');
+    const resetBtn = document.getElementById('resetFilterBtn');
+    const changeFilterBtn = document.getElementById('changeFilterBtn');
+    const pageSubtitle = document.getElementById('pageSubtitle');
+    const deanshipChartTitle = document.getElementById('deanshipChartTitle');
+
+    function openModal() {
+      filterModal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      filterModal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+    setTimeout(openModal, 400);
+    changeFilterBtn.addEventListener('click', openModal);
+    filterModal.addEventListener('click', (e) => { if (e.target === filterModal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && filterModal.classList.contains('is-open')) closeModal(); });
+
+    function populateCollegeSelect() {
+      MOCK_COLLEGES.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.id;
+        opt.textContent = c.name;
+        filterCollege.appendChild(opt);
+      });
+    }
+    populateCollegeSelect();
+
+    function resetDeanshipSelect() { filterDeanship.innerHTML = '<option value="" disabled selected>-- اختر --</option>'; }
+    function resetMajorSelect() { filterMajor.innerHTML = '<option value="" disabled selected>-- اختر --</option>'; }
+
+    function updateApplyButtonState() {
+      const collegeOk = filterCollege.value !== '';
+      const deanshipOk = filterDeanship.disabled || filterDeanship.value !== '';
+      const majorOk = filterMajor.disabled || filterMajor.value !== '';
+      applyBtn.disabled = !(collegeOk && deanshipOk && majorOk);
+    }
+
+    filterCollege.addEventListener('change', function() {
+      const collegeVal = this.value;
+      resetDeanshipSelect();
+      resetMajorSelect();
+      filterMajor.disabled = true;
+      stepMajor.classList.add('is-disabled');
+      stepMajor.classList.remove('is-complete');
+      stepDeanship.classList.remove('is-complete');
+
+      if (collegeVal === 'ALL') {
+        stepCollege.classList.add('is-complete');
+        filterDeanship.disabled = true;
+        stepDeanship.classList.add('is-disabled');
+        cascadeHint.textContent = 'اخترت "الكل" بالكلية، فرح تنعرض إحصائيات كل الجامعة مباشرة.';
+      } else if (collegeVal) {
+        stepCollege.classList.add('is-complete');
+        const deanships = getDeanshipsByCollege(collegeVal);
+        const allOpt = document.createElement('option');
+        allOpt.value = 'ALL';
+        allOpt.textContent = '🔎 الكل (كل عمادات الكلية)';
+        filterDeanship.appendChild(allOpt);
+        deanships.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d.id;
+          opt.textContent = d.name;
+          filterDeanship.appendChild(opt);
+        });
+        filterDeanship.disabled = false;
+        stepDeanship.classList.remove('is-disabled');
+        cascadeHint.textContent = 'اختر من قائمة العمادة (فيها خيار "الكل" لو ما بدك تحديد).';
+      } else {
+        stepCollege.classList.remove('is-complete');
+        filterDeanship.disabled = true;
+        stepDeanship.classList.add('is-disabled');
+        cascadeHint.textContent = 'اختر من قائمة الكلية للبدء (فيها خيار "الكل" لو ما بدك تحديد).';
+      }
+      updateApplyButtonState();
+    });
+
+    filterDeanship.addEventListener('change', function() {
+      const deanshipVal = this.value;
+      resetMajorSelect();
+      stepMajor.classList.remove('is-complete');
+
+      if (deanshipVal === 'ALL') {
+        stepDeanship.classList.add('is-complete');
+        filterMajor.disabled = true;
+        stepMajor.classList.add('is-disabled');
+        cascadeHint.textContent = 'اخترت "الكل" بالعمادة، فرح تنعرض إحصائيات كل طلاب الكلية.';
+      } else if (deanshipVal && MOCK_MAJORS_BY_DEANSHIP[deanshipVal]) {
+        stepDeanship.classList.add('is-complete');
+        const allOpt = document.createElement('option');
+        allOpt.value = 'ALL';
+        allOpt.textContent = '🔎 الكل (كل تخصصات العمادة)';
+        filterMajor.appendChild(allOpt);
+        MOCK_MAJORS_BY_DEANSHIP[deanshipVal].forEach(major => {
+          const opt = document.createElement('option');
+          opt.value = major;
+          opt.textContent = major;
+          filterMajor.appendChild(opt);
+        });
+        filterMajor.disabled = false;
+        stepMajor.classList.remove('is-disabled');
+        cascadeHint.textContent = 'اختر من قائمة التخصص (فيها خيار "الكل" لو ما بدك تحديد).';
+      } else {
+        stepDeanship.classList.remove('is-complete');
+        filterMajor.disabled = true;
+        stepMajor.classList.add('is-disabled');
+        cascadeHint.textContent = 'اختر من قائمة العمادة (فيها خيار "الكل" لو ما بدك تحديد).';
+      }
+      updateApplyButtonState();
+    });
+
+    filterMajor.addEventListener('change', function() {
+      if (this.value === 'ALL') {
+        stepMajor.classList.add('is-complete');
+        cascadeHint.textContent = 'اخترت "الكل" بالتخصص، فرح تنعرض إحصائيات كل طلاب العمادة.';
+      } else if (this.value) {
+        stepMajor.classList.add('is-complete');
+        cascadeHint.textContent = 'رح تنعرض إحصائيات هاد التخصص بس.';
+      } else {
+        stepMajor.classList.remove('is-complete');
+      }
+      updateApplyButtonState();
+    });
+
+    applyBtn.addEventListener('click', function() {
+      if (applyBtn.disabled) return;
+      state.collegeId = (filterCollege.value === 'ALL') ? '' : filterCollege.value;
+      state.deanshipId = (filterDeanship.disabled || filterDeanship.value === 'ALL') ? '' : filterDeanship.value;
+      state.majorName = (filterMajor.disabled || filterMajor.value === 'ALL') ? '' : filterMajor.value;
+      closeModal();
+      applyFilters();
+    });
+
+    resetBtn.addEventListener('click', function() {
+      filterCollege.selectedIndex = 0;
+      resetDeanshipSelect();
+      resetMajorSelect();
+      filterDeanship.disabled = true;
+      filterMajor.disabled = true;
+      stepDeanship.classList.add('is-disabled');
+      stepMajor.classList.add('is-disabled');
+      stepCollege.classList.remove('is-complete');
+      stepDeanship.classList.remove('is-complete');
+      stepMajor.classList.remove('is-complete');
+      cascadeHint.textContent = 'اختر من قائمة الكلية للبدء (فيها خيار "الكل" لو ما بدك تحديد).';
+      updateApplyButtonState();
+
+      state.collegeId = '';
+      state.deanshipId = '';
+      state.majorName = '';
+
+      closeModal();
+      applyFilters();
+    });
+
+    document.getElementById('filterRange').addEventListener('change', applyFilters);
+
+    // ========================================================================
+    // 3. حساب النطاق الفعّال (effective college) من اختيار الكلية/العمادة/التخصص
+    // ========================================================================
+    function getEffectiveCollegeId() {
+      if (state.majorName) {
+        const dId = getDeanshipIdOfMajor(state.majorName);
+        return dId ? getCollegeIdOfDeanship(dId) : null;
+      }
+      if (state.deanshipId) return getCollegeIdOfDeanship(state.deanshipId);
+      if (state.collegeId) return Number(state.collegeId);
+      return null; // يعني الكل
+    }
+
+    function programInScope(name) {
+      if (state.majorName) return name === state.majorName;
+      if (state.deanshipId) return (MOCK_MAJORS_BY_DEANSHIP[state.deanshipId] || []).includes(name);
+      if (state.collegeId) return getMajorsByCollege(state.collegeId).includes(name);
+      return true;
+    }
+
+    function scopeLabel() {
+      if (state.majorName) return state.majorName;
+      if (state.deanshipId) {
+        const d = MOCK_DEANSHIPS.find(d => d.id == state.deanshipId);
+        return d ? d.name : '';
+      }
+      if (state.collegeId) {
+        const c = MOCK_COLLEGES.find(c => c.id == state.collegeId);
+        return c ? 'كلية ' + c.name : '';
+      }
+      return '';
+    }
+
+    // ========================================================================
+    // 4. الرسوم البيانية
+    // ========================================================================
     const lineCtx = document.getElementById('growthLineChart');
     let growthChart;
     if (lineCtx) {
@@ -268,37 +600,39 @@
             tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
           },
           scales: {
-            x: {
-              grid: { display: false },
-              ticks: { font: cairoFont, color: '#5B6B79' }
-            },
-            y: {
-              grid: { color: '#F0F2F5' },
-              ticks: { font: cairoFont, color: '#5B6B79' }
-            }
+            x: { grid: { display: false }, ticks: { font: cairoFont, color: '#5B6B79' } },
+            y: { grid: { color: '#F0F2F5' }, ticks: { font: cairoFont, color: '#5B6B79' } }
           },
           animation: { duration: 800 }
         }
       });
     }
 
-    // ---- تبديل البيانات في Line Chart ----
-    document.querySelectorAll('.chart-tab-btn').forEach(btn => {
+    let currentGrowthRangeKey = '6m';
+    document.querySelectorAll('.stats-chart-grid .chart-tab-btn').forEach(btn => {
       btn.addEventListener('click', function() {
-        document.querySelectorAll('.chart-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.stats-chart-grid .chart-tab-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
+        currentGrowthRangeKey = this.dataset.range;
         if (!growthChart) return;
-        const data = this.dataset.range === '1y' ? growthData1y : growthData6m;
+        const data = currentGrowthRangeKey === '1y' ? growthData1y : growthData6m;
         growthChart.data.labels = data.labels;
-        growthChart.data.datasets[0].data = data.values;
+        growthChart.data.datasets[0].data = scaleGrowthValues(data.values);
         growthChart.update();
       });
     });
 
-    // ---- 2. Donut Chart: توزيع الدرجات ----
+    function scaleGrowthValues(values) {
+      const effCollegeId = getEffectiveCollegeId();
+      if (!effCollegeId) return values;
+      const ratio = COLLEGE_STUDENT_COUNTS[effCollegeId] / TOTAL_STUDENTS_ALL_COLLEGES;
+      return values.map(v => Math.round(v * ratio));
+    }
+
     const donutCtx = document.getElementById('degreeDonut');
+    let donutChart;
     if (donutCtx) {
-      new Chart(donutCtx, {
+      donutChart = new Chart(donutCtx, {
         type: 'doughnut',
         data: {
           labels: degreeData.map(d => d.label),
@@ -312,16 +646,12 @@
         options: {
           responsive: true,
           maintainAspectRatio: true,
-          plugins: {
-            legend: { display: false },
-            tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
-          },
+          plugins: { legend: { display: false }, tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont } },
           animation: { animateRotate: true, duration: 900 }
         }
       });
     }
 
-    // ---- Legend للـ Donut ----
     const legendHost = document.getElementById('degreeLegend');
     if (legendHost) {
       degreeData.forEach(d => {
@@ -338,16 +668,25 @@
       });
     }
 
-    // ---- 3. Bar Chart: عدد الطلاب حسب العمادة ----
-    const deanshipCtx = document.getElementById('deanshipBarChart');
-    if (deanshipCtx) {
-      new Chart(deanshipCtx, {
+    let deanshipChart;
+    function renderDeanshipChart() {
+      const effCollegeId = getEffectiveCollegeId();
+      const data = effCollegeId
+        ? deanshipBarDataAll.filter(d => d.collegeId === effCollegeId)
+        : deanshipBarDataAll;
+
+      deanshipChartTitle.textContent = effCollegeId ? 'عدد الطلاب — ' + (data[0] ? data[0].label : '') : 'عدد الطلاب حسب الكلية';
+
+      const deanshipCtx = document.getElementById('deanshipBarChart');
+      if (!deanshipCtx) return;
+      if (deanshipChart) deanshipChart.destroy();
+      deanshipChart = new Chart(deanshipCtx, {
         type: 'bar',
         data: {
-          labels: deanshipBarData.map(d => d.label),
+          labels: data.map(d => d.label),
           datasets: [{
-            data: deanshipBarData.map(d => d.value),
-            backgroundColor: deanshipBarData.map(d => d.color),
+            data: data.map(d => d.value),
+            backgroundColor: data.map(d => d.color),
             borderRadius: 8,
             maxBarThickness: 46
           }]
@@ -356,26 +695,16 @@
           indexAxis: 'y',
           responsive: true,
           maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-            tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
-          },
+          plugins: { legend: { display: false }, tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont } },
           scales: {
-            x: {
-              grid: { color: '#F0F2F5' },
-              ticks: { font: cairoFont, color: '#5B6B79' }
-            },
-            y: {
-              grid: { display: false },
-              ticks: { font: cairoFont, color: '#5B6B79' }
-            }
+            x: { grid: { color: '#F0F2F5' }, ticks: { font: cairoFont, color: '#5B6B79' } },
+            y: { grid: { display: false }, ticks: { font: cairoFont, color: '#5B6B79' } }
           },
           animation: { duration: 800 }
         }
       });
     }
 
-    // ---- 4. Bar Chart: حالة الطلبات ----
     const statusCtx = document.getElementById('statusBarChart');
     if (statusCtx) {
       new Chart(statusCtx, {
@@ -392,34 +721,39 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-            tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont }
-          },
+          plugins: { legend: { display: false }, tooltip: { rtl: true, bodyFont: cairoFont, titleFont: cairoFont } },
           scales: {
-            x: {
-              grid: { display: false },
-              ticks: { font: cairoFont, color: '#5B6B79' }
-            },
-            y: {
-              grid: { color: '#F0F2F5' },
-              ticks: { font: cairoFont, color: '#5B6B79' },
-              beginAtZero: true,
-              max: 100
-            }
+            x: { grid: { display: false }, ticks: { font: cairoFont, color: '#5B6B79' } },
+            y: { grid: { color: '#F0F2F5' }, ticks: { font: cairoFont, color: '#5B6B79' }, beginAtZero: true, max: 100 }
           },
           animation: { duration: 800 }
         }
       });
     }
 
-    // ---- 5. جدول أفضل / أقل التخصصات إقبالاً ----
+    // ========================================================================
+    // 5. جدول أفضل / أقل التخصصات إقبالاً
+    // ========================================================================
     const topBody = document.getElementById('topProgramsBody');
     const topProgramsTitle = document.getElementById('topProgramsTitle');
 
-    function renderPrograms(list) {
+    function getFilteredProgramsList() {
+      const list = state.sort === 'bottom' ? bottomPrograms : topPrograms;
+      return list.filter(p => programInScope(p.name));
+    }
+
+    function renderPrograms() {
+      const list = getFilteredProgramsList();
+      topProgramsTitle.textContent = state.sort === 'bottom' ? 'أقل التخصصات إقبالاً' : 'أفضل التخصصات إقبالاً';
+
       if (!topBody) return;
       topBody.innerHTML = '';
+
+      if (!list.length) {
+        topBody.innerHTML = `<tr class="empty-programs-row"><td colspan="5">لا توجد تخصصات ضمن هذا النطاق.</td></tr>`;
+        return;
+      }
+
       list.forEach((p, i) => {
         const tr = document.createElement('tr');
         const trendUp = p.trend >= 0;
@@ -441,28 +775,173 @@
       });
     }
 
-    renderPrograms(topPrograms);
-
     document.getElementById('programsSortTabs')?.querySelectorAll('.chart-tab-btn').forEach(btn => {
       btn.addEventListener('click', function () {
-        document.getElementById('programsSortTabs')
-          .querySelectorAll('.chart-tab-btn')
-          .forEach(b => b.classList.remove('active'));
+        document.getElementById('programsSortTabs').querySelectorAll('.chart-tab-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        if (this.dataset.sort === 'bottom') {
-          topProgramsTitle.textContent = 'أقل التخصصات إقبالاً';
-          renderPrograms(bottomPrograms);
-        } else {
-          topProgramsTitle.textContent = 'أفضل التخصصات إقبالاً';
-          renderPrograms(topPrograms);
-        }
+        state.sort = this.dataset.sort;
+        renderPrograms();
       });
     });
 
-    // ---- زر تصدير التقرير ----
-    document.getElementById('statsExportBtn')?.addEventListener('click', () => {
-      alert('📊 جارٍ تجهيز التقرير... (محاكاة)');
+    // ========================================================================
+    // 6. تطبيق الفلتر على كل عناصر الصفحة
+    // ========================================================================
+    function applyFilters() {
+      const effCollegeId = getEffectiveCollegeId();
+
+      // KPI: إجمالي الطلاب (مُقيّس نسبةً للكلية المختارة)
+      const total = effCollegeId ? COLLEGE_STUDENT_COUNTS[effCollegeId] : TOTAL_STUDENTS_ALL_COLLEGES;
+      document.getElementById('kpiTotalStudents').textContent = total.toLocaleString('en-US');
+
+      // KPI: التخصص الأكثر إقبالاً (من ضمن النطاق المختار)
+      const scopedTop = topPrograms.filter(p => programInScope(p.name)).sort((a, b) => b.students - a.students);
+      if (scopedTop.length) {
+        document.getElementById('kpiTopMajor').textContent = scopedTop[0].name;
+        document.getElementById('kpiTopMajorSub').textContent = scopedTop[0].students.toLocaleString('en-US') + ' طالب مسجّل';
+      } else {
+        document.getElementById('kpiTopMajor').textContent = '—';
+        document.getElementById('kpiTopMajorSub').textContent = 'لا توجد بيانات ضمن هذا النطاق';
+      }
+
+      // الرسم البياني: نمو الطلاب (مُقيّس)
+      if (growthChart) {
+        const data = currentGrowthRangeKey === '1y' ? growthData1y : growthData6m;
+        growthChart.data.datasets[0].data = scaleGrowthValues(data.values);
+        growthChart.update();
+      }
+
+      // الرسم البياني: عدد الطلاب حسب الكلية
+      renderDeanshipChart();
+
+      // جدول التخصصات
+      renderPrograms();
+
+      // نص فرعي بالأعلى
+      const label = scopeLabel();
+      pageSubtitle.textContent = label
+        ? 'عرض إحصائيات ' + label
+        : 'تحليلات شاملة عن الطلاب، البرامج، ونسب القبول عبر الجامعة.';
+    }
+
+    // ========================================================================
+    // 7. تصدير التقرير PDF
+    // ========================================================================
+    function chartCanvasImage(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return null;
+      try {
+        return { dataUrl: canvas.toDataURL('image/png', 1.0), width: canvas.width, height: canvas.height };
+      } catch (e) {
+        return null;
+      }
+    }
+
+    document.getElementById('statsExportBtn').addEventListener('click', function() {
+      const jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
+      if (!jsPDFCtor) {
+        alert('تعذر تحميل مكتبة PDF. تأكد من الاتصال بالإنترنت وحاول مرة أخرى.');
+        return;
+      }
+
+      const btn = this;
+      btn.disabled = true;
+      const originalHtml = btn.innerHTML;
+      btn.textContent = 'جارٍ التجهيز...';
+
+      try {
+        const doc = new jsPDFCtor({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+        const marginX = 40;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const contentWidth = pageWidth - marginX * 2;
+        let y = 44;
+
+        const label = scopeLabel();
+        doc.setFontSize(16);
+        doc.text('Statistics Report - NextStep AI', marginX, y);
+        y += 18;
+        doc.setFontSize(9);
+        doc.text('Generated: ' + new Date().toISOString().slice(0, 10) + '   |   Scope: ' + (label || 'All University'), marginX, y);
+        y += 22;
+
+        // KPI summary table
+        const kpiRows = [
+          ['Total Students', document.getElementById('kpiTotalStudents').textContent],
+          ['High-Match Students', '58%'],
+          ['Avg. Recommendation Time', '0.4 day'],
+          ['Top Program', document.getElementById('kpiTopMajor').textContent + ' (' + document.getElementById('kpiTopMajorSub').textContent + ')']
+        ];
+        doc.autoTable({
+          startY: y,
+          head: [['Metric', 'Value']],
+          body: kpiRows,
+          styles: { font: 'helvetica', fontSize: 9, cellPadding: 5 },
+          headStyles: { fillColor: [47, 107, 255], textColor: 255, fontStyle: 'bold' },
+          margin: { left: marginX, right: marginX },
+          columnStyles: { 0: { cellWidth: 180 } }
+        });
+        y = doc.lastAutoTable.finalY + 24;
+
+        function addChart(canvasId, title) {
+          const img = chartCanvasImage(canvasId);
+          if (!img) return;
+          const ratio = img.height / img.width;
+          let w = contentWidth;
+          let h = w * ratio;
+          const maxH = 220;
+          if (h > maxH) { h = maxH; w = h / ratio; }
+
+          if (y + 20 + h > pageHeight - 40) {
+            doc.addPage();
+            y = 44;
+          }
+          doc.setFontSize(11);
+          doc.text(title, marginX, y);
+          y += 10;
+          doc.addImage(img.dataUrl, 'PNG', marginX, y, w, h);
+          y += h + 24;
+        }
+
+        addChart('growthLineChart', 'Student Growth Over Time');
+        addChart('degreeDonut', 'Students by Type');
+        addChart('deanshipBarChart', 'Students by College');
+        addChart('statusBarChart', 'Match Percentage Distribution');
+
+        // Programs table
+        const list = getFilteredProgramsList();
+        if (y + 60 > pageHeight - 40) { doc.addPage(); y = 44; }
+        doc.setFontSize(11);
+        doc.text((state.sort === 'bottom' ? 'Least Popular Programs' : 'Most Popular Programs'), marginX, y);
+        y += 10;
+        doc.autoTable({
+          startY: y,
+          head: [['#', 'Program', 'Students', 'Acceptance %', 'Trend']],
+          body: list.length
+            ? list.map((p, i) => [i + 1, p.name, p.students, p.acceptance + '%', (p.trend >= 0 ? '+' : '') + p.trend + '%'])
+            : [['-', 'No data in this scope', '-', '-', '-']],
+          styles: { font: 'helvetica', fontSize: 9, cellPadding: 5 },
+          headStyles: { fillColor: [47, 107, 255], textColor: 255, fontStyle: 'bold' },
+          alternateRowStyles: { fillColor: [247, 249, 251] },
+          margin: { left: marginX, right: marginX }
+        });
+
+        const fileScope = (label || 'all').replace(/\s+/g, '_');
+        doc.save('statistics_report_' + fileScope + '_' + new Date().toISOString().slice(0, 10) + '.pdf');
+      } catch (err) {
+        console.error(err);
+        alert('صار خطأ أثناء توليد ملف PDF.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+      }
     });
+
+    // ========================================================================
+    // 8. INIT
+    // ========================================================================
+    renderDeanshipChart();
+    renderPrograms();
 
   })();
 </script>

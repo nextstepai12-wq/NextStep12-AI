@@ -15,6 +15,222 @@
   <link rel="stylesheet" href="../../css/dashboardcss/programs.css">
   <link rel="stylesheet" href="../../css/dashboardcss/browsedeanships.css">
 
+  <style>
+    /* =========================================================
+       فلتر الكلية + البحث عن العمادة
+       ========================================================= */
+    .deanship-filters {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 240px;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .deanship-filter-select {
+      position: relative;
+    }
+
+    .deanship-filter-select select {
+      width: 100%;
+      height: 48px;
+      padding: 0 42px 0 42px;
+      border: 1px solid #e4e7ef;
+      border-radius: 12px;
+      background: #fff;
+      color: #252a3a;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: .2s ease;
+    }
+
+    .deanship-filter-select select:focus {
+      border-color: rgba(14,174,123,.55);
+      box-shadow: 0 0 0 3px rgba(14,174,123,.08);
+    }
+
+    .deanship-filter-select .filter-icon {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      width: 18px;
+      height: 18px;
+      transform: translateY(-50%);
+      color: #0EAE7B;
+      pointer-events: none;
+    }
+
+    .deanship-filter-select .filter-chevron {
+      position: absolute;
+      top: 50%;
+      left: 14px;
+      width: 16px;
+      height: 16px;
+      transform: translateY(-50%);
+      color: #8b92a5;
+      pointer-events: none;
+    }
+
+    .deanship-filter-select .filter-label {
+      position: absolute;
+      top: -8px;
+      right: 14px;
+      padding: 0 6px;
+      background: #fff;
+      color: #7b8295;
+      font-size: 11px;
+      font-weight: 700;
+      z-index: 1;
+    }
+
+    @media (max-width: 700px) {
+      .deanship-filters {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =========================================================
+       أقسام إضافية بصفحة الخطة (نبذة، مؤهلات، مهارات مفصّلة،
+       المسار الأكاديمي، المسارات المهنية، فرص العمل، معلومات إضافية)
+       ========================================================= */
+    .plan-extra-block {
+      margin: 20px 0;
+      padding: 18px 20px;
+      border: 1px solid #e4e7ef;
+      border-radius: 14px;
+      background: #fbfbfd;
+    }
+
+    .plan-extra-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #252a3a;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .plan-extra-title svg {
+      width: 18px;
+      height: 18px;
+      color: #0EAE7B;
+    }
+
+    .plan-extra-text {
+      font-size: 13.5px;
+      line-height: 1.9;
+      color: #4b4f5e;
+      white-space: pre-line;
+    }
+
+    .plan-detail-skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .plan-detail-skill-card {
+      background: #fff;
+      border: 1px solid #e9ebf1;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .plan-detail-skill-card strong {
+      display: block;
+      font-size: 13.5px;
+      color: #252a3a;
+      margin-bottom: 4px;
+    }
+
+    .plan-detail-skill-card span {
+      font-size: 12.5px;
+      color: #6b6f80;
+      line-height: 1.7;
+    }
+
+    .plan-journey-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .plan-journey-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid #e9ebf1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .plan-journey-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(14,174,123,.12);
+      color: #0EAE7B;
+      font-size: 12.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .plan-journey-item strong {
+      display: block;
+      font-size: 13.5px;
+      color: #252a3a;
+      margin-bottom: 3px;
+    }
+
+    .plan-journey-item span {
+      font-size: 12.5px;
+      color: #6b6f80;
+      line-height: 1.7;
+    }
+
+    .plan-extra-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .plan-extra-info-item {
+      background: #fff;
+      border: 1px solid #e9ebf1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+
+    .plan-extra-info-item strong {
+      display: block;
+      font-size: 17px;
+      font-weight: 800;
+      color: #0EAE7B;
+      margin-bottom: 4px;
+    }
+
+    .plan-extra-info-item span {
+      font-size: 12px;
+      color: #6b6f80;
+    }
+
+    .plan-extra-empty {
+      font-size: 12.5px;
+      color: #9199ab;
+    }
+  </style>
+
 </head>
 <body>
 
@@ -64,12 +280,38 @@
 
       <div class="admin-panel">
 
-        <div class="browse-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="7"/>
-            <path d="M21 21l-4.3-4.3"/>
-          </svg>
-          <input type="text" id="deanshipSearchInput" placeholder="ابحثي عن عمادة...">
+        <div class="deanship-filters">
+
+          <!-- البحث عن العمادة -->
+          <div class="browse-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="M21 21l-4.3-4.3"/>
+            </svg>
+            <input type="text" id="deanshipSearchInput" placeholder="ابحثي عن عمادة...">
+          </div>
+
+          <!-- فلتر الكلية -->
+          <div class="deanship-filter-select">
+            <span class="filter-label">الكلية</span>
+
+            <svg class="filter-icon" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M3 5h18"/>
+              <path d="M6 12h12"/>
+              <path d="M10 19h4"/>
+            </svg>
+
+            <select id="collegeFilter" aria-label="فلترة حسب الكلية">
+              <option value="">كل الكليات</option>
+            </select>
+
+            <svg class="filter-chevron" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+
         </div>
 
         <div class="deanship-grid" id="deanshipGrid"><!-- يتم تعبئتها بـ JS --></div>
@@ -136,11 +378,73 @@
 
         <div class="plan-stats" id="planStats"><!-- يتم تعبئتها بـ JS --></div>
 
+        <!-- نبذة عن التخصص (Overview) -->
         <div class="plan-goals" id="planGoals"></div>
 
+        <!-- أهداف التخصص -->
+        <div class="plan-extra-block" id="planGoalsBlock" hidden>
+          <h3 class="plan-extra-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2z"/><path d="M12 8v4l3 3"/></svg>
+            أهداف التخصص
+          </h3>
+          <div class="plan-extra-text" id="planGoalsText"></div>
+        </div>
+
+        <!-- مؤهلات الطالب -->
+        <div class="plan-extra-block" id="planQualificationsBlock" hidden>
+          <h3 class="plan-extra-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+            مؤهلات يجب أن يمتلكها الطالب
+          </h3>
+          <div class="plan-extra-text" id="planQualificationsText"></div>
+        </div>
+
+        <!-- المهارات المستهدفة (AI Tags) -->
         <div class="plan-skills-block" id="planSkillsBlock" hidden>
           <h3 class="plan-skills-title">المهارات المستهدفة</h3>
           <div class="plan-skills-chips" id="planSkillsChips"></div>
+        </div>
+
+        <!-- المسارات المهنية (سوق العمل - AI Tags) -->
+        <div class="plan-skills-block" id="planCareerPathsBlock" hidden>
+          <h3 class="plan-skills-title">المسارات المهنية (سوق العمل)</h3>
+          <div class="plan-skills-chips" id="planCareerPathsChips"></div>
+        </div>
+
+        <!-- المهارات والتعليم الأساسي (عنوان + وصف مفصّل) -->
+        <div class="plan-extra-block" id="planSkillsDetailBlock" hidden>
+          <h3 class="plan-extra-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+            المهارات والتعليم الأساسي
+          </h3>
+          <div class="plan-detail-skill-grid" id="planSkillsDetailGrid"></div>
+        </div>
+
+        <!-- مسارك بعد الالتحاق بالتخصص (Journey) -->
+        <div class="plan-extra-block" id="planJourneyBlock" hidden>
+          <h3 class="plan-extra-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            مسارك بعد الالتحاق بالتخصص
+          </h3>
+          <div class="plan-journey-list" id="planJourneyList"></div>
+        </div>
+
+        <!-- فرص العمل بعد التخرج -->
+        <div class="plan-extra-block" id="planCareerOppsBlock" hidden>
+          <h3 class="plan-extra-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1z"/></svg>
+            فرص العمل بعد التخرج
+          </h3>
+          <div class="plan-detail-skill-grid" id="planCareerOppsGrid"></div>
+        </div>
+
+        <!-- معلومات إضافية: المنحة ومعدل القبول -->
+        <div class="plan-extra-block" id="planExtraInfoBlock" hidden>
+          <h3 class="plan-extra-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            معلومات إضافية
+          </h3>
+          <div class="plan-extra-info-grid" id="planExtraInfoGrid"></div>
         </div>
 
         <div id="planSemesters"><!-- يتم تعبئتها بـ JS --></div>
@@ -159,6 +463,33 @@
     <h3 class="app-modal-title" id="appModalTitle"></h3>
     <p class="app-modal-msg" id="appModalMsg"></p>
     <div class="app-modal-actions" id="appModalActions"></div>
+  </div>
+</div>
+
+<!-- ======================= COURSE MODAL (عرض / تعديل مادة) ======================= -->
+<div class="app-modal-overlay" id="courseModalOverlay">
+  <div class="course-modal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
+    <div class="course-modal-head">
+      <h3 id="courseModalTitle">بيانات المادة</h3>
+      <span class="course-modal-badge" id="courseModalBadge">عرض</span>
+    </div>
+
+    <div class="course-modal-field">
+      <label for="courseFieldCode">رمز المادة</label>
+      <input type="text" id="courseFieldCode">
+    </div>
+
+    <div class="course-modal-field">
+      <label for="courseFieldName">اسم المادة</label>
+      <input type="text" id="courseFieldName">
+    </div>
+
+    <div class="course-modal-field">
+      <label for="courseFieldCredit">الساعات المعتمدة</label>
+      <input type="number" id="courseFieldCredit" min="1" max="6" step="1">
+    </div>
+
+    <div class="course-modal-actions" id="courseModalActions"><!-- يتم تعبئتها بـ JS --></div>
   </div>
 </div>
 
@@ -205,24 +536,229 @@
     modalOverlay.classList.add('is-open');
   }
 
+  // نافذة تأكيد بزرين (تأكيد / إلغاء) — تُستخدم قبل الحذف
+  function openConfirmModal({ type = 'error', title = '', message = '', confirmText = 'تأكيد', cancelText = 'إلغاء', onConfirm }) {
+    modalIcon.className = 'app-modal-icon ' + type;
+    modalIcon.innerHTML = MODAL_ICONS[type] || MODAL_ICONS.info;
+    modalTitle.textContent = title;
+    modalMsg.textContent = message;
+    modalActions.innerHTML = '';
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'app-modal-btn app-modal-btn-secondary';
+    cancelBtn.textContent = cancelText;
+    cancelBtn.addEventListener('click', closeModal);
+
+    const confirmBtn = document.createElement('button');
+    confirmBtn.type = 'button';
+    confirmBtn.className = 'app-modal-btn';
+    confirmBtn.textContent = confirmText;
+    confirmBtn.addEventListener('click', function () {
+      closeModal();
+      if (typeof onConfirm === 'function') onConfirm();
+    });
+
+    modalActions.appendChild(cancelBtn);
+    modalActions.appendChild(confirmBtn);
+
+    modalOverlay.classList.add('is-open');
+  }
+
   modalOverlay.addEventListener('click', function (e) {
     if (e.target === modalOverlay) closeModal();
+  });
+
+  /* ============================================================
+     COURSE MODAL — عرض/تعديل مادة (نافذة واحدة لكلا الوضعين)
+  ============================================================= */
+  const courseModalOverlay = document.getElementById('courseModalOverlay');
+  const courseModalTitle = document.getElementById('courseModalTitle');
+  const courseModalBadge = document.getElementById('courseModalBadge');
+  const courseModalActions = document.getElementById('courseModalActions');
+  const courseFieldCode = document.getElementById('courseFieldCode');
+  const courseFieldName = document.getElementById('courseFieldName');
+  const courseFieldCredit = document.getElementById('courseFieldCredit');
+
+  // آخر مادة/فصل مفتوحين بالنافذة (لغرض الحفظ)
+  let activeCourseCtx = null; // { semesterNumber, uid }
+
+  function closeCourseModal() {
+    courseModalOverlay.classList.remove('is-open');
+    activeCourseCtx = null;
+  }
+
+  function setCourseFieldsDisabled(disabled) {
+    courseFieldCode.disabled = disabled;
+    courseFieldName.disabled = disabled;
+    courseFieldCredit.disabled = disabled;
+  }
+
+  function openCourseModal(mode, semesterNumber, uid) {
+    const course = findCourseByUid(semesterNumber, uid);
+    if (!course) return;
+
+    activeCourseCtx = { semesterNumber, uid };
+
+    courseFieldCode.value = course.code;
+    courseFieldName.value = course.name;
+    courseFieldCredit.value = course.credit_hours;
+
+    courseModalActions.innerHTML = '';
+
+    if (mode === 'edit') {
+      courseModalTitle.textContent = 'تعديل بيانات المادة';
+      courseModalBadge.textContent = 'تعديل';
+      courseModalBadge.className = 'course-modal-badge mode-edit';
+      setCourseFieldsDisabled(false);
+
+      const cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'course-modal-btn cm-secondary';
+      cancelBtn.textContent = 'إلغاء';
+      cancelBtn.addEventListener('click', closeCourseModal);
+
+      const saveBtn = document.createElement('button');
+      saveBtn.type = 'button';
+      saveBtn.className = 'course-modal-btn cm-primary';
+      saveBtn.textContent = 'حفظ التعديلات';
+      saveBtn.addEventListener('click', saveCourseEdits);
+
+      courseModalActions.appendChild(cancelBtn);
+      courseModalActions.appendChild(saveBtn);
+    } else {
+      courseModalTitle.textContent = 'بيانات المادة';
+      courseModalBadge.textContent = 'عرض';
+      courseModalBadge.className = 'course-modal-badge mode-view';
+      setCourseFieldsDisabled(true);
+
+      const closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'course-modal-btn cm-secondary';
+      closeBtn.textContent = 'إغلاق';
+      closeBtn.addEventListener('click', closeCourseModal);
+
+      courseModalActions.appendChild(closeBtn);
+    }
+
+    courseModalOverlay.classList.add('is-open');
+  }
+
+  function saveCourseEdits() {
+    if (!activeCourseCtx) return;
+
+    const code = courseFieldCode.value.trim();
+    const name = courseFieldName.value.trim();
+    const credit = parseInt(courseFieldCredit.value, 10);
+
+    if (!code || !name) {
+      openModal({ type: 'error', title: 'بيانات ناقصة', message: 'لازم تعبّي رمز المادة واسمها قبل الحفظ.' });
+      return;
+    }
+    if (!credit || credit < 1 || credit > 6) {
+      openModal({ type: 'error', title: 'قيمة غير صحيحة', message: 'عدد الساعات المعتمدة لازم يكون رقم بين 1 و 6.' });
+      return;
+    }
+
+    const course = findCourseByUid(activeCourseCtx.semesterNumber, activeCourseCtx.uid);
+    if (!course) { closeCourseModal(); return; }
+
+    course.code = code;
+    course.name = name;
+    course.credit_hours = credit;
+
+    closeCourseModal();
+    recalcPlanTotals();
+    renderSemesterBlocks();
+    renderPlanStats();
+
+    openModal({ type: 'success', title: 'تم الحفظ', message: 'تم تحديث بيانات المادة بنجاح.' });
+  }
+
+  function requestDeleteCourse(semesterNumber, uid, courseName) {
+    openConfirmModal({
+      type: 'error',
+      title: 'حذف المادة',
+      message: `متأكدة إنك بدك تحذفي مادة "${courseName}" من الخطة الدراسية؟ هالإجراء ما ممكن التراجع عنه.`,
+      confirmText: 'حذف المادة',
+      cancelText: 'إلغاء',
+      onConfirm: function () {
+        deleteCourse(semesterNumber, uid);
+      }
+    });
+  }
+
+  function deleteCourse(semesterNumber, uid) {
+    if (!currentPlan) return;
+    const sem = currentPlan.semesters.find(s => s.number === semesterNumber);
+    if (!sem) return;
+
+    sem.courses = sem.courses.filter(c => c._uid !== uid);
+
+    recalcPlanTotals();
+    renderSemesterBlocks();
+    renderPlanStats();
+
+    openModal({ type: 'success', title: 'تم الحذف', message: 'تم حذف المادة من الخطة الدراسية.' });
+  }
+
+  function findCourseByUid(semesterNumber, uid) {
+    if (!currentPlan) return null;
+    const sem = currentPlan.semesters.find(s => s.number === semesterNumber);
+    if (!sem) return null;
+    return sem.courses.find(c => c._uid === uid) || null;
+  }
+
+  courseModalOverlay.addEventListener('click', function (e) {
+    if (e.target === courseModalOverlay) closeCourseModal();
   });
 
   /* ============================================================
      MOCK DATA — العمادات
   ============================================================= */
   const MOCK_DEANSHIPS = [
-    { id: 1, name: 'عمادة كلية الهندسة وتكنولوجيا المعلومات', dean_name: 'د. أحمد العلي', code: 'ENG' },
-    { id: 2, name: 'عمادة كلية العلوم', dean_name: 'د. سلمى خليل', code: 'SCI' },
-    { id: 3, name: 'عمادة كلية الطب', dean_name: 'د. ياسر حمدان', code: 'MED' },
-    { id: 4, name: 'عمادة كلية الأعمال والاقتصاد', dean_name: 'د. ريم صالح', code: 'BUS' },
-    { id: 5, name: 'عمادة كلية الآداب', dean_name: 'د. مازن أبو دية', code: 'ART' }
+    {
+      id: 1,
+      name: 'عمادة كلية الهندسة وتكنولوجيا المعلومات',
+      college: 'كلية الهندسة وتكنولوجيا المعلومات',
+      dean_name: 'د. أحمد العلي',
+      code: 'ENG'
+    },
+    {
+      id: 2,
+      name: 'عمادة كلية العلوم',
+      college: 'كلية العلوم',
+      dean_name: 'د. سلمى خليل',
+      code: 'SCI'
+    },
+    {
+      id: 3,
+      name: 'عمادة كلية الطب',
+      college: 'كلية الطب',
+      dean_name: 'د. ياسر حمدان',
+      code: 'MED'
+    },
+    {
+      id: 4,
+      name: 'عمادة كلية الأعمال والاقتصاد',
+      college: 'كلية الأعمال والاقتصاد',
+      dean_name: 'د. ريم صالح',
+      code: 'BUS'
+    },
+    {
+      id: 5,
+      name: 'عمادة كلية الآداب',
+      college: 'كلية الآداب',
+      dean_name: 'د. مازن أبو دية',
+      code: 'ART'
+    }
   ];
 
   /* ============================================================
      MOCK DATA — التخصصات لكل عمادة (بيانات إضافية: درجة، مدة، ساعات)
   ============================================================= */
+  // التخصصات الأساسية للعرض فقط، ويتم دمج/استبدالها ببيانات التخصصات
+  // التي تم إدخالها فعلياً من صفحة add-program.html.
   const MOCK_MAJORS_BY_DEANSHIP = {
     1: [
       { id: 101, name: 'علوم الحاسوب', degree: 'بكالوريوس', duration_years: 4, hasPlan: true },
@@ -257,6 +793,96 @@
     ]
   };
 
+  // البيانات التي تُحفظ من صفحة الإضافة. هذه هي المصدر الحقيقي للمعلومات
+  // عند وجود تخصص أُضيف من الإدارة، حتى لا نكرر النصوص أو نولد وصفاً مختلفاً.
+  const PROGRAMS_STORAGE_KEY = 'nextstep_programs';
+
+  function getSavedPrograms() {
+    try {
+      const raw = localStorage.getItem(PROGRAMS_STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      console.warn('تعذر قراءة البرامج المحفوظة:', e);
+      return [];
+    }
+  }
+
+  // تعبئة تخصصات العرض التجريبية (الستاتيك القديمة) ببيانات نموذجية لكل
+  // الحقول الجديدة (نبذة، أهداف، مؤهلات، مهارات مفصّلة، مسار أكاديمي،
+  // مسارات مهنية، فرص عمل، منحة/معدل قبول) — فقط لغرض إظهار الأقسام
+  // الجديدة بصفحة الاستعراض، حتى بدون ما تضيفي تخصص جديد فعلياً.
+  function enrichMockMajor(m) {
+
+    return {
+      ...m,
+
+      overview: m.overview ||
+        `${m.name} من التخصصات المطلوبة يلي بتجمع بين الجانب النظري والتطبيقي، وبتفتح للطالب مجالات واسعة بسوق العمل بعد التخرج.`,
+
+      goals: m.goals ||
+        `إعداد خريجين متمكنين علمياً وعملياً بمجال ${m.name}، قادرين على التعامل مع تحديات سوق العمل ومواكبة التطورات الحديثة بالمجال.`,
+
+      qualifications: m.qualifications ||
+        'تفكير منطقي وقدرة على حل المشكلات، اهتمام بالتعلم الذاتي، مهارات تواصل جيدة، والتزام بالعمل ضمن فريق.',
+
+      target_skills: (m.target_skills && m.target_skills.length) ? m.target_skills : [
+        'التفكير التحليلي', 'حل المشكلات', 'العمل ضمن فريق'
+      ],
+
+      career_paths: (m.career_paths && m.career_paths.length) ? m.career_paths : [
+        `أخصائي ${m.name}`, 'باحث', 'مستشار مهني'
+      ],
+
+      skills: (m.skills && m.skills.length) ? m.skills : [
+        { title: 'أساسيات ' + m.name, description: 'فهم المبادئ والمفاهيم الأساسية للتخصص وتطبيقها عملياً.' },
+        { title: 'التفكير النقدي', description: 'القدرة على تحليل المشكلات واتخاذ قرارات مبنية على أدلة.' },
+        { title: 'العمل الجماعي', description: 'إنجاز المشاريع والمهام ضمن فريق عمل متعدد التخصصات.' }
+      ],
+
+      journey: (m.journey && m.journey.length) ? m.journey : [
+        { key: 'first_second_year', title: 'السنة الأولى والسنة الثانية', description: 'مواد أساسية ومتطلبات عامة تبني القاعدة العلمية للتخصص.' },
+        { key: 'third_fourth_year', title: 'السنة الثالثة والرابعة', description: 'مواد تخصصية متقدمة ومشاريع عملية بالمجال.' },
+        { key: 'internship', title: 'التدريب العملي', description: 'تدريب ميداني بمؤسسات ذات علاقة لاكتساب خبرة عملية حقيقية.' },
+        { key: 'graduation_career', title: 'التخرج وسوق العمل', description: 'الانطلاق بمسيرة مهنية أو استكمال الدراسات العليا بالمجال.' }
+      ],
+
+      career_opportunities: (m.career_opportunities && m.career_opportunities.length) ? m.career_opportunities : [
+        { title: `أخصائي ${m.name}`, description: 'العمل بمؤسسات ذات علاقة مباشرة بمجال التخصص.' },
+        { title: 'باحث علمي', description: 'إجراء أبحاث ودراسات متقدمة بالمجال الأكاديمي أو الصناعي.' }
+      ],
+
+      scholarship_percentage: (m.scholarship_percentage !== undefined && m.scholarship_percentage !== null) ? m.scholarship_percentage : 10,
+
+      scholarship_note: m.scholarship_note || 'منحة جزئية متاحة للطلاب المتفوقين أصحاب المعدلات المرتفعة.',
+
+      admission_rate: (m.admission_rate !== undefined && m.admission_rate !== null) ? m.admission_rate : 65
+
+    };
+
+  }
+
+  function getProgramsByDeanship(deanshipId) {
+    const saved = getSavedPrograms()
+      .filter(p => String(p.deanship_id) === String(deanshipId) && p.status !== 'draft');
+
+    const base = (MOCK_MAJORS_BY_DEANSHIP[deanshipId] || []).map(m => enrichMockMajor({ ...m }));
+    const byId = new Map(base.map(m => [String(m.id), m]));
+
+    saved.forEach((p, index) => {
+      const id = p.id != null ? p.id : `saved-${deanshipId}-${index}`;
+      byId.set(String(id), {
+        ...p,
+        id,
+        duration_years: Number(p.duration_years) || 0,
+        hasPlan: !!p.study_plan
+      });
+    });
+
+    return Array.from(byId.values());
+  }
+
+
   const COURSE_TOPICS = [
     'مبادئ', 'أساسيات', 'مقدمة في', 'نظريات', 'تطبيقات', 'مهارات', 'ورشة عمل في',
     'إدارة', 'تحليل', 'تصميم', 'مشروع في', 'قضايا معاصرة في'
@@ -279,6 +905,7 @@
   ============================================================= */
   let currentDeanship = null;
   let currentMajor = null;
+  let currentPlan = null; // الخطة الدراسية الحالية (قابلة للتعديل/الحذف بالذاكرة)
 
   /* ============================================================
      TRAIL (Breadcrumb)
@@ -365,21 +992,73 @@
     return clean.slice(0, 2);
   }
 
-  function renderDeanships(filter) {
+  const deanshipSearchInput = document.getElementById('deanshipSearchInput');
+  const collegeFilter = document.getElementById('collegeFilter');
+
+  /*
+     تعبئة فلتر الكليات تلقائياً من البيانات الموجودة.
+     إذا أضفت كلية جديدة في MOCK_DEANSHIPS ستظهر هنا تلقائياً.
+  */
+  function populateCollegeFilter() {
+    const colleges = [...new Set(
+      MOCK_DEANSHIPS
+        .map(d => d.college)
+        .filter(Boolean)
+    )].sort((a, b) => a.localeCompare(b, 'ar'));
+
+    collegeFilter.innerHTML = '<option value="">كل الكليات</option>';
+
+    colleges.forEach(college => {
+      const option = document.createElement('option');
+      option.value = college;
+      option.textContent = college;
+      collegeFilter.appendChild(option);
+    });
+  }
+
+  /*
+     عرض العمادات حسب:
+     1) نص البحث
+     2) الكلية المختارة
+     ويمكن استخدام الاثنين معاً.
+  */
+  function renderDeanships(searchText = '', selectedCollege = '') {
     deanshipGrid.innerHTML = '';
 
-    const list = MOCK_DEANSHIPS.filter(d =>
-      !filter || d.name.includes(filter) || d.dean_name.includes(filter)
-    );
+    const search = String(searchText).trim().toLowerCase();
+
+    const list = MOCK_DEANSHIPS.filter(d => {
+      const matchesSearch =
+        !search ||
+        d.name.toLowerCase().includes(search) ||
+        d.dean_name.toLowerCase().includes(search) ||
+        (d.college && d.college.toLowerCase().includes(search));
+
+      const matchesCollege =
+        !selectedCollege ||
+        d.college === selectedCollege;
+
+      return matchesSearch && matchesCollege;
+    });
 
     if (!list.length) {
-      deanshipGrid.innerHTML = '<p style="color:#6b6f80;font-size:13.5px;">ما في نتائج مطابقة لبحثك.</p>';
+      deanshipGrid.innerHTML = `
+        <div style="
+          grid-column:1/-1;
+          color:#6b6f80;
+          font-size:13.5px;
+          text-align:center;
+          padding:30px 15px;
+        ">
+          ما في عمادات مطابقة للفلاتر المحددة.
+        </div>
+      `;
       return;
     }
 
     list.forEach(d => {
-      const majorsCount = (MOCK_MAJORS_BY_DEANSHIP[d.id] || []).length;
-      const colorClass = 'c' + (((d.id - 1) % 5) + 1); // يدوّر بين 5 تدرجات لونية معرّفة بالـ CSS
+      const majorsCount = getProgramsByDeanship(d.id).length;
+      const colorClass = 'c' + (((d.id - 1) % 5) + 1);
 
       const card = document.createElement('div');
       card.className = 'deanship-card';
@@ -398,13 +1077,24 @@
           </span>
         </div>
       `;
+
       card.addEventListener('click', () => selectDeanship(d));
       deanshipGrid.appendChild(card);
     });
   }
 
-  document.getElementById('deanshipSearchInput').addEventListener('input', function () {
-    renderDeanships(this.value.trim());
+  deanshipSearchInput.addEventListener('input', function () {
+    renderDeanships(
+      this.value,
+      collegeFilter.value
+    );
+  });
+
+  collegeFilter.addEventListener('change', function () {
+    renderDeanships(
+      deanshipSearchInput.value,
+      this.value
+    );
   });
 
   function selectDeanship(deanship) {
@@ -423,7 +1113,7 @@
   function renderMajors() {
     majorGrid.innerHTML = '';
 
-    const majors = MOCK_MAJORS_BY_DEANSHIP[currentDeanship.id] || [];
+    const majors = getProgramsByDeanship(currentDeanship.id);
 
     if (!majors.length) {
       majorGrid.innerHTML = '<p style="color:#6b6f80;font-size:13.5px;">ما في تخصصات مضافة تحت هاي العمادة بعد.</p>';
@@ -460,9 +1150,35 @@
   ============================================================= */
   const planStatsEl = document.getElementById('planStats');
   const planGoalsEl = document.getElementById('planGoals');
+  const planGoalsBlockEl = document.getElementById('planGoalsBlock');
+  const planGoalsTextEl = document.getElementById('planGoalsText');
+  const planQualificationsBlockEl = document.getElementById('planQualificationsBlock');
+  const planQualificationsTextEl = document.getElementById('planQualificationsText');
   const planSkillsBlockEl = document.getElementById('planSkillsBlock');
   const planSkillsChipsEl = document.getElementById('planSkillsChips');
+  const planCareerPathsBlockEl = document.getElementById('planCareerPathsBlock');
+  const planCareerPathsChipsEl = document.getElementById('planCareerPathsChips');
+  const planSkillsDetailBlockEl = document.getElementById('planSkillsDetailBlock');
+  const planSkillsDetailGridEl = document.getElementById('planSkillsDetailGrid');
+  const planJourneyBlockEl = document.getElementById('planJourneyBlock');
+  const planJourneyListEl = document.getElementById('planJourneyList');
+  const planCareerOppsBlockEl = document.getElementById('planCareerOppsBlock');
+  const planCareerOppsGridEl = document.getElementById('planCareerOppsGrid');
+  const planExtraInfoBlockEl = document.getElementById('planExtraInfoBlock');
+  const planExtraInfoGridEl = document.getElementById('planExtraInfoGrid');
   const planSemestersEl = document.getElementById('planSemesters');
+
+  // إخفاء كل الأقسام الإضافية (بترجع تظهر بس إذا كان فيها محتوى فعلي)
+  function hideExtraBlocks() {
+    planGoalsBlockEl.hidden = true;
+    planQualificationsBlockEl.hidden = true;
+    planSkillsBlockEl.hidden = true;
+    planCareerPathsBlockEl.hidden = true;
+    planSkillsDetailBlockEl.hidden = true;
+    planJourneyBlockEl.hidden = true;
+    planCareerOppsBlockEl.hidden = true;
+    planExtraInfoBlockEl.hidden = true;
+  }
 
   // توليد خطة دراسية وهمية ثابتة حسب رقم التخصص (نفس النتيجة كل مرة)
   function seededRandom(seed) {
@@ -473,8 +1189,6 @@
   function generateMockPlan(major) {
     const totalSemesters = major.duration_years * 2;
     const coursesPerSemester = 5;
-    let totalCourses = 0;
-    let totalCreditHours = 0;
 
     const semesters = [];
 
@@ -491,103 +1205,323 @@
           ? GENERIC_SUPPORT_COURSES[(s + c) % GENERIC_SUPPORT_COURSES.length]
           : `${topic} ${major.name}`;
 
-        courses.push({ name, credit_hours: credit, code: `${101 + major.id}${s}${c}` });
-        totalCourses++;
-        totalCreditHours += credit;
+        courses.push({
+          _uid: `${major.id}-${s}-${c}`, // معرّف ثابت وفريد للمادة (يُستخدم للتعديل/الحذف)
+          name,
+          credit_hours: credit,
+          code: `${101 + major.id}${s}${c}`
+        });
       }
 
       semesters.push({ number: s, courses });
     }
 
-    return { semesters, totalCourses, totalCreditHours };
+    return { semesters, totalCourses: 0, totalCreditHours: 0 };
+  }
+
+  // إعادة احتساب عدد المواد والساعات المعتمدة بعد أي تعديل أو حذف
+  function recalcPlanTotals() {
+    if (!currentPlan) return;
+    let totalCourses = 0;
+    let totalCreditHours = 0;
+    currentPlan.semesters.forEach(sem => {
+      totalCourses += sem.courses.length;
+      sem.courses.forEach(c => { totalCreditHours += Number(c.credit_hours) || 0; });
+    });
+    currentPlan.totalCourses = totalCourses;
+    currentPlan.totalCreditHours = totalCreditHours;
+  }
+
+  function renderPlanStats() {
+    if (!currentMajor || !currentPlan) return;
+    planStatsEl.innerHTML = `
+      <div class="plan-stat"><strong>${currentMajor.duration_years}</strong><span>سنوات الدراسة</span></div>
+      <div class="plan-stat"><strong>${currentPlan.semesters.length}</strong><span>عدد الفصول</span></div>
+      <div class="plan-stat"><strong>${currentPlan.totalCourses}</strong><span>عدد المواد</span></div>
+      <div class="plan-stat"><strong>${currentPlan.totalCreditHours}</strong><span>الساعات المعتمدة</span></div>
+    `;
+  }
+
+  // بناء جدول فصل دراسي واحد (مع عمود الإجراءات: عرض / تعديل / حذف)
+  function buildSemesterBlock(sem) {
+    const block = document.createElement('div');
+    block.className = 'semester-block';
+    block.id = `semester-${sem.number}`;
+
+    const rowsHtml = sem.courses.map(c => `
+      <tr>
+        <td>${c.code}</td>
+        <td>${c.name}</td>
+        <td>${c.credit_hours}</td>
+        <td class="col-actions">
+          <div class="course-actions">
+            <button type="button" class="course-action-btn view-btn" data-action="view" data-sem="${sem.number}" data-uid="${c._uid}" title="عرض">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            <button type="button" class="course-action-btn edit-btn" data-action="edit" data-sem="${sem.number}" data-uid="${c._uid}" title="تعديل">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
+            </button>
+            <button type="button" class="course-action-btn delete-btn" data-action="delete" data-sem="${sem.number}" data-uid="${c._uid}" title="حذف">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    const emptyRow = `<tr><td colspan="4" style="text-align:center;color:#9199ab;">ما تبقى مواد بهذا الفصل.</td></tr>`;
+
+    block.innerHTML = `
+      <h3><span class="sem-num">${sem.number}</span> الفصل الدراسي ${sem.number}</h3>
+      <table class="semester-table">
+        <thead>
+          <tr>
+            <th>رمز المادة</th>
+            <th>اسم المادة</th>
+            <th>الساعات المعتمدة</th>
+            <th class="col-actions">الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${sem.courses.length ? rowsHtml : emptyRow}
+        </tbody>
+      </table>
+    `;
+    return block;
+  }
+
+  // إعادة رسم كل الفصول (بعد تعديل/حذف مادة) بدل إعادة توليد الخطة من الصفر
+  function renderSemesterBlocks() {
+    if (!currentPlan) return;
+    planSemestersEl.innerHTML = '';
+    currentPlan.semesters.forEach(sem => {
+      planSemestersEl.appendChild(buildSemesterBlock(sem));
+    });
+  }
+
+  // تفويض حدث النقر لأزرار الإجراءات (عرض/تعديل/حذف) داخل الجداول
+  planSemestersEl.addEventListener('click', function (e) {
+    const btn = e.target.closest('.course-action-btn');
+    if (!btn) return;
+
+    const action = btn.dataset.action;
+    const semesterNumber = Number(btn.dataset.sem);
+    const uid = btn.dataset.uid;
+
+    if (action === 'view') {
+      openCourseModal('view', semesterNumber, uid);
+    } else if (action === 'edit') {
+      openCourseModal('edit', semesterNumber, uid);
+    } else if (action === 'delete') {
+      const course = findCourseByUid(semesterNumber, uid);
+      requestDeleteCourse(semesterNumber, uid, course ? course.name : '');
+    }
+  });
+
+  // تعبئة قسم "المهارات والتعليم الأساسي" (بطاقات عنوان + وصف)
+  function renderSkillsDetail(skills) {
+    const list = Array.isArray(skills)
+      ? skills.filter(s => s && (s.title || '').trim())
+      : [];
+
+    if (!list.length) {
+      planSkillsDetailBlockEl.hidden = true;
+      return;
+    }
+
+    planSkillsDetailBlockEl.hidden = false;
+    planSkillsDetailGridEl.innerHTML = list.map(s => `
+      <div class="plan-detail-skill-card">
+        <strong>${s.title}</strong>
+        ${s.description ? `<span>${s.description}</span>` : ''}
+      </div>
+    `).join('');
+  }
+
+  // تعبئة قسم "مسارك بعد الالتحاق بالتخصص" (المراحل الأكاديمية)
+  function renderJourney(journey) {
+    const list = Array.isArray(journey)
+      ? journey.filter(j => j && (j.title || j.key))
+      : [];
+
+    if (!list.length) {
+      planJourneyBlockEl.hidden = true;
+      return;
+    }
+
+    planJourneyBlockEl.hidden = false;
+    planJourneyListEl.innerHTML = list.map((j, index) => `
+      <div class="plan-journey-item">
+        <span class="plan-journey-num">${index + 1}</span>
+        <div>
+          <strong>${j.title || ''}</strong>
+          ${j.description ? `<span>${j.description}</span>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // تعبئة قسم "فرص العمل بعد التخرج" (بطاقات عنوان + وصف)
+  function renderCareerOpportunities(opps) {
+    const list = Array.isArray(opps)
+      ? opps.filter(o => o && (o.title || '').trim())
+      : [];
+
+    if (!list.length) {
+      planCareerOppsBlockEl.hidden = true;
+      return;
+    }
+
+    planCareerOppsBlockEl.hidden = false;
+    planCareerOppsGridEl.innerHTML = list.map(o => `
+      <div class="plan-detail-skill-card">
+        <strong>${o.title}</strong>
+        ${o.description ? `<span>${o.description}</span>` : ''}
+      </div>
+    `).join('');
+  }
+
+  // تعبئة قسم "معلومات إضافية" (نسبة المنحة، ملاحظات المنحة، معدل القبول)
+  function renderExtraInfo(major) {
+    const items = [];
+
+    if (major.scholarship_percentage !== undefined && major.scholarship_percentage !== null && String(major.scholarship_percentage) !== '' && Number(major.scholarship_percentage) > 0) {
+      items.push(`
+        <div class="plan-extra-info-item">
+          <strong>${major.scholarship_percentage}%</strong>
+          <span>نسبة المنحة</span>
+        </div>
+      `);
+    }
+
+    if (major.admission_rate !== undefined && major.admission_rate !== null && String(major.admission_rate) !== '') {
+      items.push(`
+        <div class="plan-extra-info-item">
+          <strong>${major.admission_rate}%</strong>
+          <span>معدل القبول</span>
+        </div>
+      `);
+    }
+
+    if (major.scholarship_note) {
+      items.push(`
+        <div class="plan-extra-info-item" style="text-align:right;">
+          <span style="display:block;font-size:12px;color:#6b6f80;line-height:1.7;">${major.scholarship_note}</span>
+        </div>
+      `);
+    }
+
+    if (!items.length) {
+      planExtraInfoBlockEl.hidden = true;
+      return;
+    }
+
+    planExtraInfoBlockEl.hidden = false;
+    planExtraInfoGridEl.innerHTML = items.join('');
   }
 
   function renderPlan() {
     const major = currentMajor;
     const deanship = currentDeanship;
 
-    document.getElementById('planMajorName').textContent = major.name;
+    document.getElementById('planMajorName').textContent = major.name || '—';
     document.getElementById('planMajorSub').textContent =
-      `${deanship.name} • ${major.degree} • مدة الدراسة ${major.duration_years} سنوات`;
+      `${deanship.name} • ${major.degree || '—'} • مدة الدراسة ${major.duration_years || '—'} سنوات`;
 
-    // إذا التخصص ما إله خطة مرفوعة بعد
     planSemestersEl.innerHTML = '';
-    planSkillsBlockEl.hidden = true;
-    if (!major.hasPlan) {
+    hideExtraBlocks();
+    currentPlan = null;
+
+    // إذا كان هذا تخصصاً مضافاً من صفحة الإضافة، اعرض البيانات التي أدخلتها الإدارة
+    // كما هي، ولا تنشئ نبذة أو مهارات وهمية من جديد.
+    const isSavedProgram = !!major.status || !!major.goals || !!major.qualifications ||
+      !!major.overview || !!major.target_skills || !!major.career_paths ||
+      !!major.career_opportunities || !!major.journey || !!major.skills;
+
+    if (isSavedProgram) {
       planStatsEl.innerHTML = '';
-      planGoalsEl.style.display = 'none';
-      planSemestersEl.innerHTML = `
-        <div class="empty-plan-hint">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
-          ما تم رفع خطة دراسية لهذا التخصص بعد. ارفعيها من صفحة "تحديث الخطط الدراسية".
-        </div>
+
+      // النبذة عن التخصص (overview) — الحقل الأساسي بأعلى الصفحة
+      planGoalsEl.style.display = 'block';
+      planGoalsEl.innerHTML = `
+        <strong>نبذة عن التخصص</strong>
+        <span>${major.overview || major.goals || 'لم تتم إضافة نبذة عن التخصص بعد.'}</span>
       `;
+
+      // أهداف التخصص (قسم منفصل عن النبذة)
+      if (major.goals && major.overview) {
+        planGoalsBlockEl.hidden = false;
+        planGoalsTextEl.textContent = major.goals;
+      }
+
+      // مؤهلات الطالب
+      if (major.qualifications) {
+        planQualificationsBlockEl.hidden = false;
+        planQualificationsTextEl.textContent = major.qualifications;
+      }
+
+      // المهارات المستهدفة (AI Tags)
+      const skills = Array.isArray(major.target_skills) ? major.target_skills.filter(Boolean) : [];
+      if (skills.length) {
+        planSkillsBlockEl.hidden = false;
+        planSkillsChipsEl.innerHTML = skills.map(skill => `
+          <span class="plan-skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>
+            ${skill}
+          </span>
+        `).join('');
+      }
+
+      // المسارات المهنية (سوق العمل - AI Tags)
+      const careerPaths = Array.isArray(major.career_paths) ? major.career_paths.filter(Boolean) : [];
+      if (careerPaths.length) {
+        planCareerPathsBlockEl.hidden = false;
+        planCareerPathsChipsEl.innerHTML = careerPaths.map(path => `
+          <span class="plan-skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>
+            ${path}
+          </span>
+        `).join('');
+      }
+
+      // المهارات والتعليم الأساسي (بطاقات عنوان + وصف)
+      renderSkillsDetail(major.skills);
+
+      // مسارك بعد الالتحاق بالتخصص
+      renderJourney(major.journey);
+
+      // فرص العمل بعد التخرج
+      renderCareerOpportunities(major.career_opportunities);
+
+      // معلومات إضافية (منحة، معدل قبول)
+      renderExtraInfo(major);
+
+      // إذا كانت هناك خطة حقيقية نعرضها كما هي،
+      // وإذا لم توجد، نستخدم خطة وهمية واحدة على الأقل حتى تظهر الفكرة في الديمو.
+      if (major.plan && Array.isArray(major.plan.semesters) && major.plan.semesters.length) {
+        currentPlan = major.plan;
+      } else {
+        currentPlan = generateMockPlan(major);
+      }
+
+      recalcPlanTotals();
+      renderPlanStats();
+      renderSemesterBlocks();
+
       return;
     }
 
+    // البيانات التجريبية القديمة: نعرض خطة وهمية دائماً حتى تظهر الفكرة.
     planGoalsEl.style.display = 'block';
-
-    const plan = generateMockPlan(major);
-
-    // مهارات مستهدفة ثابتة لكل تخصص (بنفس منطق seededRandom عشان تضل ثابتة كل مرة)
-    const skillsCount = 4;
-    const majorSkills = [];
-    for (let i = 0; i < skillsCount; i++) {
-      const idx = Math.floor(seededRandom(major.id * 7 + i) * TARGET_SKILLS_POOL.length);
-      const skill = TARGET_SKILLS_POOL[idx];
-      if (!majorSkills.includes(skill)) majorSkills.push(skill);
-    }
-
-    if (majorSkills.length) {
-      planSkillsBlockEl.hidden = false;
-      planSkillsChipsEl.innerHTML = majorSkills.map(s => `
-        <span class="plan-skill-chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>
-          ${s}
-        </span>
-      `).join('');
-    }
-
-    planStatsEl.innerHTML = `
-      <div class="plan-stat"><strong>${major.duration_years}</strong><span>سنوات الدراسة</span></div>
-      <div class="plan-stat"><strong>${plan.semesters.length}</strong><span>عدد الفصول</span></div>
-      <div class="plan-stat"><strong>${plan.totalCourses}</strong><span>عدد المواد</span></div>
-      <div class="plan-stat"><strong>${plan.totalCreditHours}</strong><span>الساعات المعتمدة</span></div>
-    `;
-
+    currentPlan = generateMockPlan(major);
+    recalcPlanTotals();
+    renderPlanStats();
     planGoalsEl.innerHTML = `
       <strong>نبذة عن التخصص</strong>
-      يهدف تخصص ${major.name} في ${deanship.name} إلى إعداد خريجين مؤهلين علمياً وعملياً،
-      قادرين على المنافسة بسوق العمل المحلي والإقليمي، من خلال خطة دراسية متوازنة بين
-      المواد التخصصية والمهارات العملية على مدار ${major.duration_years} سنوات دراسية.
+      يهدف تخصص ${major.name} في ${deanship.name} إلى إعداد خريجين مؤهلين علمياً وعملياً.
+      <span class="demo-plan-note">خطة دراسية تجريبية لعرض فكرة النظام</span>
     `;
-
-    plan.semesters.forEach(sem => {
-      const block = document.createElement('div');
-      block.className = 'semester-block';
-      block.innerHTML = `
-        <h3><span class="sem-num">${sem.number}</span> الفصل الدراسي ${sem.number}</h3>
-        <table class="semester-table">
-          <thead>
-            <tr>
-              <th>رمز المادة</th>
-              <th>اسم المادة</th>
-              <th>الساعات المعتمدة</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${sem.courses.map(c => `
-              <tr>
-                <td>${c.code}</td>
-                <td>${c.name}</td>
-                <td>${c.credit_hours}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `;
-      planSemestersEl.appendChild(block);
-    });
+    renderSemesterBlocks();
   }
 
   document.getElementById('editMajorBtn').addEventListener('click', function () {
@@ -599,24 +1533,67 @@
   });
 
   document.getElementById('planDownloadBtn').addEventListener('click', function () {
-    if (USE_MOCK_DATA) {
-      openModal({
-        type: 'info',
-        title: 'عرض الملف الأصلي',
-        message: 'هاي محاكاة محلية بدون باك اند — بالنسخة الحقيقية رح يفتح ملف PDF/Excel اللي رفعته الإدارة لهذا التخصص.'
-      });
-      return;
-    }
+    if (!currentMajor) return;
 
-    // TODO: ربط الباك اند الحقيقي هنا
-    // window.open(`${API_BASE_URL}/majors/${currentMajor.id}/plan-file`, '_blank');
+    goToStep(3);
+
+    requestAnimationFrame(() => {
+      const firstSemester = document.getElementById('semester-1');
+
+      if (firstSemester) {
+        firstSemester.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
   });
+
+  /* ============================================================
+     وضع القدوم من رابط خارجي: ?deanship=X&major=Y
+     (غالباً جاي من صفحة "تحديث الخطط الدراسية بالـ AI" بعد حفظ التعديلات)
+     — بيفتح مباشرة على الخطوة 3 (الخطة الدراسية) لنفس التخصص.
+  ============================================================= */
+  function initFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const deanshipParam = params.get('deanship');
+    const majorParam = params.get('major');
+
+    if (!deanshipParam) return;
+
+    const deanship = MOCK_DEANSHIPS.find(d => String(d.id) === deanshipParam);
+    if (!deanship) return;
+
+    selectDeanship(deanship);
+
+    if (!majorParam) return;
+
+    const majors = getProgramsByDeanship(deanship.id);
+    const major = majors.find(m => String(m.id) === majorParam);
+    if (!major) return;
+
+    selectMajor(major);
+
+    // بانر توضيحي إنه الخطة المعروضة هي أحدث نسخة بعد تحديثها بالـ AI
+    const pageHead = document.querySelector('.admin-page-head');
+    if (pageHead) {
+      const banner = document.createElement('div');
+      banner.style.cssText =
+        'display:flex;align-items:center;gap:10px;background:rgba(14,174,123,0.08);' +
+        'border:1px solid rgba(14,174,123,0.22);color:#0EAE7B;border-radius:var(--radius-sm);' +
+        'padding:12px 18px;margin:16px 0 0;font-size:0.9rem;font-weight:600;';
+      banner.innerHTML = '✅ تم تحديث الخطة الدراسية بنجاح — هاي أحدث نسخة لخطة هذا التخصص.';
+      pageHead.insertAdjacentElement('afterend', banner);
+    }
+  }
 
   /* ============================================================
      INIT
   ============================================================= */
-  renderDeanships('');
+  populateCollegeFilter();
+  renderDeanships('', '');
   renderTrail();
+  initFromUrl();
 
 })();
 </script>
@@ -625,4 +1602,4 @@
 <script src="../../js/admin-shell.js"></script>
 
 </body>
-</html>
+</html>ش

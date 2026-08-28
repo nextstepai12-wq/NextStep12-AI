@@ -222,7 +222,7 @@ body {
 /* ===== LAYOUT ===== */
 .admin-layout {
   max-width: 1440px;
-  margin: 0 auto;
+  margin: 0 ;
   padding: 28px 32px 40px;
   display: grid;
   grid-template-columns: 240px 1fr;

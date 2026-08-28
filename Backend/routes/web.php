@@ -11,6 +11,8 @@ use App\Http\Controllers\University\UniversitydashboardController;
 use App\Http\Controllers\University\DeanshipFacultyController;
 use App\Http\Controllers\University\MajorController;
 use App\Http\Controllers\University\ScholarshipController;
+use App\Http\Controllers\University\BrowseDeanshipsController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -23,7 +25,7 @@ Route::post('/logout', function () { Auth::logout(); return redirect('/'); })->n
 Route::get('/quiz', function () { return view('pages.quiz'); })->name('pages.quiz');
 Route::get('/results', function () { return view('pages.results'); })->name('pages.results');
 Route::get('/study-plan', function () { return view('pages.study-plan'); })->name('pages.study-plan');
-
+Route::get('/universities', [HomeController::class, 'universities'])->name('universities.index');
 Route::middleware('auth')->group(function () {
     Route::get('/student/questionnaire', function () { return view('pages.quiz'); });
     Route::get('/profile', function () { return view('pages.profile'); })->name('pages.profile');
@@ -52,6 +54,11 @@ Route::middleware(['auth', 'university'])->prefix('university')->group(function 
     Route::get('/Scholarships/{scholarship}/edit', [ScholarshipController::class, 'edit'])->name('university.Scholarships.edit');
     Route::put('/Scholarships/{scholarship}', [ScholarshipController::class, 'update'])->name('university.Scholarships.update');
     Route::delete('/Scholarships/{scholarship}', [ScholarshipController::class, 'destroy'])->name('university.Scholarships.destroy');
+    Route::get('/browse-deanships', [BrowseDeanshipsController::class, 'index'])
+    ->name('university.browse-deanships');
+
+Route::get('/browse-deanships/{deanshipFaculty}/majors', [BrowseDeanshipsController::class, 'majors'])
+    ->name('university.browse.majors');
 
 
 });

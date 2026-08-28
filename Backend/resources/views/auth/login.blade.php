@@ -3,7 +3,7 @@
 @section('title', 'تسجيل الدخول — NextStep AI')
 
 @section('css')
-{{-- <link href="{{ asset('fronted/css/home.css') }}" rel="stylesheet"> --}}
+<link href="{{ asset('fronted/css/home.css') }}" rel="stylesheet">
 <style>
   /* ======================= AUTH CARD ======================= */
   .auth-wrap{

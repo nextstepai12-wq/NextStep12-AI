@@ -1,0 +1,566 @@
+/* =====================================================================
+   BROWSE-DEANSHIPS.CSS
+   ستايلات مخصصة لصفحة استعراض العمادات والتخصصات
+   بيعتمد على نفس متغيرات admin-shell.css (--navy, --blue, --mint, ...)
+   ===================================================================== */
+
+/* ===== BREADCRUMB TRAIL ===== */
+.browse-trail {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -8px 0 24px;
+  font-size: 0.85rem;
+}
+
+.browse-trail button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray);
+  padding: 4px 2px;
+  transition: var(--transition);
+}
+
+.browse-trail button:hover {
+  color: var(--blue);
+}
+
+.browse-trail .trail-current {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.browse-trail svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--gray-light);
+  stroke-width: 2.5;
+  fill: none;
+  transform: rotate(180deg);
+}
+
+/* ===== STEP PANELS (إظهار/إخفاء) ===== */
+.browse-step { display: none; }
+.browse-step.active { display: block; }
+
+/* ===== SEARCH BOX ===== */
+.browse-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gray-bg);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  max-width: 420px;
+  transition: var(--transition);
+}
+
+.browse-search:focus-within {
+  border-color: var(--blue);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(47,107,255,0.08);
+}
+
+.browse-search svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--gray);
+  fill: none;
+  flex-shrink: 0;
+}
+
+.browse-search input {
+  border: none;
+  background: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  width: 100%;
+  color: var(--gray-dark);
+}
+
+.browse-search input::placeholder {
+  color: var(--gray);
+  opacity: 0.7;
+}
+
+/* ===== DEANSHIP CARDS GRID ===== */
+.deanship-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.deanship-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: right;
+  background: white;
+  border: 1px solid rgba(47,107,255,0.06);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.deanship-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(47,107,255,0.16);
+}
+
+.deanship-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.deanship-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+/* تدرّجات الشعار — نفس التدرجات المستخدمة بباقي عناصر اللوحة */
+.deanship-logo.c1 { background: linear-gradient(135deg, var(--navy), var(--blue)); }
+.deanship-logo.c2 { background: linear-gradient(135deg, var(--green), #0EAE7B); }
+.deanship-logo.c3 { background: linear-gradient(135deg, var(--red), #D32F2F); }
+.deanship-logo.c4 { background: linear-gradient(135deg, var(--gold), #F5A623); }
+.deanship-logo.c5 { background: linear-gradient(135deg, var(--blue), var(--cyan)); }
+
+.deanship-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.4;
+}
+
+.deanship-card .dean-name {
+  font-size: 0.8rem;
+  color: var(--gray);
+  margin-top: 2px;
+}
+
+.deanship-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed var(--gray-bg);
+  padding-top: 12px;
+}
+
+.majors-count-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--blue);
+  background: rgba(47,107,255,0.08);
+  padding: 4px 12px;
+  border-radius: 60px;
+}
+
+.deanship-card-arrow {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--gray-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.deanship-card:hover .deanship-card-arrow {
+  background: var(--blue);
+}
+
+.deanship-card-arrow svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--gray);
+  stroke-width: 2.4;
+  fill: none;
+  transition: var(--transition);
+}
+
+.deanship-card:hover .deanship-card-arrow svg {
+  stroke: white;
+}
+
+/* ===== MAJOR CARDS GRID ===== */
+.major-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.major-card {
+  background: white;
+  border: 1px solid rgba(47,107,255,0.06);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.major-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(47,107,255,0.16);
+}
+
+.major-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: rgba(47,107,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.major-card-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--blue);
+  stroke-width: 2;
+  fill: none;
+}
+
+.major-card h5 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.major-card .major-meta {
+  font-size: 0.78rem;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.major-meta .dot { color: var(--gray-light); }
+
+/* ===== PLAN VIEW ===== */
+.plan-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.plan-head h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.plan-head .plan-sub {
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+.plan-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.plan-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: var(--navy);
+  border: 1px solid rgba(47,107,255,0.16);
+  border-radius: var(--radius-sm);
+  padding: 11px 18px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.plan-action-btn:hover {
+  background: var(--gray-bg);
+  border-color: rgba(47,107,255,0.3);
+}
+
+.plan-action-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--blue);
+  stroke-width: 2.2;
+  fill: none;
+}
+
+.plan-download-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 11px 20px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.plan-download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(47,107,255,0.25);
+}
+
+.plan-download-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2.3;
+  fill: none;
+}
+
+.plan-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.plan-stat {
+  background: var(--gray-bg);
+  border: 1px solid rgba(47,107,255,0.04);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.plan-stat strong {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+
+.plan-stat span {
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+
+.plan-goals {
+  background: var(--gray-bg);
+  border: 1px solid rgba(47,107,255,0.04);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin-bottom: 22px;
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: var(--gray-dark);
+}
+
+.plan-goals strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--navy);
+  font-size: 0.9rem;
+}
+
+/* ===== TARGET SKILLS ===== */
+.plan-skills-block {
+  margin-bottom: 22px;
+}
+
+.plan-skills-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.plan-skills-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.plan-skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(47,107,255,0.08);
+  color: var(--blue);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 60px;
+}
+
+.plan-skill-chip svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  fill: none;
+}
+
+.semester-block { margin-bottom: 18px; }
+
+.semester-block h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.semester-block h3 .sem-num {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.semester-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.semester-table th {
+  text-align: right;
+  background: var(--gray-bg);
+  color: var(--gray);
+  font-weight: 700;
+  padding: 9px 12px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.semester-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--gray-bg);
+  color: var(--gray-dark);
+}
+
+.semester-table tr:last-child td { border-bottom: none; }
+
+.empty-plan-hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(180,121,12,0.06);
+  border: 1px solid rgba(180,121,12,0.18);
+  color: var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+.empty-plan-hint svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  flex-shrink: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .plan-head { flex-direction: column; }
+  .plan-actions { width: 100%; flex-direction: column; }
+  .plan-action-btn,
+  .plan-download-btn { width: 100%; justify-content: center; }
+}
+
+/* ===== DARK MODE ===== */
+@media (prefers-color-scheme: dark) {
+  .deanship-card,
+  .major-card {
+    background: #1F2937;
+    border-color: #374151;
+  }
+
+  .browse-search {
+    background: #374151;
+  }
+
+  .browse-search input {
+    color: #E5E7EB;
+  }
+
+  .deanship-card-footer {
+    border-color: #374151;
+  }
+
+  .deanship-card-arrow {
+    background: #374151;
+  }
+
+  .plan-stat,
+  .plan-goals,
+  .semester-table th {
+    background: #374151;
+  }
+
+  .semester-table td {
+    border-color: #374151;
+  }
+
+  .major-card-icon {
+    background: rgba(47,107,255,0.12);
+  }
+
+  .majors-count-badge {
+    background: rgba(47,107,255,0.14);
+  }
+}
+
+/* ===== PRINT ===== */
+@media print {
+  .browse-search,
+  .admin-steps,
+  .plan-download-btn {
+    display: none !important;
+  }
+}

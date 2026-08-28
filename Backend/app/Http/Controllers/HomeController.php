@@ -11,15 +11,18 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $universitiesCount = University::count();
-        $majorsCount = Major::count();
-        $studentsCount = User::where('role', 'student')->count();
-
-        // Ensure some nice baseline display if DB is empty for demo
-        if ($universitiesCount == 0) $universitiesCount = 10;
-        if ($majorsCount == 0) $majorsCount = 120;
-        if ($studentsCount == 0) $studentsCount = '5K';
+        $universitiesCount = University::count() ?: 10;
+        $majorsCount = Major::count() ?: 120;
+        $studentsCount = User::where('role', 'student')->count() ?: '5K';
 
         return view('index', compact('universitiesCount', 'majorsCount', 'studentsCount'));
+    }
+
+    public function universities()
+    {
+        // جلب جميع الجامعات من قاعدة البيانات
+        $universities = University::all(); 
+        
+        return view('universities', compact('universities'));
     }
 }

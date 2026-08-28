@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'role',
         'email_verified_at',
+        'university_id',
     ];
 
     protected $hidden = [
@@ -58,4 +59,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(RecommendationResult::class);
     }
+    public function university(): HasOne
+{
+    return $this->hasOne(University::class, 'id', 'university_id');
+}
 }

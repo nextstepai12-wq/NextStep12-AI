@@ -17,94 +17,6 @@
   <!-- CSS خاص بصفحة إضافة البرنامج -->
   <link rel="stylesheet" href="../../css/dashboardcss/add-program.css">
 
-  <!-- ستايل مودال الكلية/العمادة بشكل الفلتر المتسلسل (Cascade Steps) -->
-  <style>
-    .filter-modal-header h3 {
-      display:flex; align-items:center; gap:8px;
-      font-size:1.05rem; margin:0;
-    }
-    .filter-modal-header .header-icon {
-      width:34px; height:34px; flex:0 0 34px; border-radius:10px;
-      background:linear-gradient(135deg, #2F6BFF, #6C8CFF);
-      display:flex; align-items:center; justify-content:center;
-      box-shadow:0 4px 10px rgba(47,107,255,0.25);
-    }
-    .filter-modal-header .header-icon svg { width:18px; height:18px; stroke:#fff; }
-
-    .cascade-fields {
-      display:flex; flex-direction:column;
-      margin-top:18px; position:relative;
-    }
-
-    .cascade-step {
-      display:flex; align-items:flex-start; gap:14px;
-      position:relative; padding-bottom:22px;
-    }
-    .cascade-step:last-child { padding-bottom:2px; }
-
-    /* الخط الواصل بين الخطوات */
-    .cascade-step:not(:last-child)::before {
-      content:'';
-      position:absolute;
-      top:30px; right:14.5px;
-      width:1px; height:calc(100% - 26px);
-      background:#E2E6EB;
-      transition:background .2s;
-    }
-    .cascade-step.is-complete:not(:last-child)::before { background:#B7C7FF; }
-
-    .cascade-step-num {
-      width:30px; height:30px; flex:0 0 30px; border-radius:50%;
-      background:#EEF2FF; color:#2F6BFF; font-size:0.82rem; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      position:relative; z-index:1;
-      border:2px solid #fff;
-      box-shadow:0 0 0 1px #DCE4FF;
-      transition:all .2s;
-    }
-    .cascade-step.is-complete .cascade-step-num {
-      background:#2F6BFF; color:#fff; box-shadow:0 0 0 1px #2F6BFF;
-    }
-    .cascade-step.is-disabled .cascade-step-num {
-      background:#F4F5F7; color:#C3C9D1; box-shadow:0 0 0 1px #EDEFF2;
-    }
-
-    .cascade-step-body { flex:1; min-width:0; padding-top:2px; }
-    .cascade-step-body label {
-      display:flex; align-items:center; justify-content:space-between;
-      font-size:0.82rem; font-weight:600; color:#16233D; margin-bottom:6px;
-    }
-    .cascade-step.is-disabled .cascade-step-body label { color:#B0B6BD; }
-
-    .cascade-step-body select {
-      width:100%; padding:11px 14px; border-radius:10px;
-      border:1.5px solid #E2E6EB; font-family:'Cairo',sans-serif;
-      font-size:0.9rem; color:#16233D; background:#fff;
-      cursor:pointer; transition:border-color .15s, box-shadow .15s, background .15s;
-      appearance:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235B6B79' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat:no-repeat;
-      background-position:left 12px center;
-      padding-left:34px;
-    }
-    .cascade-step-body select:focus {
-      outline:none; border-color:#2F6BFF;
-      box-shadow:0 0 0 3px rgba(47,107,255,0.12);
-    }
-    .cascade-step-body select:disabled {
-      background-color:#F9FAFB; color:#B0B6BD; cursor:not-allowed;
-      border-color:#EDEFF2;
-    }
-
-    .cascade-hint {
-      display:flex; align-items:flex-start; gap:8px; font-size:0.8rem; color:#5B6B79;
-      margin-top:16px; background:#F7F9FB; border:1px solid #EDEFF2; border-radius:10px; padding:10px 12px;
-    }
-    .cascade-hint::before { content:'💡'; flex:0 0 auto; font-size:0.85rem; line-height:1.3; }
-
-    #cdConfirmBtn:disabled { opacity:0.45; cursor:not-allowed; }
-  </style>
-
 </head>
 
 <body>
@@ -132,6 +44,54 @@
         <path d="M15 18l-6-6 6-6"/>
       </svg>
       <span class="current">إضافة برنامج جديد</span>
+    </div>
+
+    <!-- =========================================================
+         TOGGLE - وضع تجريبي للتبديل بين هيكل الكليات والعمادات
+    ========================================================= -->
+    <div class="toggle-demo-banner" style="
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #f0f4ff;
+      border: 1px dashed #3b82f6;
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    ">
+      <span style="font-weight: 600; color: #1e293b; font-size: 0.95rem;">
+        🧪 وضع التجربة:
+      </span>
+
+      <span id="structureStatusBadge" style="
+        background: #3b82f6;
+        color: white;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      ">
+        🏛️ جامعة بها كليات
+      </span>
+
+      <button id="toggleStructureBtn" style="
+        background: #1e293b;
+        color: white;
+        border: none;
+        padding: 6px 18px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: 0.2s;
+      ">
+        🔄 تبديل الهيكل
+      </button>
+
+      <span style="font-size: 0.8rem; color: #64748b;">
+        (تغيير مؤقت - لن يؤثر على البيانات المحفوظة)
+      </span>
     </div>
 
     <!-- Page Header -->
@@ -505,50 +465,24 @@
 </div>
 
 <!-- =========================================================
-     COLLEGE / DEANSHIP MODAL — بشكل الفلتر المتسلسل (Cascade)
+     COLLEGE / DEANSHIP MODAL
 ========================================================= -->
 <div class="cd-modal-overlay" id="cdModalOverlay">
-  <div class="cd-modal filter-modal" role="dialog" aria-modal="true" style="max-width:520px;">
-
-    <div class="filter-modal-header">
-      <h3 id="cdModalTitle">
-        <span class="header-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        </span>
-        اختيار الكلية والعمادة
-      </h3>
+  <div class="cd-modal" role="dialog" aria-modal="true">
+    <h3 id="cdModalTitle">اختيار الكلية والعمادة</h3>
+    <div class="field-group" id="cdCollegeField">
+      <label for="cdCollegeSelect">الكلية</label>
+      <select id="cdCollegeSelect">
+        <option value="">-- اختر الكلية --</option>
+      </select>
     </div>
-
-    <div class="filter-modal-body">
-      <div class="cascade-fields" id="cdCascadeFields">
-
-        <!-- خطوة 1: الكلية (بتختفي إذا الجامعة ما إلها كليات) -->
-        <div class="cascade-step" id="cdCollegeField">
-          <span class="cascade-step-num">1</span>
-          <div class="cascade-step-body">
-            <label for="cdCollegeSelect">الكلية</label>
-            <select id="cdCollegeSelect">
-              <option value="">-- اختر الكلية --</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- خطوة 2: العمادة -->
-        <div class="cascade-step is-disabled" id="stepCdDeanship">
-          <span class="cascade-step-num">2</span>
-          <div class="cascade-step-body">
-            <label for="cdDeanshipSelect">العمادة</label>
-            <select id="cdDeanshipSelect" disabled>
-              <option value="">-- اختاري الكلية أولاً --</option>
-            </select>
-          </div>
-        </div>
-
-      </div>
-
-      <p class="cascade-hint" id="cdStructureHint"></p>
+    <div class="field-group">
+      <label for="cdDeanshipSelect">العمادة</label>
+      <select id="cdDeanshipSelect" disabled>
+        <option value="">-- اختاري الكلية أولاً --</option>
+      </select>
     </div>
-
+    <p class="field-hint" id="cdStructureHint" style="margin-top:4px;"></p>
     <div class="cd-modal-actions">
       <button type="button" class="btn-save-primary" id="cdConfirmBtn" disabled>متابعة</button>
     </div>
@@ -578,12 +512,13 @@ document.addEventListener('DOMContentLoaded', () => {
   ========================================================= */
   const USE_MOCK_DATA = true;
 
-  const UNIVERSITY_HAS_COLLEGES =
-    typeof window.NEXTSTEP_UNIVERSITY_HAS_COLLEGES === 'boolean'
-      ? window.NEXTSTEP_UNIVERSITY_HAS_COLLEGES
-
-      // تحديد اذا العماد ة الها قيمة كلية 
-      : localStorage.getItem('nextstep_university_has_colleges') !== 'true';
+  // قراءة الإعداد من localStorage أو استخدام القيمة الافتراضية true
+  let UNIVERSITY_HAS_COLLEGES = localStorage.getItem('nextstep_university_has_colleges');
+  if (UNIVERSITY_HAS_COLLEGES === null) {
+    UNIVERSITY_HAS_COLLEGES = true;
+  } else {
+    UNIVERSITY_HAS_COLLEGES = UNIVERSITY_HAS_COLLEGES !== 'false';
+  }
 
   const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
@@ -677,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sections.forEach(section => { if (section) observer.observe(section); });
 
   /* =========================================================
-     الكلية والعمادة — نافذة منبثقة (Cascade Steps)
+     الكلية والعمادة — نافذة منبثقة
   ========================================================= */
   const collegesCache = [
     { id: 1, name: 'كلية الهندسة وتكنولوجيا المعلومات' },
@@ -699,8 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const cdModalOverlay = document.getElementById('cdModalOverlay');
   const cdModalTitle = document.getElementById('cdModalTitle');
-  const cdCollegeField = document.getElementById('cdCollegeField');   // خطوة 1 (كارد كامل)
-  const stepCdDeanship = document.getElementById('stepCdDeanship');   // خطوة 2 (كارد كامل)
+  const cdCollegeField = document.getElementById('cdCollegeField');
   const cdCollegeSelect = document.getElementById('cdCollegeSelect');
   const cdDeanshipSelect = document.getElementById('cdDeanshipSelect');
   const cdConfirmBtn = document.getElementById('cdConfirmBtn');
@@ -713,20 +647,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const cdCollegeName = document.getElementById('cdCollegeName');
   const cdDeanshipName = document.getElementById('cdDeanshipName');
 
-  // بتحدّث رقم الخطوة الظاهر داخل الدائرة (لأن ترتيب الخطوات بيختلف حسب وجود كليات)
-  function setStepNumber(stepEl, num) {
-    const numEl = stepEl.querySelector('.cascade-step-num');
-    if (numEl) numEl.textContent = num;
-  }
-
-  // بتزامن كلاسات is-complete على الخطوتين حسب القيم الحالية بالسيلكت
-  function syncCdStepClasses() {
-    if (UNIVERSITY_HAS_COLLEGES) {
-      cdCollegeField.classList.toggle('is-complete', !!cdCollegeSelect.value);
-    }
-    stepCdDeanship.classList.toggle('is-complete', !!cdDeanshipSelect.value);
-  }
-
   function getAvailableDeanships() {
     return UNIVERSITY_HAS_COLLEGES
       ? deanshipsCache.filter(d => d.college_id !== null)
@@ -734,28 +654,46 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function setupUniversityStructureUI() {
+    // تنظيف القوائم أولاً
+    cdCollegeSelect.innerHTML = '';
+    cdDeanshipSelect.innerHTML = '';
+
     if (UNIVERSITY_HAS_COLLEGES) {
       cdModalTitle.textContent = 'اختيار الكلية والعمادة';
       cdStructureHint.textContent = 'اختاري الكلية أولاً، ثم اختاري العمادة التابعة لها.';
       cdCollegeField.hidden = false;
-      setStepNumber(cdCollegeField, '1');
-      setStepNumber(stepCdDeanship, '2');
-      stepCdDeanship.classList.add('is-disabled');
+      
+      // تعبئة الكليات
+      const defaultCollege = document.createElement('option');
+      defaultCollege.value = '';
+      defaultCollege.textContent = '-- اختر الكلية --';
+      cdCollegeSelect.appendChild(defaultCollege);
+      
       collegesCache.forEach(college => {
         const opt = document.createElement('option');
         opt.value = college.id;
         opt.textContent = college.name;
         cdCollegeSelect.appendChild(opt);
       });
-      cdDeanshipSelect.innerHTML = '<option value="">-- اختاري الكلية أولاً --</option>';
+      
+      // تعبئة العمادات - فارغة في البداية
+      const defaultDeanship = document.createElement('option');
+      defaultDeanship.value = '';
+      defaultDeanship.textContent = '-- اختاري الكلية أولاً --';
+      cdDeanshipSelect.appendChild(defaultDeanship);
       cdDeanshipSelect.disabled = true;
+      
     } else {
       cdModalTitle.textContent = 'اختيار العمادة';
       cdStructureHint.textContent = 'هذه الجامعة لا تستخدم مستوى الكليات، لذلك يتم ربط التخصص بالعمادة مباشرة.';
       cdCollegeField.hidden = true;
-      setStepNumber(stepCdDeanship, '1');
-      stepCdDeanship.classList.remove('is-disabled');
-      cdDeanshipSelect.innerHTML = '<option value="">-- اختر العمادة --</option>';
+      
+      // تعبئة العمادات المستقلة فقط
+      const defaultDeanship = document.createElement('option');
+      defaultDeanship.value = '';
+      defaultDeanship.textContent = '-- اختر العمادة --';
+      cdDeanshipSelect.appendChild(defaultDeanship);
+      
       getAvailableDeanships().forEach(deanship => {
         const opt = document.createElement('option');
         opt.value = deanship.id;
@@ -767,14 +705,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function fillDeanshipOptions(collegeId) {
+    // حفظ القيمة المحددة حالياً إن وجدت
+    const currentValue = cdDeanshipSelect.value;
     cdDeanshipSelect.innerHTML = '';
-    stepCdDeanship.classList.remove('is-complete');
-
+    
     if (!UNIVERSITY_HAS_COLLEGES) {
+      // في حالة عدم وجود كليات، نعرض كل العمادات المستقلة
       const placeholder = document.createElement('option');
       placeholder.value = '';
       placeholder.textContent = '-- اختر العمادة --';
       cdDeanshipSelect.appendChild(placeholder);
+      
       getAvailableDeanships().forEach(d => {
         const opt = document.createElement('option');
         opt.value = d.id;
@@ -782,23 +723,26 @@ document.addEventListener('DOMContentLoaded', () => {
         cdDeanshipSelect.appendChild(opt);
       });
       cdDeanshipSelect.disabled = false;
-      stepCdDeanship.classList.remove('is-disabled');
       return;
     }
+    
+    // في حالة وجود كليات
     const related = deanshipsCache.filter(d => d.college_id === Number(collegeId));
+    
     if (!collegeId || !related.length) {
       const opt = document.createElement('option');
       opt.value = '';
       opt.textContent = collegeId ? 'لا توجد عمادات مرتبطة بهذه الكلية' : '-- اختاري الكلية أولاً --';
       cdDeanshipSelect.appendChild(opt);
       cdDeanshipSelect.disabled = true;
-      stepCdDeanship.classList.add('is-disabled');
       return;
     }
+    
     const placeholder = document.createElement('option');
     placeholder.value = '';
     placeholder.textContent = '-- اختر العمادة --';
     cdDeanshipSelect.appendChild(placeholder);
+    
     related.forEach(d => {
       const opt = document.createElement('option');
       opt.value = d.id;
@@ -806,7 +750,6 @@ document.addEventListener('DOMContentLoaded', () => {
       cdDeanshipSelect.appendChild(opt);
     });
     cdDeanshipSelect.disabled = false;
-    stepCdDeanship.classList.remove('is-disabled');
   }
 
   function updateCdConfirmState() {
@@ -817,15 +760,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cdCollegeSelect.addEventListener('change', () => {
     if (!UNIVERSITY_HAS_COLLEGES) return;
-    cdCollegeField.classList.toggle('is-complete', !!cdCollegeSelect.value);
     fillDeanshipOptions(cdCollegeSelect.value);
     updateCdConfirmState();
   });
 
-  cdDeanshipSelect.addEventListener('change', () => {
-    stepCdDeanship.classList.toggle('is-complete', !!cdDeanshipSelect.value);
-    updateCdConfirmState();
-  });
+  cdDeanshipSelect.addEventListener('change', updateCdConfirmState);
 
   function openCdModal() { cdModalOverlay.classList.add('is-open'); }
   function closeCdModal() { cdModalOverlay.classList.remove('is-open'); }
@@ -833,11 +772,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderCdDisplay() {
     const collegeId = progCollegeInput.value;
     const deanshipId = progDeanshipInput.value;
+    
     if (!deanshipId) {
       cdDisplayEmpty.hidden = false;
       cdDisplayFilled.hidden = true;
       return;
     }
+    
     const deanship = deanshipsCache.find(d => d.id === Number(deanshipId));
     if (UNIVERSITY_HAS_COLLEGES) {
       const college = collegesCache.find(c => c.id === Number(collegeId));
@@ -872,14 +813,20 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       cdDeanshipSelect.value = progDeanshipInput.value || '';
     }
-    syncCdStepClasses();
     updateCdConfirmState();
     openCdModal();
   });
 
   const isEditUrl = new URLSearchParams(window.location.search).get('edit');
   setupUniversityStructureUI();
-  if (!isEditUrl) openCdModal();
+  
+  // فقط إذا لم يكن في وضع التعديل، نفتح النافذة المنبثقة
+  if (!isEditUrl) {
+    // نتحقق إذا كانت الكلية والعمادة محددين مسبقاً
+    if (!progDeanshipInput.value) {
+      openCdModal();
+    }
+  }
   renderCdDisplay();
 
   /* =========================================================
@@ -908,10 +855,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function buildJourneySelectOptions(selectedKey) {
     const available = getAvailableJourneyStages(selectedKey);
-    return `<option value="">-- اختر المرحلة --</option>` +
-      available.map(stage => `
-        <option value="${stage.key}" ${stage.key === selectedKey ? 'selected' : ''}>${stage.title}</option>
-      `).join('');
+    let html = '<option value="">-- اختر المرحلة --</option>';
+    available.forEach(stage => {
+      html += `<option value="${stage.key}" ${stage.key === selectedKey ? 'selected' : ''}>${stage.title}</option>`;
+    });
+    return html;
   }
 
   function refreshJourneySelects() {
@@ -919,6 +867,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const select = row.querySelector('.journey-title-select');
       const currentKey = row.dataset.key;
       select.innerHTML = buildJourneySelectOptions(currentKey);
+      // إعادة تعيين القيمة المحددة
+      if (currentKey) {
+        select.value = currentKey;
+      }
     });
   }
 
@@ -1543,6 +1495,78 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initEditMode();
+
+  /* =========================================================
+     TOGGLE تجريبي للتبديل بين هيكل الكليات والعمادات
+  ========================================================= */
+  (function setupStructureToggle() {
+    
+    const toggleBtn = document.getElementById('toggleStructureBtn');
+    const statusBadge = document.getElementById('structureStatusBadge');
+
+    if (!toggleBtn || !statusBadge) return;
+
+    function updateStructureUI() {
+      // قراءة القيمة الحالية من localStorage
+      const currentValue = localStorage.getItem('nextstep_university_has_colleges');
+      const hasColleges = currentValue === null ? true : currentValue !== 'false';
+      
+      // تحديث المتغير العام
+      window.UNIVERSITY_HAS_COLLEGES = hasColleges;
+      
+      if (hasColleges) {
+        statusBadge.textContent = '🏛️ جامعة بها كليات';
+        statusBadge.style.background = '#3b82f6';
+      } else {
+        statusBadge.textContent = '🏢 جامعة بدون كليات';
+        statusBadge.style.background = '#8b5cf6';
+      }
+
+      // إعادة تعيين الحقول المخفية
+      progCollegeInput.value = '';
+      progDeanshipInput.value = '';
+      
+      // إعادة تعيين واجهة الكلية والعمادة
+      setupUniversityStructureUI();
+      renderCdDisplay();
+      updateCdConfirmState();
+      
+      // إغلاق النافذة المنبثقة إن كانت مفتوحة
+      closeCdModal();
+
+      console.log(`✅ تم التبديل إلى: ${hasColleges ? 'جامعة بها كليات' : 'جامعة بدون كليات'}`);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      // تبديل القيمة
+      const current = localStorage.getItem('nextstep_university_has_colleges');
+      let newValue;
+      if (current === null) {
+        newValue = 'false';
+      } else {
+        newValue = current === 'false' ? 'true' : 'false';
+      }
+      localStorage.setItem('nextstep_university_has_colleges', newValue);
+      
+      // تحديث المتغير العام
+      UNIVERSITY_HAS_COLLEGES = newValue !== 'false';
+      
+      // تحديث الواجهة
+      updateStructureUI();
+
+      // عرض رسالة تأكيد
+      openModal({
+        type: 'success',
+        title: 'تم التبديل!',
+        message: `الوضع الحالي: ${newValue === 'false' ? '🏢 جامعة بدون كليات' : '🏛️ جامعة بها كليات'}\nافتح نافذة اختيار الكلية/العمادة لترى الفرق.`,
+        confirmText: 'حسناً'
+      });
+    });
+
+    // تحديث الواجهة عند تحميل الصفحة
+    updateStructureUI();
+
+  })();
 
 });
 </script>

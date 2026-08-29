@@ -9,6 +9,15 @@
 <link href="../../css/app.css" rel="stylesheet">
 <link href="../../css/dashboardcss/admin-shell.css" rel="stylesheet">
 <link href="../../css/dashboardcss/overview.css" rel="stylesheet">
+<style>
+  .pill-btn:disabled { opacity:0.55; cursor:not-allowed; }
+  .pill-btn .btn-spinner {
+    width:14px; height:14px; border-radius:50%;
+    border:2px solid rgba(255,255,255,0.4); border-top-color:#fff;
+    animation:pill-spin .7s linear infinite; display:inline-block;
+  }
+  @keyframes pill-spin { to { transform:rotate(360deg); } }
+</style>
 </head>
 <body>
 
@@ -40,17 +49,17 @@
       </span>
       <button type="button" class="pill-btn" id="exportBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
-        تصدير التقرير
+        <span id="exportBtnLabel">تصدير التقرير</span>
       </button>
     </div>
 
     <!-- ======================= STAT CARDS ======================= -->
-    <div class="stat-grid">
+    <div class="stat-grid" id="statGrid">
 
       <!-- بديل "الطلبات المعلقة": ما في نظام طلبات رسمي بالمنصة (الطالب بس بيشوف
            التوصية). البطاقة هلق بتحسب الطلاب المرشّحين لجامعتكم من recommendation_results
            عبر majors -> deanships_faculties -> university_id -->
-      <div class="stat-card">
+      <div class="stat-card" data-stat-label="طلاب مرشّحون لجامعتكم" data-stat-value="324" data-stat-trend="0%">
         <div class="stat-card-top">
           <span class="stat-icon blue">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
@@ -65,7 +74,7 @@
       <!-- بديل "معدل التخرج": ما في متابعة أكاديمية كاملة (فصول/تسجيل) بالمنصة
            حالياً. البطاقة هلق بتحسب متوسط نسبة توافق التوصيات AVG(match_percentage)
            من recommendation_results، لتخصصات هاي الجامعة -->
-      <div class="stat-card">
+      <div class="stat-card" data-stat-label="متوسط نسبة التوافق" data-stat-value="88.5%" data-stat-trend="+5%">
         <div class="stat-card-top">
           <span class="stat-icon mint">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
@@ -80,7 +89,7 @@
         <div class="stat-bar-track"><div class="stat-bar-fill" style="width:88%"></div></div>
       </div>
 
-      <div class="stat-card">
+      <div class="stat-card" data-stat-label="البرامج الأكاديمية النشطة" data-stat-value="48" data-stat-trend="+12%">
         <div class="stat-card-top">
           <span class="stat-icon amber">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
@@ -95,7 +104,7 @@
         <div class="stat-bar-track"><div class="stat-bar-fill" style="width:60%"></div></div>
       </div>
 
-      <div class="stat-card">
+      <div class="stat-card" data-stat-label="إجمالي الطلاب المسجّلين" data-stat-value="12,450" data-stat-trend="+8%">
         <div class="stat-card-top">
           <span class="stat-icon navy">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -126,7 +135,7 @@
       </div>
 
       <!-- المصدر: COUNT من recommendation_results GROUP BY major_id، مرتبة تنازلياً، LIMIT 3 -->
-      <table class="top-programs-table">
+      <table class="top-programs-table" id="topProgramsTable">
         <thead>
           <tr>
             <th>#</th>
@@ -135,7 +144,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr data-rank="1" data-name="هندسة البرمجيات" data-trend="+12%">
             <td><span class="rank-badge top">1</span></td>
             <td><strong>هندسة البرمجيات</strong></td>
             <td>
@@ -145,7 +154,7 @@
               </span>
             </td>
           </tr>
-          <tr>
+          <tr data-rank="2" data-name="علوم الحاسوب" data-trend="+8%">
             <td><span class="rank-badge">2</span></td>
             <td><strong>علوم الحاسوب</strong></td>
             <td>
@@ -155,7 +164,7 @@
               </span>
             </td>
           </tr>
-          <tr>
+          <tr data-rank="3" data-name="إدارة الأعمال" data-trend="-3%">
             <td><span class="rank-badge">3</span></td>
             <td><strong>إدارة الأعمال</strong></td>
             <td>
@@ -173,14 +182,158 @@
 
 </div>
 
-<!-- ما عاد في رسومات بيانية بهاي الصفحة (انتقلت لصفحة statistics.html)، فما لازمنا Chart.js هون -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
   // ==========================================================================
-  // زر تصدير التقرير — placeholder بدون باك اند
+  // زر تصدير التقرير
+  // ملاحظة مهمة: jsPDF ما بيدعم رسم النص العربي بشكل صحيح (خط Helvetica
+  // الافتراضي ما إله حروف عربية، وحتى لو ضفنا خط عربي فـ jsPDF ما بيعمل
+  // "تشكيل" الحروف ببعضها). عشان هيك بنبني التقرير كـ HTML عادي (المتصفح
+  // بيرسم العربي صح تلقائياً)، وباستخدام html2canvas بناخد "صورة" منه،
+  // وبعدين نحط الصورة جوا ملف PDF عبر jsPDF. النتيجة نص عربي واضح ومظبوط.
   // ==========================================================================
-  document.getElementById('exportBtn').addEventListener('click', () => {
-    alert('هاي محاكاة محلية — لسا ما فيه ربط فعلي بتصدير PDF/Excel.');
-  });
+  (function () {
+    var exportBtn = document.getElementById('exportBtn');
+    var exportBtnLabel = document.getElementById('exportBtnLabel');
+
+    function collectStats() {
+      return Array.from(document.querySelectorAll('#statGrid .stat-card')).map(function (card) {
+        return {
+          label: card.dataset.statLabel,
+          value: card.dataset.statValue,
+          trend: card.dataset.statTrend
+        };
+      });
+    }
+
+    function collectTopPrograms() {
+      return Array.from(document.querySelectorAll('#topProgramsTable tbody tr')).map(function (row) {
+        return {
+          rank: row.dataset.rank,
+          name: row.dataset.name,
+          trend: row.dataset.trend
+        };
+      });
+    }
+
+    function trendColor(trend) {
+      if (trend.indexOf('-') === 0) return '#C62828';
+      if (trend === '0%') return '#5B6B79';
+      return '#16C088';
+    }
+
+    function buildReportHtml(stats, topPrograms, generatedAt) {
+      var statsRows = stats.map(function (s) {
+        return (
+          '<tr>' +
+            '<td style="padding:12px 16px;border-bottom:1px solid #EDEFF2;">' + s.label + '</td>' +
+            '<td style="padding:12px 16px;border-bottom:1px solid #EDEFF2;font-weight:700;">' + s.value + '</td>' +
+            '<td style="padding:12px 16px;border-bottom:1px solid #EDEFF2;color:' + trendColor(s.trend) + ';font-weight:700;">' + s.trend + '</td>' +
+          '</tr>'
+        );
+      }).join('');
+
+      var programRows = topPrograms.map(function (p) {
+        return (
+          '<tr>' +
+            '<td style="padding:12px 16px;border-bottom:1px solid #EDEFF2;">' + p.rank + '</td>' +
+            '<td style="padding:12px 16px;border-bottom:1px solid #EDEFF2;font-weight:700;">' + p.name + '</td>' +
+            '<td style="padding:12px 16px;border-bottom:1px solid #EDEFF2;color:' + trendColor(p.trend) + ';font-weight:700;">' + p.trend + '</td>' +
+          '</tr>'
+        );
+      }).join('');
+
+      return (
+        '<div dir="rtl" style="width:760px;padding:40px;font-family:Cairo,Arial,sans-serif;background:#fff;color:#16233D;">' +
+          '<h1 style="margin:0 0 4px;font-size:24px;">تقرير النظرة العامة</h1>' +
+          '<p style="margin:0 0 24px;color:#5B6B79;font-size:13px;">تاريخ التوليد: ' + generatedAt + '</p>' +
+
+          '<h2 style="font-size:16px;margin:0 0 10px;">الإحصائيات العامة</h2>' +
+          '<table style="width:100%;border-collapse:collapse;margin-bottom:28px;font-size:14px;">' +
+            '<thead><tr style="background:#2F6BFF;color:#fff;">' +
+              '<th style="padding:12px 16px;text-align:right;">المؤشر</th>' +
+              '<th style="padding:12px 16px;text-align:right;">القيمة</th>' +
+              '<th style="padding:12px 16px;text-align:right;">الاتجاه</th>' +
+            '</tr></thead>' +
+            '<tbody>' + statsRows + '</tbody>' +
+          '</table>' +
+
+          '<h2 style="font-size:16px;margin:0 0 10px;">أعلى التخصصات إقبالاً</h2>' +
+          '<table style="width:100%;border-collapse:collapse;font-size:14px;">' +
+            '<thead><tr style="background:#2F6BFF;color:#fff;">' +
+              '<th style="padding:12px 16px;text-align:right;">#</th>' +
+              '<th style="padding:12px 16px;text-align:right;">التخصص</th>' +
+              '<th style="padding:12px 16px;text-align:right;">الاتجاه</th>' +
+            '</tr></thead>' +
+            '<tbody>' + programRows + '</tbody>' +
+          '</table>' +
+        '</div>'
+      );
+    }
+
+    exportBtn.addEventListener('click', function () {
+      var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
+      if (!jsPDFCtor || !window.html2canvas) {
+        alert('تعذر تحميل مكتبات التصدير. تأكد من الاتصال بالإنترنت وحاول مرة أخرى.');
+        return;
+      }
+
+      exportBtn.disabled = true;
+      var originalLabel = exportBtnLabel.textContent;
+      exportBtnLabel.textContent = 'جارٍ التصدير...';
+
+      var stats = collectStats();
+      var topPrograms = collectTopPrograms();
+      var generatedAt = new Date().toISOString().slice(0, 10);
+
+      // كونتينر مخفي خارج الشاشة نستخدمه فقط للتصوير، ما بيظهر للمستخدم
+      var container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '-99999px';
+      container.style.zIndex = '-1';
+      container.innerHTML = buildReportHtml(stats, topPrograms, generatedAt);
+      document.body.appendChild(container);
+
+      html2canvas(container, { scale: 2, backgroundColor: '#ffffff' })
+        .then(function (canvas) {
+          var imgData = canvas.toDataURL('image/png');
+          var doc = new jsPDFCtor({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+
+          var pageWidth = doc.internal.pageSize.getWidth();
+          var margin = 30;
+          var imgWidth = pageWidth - margin * 2;
+          var imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+          var pageHeight = doc.internal.pageSize.getHeight();
+          var heightLeft = imgHeight;
+          var position = margin;
+
+          doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+          heightLeft -= (pageHeight - margin * 2);
+
+          // لو التقرير أطول من صفحة وحدة، بنكمل بصفحات إضافية
+          while (heightLeft > 0) {
+            position = heightLeft - imgHeight + margin;
+            doc.addPage();
+            doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+            heightLeft -= (pageHeight - margin * 2);
+          }
+
+          doc.save('overview_report_' + generatedAt + '.pdf');
+        })
+        .catch(function (err) {
+          console.error('Export overview PDF error:', err);
+          alert('صار خطأ أثناء توليد ملف الـ PDF. حاول مرة أخرى.');
+        })
+        .finally(function () {
+          document.body.removeChild(container);
+          exportBtn.disabled = false;
+          exportBtnLabel.textContent = originalLabel;
+        });
+    });
+  })();
 </script>
 <div id="admin-footer-slot"></div>
 <script src="../../js/admin-shell.js"></script>

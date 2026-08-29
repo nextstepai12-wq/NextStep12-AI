@@ -15,17 +15,20 @@
 </head>
 <body>
 
-  <!-- ===== الهيدر العلوي (HTML مباشر) ===== -->
+  <!-- ===== الهيدر العلوي (متناسق مع الهوية البصرية) ===== -->
   <header class="topbar">
-    <!-- العلامة التجارية (الشعار والاسم) -->
-     <!-- قائمة الحساب -->
-       <div class="top-actions">
+    <div class="top-actions">
       <!-- زر الإشعارات -->
-      <button  href="../student/student-settings.html" class="icon-btn" aria-label="الإشعارات">
-        <span class="dot"></span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      </button>
- <div class="account-wrap">
+      <a href="../student/notifications.html" class="icon-btn" aria-label="الإشعارات">
+  <span class="notif-badge"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+  </svg>
+</a>
+
+      <!-- قائمة الحساب -->
+      <div class="account-wrap">
         <button class="account-trigger" aria-expanded="false" id="accountDropdownBtn">
           <img src="https://i.pravatar.cc/150?img=13" alt="صورة المستخدم">
           <div class="account-meta">
@@ -49,7 +52,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
               ملفي الشخصي
             </a>
-            <a href="#" class="dd-item">
+            <a href="../student/student-settings.html" class="dd-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>
               الإعدادات
             </a>
@@ -61,23 +64,22 @@
           </div>
         </div>
       </div>
-    
     </div>
-     
+    <!-- العلامة التجارية (الشعار والاسم) -->
+  
 
     <!-- شريط البحث -->
     <div class="search-wrap">
       <input type="text" placeholder="ابحث عن تخصص، جامعة، أو مسار مهني...">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
     </div>
-
-    <!-- الإجراءات وأيقونات المستخدم -->
-     <!-- قائمة الحساب -->
-    <a href="index.html" class="brand-mark">
-     
+ <a href="../student/student-profile.html" class="brand-mark">
       <div class="brand-text">NextStep<span>AI</span> </div>
-       <img src="../../assets/logo.png" alt="NextStep AI" class="brand-logo">
+            <img src="../../assets/logo.png" alt="NextStep AI" class="brand-logo">
+
     </a>
+    <!-- الإجراءات وأيقونات المستخدم -->
+    
   </header>
 
   <!-- حاوية المحتوى الرئيسي والـ Sidebar -->
@@ -85,10 +87,12 @@
     
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main">
-      <div class="welcome">
-        <h1>الملف الشخصي</h1>
-        <p>إدارة معلوماتك الشخصية والأكاديمية</p>
-      </div>
+<div class="welcome">
+    <div class="welcome-text">
+        <h1>أهلاً بك، أحمد محمد</h1>
+        <p>سعداء بعودتك! تابع مسيرتك الأكاديمية وأدِر معلوماتك بكل سهولة.</p>
+    </div>
+</div>
 
       <!-- Profile header -->
       <section class="card">
@@ -96,16 +100,23 @@
           <div class="left">
             <div class="avatar-wrap">
               <img src="https://i.pravatar.cc/150?img=13" alt="صورة أحمد محمد">
-              <span class="cam-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8a2 2 0 0 1 2-2h1l1.5-2h7L17 6h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/></svg>
-              </span>
+              <label class="cam-btn" title="تغيير الصورة" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center;">
+  <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+    <path d="M4 8a2 2 0 0 1 2-2h1l1.5-2h7L17 6h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/>
+    <circle cx="12" cy="13" r="3.5"/>
+  </svg>
+</label>
             </div>
             <div>
               <h1>
                 أحمد محمد
-                <span class="edit-pen">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
-                </span>
+                <a href="../student/student-settings.html" class="edit-pen" title="تعديل الاسم" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+    <path d="M12 20h9"/>
+    <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>
+  </svg>
+</a>
               </h1>
               <span class="badge">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16"/></svg>
@@ -217,19 +228,16 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           النتائج والتوصيات
         </a>
-        <a href="#" class="nav-item">
+        <a href="../quiz.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
           الاختيار الذكي
         </a>
-        <a href="#" class="nav-item">
+        <a href="../universities.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l4 8H8l4-8z"/><rect x="4" y="14" width="16" height="7" rx="1.5"/></svg>
           الجامعات
         </a>
-        <a href="#" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M4 9h5"/></svg>
-          التخصصات
-        </a>
-        <a href="#" class="nav-item">
+       
+        <a href="../chatbot.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.8 8.4 8.5 8.5 0 0 1-4-1L3 20l1.1-4A8.4 8.4 0 1 1 21 11.5z"/></svg>
           المساعد الذكي
         </a>
@@ -237,32 +245,29 @@
 
       <div class="group-label">أدواتي</div>
       <nav>
-        <a href="#" class="nav-item">
+        <a href="../student/favorites.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-6.2 3.6 1.6-7L2 9.2l7.1-.6L12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7z"/></svg>
           المفضلة
         </a>
-        <a href="#" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-          المقارنات
-        </a>
+       
       </nav>
 
       <div class="group-label">حسابي</div>
       <nav>
-        <a href="#" class="nav-item active">
+        <a href="student-profile.html" class="nav-item active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
           ملفي الشخصي
         </a>
-        <a href="#" class="nav-item">
+        <a href="../student/notifications.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
           الإشعارات
         </a>
-        <a href="#" class="nav-item">
+        <a href="../student/student-settings.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>
           الإعدادات
         </a>
         <hr>
-        <a href="#" class="nav-item logout">
+        <a href="../../index.html" class="nav-item logout">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
           تسجيل الخروج
         </a>
@@ -270,7 +275,7 @@
     </aside>
   </div>
 
-  <!-- سكربت بسيط لتفعيل القائمة المنسدلة (Dropdown) الخاصة بالحساب -->
+  <!-- سكربت تفعيل القائمة المنسدلة (Dropdown) الخاصة بالحساب -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const trigger = document.getElementById('accountDropdownBtn');
@@ -290,6 +295,20 @@
         });
       }
     });
+    document.getElementById('avatarInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // استبدلي '.avatar-wrap img' بالـ selector الخاص بصورة الملف الشخصي لديكِ
+      const profileImg = document.querySelector('.avatar-wrap img');
+      if (profileImg) {
+        profileImg.src = e.target.result;
+      }
+    }
+    reader.readAsDataURL(file);
+  }
+});
   </script>
 
 </body>

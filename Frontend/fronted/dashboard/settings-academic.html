@@ -190,6 +190,123 @@
 
 
     /* =========================================================
+       SUBSECTION HEAD (كليات / عمادات داخل نفس البانل)
+    ========================================================= */
+
+    .academic-subsection-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 22px 0 12px;
+    }
+
+    .academic-subsection-head:first-of-type {
+      margin-top: 0;
+    }
+
+    .academic-subsection-head h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .academic-filter-select {
+      padding: 8px 12px;
+      border: 1.5px solid var(--gray-bg);
+      border-radius: 9px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 12px;
+      color: var(--gray-dark);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .academic-filter-select:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+
+
+    /* =========================================================
+       HIERARCHY — كلية وتحتها عماداتها مباشرة
+    ========================================================= */
+
+    .college-group {
+      border: 1px solid var(--gray-bg);
+      border-radius: 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .college-group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 14px 16px;
+      background: #fafbfe;
+      border-bottom: 1px solid var(--gray-bg);
+    }
+
+    .college-group-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .college-group-title strong {
+      color: var(--navy);
+      font-size: 13.5px;
+      font-weight: 800;
+    }
+
+    .college-group-body {
+      padding: 6px 16px;
+    }
+
+    .deanship-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--gray-bg);
+    }
+
+    .deanship-row:last-child {
+      border-bottom: none;
+    }
+
+    .deanship-row-info strong {
+      display: block;
+      color: var(--navy);
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .deanship-row-info .deanship-row-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      color: var(--gray);
+      font-size: 11px;
+    }
+
+    .deanship-row-empty {
+      padding: 14px 4px;
+      color: var(--gray);
+      font-size: 11.5px;
+    }
+
+
+    /* =========================================================
        STATS
     ========================================================= */
 
@@ -354,6 +471,12 @@
 
     .academic-add-btn:hover {
       opacity: .92;
+    }
+
+    .academic-add-btn.outline {
+      background: transparent;
+      color: var(--blue);
+      border: 1.5px solid rgba(47,107,255,.3);
     }
 
 
@@ -569,6 +692,11 @@
       .academic-panel-head {
         flex-direction: column;
       }
+
+      .academic-subsection-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
   </style>
@@ -711,7 +839,7 @@
 
 
         <!-- =================================================
-             1 — DEANSHIPS
+             1 — DEANSHIPS + COLLEGES
         ================================================== -->
 
         <section
@@ -732,55 +860,61 @@
               </p>
             </div>
 
-            <button
-              type="button"
-              class="academic-add-btn"
-              onclick="window.location.href='adddeanship.html'"
-            >
-              + إضافة عمادة
-            </button>
-
           </div>
 
 
+          <!-- ===== إحصائيات عامة ===== -->
           <div class="academic-stats">
 
             <div class="academic-stat">
-              <strong id="deanshipCount">3</strong>
+              <strong id="deanshipCount">—</strong>
               <span>عمادات مسجلة</span>
             </div>
 
             <div class="academic-stat">
-              <strong id="majorCountA">13</strong>
+              <strong id="majorCountA">—</strong>
               <span>تخصصاً</span>
             </div>
 
-            <div class="academic-stat">
-              <strong>3</strong>
+            <div class="academic-stat" id="collegeCountStat">
+              <strong id="collegeCount">—</strong>
               <span>كليات / مجالات أكاديمية</span>
             </div>
 
           </div>
 
 
-          <div class="academic-table-wrap">
+          <!-- ===================================================
+               الهيكل الأكاديمي — كلية وتحتها عماداتها مباشرة
+               (أو عمادات مباشرة بدون كلية لو الجامعة ما إلها كليات)
+          ==================================================== -->
+          <div class="academic-subsection-head">
+            <h3 id="hierarchyTitle">الهيكل الأكاديمي</h3>
 
-            <table class="academic-table">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
 
-              <thead>
-                <tr>
-                  <th>العمادة / الكلية</th>
-                  <th>عدد التخصصات</th>
-                  <th>حالة المحتوى</th>
-                  <th>الإجراء</th>
-                </tr>
-              </thead>
+              <button
+                type="button"
+                class="academic-add-btn outline"
+                id="addCollegeBtn"
+                onclick="window.location.href='addcollege.html'"
+                hidden
+              >
+                + إضافة كلية
+              </button>
 
-              <tbody id="deanshipsBody"></tbody>
+              <button
+                type="button"
+                class="academic-add-btn"
+                onclick="window.location.href='adddeanship.html'"
+              >
+                + إضافة عمادة
+              </button>
 
-            </table>
-
+            </div>
           </div>
+
+          <div id="academicHierarchy"></div>
 
         </section>
 
@@ -1347,6 +1481,18 @@
 
 
   /* =========================================================
+     هيكل الجامعة — هل عندها مستوى "كليات" فوق العمادات؟
+     نفس المتغيّر المستخدم بباقي صفحات لوحة الإدارة (add-program.html
+     وصفحة تحديث الخطط) عشان الاتساق بين كل الصفحات.
+  ========================================================= */
+
+  const UNIVERSITY_HAS_COLLEGES =
+    typeof window.NEXTSTEP_UNIVERSITY_HAS_COLLEGES === 'boolean'
+      ? window.NEXTSTEP_UNIVERSITY_HAS_COLLEGES
+      : localStorage.getItem('nextstep_university_has_colleges') === 'true';
+
+
+  /* =========================================================
      STEPPER
   ========================================================= */
 
@@ -1398,25 +1544,47 @@
 
 
   /* =========================================================
-     MOCK DATA
+     MOCK DATA — الكليات
+     (تُستخدم فقط لو UNIVERSITY_HAS_COLLEGES = true)
+  ========================================================= */
+
+  const COLLEGES = [
+
+    { id: 1, name: 'كلية الهندسة وتكنولوجيا المعلومات' },
+    { id: 2, name: 'كلية العلوم' },
+    { id: 3, name: 'كلية إدارة الأعمال والاقتصاد' }
+
+  ];
+
+
+  /* =========================================================
+     MOCK DATA — العمادات
+     college_id تربط العمادة بالكلية. لو الجامعة ما إلها كليات
+     هالحقل بيصير متجاهل بالكامل بالعرض والفلترة.
   ========================================================= */
 
   const DEANSHIPS = [
 
     {
-      name: 'كلية الهندسة وتكنولوجيا المعلومات',
+      id: 1,
+      name: 'عمادة كلية الهندسة وتكنولوجيا المعلومات',
+      college_id: 1,
       majors: 5,
       status: 'مكتمل'
     },
 
     {
-      name: 'كلية العلوم',
+      id: 2,
+      name: 'عمادة كلية العلوم',
+      college_id: 2,
       majors: 4,
       status: 'مكتمل'
     },
 
     {
-      name: 'كلية إدارة الأعمال والاقتصاد',
+      id: 3,
+      name: 'عمادة كلية إدارة الأعمال والاقتصاد',
+      college_id: 3,
       majors: 4,
       status: 'يحتاج مراجعة'
     }
@@ -1454,70 +1622,168 @@
 
 
   /* =========================================================
-     DEANSHIPS
+     العناصر — الهيكل الأكاديمي (كلية وتحتها عماداتها)
   ========================================================= */
 
-  const deanshipsBody =
-    document.getElementById(
-      'deanshipsBody'
-    );
+  const academicHierarchy = document.getElementById('academicHierarchy');
+  const hierarchyTitle = document.getElementById('hierarchyTitle');
+  const addCollegeBtn = document.getElementById('addCollegeBtn');
+  const collegeCountStat = document.getElementById('collegeCountStat');
+  const deanshipCountEl = document.getElementById('deanshipCount');
+  const majorCountAEl = document.getElementById('majorCountA');
+  const collegeCountEl = document.getElementById('collegeCount');
 
 
-  DEANSHIPS.forEach(function (item) {
+  /* =========================================================
+     صف عمادة واحدة (يُستخدم جوا كل كلية، أو لحاله لو ما في كليات)
+  ========================================================= */
+
+  function deanshipRowHtml(item) {
 
     const statusClass =
       item.status === 'مكتمل'
         ? 'success'
         : 'warning';
 
+    return `
 
-    deanshipsBody.innerHTML += `
+      <div class="deanship-row">
 
-      <tr>
+        <div class="deanship-row-info">
 
-        <td>
           <strong>${item.name}</strong>
-        </td>
 
-        <td>
-          ${item.majors}
-        </td>
-
-        <td>
-          <span class="academic-badge ${statusClass}">
-            ${item.status}
-          </span>
-        </td>
-
-        <td>
-
-          <div class="academic-actions">
-
-            <button
-              type="button"
-              class="academic-action"
-              onclick="window.location.href='browse-deanships.html'"
-            >
-              عرض
-            </button>
-
-            <button
-              type="button"
-              class="academic-action"
-              onclick="window.location.href='adddeanship.html'"
-            >
-              تعديل
-            </button>
-
+          <div class="deanship-row-meta">
+            <span>${item.majors} تخصص</span>
+            <span class="academic-badge ${statusClass}">${item.status}</span>
           </div>
 
-        </td>
+        </div>
 
-      </tr>
+        <div class="academic-actions">
+
+          <button
+            type="button"
+            class="academic-action"
+            onclick="window.location.href='browse-deanships.html'"
+          >
+            عرض
+          </button>
+
+          <button
+            type="button"
+            class="academic-action"
+            onclick="window.location.href='adddeanship.html'"
+          >
+            تعديل
+          </button>
+
+        </div>
+
+      </div>
 
     `;
 
-  });
+  }
+
+
+  /* =========================================================
+     بناء العرض الشجري — كلية وتحتها عماداتها مباشرة
+     (أو عمادات مباشرة لحالها لو الجامعة ما إلها كليات)
+  ========================================================= */
+
+  function renderHierarchy() {
+
+    if (UNIVERSITY_HAS_COLLEGES) {
+
+      hierarchyTitle.textContent = 'الكليات وعماداتها';
+      addCollegeBtn.hidden = false;
+      collegeCountStat.hidden = false;
+
+      academicHierarchy.innerHTML = COLLEGES.map(function (college) {
+
+        const relatedDeanships = DEANSHIPS.filter(function (d) {
+          return d.college_id === college.id;
+        });
+
+        const rowsHtml = relatedDeanships.length
+          ? relatedDeanships.map(deanshipRowHtml).join('')
+          : '<div class="deanship-row-empty">ما في عمادات مضافة تحت هذه الكلية بعد.</div>';
+
+        return `
+
+          <div class="college-group">
+
+            <div class="college-group-head">
+
+              <div class="college-group-title">
+                <strong>${college.name}</strong>
+                <span class="academic-badge blue">${relatedDeanships.length} عمادة</span>
+              </div>
+
+              <div class="academic-actions">
+
+                <button
+                  type="button"
+                  class="academic-action"
+                  onclick="editCollege(${college.id})"
+                >
+                  تعديل
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="college-group-body">
+              ${rowsHtml}
+            </div>
+
+          </div>
+
+        `;
+
+      }).join('');
+
+      collegeCountEl.textContent = COLLEGES.length;
+
+    } else {
+
+      hierarchyTitle.textContent = 'العمادات';
+      addCollegeBtn.hidden = true;
+      collegeCountStat.hidden = true;
+
+      academicHierarchy.innerHTML = `
+        <div class="college-group">
+          <div class="college-group-body" style="padding-top:14px;">
+            ${DEANSHIPS.map(deanshipRowHtml).join('')}
+          </div>
+        </div>
+      `;
+
+    }
+
+  }
+
+
+  /* =========================================================
+     تهيئة الإحصائيات + العرض الشجري
+  ========================================================= */
+
+  function initDeanshipsCollegesUI() {
+
+    deanshipCountEl.textContent = DEANSHIPS.length;
+
+    majorCountAEl.textContent = DEANSHIPS.reduce(function (sum, d) {
+      return sum + d.majors;
+    }, 0);
+
+    renderHierarchy();
+
+  }
+
+
+  initDeanshipsCollegesUI();
 
 
   /* =========================================================
@@ -1647,6 +1913,20 @@
 
     window.location.href =
       'add-program.html';
+
+  };
+
+
+  window.editCollege = function () {
+
+    /*
+      TODO: تمرير معرّف الكلية بالرابط لما تكون صفحة
+      addcollege.html جاهزة لوضع التعديل، مثلاً:
+      addcollege.html?edit=<collegeId>
+    */
+
+    window.location.href =
+      'addcollege.html';
 
   };
 

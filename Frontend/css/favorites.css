@@ -567,3 +567,82 @@ padding: 24px 28px 60px;
     transition: all 0.25s ease;
 }
 .fav-quick-more-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(47, 107, 255, 0.35); }
+/* ======================= FLOATING WIDGETS (WhatsApp & AI Guide) ======================= */
+.floating-widgets {
+  position: fixed;
+  bottom: 30px;
+  left: 30px; /* تم التغيير من right إلى left لتصبح في الجهة اليسار */
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  direction: ltr;
+}
+
+.float-btn {
+  width: 65px;  /* تم تكبير الحجم من 55px إلى 65px */
+  height: 65px; /* تم تكبير الحجم من 55px إلى 65px */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  animation: floatWidget 3s ease-in-out infinite;
+}
+
+.ai-guide-btn {
+  background: linear-gradient(135deg, #2F6BFF 0%, #35D0FF 100%);
+  color: #ffffff;
+  animation-delay: 0s;
+}
+
+.whatsapp-btn {
+  background-color: #25D366;
+  color: #ffffff;
+  animation-delay: 1.5s;
+}
+
+.float-btn svg {
+  width: 34px;  /* تم تكبير أيقونة الداخله ل تتناسب مع الحجم الجديد */
+  height: 34px;
+}
+
+.float-btn:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 12px 25px rgba(53, 208, 255, 0.4);
+  animation-play-state: paused;
+}
+
+@keyframes floatWidget {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float-btn .tooltip {
+  position: absolute;
+  left: 75px; /* تم تغييرها لتظهر إلى اليمين من الأيقونة بما أنها أصبحت على اليسار */
+  background-color: #173873;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Cairo', sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  pointer-events: none;
+}
+
+.float-btn:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}

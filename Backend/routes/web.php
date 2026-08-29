@@ -26,6 +26,7 @@ Route::get('/quiz', function () { return view('pages.quiz'); })->name('pages.qui
 Route::get('/results', function () { return view('pages.results'); })->name('pages.results');
 Route::get('/study-plan', function () { return view('pages.study-plan'); })->name('pages.study-plan');
 Route::get('/universities', [HomeController::class, 'universities'])->name('universities.index');
+Route::get('/universities/{university}', [HomeController::class, 'showUniversity'])->name('universities.show');
 Route::middleware('auth')->group(function () {
     Route::get('/student/questionnaire', function () { return view('pages.quiz'); });
     Route::get('/profile', function () { return view('pages.profile'); })->name('pages.profile');

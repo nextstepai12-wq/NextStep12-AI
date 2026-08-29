@@ -19,6 +19,8 @@ class University extends Model
         'vision_mission',
         'website_url',
         'contact_info',
+        'type', // النوع: 'university' أو 'college'
+
     ];
 
     // علاقة (واحد لمتعدد) مع العمادات والكليات التابعة للجامعة[cite: 2]
@@ -31,5 +33,33 @@ class University extends Model
     public function scholarships(): HasMany
     {
         return $this->hasMany(Scholarship::class);
+    }
+    /**
+     * الجامعة لديها عدة كليات
+     * $university->faculties → كل كليات الجامعة
+     * للكلية الجامعية هذي القائمة بتكون فاضية (طبيعي)
+     */
+    public function faculties(): HasMany
+    {
+        return $this->hasMany(Faculty::class);
+    }
+
+    /**
+     * الجامعة لديها عدة عمادات
+     * $university->deanships
+     */
+    public function deanships(): HasMany
+    {
+        return $this->hasMany(Deanship::class);
+    }
+
+    /**
+     * هل هذا الكيان "كلية مستقلة" مو جامعة؟
+     * تستخدمها بالواجهة:
+     * if ($university->isCollege()) → اعرض العمادات فقط، أخفِ قسم الكليات
+     */
+    public function isCollege(): bool
+    {
+        return $this->type === 'college';
     }
 }

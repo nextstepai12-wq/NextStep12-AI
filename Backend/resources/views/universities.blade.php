@@ -127,94 +127,74 @@
 
     @forelse($universities as $uni)
 
-        <div class="uni-card"
+        <article class="uni-card"
              data-id="{{ $uni->id }}"
              data-name="{{ $uni->name }}"
              data-city="{{ $uni->location ?? '' }}"
-             data-type="{{ $uni->type ?? '' }}">
+             data-type="{{ $uni->type ?? '' }}"
+             data-students="{{ $uni->students_count ?? '' }}"
+             data-majors="{{ $uni->majors_count ?? '' }}"
+             data-deanships="{{ $uni->deanships_count ?? '' }}"
+             data-desc="{{ $uni->description ?? '' }}">
 
-            {{-- ================= صورة غلاف الجامعة ================= --}}
-            <div class="uni-card-cover">
+            <div class="uni-image">
+                <img
+                    class="uni-card-cover"
+                    src="{{ !empty($uni->cover_image) ? $uni->cover_image : asset('Front_end/assets/universities/'.$uni->id.'/cover.jpg') }}"
+                    data-fallback="{{ asset('Front_end/assets/default-cover.jpg') }}"
+                    alt="{{ $uni->name }}"
+                    loading="lazy">
 
-                @if(!empty($uni->cover_image))
-                    <img
-                        src="{{ $uni->cover_image }}"
-                        alt="{{ $uni->name }}"
-                        loading="lazy"
-                    >
-                @else
-                    <div class="uni-card-cover-placeholder">
-                        <span>لا توجد صورة</span>
-                    </div>
-                @endif
-
-            </div>
-
-
-            {{-- ================= معلومات الجامعة ================= --}}
-            <div class="uni-card-body">
-
-                {{-- شعار الجامعة --}}
-                <div class="uni-card-logo">
-
-                    @if(!empty($uni->logo))
-
-                        <img
-                            src="{{ $uni->logo }}"
-                            alt="شعار {{ $uni->name }}"
-                            loading="lazy"
-                        >
-
-                    @else
-
-                        <span>
-                            {{ mb_substr($uni->name, 0, 2) }}
-                        </span>
-
-                    @endif
-
-                </div>
-
-
-                {{-- اسم الجامعة --}}
-                <h3>
-                    {{ $uni->name }}
-                </h3>
-
-
-                {{-- الموقع --}}
-                <span class="uni-card-loc">
-                    {{ $uni->location ?? 'فلسطين' }}
-                </span>
-
-
-                {{-- زر عرض الجامعة --}}
                 <button
+                    class="uni-heart"
                     type="button"
-                    class="uni-view-btn"
-                    data-id="{{ $uni->id }}"
-                >
-                    عرض الجامعة
+                    aria-label="إضافة للمفضلة">
+                    ♡
                 </button>
 
+                <button
+                    class="uni-quickview-btn"
+                    type="button"
+                    aria-label="نظرة سريعة على {{ $uni->name }}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    نظرة سريعة
+                </button>
             </div>
 
-        </div>
+            <div class="uni-logo">
+                <img
+                    class="uni-logo-img"
+                    src="{{ !empty($uni->logo) ? $uni->logo : asset('Front_end/assets/universities/'.$uni->id.'/logo.png') }}"
+                    alt=""
+                    style="display:none;">
+                <span class="uni-logo-fallback">
+                    {{ mb_substr($uni->name, 0, 2) }}
+                </span>
+            </div>
+
+            <div class="uni-card-body">
+                <h3>{{ $uni->name }}</h3>
+                <span class="uni-location">
+                    {{ $uni->location ?? 'فلسطين' }}
+                </span>
+                <button
+                    class="uni-card-btn"
+                    type="button">
+                    عرض الجامعة ←
+                </button>
+            </div>
+
+        </article>
 
     @empty
 
         <div class="empty-state">
-
             <div>⌕</div>
-
-            <h3>
-                لا توجد جامعات مضافة حالياً
-            </h3>
-
-            <p>
-                سيتم عرض الجامعات هنا عند إضافتها.
-            </p>
-
+            <h3>لا توجد جامعات مضافة حالياً</h3>
+            <p>سيتم عرض الجامعات هنا عند إضافتها.</p>
         </div>
 
     @endforelse

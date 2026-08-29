@@ -58,6 +58,13 @@
       font-size: 0.9rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;
     }
     .step-btn-back:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* ====== تلميح وضع "بدون كليات" ====== */
+    .structure-hint {
+      display:flex; align-items:flex-start; gap:8px; font-size:0.8rem; color:#5B6B79;
+      margin-bottom:16px; background:#F7F9FB; border:1px solid #EDEFF2; border-radius:10px; padding:10px 12px;
+    }
+    .structure-hint::before { content:'💡'; flex:0 0 auto; font-size:0.85rem; line-height:1.3; }
   </style>
 </head>
 <body>
@@ -96,7 +103,7 @@
     <!-- ====== STEPPER ====== -->
     <div class="admin-steps" id="stepsRow">
       <button type="button" class="admin-step-card active" data-step="1">
-        <span class="step-label">تحديد العمادة<br><small>الخطوة الأولى</small></span>
+        <span class="step-label" id="step1Label">تحديد العمادة<br><small>الخطوة الأولى</small></span>
         <span class="step-num">1</span>
       </button>
       <button type="button" class="admin-step-card" data-step="2">
@@ -114,8 +121,11 @@
 
       <!-- ====== STEP 1: تحديد العمادة (كلية + عمادة) ====== -->
       <div class="admin-step-panel" data-step-panel="1">
+
+        <p class="structure-hint" id="structureHint" hidden></p>
+
         <div class="panel-selects">
-          <div class="panel-select-group">
+          <div class="panel-select-group" id="collegeFieldGroup">
             <label for="college">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 21h18M4 21V10l8-6 8 6v11M9 21v-6h6v6"/>
@@ -124,9 +134,6 @@
             </label>
             <select id="college" name="college">
               <option value="">-- اختر الكلية --</option>
-              <option value="1">كلية العلوم الهندسية والتطبيقية</option>
-              <option value="2">كلية العلوم الطبية</option>
-              <option value="3">كلية العلوم الإنسانية والاجتماعية</option>
             </select>
           </div>
           <div class="panel-select-group">
@@ -280,6 +287,20 @@
     'use strict';
 
     // ========================================================================
+    // 0. هيكل الجامعة — هل عندها مستوى "كليات" فوق العمادات؟
+    //    نفس المتغيّر المستخدم بصفحة إضافة تخصص جديد (add-program.html)
+    //    عشان الاتساق بين الصفحتين. لو الجامعة ما إلها كليات، بنخبي
+    //    حقل الكلية بالكامل ونحمّل العمادات مباشرة.
+    // ========================================================================
+    const UNIVERSITY_HAS_COLLEGES =
+      typeof window.NEXTSTEP_UNIVERSITY_HAS_COLLEGES === 'boolean'
+        ? window.NEXTSTEP_UNIVERSITY_HAS_COLLEGES
+
+        ///  اذا الجامعة لاتحتاج الى العمادات 
+     //   : localStorage.getItem('nextstep_university_has_colleges') === 'true';
+
+       : localStorage.getItem('nextstep_university_has_colleges') === 'false';
+    // ========================================================================
     // 1. STEPPER - خطوة نشطة/مكتملة/مقفلة + إظهار محتوى كل خطوة لحالها
     // ========================================================================
     const stepCards = document.querySelectorAll('.admin-step-card');
@@ -397,10 +418,18 @@
 
     // ========================================================================
     // 3. CASCADING SELECTS - الكلية → العمادة → التخصص
+    //    (أو العمادة → التخصص مباشرة لو الجامعة ما إلها كليات)
     // ========================================================================
     const USE_MOCK_DATA = true;
 
-    // كل كلية بتضم عمادة أو أكثر
+    // قائمة الكليات نفسها (يُستخدم فقط لما UNIVERSITY_HAS_COLLEGES = true)
+    const MOCK_COLLEGES = [
+      { id: 1, name: 'كلية العلوم الهندسية والتطبيقية' },
+      { id: 2, name: 'كلية العلوم الطبية' },
+      { id: 3, name: 'كلية العلوم الإنسانية والاجتماعية' },
+    ];
+
+    // كل كلية بتضم عمادة أو أكثر (يُستخدم فقط لما UNIVERSITY_HAS_COLLEGES = true)
     const MOCK_DEANSHIPS_BY_COLLEGE = {
       1: [ // كلية العلوم الهندسية والتطبيقية
         { id: 1, name: 'عمادة كلية الهندسة وتكنولوجيا المعلومات' },
@@ -414,6 +443,12 @@
         { id: 5, name: 'عمادة كلية الآداب' },
       ],
     };
+
+    // عمادات مباشرة بدون كلية (يُستخدم فقط لما UNIVERSITY_HAS_COLLEGES = false)
+    const MOCK_DEANSHIPS_NO_COLLEGE = [
+      { id: 6, name: 'عمادة العلوم والتكنولوجيا' },
+      { id: 7, name: 'عمادة الإدارة والاقتصاد' },
+    ];
 
     const MOCK_MAJORS_BY_DEANSHIP = {
       1: [
@@ -447,6 +482,14 @@
         { id: 503, name: 'تأهيل ذوي الإعاقة' },
         { id: 504, name: 'علم النفس' },
       ],
+      6: [
+        { id: 601, name: 'تقنية المعلومات' },
+        { id: 602, name: 'علوم البيانات' },
+      ],
+      7: [
+        { id: 701, name: 'إدارة الأعمال' },
+        { id: 702, name: 'المحاسبة' },
+      ],
     };
 
     // إيجاد الكلية اللي تتبعها عمادة معينة (بنستخدمها لدعم روابط قديمة فيها deanship بس بدون college)
@@ -461,11 +504,62 @@
     const collegeSelect = document.getElementById('college');
     const deanshipSelect = document.getElementById('deanship');
     const majorSelect = document.getElementById('major');
+    const collegeFieldGroup = document.getElementById('collegeFieldGroup');
+    const structureHint = document.getElementById('structureHint');
+    const step1Label = document.getElementById('step1Label');
 
     const step1NextBtn = document.getElementById('step1NextBtn');
     const step2BackBtn = document.getElementById('step2BackBtn');
     const step2NextBtn = document.getElementById('step2NextBtn');
     const step3BackBtn = document.getElementById('step3BackBtn');
+
+    // ------------------------------------------------------------------
+    // 3.1 إعداد واجهة الخطوة الأولى حسب هيكل الجامعة (مرة وحدة عند التحميل)
+    // ------------------------------------------------------------------
+    async function populateDeanshipsDirectly() {
+      deanshipSelect.disabled = true;
+      deanshipSelect.innerHTML = '<option value="">جاري تحميل العمادات...</option>';
+
+      if (USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        deanshipSelect.innerHTML = '<option value="">-- اختر العمادة --</option>';
+        MOCK_DEANSHIPS_NO_COLLEGE.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d.id;
+          opt.textContent = d.name;
+          deanshipSelect.appendChild(opt);
+        });
+        deanshipSelect.disabled = false;
+        return;
+      }
+
+      // TODO: ربط الباك اند الحقيقي هنا — GET /deanships (بدون فلتر كلية)
+      // const response = await fetch(`${API_BASE_URL}/deanships`);
+      // const data = await response.json();
+      // ...
+    }
+
+    function initUniversityStructure() {
+      if (!UNIVERSITY_HAS_COLLEGES) {
+        // ما في مستوى كليات — نخبي الحقل ونحمّل العمادات مباشرة
+        collegeFieldGroup.hidden = true;
+        structureHint.hidden = false;
+        structureHint.textContent = 'هذه الجامعة لا تستخدم مستوى الكليات، لذلك اختاري العمادة مباشرة.';
+        populateDeanshipsDirectly();
+      } else {
+        collegeFieldGroup.hidden = false;
+        structureHint.hidden = true;
+        collegeSelect.innerHTML = '<option value="">-- اختر الكلية --</option>';
+        MOCK_COLLEGES.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.id;
+          opt.textContent = c.name;
+          collegeSelect.appendChild(opt);
+        });
+        deanshipSelect.disabled = true;
+        deanshipSelect.innerHTML = '<option value="">-- اختاري الكلية أولاً --</option>';
+      }
+    }
 
     collegeSelect.addEventListener('change', async function() {
       const collegeId = this.value;
@@ -521,7 +615,7 @@
         return;
       }
 
-      // اختيار عمادة صحيحة يفتح الخطوة الثانية
+      // اختيار عمادة صحيحة يفتح الخطوة الثانية (سواء عبر كلية أو مباشرة)
       step1NextBtn.disabled = false;
       maxUnlockedStep = Math.max(maxUnlockedStep, 2);
       updateStepperUI();
@@ -568,6 +662,9 @@
     step2NextBtn.addEventListener('click', () => goToStep(3));
     step3BackBtn.addEventListener('click', () => goToStep(2));
 
+    // نطبّق هيكل الجامعة فور تحميل الصفحة
+    initUniversityStructure();
+
     // ========================================================================
     // 4. DROPZONE - رفع الملفات
     // ========================================================================
@@ -598,15 +695,13 @@
       }
 
       const extension = file.name.split('.').pop().toLowerCase();
-      const allowedExt = planMode === 'manual' ? ['pdf'] : ['pdf', 'xlsx', 'xls', 'csv'];
+      const allowedExt = ['pdf', 'xlsx', 'xls', 'csv'];
 
       if (!allowedExt.includes(extension)) {
         openModal({
           type: 'error',
           title: 'نوع الملف غير مدعوم',
-          message: planMode === 'manual'
-            ? 'بالرفع اليدوي لازم يكون الملف بصيغة PDF فقط.'
-            : 'الخطة الدراسية يجب أن تكون PDF أو Excel أو CSV.'
+          message: 'الخطة الدراسية يجب أن تكون PDF أو Excel أو CSV.'
         });
         fileInput.value = '';
         return;
@@ -743,7 +838,7 @@
         ? majorSelect.options[majorSelect.selectedIndex].textContent
         : '';
 
-      if (!collegeVal) {
+      if (UNIVERSITY_HAS_COLLEGES && !collegeVal) {
         openModal({
           type: 'error',
           title: 'اختاري الكلية',
@@ -776,7 +871,7 @@
         console.log('📦 تحليل الخطة بالذكاء الاصطناعي (محاكاة):', {
           fileName: fileInput.files[0].name,
           fileSize: fileInput.files[0].size,
-          college_id: collegeVal,
+          college_id: UNIVERSITY_HAS_COLLEGES ? collegeVal : null,
           deanship_id: deanshipVal,
           major_id: majorVal,
         });
@@ -798,7 +893,7 @@
       // TODO: ربط الباك اند الحقيقي هنا
       // const formData = new FormData();
       // formData.append('file', fileInput.files[0]);
-      // formData.append('college_id', collegeVal);
+      // if (UNIVERSITY_HAS_COLLEGES) formData.append('college_id', collegeVal);
       // formData.append('deanship_id', deanshipVal);
       // formData.append('major_id', majorVal);
       // const response = await fetch(`${API_BASE_URL}/upload-plan`, { method: 'POST', body: formData });
@@ -815,7 +910,7 @@
 
       if (USE_MOCK_DATA) {
         console.log('📦 حفظ المحتوى المعدَّل يدوياً بعد AI (محاكاة):', {
-          college_id: collegeSelect.value,
+          college_id: UNIVERSITY_HAS_COLLEGES ? collegeSelect.value : null,
           deanship_id: deanshipSelect.value,
           major_id: majorSelect.value,
           semesters: editedSemesters
@@ -843,7 +938,10 @@
           confirmText: 'عرض الخطة الدراسية',
           cancelText: 'البقاء بهاي الصفحة',
           onConfirm: function () {
-            window.location.href = `browse-deanships.html?college=${targetCollege}&deanship=${targetDeanship}&major=${targetMajor}`;
+            const query = UNIVERSITY_HAS_COLLEGES
+              ? `college=${targetCollege}&deanship=${targetDeanship}&major=${targetMajor}`
+              : `deanship=${targetDeanship}&major=${targetMajor}`;
+            window.location.href = `browse-deanships.html?${query}`;
           }
         });
 
@@ -856,7 +954,7 @@
       //   headers: { 'Content-Type': 'application/json' },
       //   body: JSON.stringify({ semesters: editedSemesters })
       // });
-      // بعد نجاح الطلب، بنفس الأسلوب فوق نوديها على browse-deanships.html?college=...&deanship=...&major=...
+      // بعد نجاح الطلب، بنفس الأسلوب فوق نوديها على browse-deanships.html?...
     });
 
     // ========================================================================
@@ -890,13 +988,57 @@
     // 7. وضع التحديث من الرابط: ?college=X&deanship=Y&major=Z
     //    (جاي غالباً من صفحة الاستعراض browse-deanships.html)
     //    مدعوم كمان الرابط القديم بدون college (بنكتشف الكلية تلقائياً من العمادة)
+    //    ولو الجامعة أصلاً ما إلها كليات، بنتجاهل باراميتر college كلياً.
     // ========================================================================
     (function initFromUrl() {
       const params = new URLSearchParams(window.location.search);
-      let collegeParam = params.get('college');
       const deanshipParam = params.get('deanship');
       const majorParam = params.get('major');
+      let collegeParam = params.get('college');
 
+      function showBanner() {
+        const banner = document.createElement('div');
+        banner.style.cssText =
+          'display:flex;align-items:center;gap:10px;background:rgba(47,107,255,0.08);' +
+          'border:1px solid rgba(47,107,255,0.18);color:var(--blue);border-radius:var(--radius-sm);' +
+          'padding:12px 18px;margin-bottom:16px;font-size:0.9rem;font-weight:600;';
+        banner.innerHTML = UNIVERSITY_HAS_COLLEGES
+          ? '📋 جاي من صفحة الاستعراض — الكلية والعمادة والتخصص محددين مسبقاً، بس ارفعي ملف الخطة.'
+          : '📋 جاي من صفحة الاستعراض — العمادة والتخصص محددين مسبقاً، بس ارفعي ملف الخطة.';
+        document.querySelector('.admin-page-head').insertAdjacentElement('beforebegin', banner);
+      }
+
+      // ---- جامعة بدون كليات: عمادة مباشرة ----
+      if (!UNIVERSITY_HAS_COLLEGES) {
+        if (!deanshipParam) return;
+
+        const trySelectDeanship = setInterval(() => {
+          if (!deanshipSelect.disabled) {
+            deanshipSelect.value = deanshipParam;
+            deanshipSelect.dispatchEvent(new Event('change'));
+            clearInterval(trySelectDeanship);
+
+            if (!majorParam) {
+              goToStep(2);
+              showBanner();
+              return;
+            }
+
+            const trySelectMajor = setInterval(() => {
+              if (!majorSelect.disabled) {
+                majorSelect.value = majorParam;
+                majorSelect.dispatchEvent(new Event('change'));
+                clearInterval(trySelectMajor);
+                goToStep(3);
+                showBanner();
+              }
+            }, 100);
+          }
+        }, 100);
+        return;
+      }
+
+      // ---- جامعة فيها كليات ----
       // دعم روابط قديمة: إذا في عمادة بدون كلية، نلاقي الكلية التابعة إلها تلقائياً
       if (!collegeParam && deanshipParam) {
         collegeParam = findCollegeForDeanship(deanshipParam);
@@ -906,16 +1048,6 @@
 
       collegeSelect.value = collegeParam;
       collegeSelect.dispatchEvent(new Event('change'));
-
-      function showBanner() {
-        const banner = document.createElement('div');
-        banner.style.cssText =
-          'display:flex;align-items:center;gap:10px;background:rgba(47,107,255,0.08);' +
-          'border:1px solid rgba(47,107,255,0.18);color:var(--blue);border-radius:var(--radius-sm);' +
-          'padding:12px 18px;margin-bottom:16px;font-size:0.9rem;font-weight:600;';
-        banner.innerHTML = '📋 جاي من صفحة الاستعراض — الكلية والعمادة والتخصص محددين مسبقاً، بس ارفعي ملف الخطة.';
-        document.querySelector('.admin-page-head').insertAdjacentElement('beforebegin', banner);
-      }
 
       if (!deanshipParam) {
         goToStep(1);

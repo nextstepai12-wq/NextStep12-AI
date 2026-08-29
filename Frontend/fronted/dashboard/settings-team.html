@@ -1135,7 +1135,6 @@
 
   <main class="admin-main admin-main-content">
 
-```
 <!-- PAGE HEADER -->
 
 <div class="admin-page-head">
@@ -1987,7 +1986,6 @@
   </div>
 
 </div>
-```
 
   </main>
 
@@ -2009,7 +2007,6 @@
 
   <div class="modal-box">
 
-```
 <div class="modal-head">
 
   <h3>
@@ -2092,7 +2089,6 @@
 
 
 </div>
-```
 
   </div>
 
@@ -2108,7 +2104,6 @@
 
   <div class="modal-box">
 
-```
 <div class="modal-head">
 
   <h3>
@@ -2171,7 +2166,105 @@
 
 
 </div>
-```
+
+  </div>
+
+</div>
+
+<!-- =========================================================
+     AUTH CONFIRM MODAL (يظهر قبل تنفيذ أي تعديل)
+========================================================= -->
+
+<div
+  class="modal-overlay"
+  id="authConfirmModal">
+
+  <div class="modal-box">
+
+<div class="modal-head">
+
+  <h3>
+    تأكيد الهوية
+  </h3>
+
+
+  <button
+    type="button"
+    class="modal-close"
+    onclick="closeModal('authConfirmModal')">
+
+    ×
+
+  </button>
+
+</div>
+
+
+<p style="color:var(--gray);font-size:.85rem;line-height:1.8;margin-bottom:1.2rem;">
+  لأسباب أمنية، الرجاء إدخال اسم المستخدم وكلمة المرور لتأكيد هذا التعديل.
+</p>
+
+
+<div class="field-group">
+
+  <label for="authUsername">
+    اسم المستخدم
+  </label>
+
+  <input
+    type="text"
+    id="authUsername"
+    autocomplete="username"
+    placeholder="اسم المستخدم">
+
+</div>
+
+
+<div class="field-group">
+
+  <label for="authPassword">
+    كلمة المرور
+  </label>
+
+  <input
+    type="password"
+    id="authPassword"
+    autocomplete="current-password"
+    placeholder="••••••••">
+
+</div>
+
+
+<p
+  id="authError"
+  style="display:none;color:var(--red);font-size:.78rem;margin-top:-.6rem;margin-bottom:1rem;">
+</p>
+
+
+<div class="modal-footer">
+
+
+  <button
+    type="button"
+    class="btn-save-primary"
+    id="authConfirmBtn">
+
+    تأكيد وتنفيذ
+
+  </button>
+
+
+  <button
+    type="button"
+    class="btn-cancel-outline"
+    onclick="closeModal('authConfirmModal')">
+
+    إلغاء
+
+  </button>
+
+
+</div>
 
   </div>
 
@@ -2193,9 +2286,7 @@
     class="toast-text"
     id="toastText">
 
-```
 تمت العملية بنجاح
-```
 
   </div>
 
@@ -2642,35 +2733,46 @@
     'click',
     function () {
 
-
-      const member =
-        members.find(function(m) {
-
-          return m.id ===
-            editingMemberId;
-
-        });
-
-
-      if (!member) return;
-
-
-      member.role =
+      // نلتقط القيم المختارة قبل ما نسكّر مودال التعديل
+      const chosenRole =
         document.getElementById(
           'editRole'
         ).value;
 
+      const memberId =
+        editingMemberId;
+
 
       closeModal('editModal');
 
-      renderMembers();
+
+      // نطلب تأكيد الهوية (اسم مستخدم + كلمة مرور) قبل تنفيذ أي تعديل
+      openAuthModal(function () {
+
+        const member =
+          members.find(function(m) {
+
+            return m.id === memberId;
+
+          });
 
 
-      showToast(
-        'تم تعديل دور ' +
-        member.name +
-        ' بنجاح'
-      );
+        if (!member) return;
+
+
+        member.role = chosenRole;
+
+
+        renderMembers();
+
+
+        showToast(
+          'تم تعديل دور ' +
+          member.name +
+          ' بنجاح'
+        );
+
+      });
 
     }
   );
@@ -2715,38 +2817,45 @@
     'click',
     function () {
 
-
-      const member =
-        members.find(function(m) {
-
-          return m.id ===
-            deletingMemberId;
-
-        });
-
-
-      if (!member) return;
-
-
-      members =
-        members.filter(function(m) {
-
-          return m.id !==
-            deletingMemberId;
-
-        });
+      const memberId =
+        deletingMemberId;
 
 
       closeModal('deleteModal');
 
-      renderMembers();
+
+      // نطلب تأكيد الهوية قبل تنفيذ إزالة العضو (تعديل حساس)
+      openAuthModal(function () {
+
+        const member =
+          members.find(function(m) {
+
+            return m.id === memberId;
+
+          });
 
 
-      showToast(
-        'تمت إزالة ' +
-        member.name +
-        ' من الفريق'
-      );
+        if (!member) return;
+
+
+        members =
+          members.filter(function(m) {
+
+            return m.id !== memberId;
+
+          });
+
+
+        renderMembers();
+
+
+        showToast(
+          'تمت إزالة ' +
+          member.name +
+          ' من الفريق'
+        );
+
+      });
 
     }
   );
@@ -2803,38 +2912,46 @@
       }
 
 
-      const newMember = {
-
-        id: Date.now(),
-
-        name:
-          email.split('@')[0],
-
-        email: email,
-
-        role: role,
-
-        status: 'pending'
-
-      };
+      const formEl = this;
 
 
-      members.push(newMember);
+      // إضافة عضو هي تعديل أيضًا، فنطلب تأكيد الهوية قبل تنفيذها
+      openAuthModal(function () {
+
+        const newMember = {
+
+          id: Date.now(),
+
+          name:
+            email.split('@')[0],
+
+          email: email,
+
+          role: role,
+
+          status: 'pending'
+
+        };
 
 
-      this.reset();
+        members.push(newMember);
 
 
-      renderMembers();
+        formEl.reset();
 
 
-      showPanel('panelMembers');
+        renderMembers();
 
 
-      showToast(
-        'تم إرسال الدعوة إلى ' +
-        email
-      );
+        showPanel('panelMembers');
+
+
+        showToast(
+          'تم إرسال الدعوة إلى ' +
+          email
+        );
+
+      });
 
     }
   );
@@ -2937,6 +3054,130 @@
       );
 
   }
+
+
+  /* =========================================================
+     AUTH CONFIRM MODAL (اسم مستخدم + كلمة مرور قبل أي تعديل)
+  ========================================================= */
+
+  // الإجراء اللي رح يتنفذ بعد ما يتم التأكد من الهوية بنجاح
+  let pendingAuthAction = null;
+
+
+  function openAuthModal(actionCallback) {
+
+    pendingAuthAction = actionCallback;
+
+
+    document.getElementById(
+      'authUsername'
+    ).value = '';
+
+    document.getElementById(
+      'authPassword'
+    ).value = '';
+
+    document.getElementById(
+      'authError'
+    ).style.display = 'none';
+
+
+    document.getElementById(
+      'authConfirmModal'
+    ).classList.add('show');
+
+
+    document.getElementById(
+      'authUsername'
+    ).focus();
+
+  }
+
+
+  // ⚠️ هاي دالة تحقق مؤقتة (Placeholder) فقط للعرض التوضيحي.
+  // لازم تستبدلها بطلب حقيقي للباك اند/الـ API يتحقق من اسم
+  // المستخدم وكلمة المرور الفعليين قبل تنفيذ أي تعديل حقيقي.
+  function verifyCredentials(username, password) {
+
+    return (
+      username.length > 0 &&
+      password.length > 0
+    );
+
+  }
+
+
+  document.getElementById(
+    'authConfirmBtn'
+  ).addEventListener(
+    'click',
+    function () {
+
+
+      const username =
+        document.getElementById(
+          'authUsername'
+        ).value.trim();
+
+
+      const password =
+        document.getElementById(
+          'authPassword'
+        ).value.trim();
+
+
+      const errorEl =
+        document.getElementById(
+          'authError'
+        );
+
+
+      if (!username || !password) {
+
+        errorEl.textContent =
+          'الرجاء إدخال اسم المستخدم وكلمة المرور';
+
+        errorEl.style.display =
+          'block';
+
+        return;
+
+      }
+
+
+      const isValid =
+        verifyCredentials(
+          username,
+          password
+        );
+
+
+      if (!isValid) {
+
+        errorEl.textContent =
+          'اسم المستخدم أو كلمة المرور غير صحيحة';
+
+        errorEl.style.display =
+          'block';
+
+        return;
+
+      }
+
+
+      closeModal('authConfirmModal');
+
+
+      if (typeof pendingAuthAction === 'function') {
+
+        pendingAuthAction();
+
+        pendingAuthAction = null;
+
+      }
+
+    }
+  );
 
 
   /* =========================================================
@@ -3223,13 +3464,20 @@
       };
 
 
-      showToast(
-        'تم حفظ صلاحيات ' +
-        roleName[
-          selectedPermissionRole
-        ] +
-        ' بنجاح'
-      );
+      const roleForToast =
+        selectedPermissionRole;
+
+
+      // نطلب تأكيد الهوية قبل حفظ أي تغيير على صلاحيات الدور
+      openAuthModal(function () {
+
+        showToast(
+          'تم حفظ صلاحيات ' +
+          roleName[roleForToast] +
+          ' بنجاح'
+        );
+
+      });
 
     }
   );

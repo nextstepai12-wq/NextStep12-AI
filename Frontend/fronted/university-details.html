@@ -193,6 +193,79 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 24px rgba(47, 107, 255, .25);
 }
+
+/* =========================================================
+   تبويب "الكليات" + فلتر العمادات حسب الكلية (College → Deanship)
+   نفس ملاحظة الستايل أعلاه: هاي أنماط مؤقتة هون بانتظار نقلها
+   لملف university-details.css مع باقي الأنماط.
+   ========================================================= */
+
+.college-type-badge {
+    background: rgba(47, 107, 255, .1);
+    color: var(--blue, #2f6bff);
+}
+
+.deanships-intro {
+    margin: 0 0 16px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.deanships-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: #f8fafc;
+    border: 1px solid #eef1f6;
+}
+
+.deanships-filter-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: #64748b;
+    flex-shrink: 0;
+}
+
+.deanships-filter-chips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.deanship-filter-chip {
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1.5px solid #e2e6eb;
+    background: #ffffff;
+    color: #475569;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all .15s ease;
+    white-space: nowrap;
+}
+
+.deanship-filter-chip:hover {
+    border-color: var(--blue, #2f6bff);
+    color: var(--blue, #2f6bff);
+}
+
+.deanship-filter-chip.active {
+    background: var(--blue, #2f6bff);
+    border-color: var(--blue, #2f6bff);
+    color: #ffffff;
+}
+
+.deanship-filter-chip[data-college="none"] {
+    border-style: dashed;
+}
 </style>
 
 </head>
@@ -279,6 +352,10 @@
     <button class="uni-tab active" data-tab="about" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
         الجامعة
+    </button>
+    <button class="uni-tab" data-tab="colleges" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      الكليات
     </button>
     <button class="uni-tab" data-tab="deanships" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"/></svg>
@@ -376,8 +453,20 @@
     </div>
   </div>
 
+  <!-- ---- الكليات ---- -->
+  <div class="uni-panel" data-panel="colleges" style="display:none;">
+    <div class="deanships-grid" id="collegesGrid">
+      <div class="no-results">جارٍ التحميل...</div>
+    </div>
+  </div>
+
   <!-- ---- العمادات والكليات ---- -->
   <div class="uni-panel" data-panel="deanships" style="display:none;">
+    <p class="deanships-intro">هون كل عمادات الجامعة. فلّتري حسب الكلية للوصول أسرع، أو اختاري "الكل" لعرضهم جميعاً.</p>
+    <div class="deanships-filter-bar" id="deanshipsFilterBar" style="display:none;">
+      <span class="deanships-filter-label">تصفية حسب الكلية:</span>
+      <div class="deanships-filter-chips" id="deanshipsFilterChips"></div>
+    </div>
     <div class="deanships-grid" id="deanshipsGrid">
       <div class="no-results">جارٍ التحميل...</div>
     </div>
@@ -550,10 +639,39 @@ const MOCK_UNIVERSITY_DETAILS = {
     description: 'جامعة النجاح الوطنية من أعرق وأكبر الجامعات الفلسطينية، تأسست سنة 1918 وتضم عشرات الكليات والبرامج الأكاديمية على مستوى البكالوريوس والدراسات العليا.',
     vision_mission: 'الريادة والتميز بالتعليم والبحث العلمي خدمةً للمجتمع الفلسطيني.',
     website_url: 'https://www.najah.edu',
+
+    // ===== مستوى الكليات (جديد) =====
+    // كل كلية بتضم عمادة أو أكتر من العمادات أدناه (عن طريق college_id).
+    colleges: [
+      {
+        id: 1,
+        name: 'كلية العلوم الهندسية والتقنية',
+        description: 'تضم عمادات الحاسوب وتكنولوجيا المعلومات والهندسة.',
+        cover_image: 'https://picsum.photos/id/60/600/400',
+      },
+      {
+        id: 2,
+        name: 'كلية العلوم الصحية',
+        description: 'تضم عمادات الطب والتمريض والصيدلة.',
+        cover_image: 'https://picsum.photos/id/1050/600/400',
+      },
+      {
+        id: 3,
+        name: 'كلية الأعمال والاقتصاد',
+        description: 'تضم عمادات إدارة الأعمال والمحاسبة والاقتصاد.',
+        cover_image: 'https://picsum.photos/id/1070/600/400',
+      },
+    ],
+
+    // ===== مستوى العمادات (كما هو، فقط أضفنا college_id) =====
+    // ملاحظة: مو كل عمادة لازم تتبع كلية. لو college_id قيمتها null
+    // (متل عمادة الدراسات العليا تحت) فهي "عمادة عامة" مستقلة، وبتظل
+    // ظاهرة بشكل طبيعي بقائمة العمادات، بس ما بتظهر تحت أي كلية بالذات.
     deanships_faculties: [
       { 
         id: 1, 
         type: 'faculty', 
+        college_id: 1,
         name: 'كلية الهندسة وتكنولوجيا المعلومات', 
         description: 'برامج بالحاسوب والهندسة والاتصالات.', 
         dean_name: 'د. أحمد سلامة', 
@@ -563,6 +681,7 @@ const MOCK_UNIVERSITY_DETAILS = {
       { 
         id: 2, 
         type: 'faculty', 
+        college_id: 2,
         name: 'كلية الطب والعلوم الصحية', 
         description: 'برامج الطب والتمريض والصيدلة.', 
         dean_name: 'د. ليلى حمدان', 
@@ -572,11 +691,22 @@ const MOCK_UNIVERSITY_DETAILS = {
       { 
         id: 3, 
         type: 'faculty', 
+        college_id: 3,
         name: 'كلية الاقتصاد والعلوم الإدارية', 
         description: 'برامج إدارة الأعمال والمحاسبة والاقتصاد.', 
         dean_name: 'د. سامر عودة', 
         email: 'business@najah.edu', 
         cover_image: 'https://picsum.photos/id/1070/600/400' 
+      },
+      {
+        id: 4,
+        type: 'deanship',
+        college_id: null,
+        name: 'عمادة الدراسات العليا',
+        description: 'تشرف على برامج الماجستير والدكتوراة بمختلف التخصصات، وما بتتبع كلية محددة.',
+        dean_name: 'د. منى عودة',
+        email: 'graduate@najah.edu',
+        cover_image: 'https://picsum.photos/id/180/600/400'
       },
     ],
   },
@@ -593,6 +723,7 @@ function getFallbackMockUniversity(id) {
     description: 'بيانات تجريبية لعرض واجهة الصفحة.',
     vision_mission: 'رؤية تجريبية.',
     website_url: 'https://example.com',
+    colleges: [],
     deanships_faculties: [],
   };
 }
@@ -652,6 +783,102 @@ function renderDeanshipCard(d) {
       </div>
     </div>`;
 }
+
+/* ======================= مستوى الكليات (College → Deanship) ======================= */
+// بيانات الجامعة الحالية بالذاكرة، تنعبى بـ renderUniversityDetails
+// ومنستخدمها هون عشان نربط الكليات بعدد العمادات التابعة إلها ونفلتر بينهم.
+let currentUniColleges = [];
+let currentUniDeanships = [];
+
+function renderCollegeCard(c) {
+  const relatedCount = currentUniDeanships.filter(d => d.college_id === c.id).length;
+  return `
+    <div class="deanship-card college-card" data-college-id="${c.id}">
+      <div class="deanship-cover">
+        <img src="${c.cover_image || ''}" alt="" ${c.cover_image ? '' : 'style="display:none;"'}>
+      </div>
+      <div class="deanship-body">
+        <span class="deanship-type-badge college-type-badge">كلية</span>
+        <h4>${c.name}</h4>
+        <p class="deanship-desc">${c.description || 'ما في وصف متوفر.'}</p>
+        <div class="deanship-meta">
+          <span>${relatedCount} ${relatedCount === 1 ? 'عمادة تابعة' : 'عمادات تابعة'}</span>
+        </div>
+        <button class="btn-view-majors btn-view-deanships" type="button">عرض العمادات التابعة</button>
+      </div>
+    </div>`;
+}
+
+// بتبني شرائح الفلترة فوق شبكة العمادات: "الكل" + كل كلية + "عمادات عامة"
+// لو في عمادة واحدة ع الأقل مش تابعة لأي كلية (college_id null)، متل ما
+// بيصير بصفحة إضافة برنامج لما الجامعة ما إلها كليات أصلاً.
+function renderDeanshipsFilterChips() {
+  const bar = document.getElementById('deanshipsFilterBar');
+  const chipsWrap = document.getElementById('deanshipsFilterChips');
+
+  if (!currentUniColleges.length) {
+    bar.style.display = 'none';
+    return;
+  }
+
+  const hasGeneralDeanships = currentUniDeanships.some(d => !d.college_id);
+
+  let chipsHTML = `<button type="button" class="deanship-filter-chip active" data-college="all">الكل</button>`;
+  chipsHTML += currentUniColleges.map(c =>
+    `<button type="button" class="deanship-filter-chip" data-college="${c.id}">${c.name}</button>`
+  ).join('');
+  if (hasGeneralDeanships) {
+    chipsHTML += `<button type="button" class="deanship-filter-chip" data-college="none">عمادات عامة (غير تابعة لكلية)</button>`;
+  }
+
+  chipsWrap.innerHTML = chipsHTML;
+  bar.style.display = 'flex';
+}
+
+// بتفلتر وترسم شبكة العمادات حسب كلية معينة.
+// collegeKey: 'all' لكل العمادات، 'none' للعمادات المستقلة (بدون كلية)، أو id الكلية.
+function filterDeanshipsByCollege(collegeKey) {
+  document.querySelectorAll('.deanship-filter-chip').forEach(chip => {
+    chip.classList.toggle('active', chip.dataset.college === String(collegeKey));
+  });
+
+  const filtered = currentUniDeanships.filter(d => {
+    if (collegeKey === 'all') return true;
+    if (collegeKey === 'none') return !d.college_id;
+    return String(d.college_id) === String(collegeKey);
+  });
+
+  const grid = document.getElementById('deanshipsGrid');
+  if (filtered.length) {
+    grid.innerHTML = filtered.map(renderDeanshipCard).join('');
+  } else {
+    grid.innerHTML = collegeKey === 'all'
+      ? '<div class="no-results">ما في عمادات مضافة حالياً.</div>'
+      : '<div class="no-results">ما في عمادات مطابقة لهاي الكلية حالياً.</div>';
+  }
+
+  setupShowMore('deanshipsGrid', '.deanship-card', DEANSHIPS_PREVIEW_LIMIT, 'كل العمادات والكليات');
+}
+
+document.getElementById('deanshipsFilterChips').addEventListener('click', (e) => {
+  const chip = e.target.closest('.deanship-filter-chip');
+  if (!chip) return;
+  filterDeanshipsByCollege(chip.dataset.college);
+});
+
+// زر "عرض العمادات التابعة" داخل كرت الكلية: بينقل لتبويب العمادات
+// ويفلترهم مباشرة على هاي الكلية بالذات.
+document.getElementById('collegesGrid').addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn-view-deanships');
+  if (!btn) return;
+
+  const card = btn.closest('.college-card');
+  if (!card) return;
+
+  const collegeId = card.dataset.collegeId;
+  activateTab('deanships');
+  filterDeanshipsByCollege(collegeId);
+});
 
 /* ======================= منطق النافذة المنبثقة (Modal) ======================= */
 const genericModal = document.getElementById('genericModal');
@@ -911,12 +1138,18 @@ function renderUniversityDetails(uni, id) {
     };
   }
 
-  const deanships = uni.deanships_faculties || [];
-  const grid = document.getElementById('deanshipsGrid');
-  grid.innerHTML = deanships.length ? deanships.map(renderDeanshipCard).join('') : '<div class="no-results">ما في كليات مضافة حالياً.</div>';
+  // ===== الكليات والعمادات =====
+  currentUniColleges = uni.colleges || [];
+  currentUniDeanships = uni.deanships_faculties || [];
 
-  // نفعّل زر "شاهد المزيد" على شبكة العمادات بعد ما نعبيها
-  setupShowMore('deanshipsGrid', '.deanship-card', DEANSHIPS_PREVIEW_LIMIT, 'كل العمادات والكليات');
+  const collegesGrid = document.getElementById('collegesGrid');
+  collegesGrid.innerHTML = currentUniColleges.length
+    ? currentUniColleges.map(renderCollegeCard).join('')
+    : '<div class="no-results">ما في كليات مضافة حالياً.</div>';
+  setupShowMore('collegesGrid', '.college-card', DEANSHIPS_PREVIEW_LIMIT, 'كل الكليات');
+
+  renderDeanshipsFilterChips();
+  filterDeanshipsByCollege('all');
 }
 
 loadUniversityDetails();

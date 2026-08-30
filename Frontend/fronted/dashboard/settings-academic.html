@@ -190,123 +190,6 @@
 
 
     /* =========================================================
-       SUBSECTION HEAD (كليات / عمادات داخل نفس البانل)
-    ========================================================= */
-
-    .academic-subsection-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 22px 0 12px;
-    }
-
-    .academic-subsection-head:first-of-type {
-      margin-top: 0;
-    }
-
-    .academic-subsection-head h3 {
-      margin: 0;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--navy);
-    }
-
-    .academic-filter-select {
-      padding: 8px 12px;
-      border: 1.5px solid var(--gray-bg);
-      border-radius: 9px;
-      font-family: 'Cairo', sans-serif;
-      font-size: 12px;
-      color: var(--gray-dark);
-      background: #fff;
-      cursor: pointer;
-    }
-
-    .academic-filter-select:focus {
-      outline: none;
-      border-color: var(--blue);
-    }
-
-
-    /* =========================================================
-       HIERARCHY — كلية وتحتها عماداتها مباشرة
-    ========================================================= */
-
-    .college-group {
-      border: 1px solid var(--gray-bg);
-      border-radius: 14px;
-      margin-bottom: 14px;
-      overflow: hidden;
-    }
-
-    .college-group-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding: 14px 16px;
-      background: #fafbfe;
-      border-bottom: 1px solid var(--gray-bg);
-    }
-
-    .college-group-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .college-group-title strong {
-      color: var(--navy);
-      font-size: 13.5px;
-      font-weight: 800;
-    }
-
-    .college-group-body {
-      padding: 6px 16px;
-    }
-
-    .deanship-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding: 12px 4px;
-      border-bottom: 1px solid var(--gray-bg);
-    }
-
-    .deanship-row:last-child {
-      border-bottom: none;
-    }
-
-    .deanship-row-info strong {
-      display: block;
-      color: var(--navy);
-      font-size: 12.5px;
-      font-weight: 700;
-    }
-
-    .deanship-row-info .deanship-row-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-      color: var(--gray);
-      font-size: 11px;
-    }
-
-    .deanship-row-empty {
-      padding: 14px 4px;
-      color: var(--gray);
-      font-size: 11.5px;
-    }
-
-
-    /* =========================================================
        STATS
     ========================================================= */
 
@@ -340,50 +223,75 @@
 
 
     /* =========================================================
-       TABLE
+       LIST ROWS (كليات / عمادات)
     ========================================================= */
 
-    .academic-table-wrap {
-      width: 100%;
-      overflow-x: auto;
+    .academic-list {
       border: 1px solid var(--gray-bg);
-      border-radius: 12px;
+      border-radius: 14px;
+      overflow: hidden;
     }
 
-    .academic-table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 650px;
-    }
-
-    .academic-table th {
-      padding: 12px 14px;
-      background: #fafbfe;
-      color: var(--gray);
-      font-size: 11px;
-      font-weight: 800;
-      text-align: right;
+    .academic-list-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 16px;
       border-bottom: 1px solid var(--gray-bg);
     }
 
-    .academic-table td {
-      padding: 13px 14px;
-      color: var(--gray-dark);
-      font-size: 12px;
-      border-bottom: 1px solid var(--gray-bg);
-    }
-
-    .academic-table tbody tr:last-child td {
+    .academic-list-row:last-child {
       border-bottom: none;
     }
 
-    .academic-table tbody tr:hover {
+    .academic-list-row:hover {
       background: #fbfcff;
     }
 
-    .academic-table strong {
+    .academic-list-row-info strong {
+      display: block;
       color: var(--navy);
+      font-size: 13px;
       font-weight: 700;
+    }
+
+    .academic-list-row-info .academic-list-row-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      color: var(--gray);
+      font-size: 11px;
+    }
+
+    .academic-list-empty {
+      padding: 20px 16px;
+      color: var(--gray);
+      font-size: 11.5px;
+      text-align: center;
+    }
+
+
+    /* =========================================================
+       SUBSECTION HEAD
+    ========================================================= */
+
+    .academic-subsection-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 0 0 12px;
+    }
+
+    .academic-subsection-head h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy);
     }
 
 
@@ -481,176 +389,6 @@
 
 
     /* =========================================================
-       CONTENT CARDS
-    ========================================================= */
-
-    .academic-content-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 14px;
-    }
-
-    .academic-content-card {
-      border: 1px solid var(--gray-bg);
-      border-radius: 13px;
-      padding: 16px;
-      background: #fcfdff;
-    }
-
-    .academic-content-card-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 9px;
-    }
-
-    .academic-content-card h3 {
-      margin: 0;
-      color: var(--navy);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .academic-content-card p {
-      margin: 0;
-      color: var(--gray);
-      font-size: 11.5px;
-      line-height: 1.8;
-    }
-
-    .academic-content-card .edit-link {
-      border: 0;
-      background: transparent;
-      color: var(--blue);
-      font-family: 'Cairo', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-
-    /* =========================================================
-       AI BOX
-    ========================================================= */
-
-    .academic-ai-box {
-      border: 1px solid rgba(47,107,255,.12);
-      background: linear-gradient(
-        135deg,
-        rgba(47,107,255,.055),
-        rgba(14,174,123,.035)
-      );
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 18px;
-    }
-
-    .academic-ai-head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .academic-ai-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(47,107,255,.1);
-      color: var(--blue);
-    }
-
-    .academic-ai-icon svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .academic-ai-head h3 {
-      margin: 0;
-      color: var(--navy);
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .academic-ai-box > p {
-      margin: 0;
-      color: var(--gray);
-      font-size: 11.5px;
-      line-height: 1.8;
-    }
-
-    .academic-ai-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .academic-ai-card {
-      background: #fff;
-      border: 1px solid var(--gray-bg);
-      border-radius: 12px;
-      padding: 15px;
-    }
-
-    .academic-ai-card h4 {
-      margin: 0 0 7px;
-      color: var(--navy);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .academic-ai-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-    }
-
-    .academic-ai-tag {
-      background: rgba(47,107,255,.07);
-      color: var(--blue);
-      padding: 5px 9px;
-      border-radius: 999px;
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-
-    /* =========================================================
-       PLAN STATUS
-    ========================================================= */
-
-    .plan-status-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      border: 1px solid var(--gray-bg);
-      border-radius: 12px;
-      padding: 14px;
-      background: #fcfdff;
-      margin-bottom: 12px;
-    }
-
-    .plan-status-info strong {
-      display: block;
-      color: var(--navy);
-      font-size: 13px;
-    }
-
-    .plan-status-info span {
-      display: block;
-      color: var(--gray);
-      font-size: 10.5px;
-      margin-top: 3px;
-    }
-
-
-    /* =========================================================
        RESPONSIVE
     ========================================================= */
 
@@ -681,11 +419,6 @@
       }
 
       .academic-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .academic-content-grid,
-      .academic-ai-grid {
         grid-template-columns: 1fr;
       }
 
@@ -721,8 +454,7 @@
         <h1>المحتوى الأكاديمي</h1>
 
         <p>
-          إدارة الكليات والعمادات والتخصصات والخطط الدراسية
-          والمحتوى الوصفي وبيانات التوافق الذكي.
+          إدارة الكليات والعمادات الخاصة بالجامعة.
         </p>
       </div>
     </div>
@@ -751,13 +483,13 @@
             <button
               type="button"
               class="academic-step active"
-              data-target="panelDeanships"
+              data-target="panelColleges"
             >
               <span class="academic-step-number">1</span>
 
               <span class="academic-step-text">
-                <strong>العمادات والكليات</strong>
-                <span>الهيكل الأكاديمي للجامعة</span>
+                <strong>الكليات</strong>
+                <span>إدارة الكليات في الجامعة</span>
               </span>
             </button>
           </li>
@@ -767,61 +499,13 @@
             <button
               type="button"
               class="academic-step"
-              data-target="panelMajors"
+              data-target="panelDeanships"
             >
               <span class="academic-step-number">2</span>
 
               <span class="academic-step-text">
-                <strong>التخصصات</strong>
-                <span>إدارة البرامج الأكاديمية</span>
-              </span>
-            </button>
-          </li>
-
-
-          <li>
-            <button
-              type="button"
-              class="academic-step"
-              data-target="panelPlans"
-            >
-              <span class="academic-step-number">3</span>
-
-              <span class="academic-step-text">
-                <strong>الخطط الدراسية</strong>
-                <span>ملفات الخطط والفصول والمواد</span>
-              </span>
-            </button>
-          </li>
-
-
-          <li>
-            <button
-              type="button"
-              class="academic-step"
-              data-target="panelContent"
-            >
-              <span class="academic-step-number">4</span>
-
-              <span class="academic-step-text">
-                <strong>محتوى التخصصات</strong>
-                <span>الوصف والأهداف والمهارات</span>
-              </span>
-            </button>
-          </li>
-
-
-          <li>
-            <button
-              type="button"
-              class="academic-step"
-              data-target="panelAI"
-            >
-              <span class="academic-step-number">5</span>
-
-              <span class="academic-step-text">
-                <strong>التوافق الذكي AI</strong>
-                <span>المهارات والمسارات المهنية</span>
+                <strong>العمادات</strong>
+                <span>إدارة العمادات في الجامعة</span>
               </span>
             </button>
           </li>
@@ -839,11 +523,68 @@
 
 
         <!-- =================================================
-             1 — DEANSHIPS + COLLEGES
+             1 — COLLEGES
         ================================================== -->
 
         <section
           class="academic-panel active"
+          id="panelColleges"
+        >
+
+          <div class="academic-panel-head">
+
+            <div>
+              <h2 class="academic-panel-title">
+                الكليات
+              </h2>
+
+              <p class="academic-panel-desc">
+                إدارة الكليات المرتبطة بالجامعة.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              class="academic-add-btn"
+              onclick="window.location.href='addcollege.html'"
+            >
+              + إضافة كلية
+            </button>
+
+          </div>
+
+
+          <!-- ===== إحصائيات ===== -->
+          <div class="academic-stats">
+
+            <div class="academic-stat">
+              <strong id="collegeCount">—</strong>
+              <span>كلية مسجلة</span>
+            </div>
+
+            <div class="academic-stat">
+              <strong id="collegeDeanshipsCount">—</strong>
+              <span>عمادة تابعة</span>
+            </div>
+
+          </div>
+
+
+          <div class="academic-subsection-head">
+            <h3>قائمة الكليات</h3>
+          </div>
+
+          <div class="academic-list" id="collegesList"></div>
+
+        </section>
+
+
+        <!-- =================================================
+             2 — DEANSHIPS
+        ================================================== -->
+
+        <section
+          class="academic-panel"
           id="panelDeanships"
         >
 
@@ -851,24 +592,31 @@
 
             <div>
               <h2 class="academic-panel-title">
-                العمادات والكليات
+                العمادات
               </h2>
 
               <p class="academic-panel-desc">
-                إدارة العمادات والكليات المرتبطة بالجامعة،
-                ثم استعراض التخصصات التابعة لكل واحدة.
+                إدارة العمادات المرتبطة بالجامعة.
               </p>
             </div>
+
+            <button
+              type="button"
+              class="academic-add-btn"
+              onclick="window.location.href='adddeanship.html'"
+            >
+              + إضافة عمادة
+            </button>
 
           </div>
 
 
-          <!-- ===== إحصائيات عامة ===== -->
+          <!-- ===== إحصائيات ===== -->
           <div class="academic-stats">
 
             <div class="academic-stat">
               <strong id="deanshipCount">—</strong>
-              <span>عمادات مسجلة</span>
+              <span>عمادة مسجلة</span>
             </div>
 
             <div class="academic-stat">
@@ -876,576 +624,14 @@
               <span>تخصصاً</span>
             </div>
 
-            <div class="academic-stat" id="collegeCountStat">
-              <strong id="collegeCount">—</strong>
-              <span>كليات / مجالات أكاديمية</span>
-            </div>
-
           </div>
 
 
-          <!-- ===================================================
-               الهيكل الأكاديمي — كلية وتحتها عماداتها مباشرة
-               (أو عمادات مباشرة بدون كلية لو الجامعة ما إلها كليات)
-          ==================================================== -->
           <div class="academic-subsection-head">
-            <h3 id="hierarchyTitle">الهيكل الأكاديمي</h3>
-
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-
-              <button
-                type="button"
-                class="academic-add-btn outline"
-                id="addCollegeBtn"
-                onclick="window.location.href='addcollege.html'"
-                hidden
-              >
-                + إضافة كلية
-              </button>
-
-              <button
-                type="button"
-                class="academic-add-btn"
-                onclick="window.location.href='adddeanship.html'"
-              >
-                + إضافة عمادة
-              </button>
-
-            </div>
+            <h3>قائمة العمادات</h3>
           </div>
 
-          <div id="academicHierarchy"></div>
-
-        </section>
-
-
-        <!-- =================================================
-             2 — MAJORS
-        ================================================== -->
-
-        <section
-          class="academic-panel"
-          id="panelMajors"
-        >
-
-          <div class="academic-panel-head">
-
-            <div>
-              <h2 class="academic-panel-title">
-                التخصصات والبرامج الأكاديمية
-              </h2>
-
-              <p class="academic-panel-desc">
-                من هنا يتم إدارة بيانات التخصص الأساسية،
-                والكلية والعمادة والدرجة والفرع الدراسي.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              class="academic-add-btn"
-              onclick="window.location.href='add-program.html'"
-            >
-              + إضافة تخصص
-            </button>
-
-          </div>
-
-
-          <div class="academic-table-wrap">
-
-            <table class="academic-table">
-
-              <thead>
-                <tr>
-                  <th>التخصص</th>
-                  <th>الكلية / العمادة</th>
-                  <th>الدرجة</th>
-                  <th>مدة الدراسة</th>
-                  <th>معدل القبول</th>
-                  <th>الإجراء</th>
-                </tr>
-              </thead>
-
-              <tbody id="majorsBody"></tbody>
-
-            </table>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             3 — PLANS
-        ================================================== -->
-
-        <section
-          class="academic-panel"
-          id="panelPlans"
-        >
-
-          <div class="academic-panel-head">
-
-            <div>
-              <h2 class="academic-panel-title">
-                الخطط الدراسية
-              </h2>
-
-              <p class="academic-panel-desc">
-                إدارة ملف الخطة الدراسية والانتقال إلى صفحة
-                عرض الفصول والمواد وتحديثها.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div id="plansContainer"></div>
-
-
-          <div
-            style="
-              margin-top:18px;
-              padding:14px 16px;
-              border-radius:12px;
-              background:rgba(47,107,255,.05);
-              color:var(--gray);
-              font-size:11.5px;
-              line-height:1.8;
-            "
-          >
-            <strong style="color:var(--navy);">
-              ملاحظة:
-            </strong>
-
-            ملف PDF هو الملف الأصلي المرفوع،
-            بينما عرض الخطة الدراسية يعرض الفصول والمواد
-            التي تم إدخالها أو تحليلها داخل النظام.
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             4 — CONTENT
-        ================================================== -->
-
-        <section
-          class="academic-panel"
-          id="panelContent"
-        >
-
-          <div class="academic-panel-head">
-
-            <div>
-              <h2 class="academic-panel-title">
-                محتوى التخصصات
-              </h2>
-
-              <p class="academic-panel-desc">
-                المحتوى الوصفي الذي يظهر للطالب داخل صفحة التخصص.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div class="academic-content-grid">
-
-
-            <div class="academic-content-card">
-
-              <div class="academic-content-card-head">
-                <h3>نبذة عن التخصص</h3>
-
-                <button
-                  type="button"
-                  class="edit-link"
-                  onclick="editMajor()"
-                >
-                  تعديل
-                </button>
-              </div>
-
-              <p>
-                تعريف مختصر بالتخصص وطبيعته ومجالاته الأكاديمية.
-              </p>
-
-            </div>
-
-
-            <div class="academic-content-card">
-
-              <div class="academic-content-card-head">
-                <h3>أهداف التخصص</h3>
-
-                <button
-                  type="button"
-                  class="edit-link"
-                  onclick="editMajor()"
-                >
-                  تعديل
-                </button>
-              </div>
-
-              <p>
-                الأهداف التعليمية والمخرجات التي يسعى البرنامج لتحقيقها.
-              </p>
-
-            </div>
-
-
-            <div class="academic-content-card">
-
-              <div class="academic-content-card-head">
-                <h3>مؤهلات الطالب</h3>
-
-                <button
-                  type="button"
-                  class="edit-link"
-                  onclick="editMajor()"
-                >
-                  تعديل
-                </button>
-              </div>
-
-              <p>
-                المهارات والقدرات التي يُفضّل أن يمتلكها الطالب قبل الالتحاق.
-              </p>
-
-            </div>
-
-
-            <div class="academic-content-card">
-
-              <div class="academic-content-card-head">
-                <h3>المهارات والتعليم الأساسي</h3>
-
-                <button
-                  type="button"
-                  class="edit-link"
-                  onclick="editMajor()"
-                >
-                  تعديل
-                </button>
-              </div>
-
-              <p>
-                المهارات التفصيلية والمراحل التعليمية التي يمر بها الطالب.
-              </p>
-
-            </div>
-
-
-            <div class="academic-content-card">
-
-              <div class="academic-content-card-head">
-                <h3>المسار الأكاديمي</h3>
-
-                <button
-                  type="button"
-                  class="edit-link"
-                  onclick="editMajor()"
-                >
-                  تعديل
-                </button>
-              </div>
-
-              <p>
-                المراحل التي يمر بها الطالب منذ بداية الدراسة وحتى التخرج.
-              </p>
-
-            </div>
-
-
-            <div class="academic-content-card">
-
-              <div class="academic-content-card-head">
-                <h3>فرص العمل بعد التخرج</h3>
-
-                <button
-                  type="button"
-                  class="edit-link"
-                  onclick="editMajor()"
-                >
-                  تعديل
-                </button>
-              </div>
-
-              <p>
-                الوظائف والفرص المهنية المحتملة لخريجي التخصص.
-              </p>
-
-            </div>
-
-
-            <div class="academic-content-card">
-
-              <div class="academic-content-card-head">
-                <h3>المنحة</h3>
-
-                <button
-                  type="button"
-                  class="edit-link"
-                  onclick="editMajor()"
-                >
-                  تعديل
-                </button>
-              </div>
-
-              <p>
-                نسبة المنحة والملاحظات الخاصة بها إن وجدت.
-              </p>
-
-            </div>
-
-
-            <div class="academic-content-card">
-
-              <div class="academic-content-card-head">
-                <h3>معدل القبول</h3>
-
-                <button
-                  type="button"
-                  class="edit-link"
-                  onclick="editMajor()"
-                >
-                  تعديل
-                </button>
-              </div>
-
-              <p>
-                الحد الأدنى لمعدل القبول في البرنامج الأكاديمي.
-              </p>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             5 — AI
-        ================================================== -->
-
-        <section
-          class="academic-panel"
-          id="panelAI"
-        >
-
-          <div class="academic-panel-head">
-
-            <div>
-              <h2 class="academic-panel-title">
-                التوافق الذكي AI
-              </h2>
-
-              <p class="academic-panel-desc">
-                البيانات التي يعتمد عليها NextStep AI لمطابقة
-                الطالب مع التخصص المناسب.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div class="academic-ai-box">
-
-            <div class="academic-ai-head">
-
-              <div class="academic-ai-icon">
-
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M12 2a5 5 0 0 0-5 5c0 2 1 3 1 5v2h8v-2c0-2 1-3 1-5a5 5 0 0 0-5-5z"/>
-                  <path d="M9 21h6"/>
-                  <path d="M10 18h4"/>
-                </svg>
-
-              </div>
-
-              <h3>
-                بيانات المطابقة الذكية
-              </h3>
-
-            </div>
-
-            <p>
-              يتم استخدام هذه البيانات لفهم طبيعة التخصص
-              ومقارنته بميول ومهارات الطالب.
-            </p>
-
-
-            <div class="academic-ai-grid">
-
-
-              <div class="academic-ai-card">
-
-                <h4>
-                  المهارات المستهدفة
-                </h4>
-
-                <div class="academic-ai-tags">
-
-                  <span class="academic-ai-tag">
-                    التفكير التحليلي
-                  </span>
-
-                  <span class="academic-ai-tag">
-                    حل المشكلات
-                  </span>
-
-                  <span class="academic-ai-tag">
-                    البرمجة
-                  </span>
-
-                  <span class="academic-ai-tag">
-                    العمل الجماعي
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <div class="academic-ai-card">
-
-                <h4>
-                  المسارات المهنية
-                </h4>
-
-                <div class="academic-ai-tags">
-
-                  <span class="academic-ai-tag">
-                    مهندس برمجيات
-                  </span>
-
-                  <span class="academic-ai-tag">
-                    مطور ويب
-                  </span>
-
-                  <span class="academic-ai-tag">
-                    محلل نظم
-                  </span>
-
-                  <span class="academic-ai-tag">
-                    مهندس بيانات
-                  </span>
-
-                </div>
-
-              </div>
-
-
-            </div>
-
-          </div>
-
-
-          <div class="academic-table-wrap">
-
-            <table class="academic-table">
-
-              <thead>
-                <tr>
-                  <th>التخصص</th>
-                  <th>المهارات</th>
-                  <th>المسارات المهنية</th>
-                  <th>الحالة</th>
-                  <th>الإجراء</th>
-                </tr>
-              </thead>
-
-              <tbody>
-
-                <tr>
-
-                  <td>
-                    <strong>هندسة البرمجيات</strong>
-                  </td>
-
-                  <td>
-                    6 مهارات
-                  </td>
-
-                  <td>
-                    5 مسارات
-                  </td>
-
-                  <td>
-                    <span class="academic-badge success">
-                      مفعّل
-                    </span>
-                  </td>
-
-                  <td>
-
-                    <div class="academic-actions">
-
-                      <button
-                        type="button"
-                        class="academic-action"
-                        onclick="editMajor()"
-                      >
-                        تعديل
-                      </button>
-
-                    </div>
-
-                  </td>
-
-                </tr>
-
-
-                <tr>
-
-                  <td>
-                    <strong>علوم الحاسوب</strong>
-                  </td>
-
-                  <td>
-                    7 مهارات
-                  </td>
-
-                  <td>
-                    6 مسارات
-                  </td>
-
-                  <td>
-                    <span class="academic-badge success">
-                      مفعّل
-                    </span>
-                  </td>
-
-                  <td>
-
-                    <div class="academic-actions">
-
-                      <button
-                        type="button"
-                        class="academic-action"
-                        onclick="editMajor()"
-                      >
-                        تعديل
-                      </button>
-
-                    </div>
-
-                  </td>
-
-                </tr>
-
-              </tbody>
-
-            </table>
-
-          </div>
+          <div class="academic-list" id="deanshipsList"></div>
 
         </section>
 
@@ -1478,18 +664,6 @@
 (function () {
 
   'use strict';
-
-
-  /* =========================================================
-     هيكل الجامعة — هل عندها مستوى "كليات" فوق العمادات؟
-     نفس المتغيّر المستخدم بباقي صفحات لوحة الإدارة (add-program.html
-     وصفحة تحديث الخطط) عشان الاتساق بين كل الصفحات.
-  ========================================================= */
-
-  const UNIVERSITY_HAS_COLLEGES =
-    typeof window.NEXTSTEP_UNIVERSITY_HAS_COLLEGES === 'boolean'
-      ? window.NEXTSTEP_UNIVERSITY_HAS_COLLEGES
-      : localStorage.getItem('nextstep_university_has_colleges') === 'true';
 
 
   /* =========================================================
@@ -1545,7 +719,6 @@
 
   /* =========================================================
      MOCK DATA — الكليات
-     (تُستخدم فقط لو UNIVERSITY_HAS_COLLEGES = true)
   ========================================================= */
 
   const COLLEGES = [
@@ -1559,8 +732,8 @@
 
   /* =========================================================
      MOCK DATA — العمادات
-     college_id تربط العمادة بالكلية. لو الجامعة ما إلها كليات
-     هالحقل بيصير متجاهل بالكامل بالعرض والفلترة.
+     college_id تربط العمادة بالكلية (تُستخدم فقط لعرض
+     اسم الكلية التابعة لها العمادة داخل قائمة العمادات).
   ========================================================= */
 
   const DEANSHIPS = [
@@ -1592,185 +765,161 @@
   ];
 
 
-  const MAJORS = [
+  function collegeNameById(id) {
 
-    {
-      name: 'هندسة البرمجيات',
-      faculty: 'كلية الهندسة وتكنولوجيا المعلومات',
-      degree: 'بكالوريوس',
-      duration: '4 سنوات',
-      admission: '85%'
-    },
+    const college = COLLEGES.find(function (c) {
+      return c.id === id;
+    });
 
-    {
-      name: 'علوم الحاسوب',
-      faculty: 'كلية الهندسة وتكنولوجيا المعلومات',
-      degree: 'بكالوريوس',
-      duration: '4 سنوات',
-      admission: '80%'
-    },
+    return college ? college.name : '—';
 
-    {
-      name: 'إدارة الأعمال',
-      faculty: 'كلية إدارة الأعمال والاقتصاد',
-      degree: 'بكالوريوس',
-      duration: '4 سنوات',
-      admission: '70%'
-    }
-
-  ];
+  }
 
 
   /* =========================================================
-     العناصر — الهيكل الأكاديمي (كلية وتحتها عماداتها)
+     العناصر
   ========================================================= */
 
-  const academicHierarchy = document.getElementById('academicHierarchy');
-  const hierarchyTitle = document.getElementById('hierarchyTitle');
-  const addCollegeBtn = document.getElementById('addCollegeBtn');
-  const collegeCountStat = document.getElementById('collegeCountStat');
+  const collegesList = document.getElementById('collegesList');
+  const deanshipsList = document.getElementById('deanshipsList');
+
+  const collegeCountEl = document.getElementById('collegeCount');
+  const collegeDeanshipsCountEl = document.getElementById('collegeDeanshipsCount');
   const deanshipCountEl = document.getElementById('deanshipCount');
   const majorCountAEl = document.getElementById('majorCountA');
-  const collegeCountEl = document.getElementById('collegeCount');
 
 
   /* =========================================================
-     صف عمادة واحدة (يُستخدم جوا كل كلية، أو لحاله لو ما في كليات)
+     عرض قائمة الكليات
   ========================================================= */
 
-  function deanshipRowHtml(item) {
+  function renderColleges() {
 
-    const statusClass =
-      item.status === 'مكتمل'
-        ? 'success'
-        : 'warning';
+    if (!COLLEGES.length) {
 
-    return `
+      collegesList.innerHTML =
+        '<div class="academic-list-empty">ما في كليات مضافة بعد.</div>';
 
-      <div class="deanship-row">
-
-        <div class="deanship-row-info">
-
-          <strong>${item.name}</strong>
-
-          <div class="deanship-row-meta">
-            <span>${item.majors} تخصص</span>
-            <span class="academic-badge ${statusClass}">${item.status}</span>
-          </div>
-
-        </div>
-
-        <div class="academic-actions">
-
-          <button
-            type="button"
-            class="academic-action"
-            onclick="window.location.href='browse-deanships.html'"
-          >
-            عرض
-          </button>
-
-          <button
-            type="button"
-            class="academic-action"
-            onclick="window.location.href='adddeanship.html'"
-          >
-            تعديل
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  /* =========================================================
-     بناء العرض الشجري — كلية وتحتها عماداتها مباشرة
-     (أو عمادات مباشرة لحالها لو الجامعة ما إلها كليات)
-  ========================================================= */
-
-  function renderHierarchy() {
-
-    if (UNIVERSITY_HAS_COLLEGES) {
-
-      hierarchyTitle.textContent = 'الكليات وعماداتها';
-      addCollegeBtn.hidden = false;
-      collegeCountStat.hidden = false;
-
-      academicHierarchy.innerHTML = COLLEGES.map(function (college) {
-
-        const relatedDeanships = DEANSHIPS.filter(function (d) {
-          return d.college_id === college.id;
-        });
-
-        const rowsHtml = relatedDeanships.length
-          ? relatedDeanships.map(deanshipRowHtml).join('')
-          : '<div class="deanship-row-empty">ما في عمادات مضافة تحت هذه الكلية بعد.</div>';
-
-        return `
-
-          <div class="college-group">
-
-            <div class="college-group-head">
-
-              <div class="college-group-title">
-                <strong>${college.name}</strong>
-                <span class="academic-badge blue">${relatedDeanships.length} عمادة</span>
-              </div>
-
-              <div class="academic-actions">
-
-                <button
-                  type="button"
-                  class="academic-action"
-                  onclick="editCollege(${college.id})"
-                >
-                  تعديل
-                </button>
-
-              </div>
-
-            </div>
-
-            <div class="college-group-body">
-              ${rowsHtml}
-            </div>
-
-          </div>
-
-        `;
-
-      }).join('');
-
-      collegeCountEl.textContent = COLLEGES.length;
-
-    } else {
-
-      hierarchyTitle.textContent = 'العمادات';
-      addCollegeBtn.hidden = true;
-      collegeCountStat.hidden = true;
-
-      academicHierarchy.innerHTML = `
-        <div class="college-group">
-          <div class="college-group-body" style="padding-top:14px;">
-            ${DEANSHIPS.map(deanshipRowHtml).join('')}
-          </div>
-        </div>
-      `;
+      return;
 
     }
 
+    collegesList.innerHTML = COLLEGES.map(function (college) {
+
+      const relatedDeanshipsCount = DEANSHIPS.filter(function (d) {
+        return d.college_id === college.id;
+      }).length;
+
+      return `
+
+        <div class="academic-list-row">
+
+          <div class="academic-list-row-info">
+
+            <strong>${college.name}</strong>
+
+            <div class="academic-list-row-meta">
+              <span class="academic-badge blue">${relatedDeanshipsCount} عمادة</span>
+            </div>
+
+          </div>
+
+          <div class="academic-actions">
+
+            <button
+              type="button"
+              class="academic-action"
+              onclick="editCollege(${college.id})"
+            >
+              تعديل
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join('');
+
   }
 
 
   /* =========================================================
-     تهيئة الإحصائيات + العرض الشجري
+     عرض قائمة العمادات
   ========================================================= */
 
-  function initDeanshipsCollegesUI() {
+  function renderDeanships() {
+
+    if (!DEANSHIPS.length) {
+
+      deanshipsList.innerHTML =
+        '<div class="academic-list-empty">ما في عمادات مضافة بعد.</div>';
+
+      return;
+
+    }
+
+    deanshipsList.innerHTML = DEANSHIPS.map(function (item) {
+
+      const statusClass =
+        item.status === 'مكتمل'
+          ? 'success'
+          : 'warning';
+
+      return `
+
+        <div class="academic-list-row">
+
+          <div class="academic-list-row-info">
+
+            <strong>${item.name}</strong>
+
+            <div class="academic-list-row-meta">
+              <span>${collegeNameById(item.college_id)}</span>
+              <span>${item.majors} تخصص</span>
+              <span class="academic-badge ${statusClass}">${item.status}</span>
+            </div>
+
+          </div>
+
+          <div class="academic-actions">
+
+            <button
+              type="button"
+              class="academic-action"
+              onclick="window.location.href='browse-deanships.html'"
+            >
+              عرض
+            </button>
+
+            <button
+              type="button"
+              class="academic-action"
+              onclick="window.location.href='adddeanship.html'"
+            >
+              تعديل
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join('');
+
+  }
+
+
+  /* =========================================================
+     تهيئة الإحصائيات + القوائم
+  ========================================================= */
+
+  function init() {
+
+    collegeCountEl.textContent = COLLEGES.length;
+    collegeDeanshipsCountEl.textContent = DEANSHIPS.length;
 
     deanshipCountEl.textContent = DEANSHIPS.length;
 
@@ -1778,144 +927,18 @@
       return sum + d.majors;
     }, 0);
 
-    renderHierarchy();
+    renderColleges();
+    renderDeanships();
 
   }
 
 
-  initDeanshipsCollegesUI();
-
-
-  /* =========================================================
-     MAJORS
-  ========================================================= */
-
-  const majorsBody =
-    document.getElementById(
-      'majorsBody'
-    );
-
-
-  MAJORS.forEach(function (item) {
-
-    majorsBody.innerHTML += `
-
-      <tr>
-
-        <td>
-          <strong>${item.name}</strong>
-        </td>
-
-        <td>
-          ${item.faculty}
-        </td>
-
-        <td>
-          ${item.degree}
-        </td>
-
-        <td>
-          ${item.duration}
-        </td>
-
-        <td>
-          ${item.admission}
-        </td>
-
-        <td>
-
-          <div class="academic-actions">
-
-            <button
-              type="button"
-              class="academic-action"
-              onclick="editMajor()"
-            >
-              تعديل
-            </button>
-
-            <button
-              type="button"
-              class="academic-action"
-              onclick="viewPlan()"
-            >
-              الخطة
-            </button>
-
-          </div>
-
-        </td>
-
-      </tr>
-
-    `;
-
-  });
-
-
-  /* =========================================================
-     PLANS
-  ========================================================= */
-
-  const plansContainer =
-    document.getElementById(
-      'plansContainer'
-    );
-
-
-  MAJORS.forEach(function (item) {
-
-    plansContainer.innerHTML += `
-
-      <div class="plan-status-box">
-
-        <div class="plan-status-info">
-
-          <strong>
-            ${item.name}
-          </strong>
-
-          <span>
-            ${item.faculty} — ${item.degree}
-          </span>
-
-        </div>
-
-
-        <div>
-
-          <span class="academic-badge success">
-            ✓ ملف الخطة مرفوع
-          </span>
-
-          <button
-            type="button"
-            class="academic-action"
-            onclick="viewPlan()"
-          >
-            عرض الخطة
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
+  init();
 
 
   /* =========================================================
      ACTIONS
   ========================================================= */
-
-  window.editMajor = function () {
-
-    window.location.href =
-      'add-program.html';
-
-  };
-
 
   window.editCollege = function () {
 
@@ -1927,19 +950,6 @@
 
     window.location.href =
       'addcollege.html';
-
-  };
-
-
-  window.viewPlan = function () {
-
-    /*
-      صفحة استعراض العمادات والتخصصات
-      ومنها الوصول إلى الخطة الدراسية.
-    */
-
-    window.location.href =
-      'browse-deanships.html';
 
   };
 

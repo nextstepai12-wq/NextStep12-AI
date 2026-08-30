@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const universities = [
         {
             id: 1,
-            name: "جامعة النجاح الوطنية",
-            city: "نابلس",
+            name: "الكلية الجامعية للعلوم التطبيقية ",
+            city: "غزة",
             type: "حكومية",
             image: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=900&q=80",
             logo: "🎓",
@@ -795,6 +795,7 @@ document.addEventListener("DOMContentLoaded", () => {
         stopAutoScroll
     );
 
+    
     grid.addEventListener(
         "mouseleave",
         startAutoScroll

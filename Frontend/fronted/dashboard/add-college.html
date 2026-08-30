@@ -1,0 +1,3111 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+  <title id="pageTitleTag">إضافة كلية جديدة</title>
+
+
+
+  <!-- الخطوط -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+
+  <!-- CSS المشترك فقط -->
+
+  <link rel="stylesheet" href="../../css/app.css">
+
+
+
+<link rel="stylesheet" href="../../css/dashboardcss/admin-shell.css">
+
+  <!-- بنستخدم نفس ستايل صفحة إضافة العمادة، ما في حاجة لملف CSS جديد -->
+
+<link rel="stylesheet" href="../../css/dashboardcss/add-program.css">
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+<!-- =========================================================
+
+     TOP BAR
+
+========================================================= -->
+
+
+
+<header class="admin-topbar" id="adminTopbar"></header>
+
+
+
+
+
+<!-- =========================================================
+
+     PAGE
+
+========================================================= -->
+
+
+
+<div class="admin-layout">
+
+
+
+  <!-- ======================= SIDEBAR ======================= -->
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+
+
+  <!-- ======================= MAIN CONTENT ======================= -->
+
+  <main class="add-program-page admin-main admin-main-content">
+
+
+
+  <!-- Breadcrumb -->
+
+
+
+  <div class="admin-breadcrumb">
+
+
+
+    <a href="academic-content.html">
+
+      الكليات
+
+    </a>
+
+
+
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+
+      <path d="M15 18l-6-6 6-6"/>
+
+    </svg>
+
+
+
+    <span class="current" id="breadcrumbCurrent">
+
+      إضافة كلية جديدة
+
+    </span>
+
+
+
+  </div>
+
+
+
+
+
+  <!-- Page Header -->
+
+
+
+  <div class="admin-page-head">
+
+
+
+    <div>
+
+      <h1 id="pageHeadTitle">إضافة كلية جديدة</h1>
+
+
+
+      <p id="pageHeadDesc">
+
+        اضف بيانات الكلية وتفاصيلها الأساسية. هذه البيانات بتُستخدم
+
+        لربط العمادات والتخصصات الأكاديمية بالكلية وعرضها بشكل كامل للطلاب.
+
+      </p>
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+  <!-- =======================================================
+
+       MAIN LAYOUT
+
+  ======================================================== -->
+
+
+
+  <div class="form-layout">
+
+
+
+
+
+    <!-- =====================================================
+
+         STEPPER
+
+    ====================================================== -->
+
+
+
+    <aside class="form-stepper">
+
+
+
+      <h3>خطوات الإضافة</h3>
+
+
+
+      <ul id="stepperList">
+
+
+
+        <li
+
+          class="stepper-item active"
+
+          data-target="sectionBasic"
+
+        >
+
+          <span class="stepper-dot">
+
+            <span class="dot-inner"></span>
+
+          </span>
+
+
+
+          <div>
+
+            <h4>المعلومات الأساسية</h4>
+
+            <p>الاسم، العميد، الرمز، الشعار</p>
+
+          </div>
+
+        </li>
+
+
+
+
+
+        <li
+
+          class="stepper-item"
+
+          data-target="sectionDescription"
+
+        >
+
+          <span class="stepper-dot">
+
+            <span class="dot-inner"></span>
+
+          </span>
+
+
+
+          <div>
+
+            <h4>الوصف</h4>
+
+            <p>نبذة عن الكلية</p>
+
+          </div>
+
+        </li>
+
+
+
+      </ul>
+
+
+
+    </aside>
+
+
+
+
+
+    <!-- =====================================================
+
+         FORM
+
+    ====================================================== -->
+
+
+
+    <form
+
+      class="form-canvas"
+
+      id="collegeForm"
+
+      novalidate
+
+    >
+
+
+
+
+
+      <!-- ===================================================
+
+           BASIC
+
+      ==================================================== -->
+
+
+
+      <section
+
+        class="admin-panel"
+
+        id="sectionBasic"
+
+      >
+
+
+
+        <div class="form-section-title">
+
+
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+            <rect x="3" y="4" width="18" height="12" rx="2"/>
+
+            <path d="M8 21h8M12 17v4"/>
+
+          </svg>
+
+
+
+          المعلومات الأساسية
+
+
+
+        </div>
+
+
+
+
+
+        <!-- اسم الكلية -->
+
+
+
+        <div class="field-group">
+
+
+
+          <label for="collegeName">
+
+            اسم الكلية
+
+          </label>
+
+
+
+          <input
+
+            type="text"
+
+            id="collegeName"
+
+            name="name"
+
+            placeholder="مثال: كلية الهندسة وتكنولوجيا المعلومات"
+
+            required
+
+          >
+
+
+
+        </div>
+
+
+
+
+
+        <!-- اسم عميد الكلية ورمز الكلية -->
+
+
+
+        <div class="form-row-2">
+
+
+
+          <div class="field-group">
+
+
+
+            <label for="collegeDeanName">
+
+              اسم عميد الكلية
+
+            </label>
+
+
+
+            <input
+
+              type="text"
+
+              id="collegeDeanName"
+
+              name="dean_name"
+
+              placeholder="مثال: د. أحمد العلي"
+
+              required
+
+            >
+
+
+
+          </div>
+
+
+
+
+
+          <div class="field-group">
+
+
+
+            <label for="collegeCode">
+
+              رمز الكلية
+
+              <span class="optional">(اختياري)</span>
+
+            </label>
+
+
+
+            <input
+
+              type="text"
+
+              id="collegeCode"
+
+              name="code"
+
+              placeholder="مثال: ENG"
+
+            >
+
+
+
+          </div>
+
+
+
+        </div>
+
+
+
+
+
+        <!-- شعار الكلية -->
+
+
+
+        <div class="field-group">
+
+
+
+          <label for="collegeLogoFile">
+
+            شعار الكلية
+
+            <span class="optional">(اختياري)</span>
+
+          </label>
+
+
+
+          <div
+
+            class="study-plan-upload"
+
+            id="collegeLogoUpload"
+
+          >
+
+
+
+            <input
+
+              type="file"
+
+              id="collegeLogoFile"
+
+              name="logo"
+
+              accept=".png,.jpg,.jpeg,.svg,.webp"
+
+              hidden
+
+            >
+
+
+
+            <label
+
+              for="collegeLogoFile"
+
+              class="study-plan-dropzone"
+
+            >
+
+
+
+              <span class="study-plan-icon">
+
+
+
+                <svg
+
+                  viewBox="0 0 24 24"
+
+                  fill="none"
+
+                  stroke="currentColor"
+
+                  stroke-width="2"
+
+                >
+
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+
+                  <path d="M14 2v6h6"/>
+
+                  <path d="M12 18v-6"/>
+
+                  <path d="M9 15l3-3 3 3"/>
+
+                </svg>
+
+
+
+              </span>
+
+
+
+              <span class="study-plan-text">
+
+
+
+                <strong>
+
+                  إضافة شعار الكلية
+
+                </strong>
+
+
+
+                <small>
+
+                  PNG أو JPG أو SVG — الحد الأقصى 5MB
+
+                </small>
+
+
+
+              </span>
+
+
+
+            </label>
+
+
+
+
+
+            <!-- الملف المختار -->
+
+
+
+            <div
+
+              class="study-plan-file"
+
+              id="collegeLogoFileRow"
+
+              hidden
+
+            >
+
+
+
+              <div class="study-plan-file-info">
+
+
+
+                <span class="study-plan-file-icon">
+
+
+
+                  <svg
+
+                    viewBox="0 0 24 24"
+
+                    fill="none"
+
+                    stroke="currentColor"
+
+                    stroke-width="2"
+
+                  >
+
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+
+                    <path d="M14 2v6h6"/>
+
+                  </svg>
+
+
+
+                </span>
+
+
+
+                <div>
+
+
+
+                  <strong id="collegeLogoFileName">
+
+                    —
+
+                  </strong>
+
+
+
+                  <small id="collegeLogoFileSize">
+
+                    —
+
+                  </small>
+
+
+
+                </div>
+
+
+
+              </div>
+
+
+
+
+
+              <button
+
+                type="button"
+
+                class="study-plan-remove"
+
+                id="removeCollegeLogo"
+
+                aria-label="حذف الشعار"
+
+              >
+
+
+
+                <svg
+
+                  viewBox="0 0 24 24"
+
+                  fill="none"
+
+                  stroke="currentColor"
+
+                  stroke-width="2"
+
+                >
+
+                  <path d="M18 6L6 18M6 6l12 12"/>
+
+                </svg>
+
+
+
+              </button>
+
+
+
+            </div>
+
+
+
+          </div>
+
+
+
+          <p class="field-hint">
+
+            رفع شعار الكلية اختياري، وبيظهر بجانب اسمها بصفحة الكليات وصفحات العمادات والتخصصات التابعة لها.
+
+          </p>
+
+
+
+        </div>
+
+
+
+      </section>
+
+
+
+
+
+      <!-- ===================================================
+
+           DESCRIPTION
+
+      ==================================================== -->
+
+
+
+      <section
+
+        class="admin-panel"
+
+        id="sectionDescription"
+
+      >
+
+
+
+        <div class="form-section-title">
+
+
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+
+            <path d="M14 2v6h6M9 13h6M9 17h6"/>
+
+          </svg>
+
+
+
+          الوصف
+
+
+
+        </div>
+
+
+
+
+
+        <div class="field-group">
+
+
+
+          <label for="collegeDescription">
+
+            نبذة عن الكلية
+
+          </label>
+
+
+
+          <textarea
+
+            id="collegeDescription"
+
+            name="description"
+
+            placeholder="نبذة مختصرة عن رؤية الكلية والعمادات والتخصصات التابعة لها..."
+
+            required
+
+          ></textarea>
+
+
+
+        </div>
+
+
+
+      </section>
+
+
+
+
+
+      <!-- ===================================================
+
+           ACTIONS
+
+      ==================================================== -->
+
+
+
+      <div class="form-actions">
+
+
+
+        <button
+
+          type="submit"
+
+          class="btn-save-primary"
+
+          id="saveBtn"
+
+        >
+
+
+
+          <span id="saveBtnLabel">نشر الكلية</span>
+
+
+
+          <svg
+
+            viewBox="0 0 24 24"
+
+            fill="none"
+
+            stroke="currentColor"
+
+            stroke-width="2.2"
+
+          >
+
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+
+          </svg>
+
+
+
+        </button>
+
+
+
+
+
+        <button
+
+          type="button"
+
+          class="btn-cancel-outline"
+
+          id="draftBtn"
+
+        >
+
+          حفظ كمسودة
+
+        </button>
+
+
+
+
+
+        <button
+
+          type="button"
+
+          class="btn-cancel-outline"
+
+          onclick="window.location.href='academic-content.html'"
+
+        >
+
+          إلغاء
+
+        </button>
+
+
+
+      </div>
+
+
+
+    </form>
+
+
+
+  </div>
+
+
+
+  </main>
+
+
+
+</div>
+
+<!-- إغلاق admin-layout -->
+
+
+
+
+
+<!-- =========================================================
+
+     MODAL
+
+========================================================= -->
+
+
+
+<div
+
+  class="app-modal-overlay"
+
+  id="appModalOverlay"
+
+>
+
+
+
+  <div
+
+    class="app-modal"
+
+    role="dialog"
+
+    aria-modal="true"
+
+  >
+
+
+
+    <div
+
+      class="app-modal-icon"
+
+      id="appModalIcon"
+
+    ></div>
+
+
+
+    <h3 id="appModalTitle"></h3>
+
+
+
+    <p id="appModalMsg"></p>
+
+
+
+    <div
+
+      class="app-modal-actions"
+
+      id="appModalActions"
+
+    ></div>
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+
+
+<!-- =========================================================
+
+     JAVASCRIPT
+
+========================================================= -->
+
+
+
+<script>
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+
+
+  /* =========================================================
+
+     CONFIG
+
+  ========================================================= */
+
+
+
+  const USE_MOCK_DATA = true;
+
+
+
+  const API_BASE_URL = 'http://127.0.0.1:8000/api';
+
+
+
+
+
+  /* =========================================================
+
+     EDIT MODE DETECTION
+
+     الصفحة بتشتغل كصفحة "إضافة" وكمان كصفحة "تعديل":
+
+     أي صفحة تانية بدها تفتح تعديل كلية لازم تودّي المستخدم
+
+     لهاي الصفحة مع باراميتر ?id=<رقم الكلية> بالرابط، مثال:
+
+     addcollege.html?id=3
+
+  ========================================================= */
+
+
+
+  const urlParams =
+
+    new URLSearchParams(window.location.search);
+
+
+
+  const editId =
+
+    urlParams.get('id');
+
+
+
+  const isEditMode =
+
+    !!editId;
+
+
+
+
+
+  /* =========================================================
+
+     MOCK DATA — الكليات
+
+  ========================================================= */
+
+
+
+  const MOCK_COLLEGES = {
+
+
+
+    1: {
+
+      name: 'كلية الهندسة وتكنولوجيا المعلومات',
+
+      dean_name: 'د. سامي منصور',
+
+      code: 'ENG',
+
+      description: 'كلية الهندسة وتكنولوجيا المعلومات تضم عمادات وتخصصات هندسية وتقنية متنوعة تواكب سوق العمل.',
+
+      logo: null
+
+    },
+
+
+
+    2: {
+
+      name: 'كلية العلوم',
+
+      dean_name: 'د. ليلى خضر',
+
+      code: 'SCI',
+
+      description: 'كلية العلوم تضم التخصصات العلمية الأساسية والتطبيقية.',
+
+      logo: null
+
+    }
+
+
+
+  };
+
+
+
+
+
+  /* =========================================================
+
+     ELEMENTS
+
+  ========================================================= */
+
+
+
+  const collegeForm =
+
+    document.getElementById('collegeForm');
+
+
+
+  const saveBtn =
+
+    document.getElementById('saveBtn');
+
+
+
+  const saveBtnLabel =
+
+    document.getElementById('saveBtnLabel');
+
+
+
+  const draftBtn =
+
+    document.getElementById('draftBtn');
+
+
+
+  const pageHeadTitle =
+
+    document.getElementById('pageHeadTitle');
+
+
+
+  const pageHeadDesc =
+
+    document.getElementById('pageHeadDesc');
+
+
+
+  const breadcrumbCurrent =
+
+    document.getElementById('breadcrumbCurrent');
+
+
+
+  const pageTitleTag =
+
+    document.getElementById('pageTitleTag');
+
+
+
+
+
+  /* =========================================================
+
+     MODAL
+
+  ========================================================= */
+
+
+
+  const appModalOverlay =
+
+    document.getElementById('appModalOverlay');
+
+
+
+  const appModalIcon =
+
+    document.getElementById('appModalIcon');
+
+
+
+  const appModalTitle =
+
+    document.getElementById('appModalTitle');
+
+
+
+  const appModalMsg =
+
+    document.getElementById('appModalMsg');
+
+
+
+  const appModalActions =
+
+    document.getElementById('appModalActions');
+
+
+
+
+
+  function openModal({
+
+    type = 'success',
+
+    title,
+
+    message,
+
+    confirmText = 'تمام',
+
+    cancelText = 'إلغاء',
+
+    onConfirm = null
+
+  }) {
+
+
+
+    appModalIcon.className =
+
+      `app-modal-icon ${type}`;
+
+
+
+    appModalIcon.textContent =
+
+      type === 'success'
+
+        ? '✓'
+
+        : type === 'error'
+
+          ? '!'
+
+          : '?';
+
+
+
+    appModalTitle.textContent = title;
+
+
+
+    appModalMsg.textContent = message;
+
+
+
+    appModalActions.innerHTML = '';
+
+
+
+
+
+    if (onConfirm) {
+
+
+
+      const cancelBtn =
+
+        document.createElement('button');
+
+
+
+      cancelBtn.type = 'button';
+
+
+
+      cancelBtn.className =
+
+        'app-modal-btn-outline';
+
+
+
+      cancelBtn.textContent =
+
+        cancelText;
+
+
+
+      cancelBtn.addEventListener(
+
+        'click',
+
+        closeModal
+
+      );
+
+
+
+
+
+      const confirmBtn =
+
+        document.createElement('button');
+
+
+
+      confirmBtn.type = 'button';
+
+
+
+      confirmBtn.className =
+
+        `app-modal-btn-primary ${
+
+          type === 'error' ? 'danger' : ''
+
+        }`;
+
+
+
+      confirmBtn.textContent =
+
+        confirmText;
+
+
+
+      confirmBtn.addEventListener(
+
+        'click',
+
+        () => {
+
+          closeModal();
+
+          onConfirm();
+
+        }
+
+      );
+
+
+
+
+
+      appModalActions.appendChild(
+
+        cancelBtn
+
+      );
+
+
+
+      appModalActions.appendChild(
+
+        confirmBtn
+
+      );
+
+
+
+    } else {
+
+
+
+      const okBtn =
+
+        document.createElement('button');
+
+
+
+      okBtn.type = 'button';
+
+
+
+      okBtn.className =
+
+        'app-modal-btn-primary';
+
+
+
+      okBtn.textContent =
+
+        confirmText;
+
+
+
+      okBtn.addEventListener(
+
+        'click',
+
+        closeModal
+
+      );
+
+
+
+      appModalActions.appendChild(
+
+        okBtn
+
+      );
+
+
+
+    }
+
+
+
+
+
+    appModalOverlay.classList.add(
+
+      'is-open'
+
+    );
+
+
+
+  }
+
+
+
+
+
+  function closeModal() {
+
+
+
+    appModalOverlay.classList.remove(
+
+      'is-open'
+
+    );
+
+
+
+  }
+
+
+
+
+
+  appModalOverlay.addEventListener(
+
+    'click',
+
+    e => {
+
+
+
+      if (
+
+        e.target ===
+
+        appModalOverlay
+
+      ) {
+
+        closeModal();
+
+      }
+
+
+
+    }
+
+  );
+
+
+
+
+
+  document.addEventListener(
+
+    'keydown',
+
+    e => {
+
+
+
+      if (
+
+        e.key === 'Escape' &&
+
+        appModalOverlay.classList.contains(
+
+          'is-open'
+
+        )
+
+      ) {
+
+        closeModal();
+
+      }
+
+
+
+    }
+
+  );
+
+
+
+
+
+  /* =========================================================
+
+     STEPPER
+
+  ========================================================= */
+
+
+
+  document
+
+    .querySelectorAll('.stepper-item')
+
+    .forEach(item => {
+
+
+
+      item.addEventListener(
+
+        'click',
+
+        () => {
+
+
+
+          const target =
+
+            document.getElementById(
+
+              item.dataset.target
+
+            );
+
+
+
+          if (!target) return;
+
+
+
+          target.scrollIntoView({
+
+            behavior: 'smooth',
+
+            block: 'start'
+
+          });
+
+
+
+        }
+
+      );
+
+
+
+    });
+
+
+
+
+
+  const sections = [
+
+    document.getElementById('sectionBasic'),
+
+    document.getElementById('sectionDescription')
+
+  ];
+
+
+
+
+
+  const stepperItems =
+
+    document.querySelectorAll(
+
+      '.stepper-item'
+
+    );
+
+
+
+
+
+  const observer =
+
+    new IntersectionObserver(
+
+      entries => {
+
+
+
+        entries.forEach(entry => {
+
+
+
+          if (!entry.isIntersecting) {
+
+            return;
+
+          }
+
+
+
+          const id =
+
+            entry.target.id;
+
+
+
+          stepperItems.forEach(item => {
+
+
+
+            item.classList.toggle(
+
+              'active',
+
+              item.dataset.target === id
+
+            );
+
+
+
+          });
+
+
+
+        });
+
+
+
+      },
+
+      {
+
+        threshold: 0.25
+
+      }
+
+    );
+
+
+
+
+
+  sections.forEach(section => {
+
+
+
+    if (section) {
+
+      observer.observe(section);
+
+    }
+
+
+
+  });
+
+
+
+
+
+  /* =========================================================
+
+     LOGO UPLOAD
+
+  ========================================================= */
+
+
+
+  const collegeLogoFile =
+
+    document.getElementById(
+
+      'collegeLogoFile'
+
+    );
+
+
+
+  const collegeLogoFileRow =
+
+    document.getElementById(
+
+      'collegeLogoFileRow'
+
+    );
+
+
+
+  const collegeLogoFileName =
+
+    document.getElementById(
+
+      'collegeLogoFileName'
+
+    );
+
+
+
+  const collegeLogoFileSize =
+
+    document.getElementById(
+
+      'collegeLogoFileSize'
+
+    );
+
+
+
+  const removeCollegeLogo =
+
+    document.getElementById(
+
+      'removeCollegeLogo'
+
+    );
+
+
+
+
+
+  const MAX_FILE_SIZE =
+
+    5 * 1024 * 1024;
+
+
+
+
+
+  const allowedExtensions = [
+
+    'png',
+
+    'jpg',
+
+    'jpeg',
+
+    'svg',
+
+    'webp'
+
+  ];
+
+
+
+
+
+  function formatFileSize(
+
+    bytes
+
+  ) {
+
+
+
+    if (bytes < 1024) {
+
+      return `${bytes} B`;
+
+    }
+
+
+
+    if (bytes < 1024 * 1024) {
+
+      return `${(
+
+        bytes / 1024
+
+      ).toFixed(1)} KB`;
+
+    }
+
+
+
+    return `${(
+
+      bytes /
+
+      (1024 * 1024)
+
+    ).toFixed(1)} MB`;
+
+
+
+  }
+
+
+
+
+
+  function clearCollegeLogo() {
+
+
+
+    collegeLogoFile.value =
+
+      '';
+
+
+
+    collegeLogoFileRow.hidden =
+
+      true;
+
+
+
+  }
+
+
+
+
+
+  function showExistingLogo(
+
+    logo
+
+  ) {
+
+
+
+    if (!logo) return;
+
+
+
+    collegeLogoFileName.textContent =
+
+      logo.name || 'الشعار الحالي';
+
+
+
+    collegeLogoFileSize.textContent =
+
+      logo.size
+
+        ? formatFileSize(logo.size)
+
+        : 'مرفوع مسبقاً';
+
+
+
+    collegeLogoFileRow.hidden =
+
+      false;
+
+
+
+  }
+
+
+
+
+
+  collegeLogoFile.addEventListener(
+
+    'change',
+
+    () => {
+
+
+
+      const file =
+
+        collegeLogoFile.files[0];
+
+
+
+      if (!file) {
+
+        return;
+
+      }
+
+
+
+
+
+      const extension =
+
+        file.name
+
+          .split('.')
+
+          .pop()
+
+          .toLowerCase();
+
+
+
+
+
+      if (
+
+        !allowedExtensions
+
+          .includes(extension)
+
+      ) {
+
+
+
+        clearCollegeLogo();
+
+
+
+        openModal({
+
+          type: 'error',
+
+          title: 'نوع الملف غير مدعوم',
+
+          message:
+
+            'شعار الكلية يجب أن يكون PNG أو JPG أو SVG أو WEBP.'
+
+        });
+
+
+
+        return;
+
+
+
+      }
+
+
+
+
+
+      if (
+
+        file.size >
+
+        MAX_FILE_SIZE
+
+      ) {
+
+
+
+        clearCollegeLogo();
+
+
+
+        openModal({
+
+          type: 'error',
+
+          title: 'الملف كبير جداً',
+
+          message:
+
+            'الحد الأقصى لحجم شعار الكلية هو 5 ميجابايت.'
+
+        });
+
+
+
+        return;
+
+
+
+      }
+
+
+
+
+
+      collegeLogoFileName.textContent =
+
+        file.name;
+
+
+
+      collegeLogoFileSize.textContent =
+
+        formatFileSize(
+
+          file.size
+
+        );
+
+
+
+      collegeLogoFileRow.hidden =
+
+        false;
+
+
+
+    }
+
+  );
+
+
+
+
+
+  removeCollegeLogo.addEventListener(
+
+    'click',
+
+    clearCollegeLogo
+
+  );
+
+
+
+
+
+  /* =========================================================
+
+     BUILD PAYLOAD
+
+  ========================================================= */
+
+
+
+  function buildData(
+
+    status
+
+  ) {
+
+
+
+    return {
+
+
+
+      status,
+
+
+
+      name:
+
+        document
+
+          .getElementById('collegeName')
+
+          .value
+
+          .trim(),
+
+
+
+      dean_name:
+
+        document
+
+          .getElementById('collegeDeanName')
+
+          .value
+
+          .trim(),
+
+
+
+      code:
+
+        document
+
+          .getElementById('collegeCode')
+
+          .value
+
+          .trim() || null,
+
+
+
+      description:
+
+        document
+
+          .getElementById(
+
+            'collegeDescription'
+
+          )
+
+          .value
+
+          .trim()
+
+
+
+    };
+
+
+
+  }
+
+
+
+
+
+  /* =========================================================
+
+     VALIDATION
+
+  ========================================================= */
+
+
+
+  function validateForm(
+
+    status
+
+  ) {
+
+
+
+    const requiredFields = [
+
+      document.getElementById('collegeName'),
+
+      document.getElementById('collegeDeanName'),
+
+      document.getElementById('collegeDescription')
+
+    ];
+
+
+
+
+
+    for (
+
+      const field of requiredFields
+
+    ) {
+
+
+
+      if (!field.value.trim()) {
+
+
+
+        openModal({
+
+          type: 'error',
+
+          title: 'بيانات غير كاملة',
+
+          message:
+
+            'تأكد من تعبئة جميع الحقول المطلوبة.'
+
+        });
+
+
+
+        field.focus();
+
+
+
+        return false;
+
+
+
+      }
+
+
+
+    }
+
+
+
+
+
+    return true;
+
+
+
+  }
+
+
+
+
+
+  /* =========================================================
+
+     LOAD COLLEGE FOR EDIT
+
+     بتنجيب بيانات الكلية (id من الرابط) وبتعبّي الفورم فيها،
+
+     سواء الصفحة اللي حوّلت هون كانت صفحة قائمة الكليات
+
+     أو أي صفحة تانية عندها زر "تعديل".
+
+  ========================================================= */
+
+
+
+  async function loadCollegeForEdit(
+
+    id
+
+  ) {
+
+
+
+    let college = null;
+
+
+
+    if (USE_MOCK_DATA) {
+
+
+
+      college =
+
+        MOCK_COLLEGES[id] || null;
+
+
+
+      if (!college) {
+
+
+
+        openModal({
+
+          type: 'error',
+
+          title: 'الكلية غير موجودة',
+
+          message:
+
+            'تعذّر إيجاد بيانات هذه الكلية، رح ترجعي لقائمة الكليات.',
+
+          onConfirm: () => {
+
+            window.location.href =
+
+              'academic-content.html';
+
+          }
+
+        });
+
+
+
+        return;
+
+
+
+      }
+
+
+
+    } else {
+
+
+
+      try {
+
+
+
+        const response =
+
+          await fetch(
+
+            `${API_BASE_URL}/admin/colleges/${id}`,
+
+            {
+
+              headers: {
+
+                'Accept': 'application/json'
+
+              }
+
+            }
+
+          );
+
+
+
+        const result =
+
+          await response.json();
+
+
+
+        if (
+
+          !response.ok ||
+
+          !result.data
+
+        ) {
+
+
+
+          throw new Error(
+
+            result.message ||
+
+            'تعذّر جلب بيانات الكلية.'
+
+          );
+
+
+
+        }
+
+
+
+        college =
+
+          result.data;
+
+
+
+      } catch (error) {
+
+
+
+        openModal({
+
+          type: 'error',
+
+          title: 'تعذّر تحميل بيانات الكلية',
+
+          message:
+
+            error.message ||
+
+            'تأكدي من تشغيل الباك اند وحاولي مرة ثانية.',
+
+          onConfirm: () => {
+
+            window.location.href =
+
+              'academic-content.html';
+
+          }
+
+        });
+
+
+
+        return;
+
+
+
+      }
+
+
+
+    }
+
+
+
+
+
+    document.getElementById(
+
+      'collegeName'
+
+    ).value =
+
+      college.name || '';
+
+
+
+    document.getElementById(
+
+      'collegeDeanName'
+
+    ).value =
+
+      college.dean_name || '';
+
+
+
+    document.getElementById(
+
+      'collegeCode'
+
+    ).value =
+
+      college.code || '';
+
+
+
+    document.getElementById(
+
+      'collegeDescription'
+
+    ).value =
+
+      college.description || '';
+
+
+
+    showExistingLogo(
+
+      college.logo
+
+    );
+
+
+
+  }
+
+
+
+
+
+  function applyEditModeUI() {
+
+
+
+    pageTitleTag.textContent =
+
+      'تعديل بيانات الكلية';
+
+
+
+    breadcrumbCurrent.textContent =
+
+      'تعديل كلية';
+
+
+
+    pageHeadTitle.textContent =
+
+      'تعديل بيانات الكلية';
+
+
+
+    pageHeadDesc.textContent =
+
+      'حدّثي بيانات الكلية. أي تغيير رح ينعكس على صفحات العمادات والتخصصات المرتبطة فيها.';
+
+
+
+    saveBtnLabel.textContent =
+
+      'حفظ التعديلات';
+
+
+
+    draftBtn.hidden = true;
+
+
+
+  }
+
+
+
+
+
+  /* =========================================================
+
+     SUBMIT
+
+  ========================================================= */
+
+
+
+  async function submitCollege(
+
+    status,
+
+    triggerBtn
+
+  ) {
+
+
+
+    if (
+
+      !validateForm(status)
+
+    ) {
+
+      return;
+
+    }
+
+
+
+
+
+    const data =
+
+      buildData(status);
+
+
+
+
+
+    const file =
+
+      collegeLogoFile.files[0] ||
+
+      null;
+
+
+
+
+
+    triggerBtn.disabled =
+
+      true;
+
+
+
+
+
+    const originalContent =
+
+      triggerBtn.innerHTML;
+
+
+
+
+
+    triggerBtn.textContent =
+
+      isEditMode
+
+        ? 'جارٍ حفظ التعديلات...'
+
+        : status === 'draft'
+
+          ? 'جارٍ الحفظ...'
+
+          : 'جارٍ النشر...';
+
+
+
+
+
+    try {
+
+
+
+      /* =====================================================
+
+         MOCK
+
+      ==================================================== */
+
+
+
+      if (USE_MOCK_DATA) {
+
+
+
+        const mockData = {
+
+          ...data,
+
+          id:
+
+            isEditMode
+
+              ? editId
+
+              : undefined,
+
+          logo:
+
+            file
+
+              ? {
+
+                  name: file.name,
+
+                  size: file.size,
+
+                  type: file.type
+
+                }
+
+              : null
+
+        };
+
+
+
+
+
+        console.log(
+
+          '🏫 College data:',
+
+          mockData
+
+        );
+
+
+
+
+
+        await new Promise(
+
+          resolve =>
+
+            setTimeout(
+
+              resolve,
+
+              700
+
+            )
+
+        );
+
+
+
+
+
+        openModal({
+
+
+
+          type: 'success',
+
+
+
+          title:
+
+            isEditMode
+
+              ? 'تم حفظ التعديلات بنجاح'
+
+              : status === 'draft'
+
+                ? 'تم حفظ المسودة'
+
+                : 'تم نشر الكلية بنجاح',
+
+
+
+          message:
+
+            isEditMode
+
+              ? 'تم تحديث بيانات الكلية بشكل تجريبي. البيانات موجودة في Console.'
+
+              : status === 'draft'
+
+                ? 'تم حفظ الكلية محلياً. البيانات موجودة في Console.'
+
+                : 'تم نشر الكلية بشكل تجريبي. البيانات موجودة في Console.',
+
+
+
+          confirmText:
+
+            'تمام',
+
+
+
+          onConfirm:
+
+            (isEditMode || status === 'published')
+
+              ? () => {
+
+                  window.location.href =
+
+                    'academic-content.html';
+
+                }
+
+              : null
+
+
+
+        });
+
+
+
+
+
+        triggerBtn.disabled =
+
+          false;
+
+
+
+        triggerBtn.innerHTML =
+
+          originalContent;
+
+
+
+        return;
+
+
+
+      }
+
+
+
+
+
+      /* =====================================================
+
+         REAL BACKEND
+
+      ==================================================== */
+
+
+
+      const formData =
+
+        new FormData();
+
+
+
+
+
+      formData.append(
+
+        'status',
+
+        data.status
+
+      );
+
+
+
+      formData.append(
+
+        'name',
+
+        data.name
+
+      );
+
+
+
+      formData.append(
+
+        'dean_name',
+
+        data.dean_name
+
+      );
+
+
+
+      if (data.code) {
+
+
+
+        formData.append(
+
+          'code',
+
+          data.code
+
+        );
+
+
+
+      }
+
+
+
+      formData.append(
+
+        'description',
+
+        data.description
+
+      );
+
+
+
+
+
+      if (file) {
+
+
+
+        formData.append(
+
+          'logo',
+
+          file
+
+        );
+
+
+
+      }
+
+
+
+
+
+      if (isEditMode) {
+
+
+
+        formData.append(
+
+          '_method',
+
+          'PUT'
+
+        );
+
+
+
+      }
+
+
+
+
+
+      const endpoint =
+
+        isEditMode
+
+          ? `${API_BASE_URL}/admin/colleges/${editId}`
+
+          : `${API_BASE_URL}/admin/colleges`;
+
+
+
+
+
+      const response =
+
+        await fetch(
+
+          endpoint,
+
+          {
+
+            method: 'POST',
+
+            headers: {
+
+
+
+              'Accept':
+
+                'application/json'
+
+            },
+
+            body: formData
+
+          }
+
+        );
+
+
+
+
+
+      const result =
+
+        await response.json();
+
+
+
+
+
+      if (
+
+        response.ok &&
+
+        result.status === 'success'
+
+      ) {
+
+
+
+        openModal({
+
+
+
+          type: 'success',
+
+
+
+          title:
+
+            isEditMode
+
+              ? 'تم حفظ التعديلات بنجاح'
+
+              : status === 'draft'
+
+                ? 'تم حفظ المسودة'
+
+                : 'تم نشر الكلية بنجاح',
+
+
+
+          message:
+
+            isEditMode
+
+              ? 'تم تحديث بيانات الكلية بنجاح.'
+
+              : status === 'draft'
+
+                ? 'تم حفظ الكلية كمسودة.'
+
+                : 'تم إضافة الكلية بنجاح.',
+
+
+
+          onConfirm:
+
+            (isEditMode || status === 'published')
+
+              ? () => {
+
+                  window.location.href =
+
+                    'academic-content.html';
+
+                }
+
+              : null
+
+
+
+        });
+
+
+
+
+
+      } else {
+
+
+
+        throw new Error(
+
+          result.message ||
+
+          'حدث خطأ أثناء الحفظ.'
+
+        );
+
+
+
+      }
+
+
+
+
+
+    } catch (error) {
+
+
+
+      console.error(
+
+        'Save college error:',
+
+        error
+
+      );
+
+
+
+
+
+      openModal({
+
+
+
+        type: 'error',
+
+
+
+        title:
+
+          'تعذّر حفظ الكلية',
+
+
+
+        message:
+
+          error.message ||
+
+          'تأكدي من تشغيل الباك اند وحاولي مرة ثانية.'
+
+
+
+      });
+
+
+
+    } finally {
+
+
+
+      triggerBtn.disabled =
+
+        false;
+
+
+
+      triggerBtn.innerHTML =
+
+        originalContent;
+
+
+
+    }
+
+
+
+  }
+
+
+
+
+
+  /* =========================================================
+
+     EVENTS
+
+  ========================================================= */
+
+
+
+  collegeForm.addEventListener(
+
+    'submit',
+
+    e => {
+
+
+
+      e.preventDefault();
+
+
+
+      submitCollege(
+
+        isEditMode
+
+          ? 'updated'
+
+          : 'published',
+
+        saveBtn
+
+      );
+
+
+
+    }
+
+  );
+
+
+
+
+
+  draftBtn.addEventListener(
+
+    'click',
+
+    () => {
+
+
+
+      submitCollege(
+
+        'draft',
+
+        draftBtn
+
+      );
+
+
+
+    }
+
+  );
+
+
+
+
+
+  /* =========================================================
+
+     INIT
+
+  ========================================================= */
+
+
+
+  (async function init() {
+
+
+
+    if (isEditMode) {
+
+
+
+      applyEditModeUI();
+
+
+
+      await loadCollegeForEdit(
+
+        editId
+
+      );
+
+
+
+    }
+
+
+
+  })();
+
+
+
+
+
+});
+
+
+
+</script>
+
+<div id="admin-footer-slot"></div>
+
+<script src="../../js/admin-shell.js"></script>
+
+
+
+</body>

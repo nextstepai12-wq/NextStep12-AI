@@ -240,11 +240,12 @@
 
   <!-- ---- العمادات والكليات ---- -->
   <div class="uni-panel" data-panel="deanships" style="display:none;">
-    <p class="deanships-intro">هون كل عمادات الجامعة. فلّتري حسب الكلية للوصول أسرع، أو اختاري "الكل" لعرضهم جميعاً.</p>
-   <div class="deanships-filter-bar" id="deanshipsFilterBar" style="display:none;">
-  <select id="deanshipsFilterSelect" class="deanships-filter-select"></select>
-  <input type="text" id="deanshipSearch" placeholder="ابحثي عن عمادة أو كلية...">
-</div>
+    <p class="deanships-intro">هون كل عمادات الجامعة. ابحثي بالاسم أو فلّتري حسب الكلية للوصول أسرع، أو اختاري "كل الكليات" لعرضهم جميعاً.</p>
+    <div class="deanships-filter-bar" id="deanshipsFilterBar" style="display:none;">
+      <input type="text" id="deanshipSearch" placeholder="ابحثي عن عمادة أو كلية...">
+      <select id="deanshipsFilterSelect" class="deanships-filter-select"></select>
+      <span class="deanships-count" id="deanshipsCount">— عمادة</span>
+    </div>
     <div class="deanships-grid" id="deanshipsGrid">
       <div class="no-results">جارٍ التحميل...</div>
     </div>

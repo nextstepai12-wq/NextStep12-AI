@@ -363,14 +363,28 @@ body {
   line-height: 1.8;
 }
 
-/* ---- شريط فلترة العمادات (Dropdown بسيط بدون صندوق، بنفس شكل فلتر التخصصات) ---- */
+/* ---- شريط فلترة + بحث العمادات (نفس هوية شريط التخصصات: بحث + Dropdown + عداد) ---- */
 .deanships-filter-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 22px;
 }
+.deanships-filter-bar input[type="text"] {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  color: var(--dark);
+  outline: none;
+  flex: 1;
+  min-width: 220px;
+  transition: border-color .2s ease;
+}
+.deanships-filter-bar input[type="text"]:focus { border-color: var(--blue); }
 
 /* ---- ستايل موحّد لعناصر الـ select (Dropdown) المستخدمة بالفلاتر ---- */
 .deanships-filter-select,
@@ -412,6 +426,13 @@ body {
 .majors-college-filter option {
   font-family: 'Cairo', sans-serif;
   color: var(--dark);
+}
+
+/* عداد نتائج العمادات (زي majors-count بالظبط) */
+.deanships-count {
+  font-size: 12px; font-weight: 800; color: var(--blue);
+  background: rgba(47, 107, 255, .12); padding: 9px 16px; border-radius: 999px; white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .deanships-grid {
@@ -795,4 +816,5 @@ body {
   .deanships-filter-select,
   .majors-college-filter { min-width: 100%; }
   .majors-toolbar .majors-college-filter { flex-shrink: 1; }
+  .deanships-filter-bar input[type="text"] { min-width: 100%; }
 }

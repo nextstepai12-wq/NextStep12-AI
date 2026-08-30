@@ -187,7 +187,7 @@ function renderCollegeCard(c) {
     </div>`;
 }
 
-// بتبني قائمة الفلترة (Dropdown) فوق شبكة العمادات: "الكل" + كل كلية + "عمادات عامة"
+// بتبني قائمة الفلترة (Dropdown) فوق شبكة العمادات: "كل الكليات" + كل كلية + "عمادات عامة"
 // لو في عمادة واحدة ع الأقل مش تابعة لأي كلية (college_id null).
 // الفلتر كامل بيظهر فقط إذا الجامعة عندها كليات فعلاً.
 function renderDeanshipsFilterChips() {
@@ -201,7 +201,7 @@ function renderDeanshipsFilterChips() {
 
   const hasGeneralDeanships = currentUniDeanships.some(d => !d.college_id);
 
-  let optionsHTML = `<option value="all">الكل</option>`;
+  let optionsHTML = `<option value="all">كل الكليات</option>`;
   optionsHTML += currentUniColleges.map(c =>
     `<option value="${c.id}">${c.name}</option>`
   ).join('');
@@ -214,33 +214,63 @@ function renderDeanshipsFilterChips() {
   bar.style.display = 'flex';
 }
 
-// بتفلتر وترسم شبكة العمادات حسب كلية معينة.
-// collegeKey: 'all' لكل العمادات، 'none' للعمادات المستقلة (بدون كلية)، أو id الكلية.
-function filterDeanshipsByCollege(collegeKey) {
+/* ======================= فلترة العمادات: بحث نصي + Dropdown كلية سوا (زي التخصصات بالظبط) ======================= */
+
+// بتطبق فلترة موحدة على شبكة العمادات: نص البحث + الكلية المختارة سوا،
+// بنفس منطق applyMajorsFilter تحت.
+function applyDeanshipsFilter() {
+  const searchInput = document.getElementById('deanshipSearch');
   const select = document.getElementById('deanshipsFilterSelect');
-  if (select) select.value = String(collegeKey);
+
+  const q = searchInput ? searchInput.value.trim() : '';
+  const collegeFilter = (select && select.value) ? select.value : 'all';
 
   const filtered = currentUniDeanships.filter(d => {
-    if (collegeKey === 'all') return true;
-    if (collegeKey === 'none') return !d.college_id;
-    return String(d.college_id) === String(collegeKey);
+    const matchesCollege =
+      collegeFilter === 'all' ? true :
+      collegeFilter === 'none' ? !d.college_id :
+      String(d.college_id) === String(collegeFilter);
+
+    const matchesText =
+      !q ||
+      (d.name && d.name.includes(q)) ||
+      (d.description && d.description.includes(q)) ||
+      (d.dean_name && d.dean_name.includes(q));
+
+    return matchesCollege && matchesText;
   });
 
   const grid = document.getElementById('deanshipsGrid');
-  if (filtered.length) {
-    grid.innerHTML = filtered.map(renderDeanshipCard).join('');
-  } else {
-    grid.innerHTML = collegeKey === 'all'
-      ? '<div class="no-results">ما في عمادات مضافة حالياً.</div>'
-      : '<div class="no-results">ما في عمادات مطابقة لهاي الكلية حالياً.</div>';
+  const isFilterActive = !!q || collegeFilter !== 'all';
+
+  grid.innerHTML = filtered.length
+    ? filtered.map(renderDeanshipCard).join('')
+    : (isFilterActive
+        ? '<div class="no-results">ما في عمادات مطابقة لبحثك.</div>'
+        : '<div class="no-results">ما في عمادات مضافة حالياً.</div>');
+
+  const countEl = document.getElementById('deanshipsCount');
+  if (countEl) {
+    countEl.textContent = `${filtered.length} ${filtered.length === 1 ? 'عمادة' : 'عمادات'}`;
   }
 
   setupShowMore('deanshipsGrid', '.deanship-card', DEANSHIPS_PREVIEW_LIMIT, 'كل العمادات والكليات');
 }
 
-document.getElementById('deanshipsFilterSelect').addEventListener('change', (e) => {
-  filterDeanshipsByCollege(e.target.value);
-});
+// بتفلتر شبكة العمادات على كلية معينة (تُستخدم من زر "عرض العمادات التابعة" جوا كرت الكلية)،
+// وبتصفّر البحث النصي عشان النتيجة تبين واضحة.
+function filterDeanshipsByCollege(collegeKey) {
+  const select = document.getElementById('deanshipsFilterSelect');
+  if (select) select.value = String(collegeKey);
+
+  const searchInput = document.getElementById('deanshipSearch');
+  if (searchInput) searchInput.value = '';
+
+  applyDeanshipsFilter();
+}
+
+document.getElementById('deanshipsFilterSelect').addEventListener('change', applyDeanshipsFilter);
+document.getElementById('deanshipSearch').addEventListener('input', applyDeanshipsFilter);
 
 // زر "عرض العمادات التابعة" داخل كرت الكلية: بينقل لتبويب العمادات
 // ويفلترهم مباشرة على هاي الكلية بالذات.
@@ -583,17 +613,7 @@ function renderUniversityDetails(uni, id) {
   setupShowMore('collegesGrid', '.college-card', DEANSHIPS_PREVIEW_LIMIT, 'كل الكليات');
 
   renderDeanshipsFilterChips();
-  filterDeanshipsByCollege('all');
+  applyDeanshipsFilter();
 }
 
 loadUniversityDetails();
-
-
-document.getElementById('deanshipSearch').addEventListener('input', (e) => {
-  const q = e.target.value.trim();
-  const cards = document.querySelectorAll('#deanshipsGrid .deanship-card');
-  cards.forEach(card => {
-    const name = card.querySelector('h4')?.textContent.trim() || '';
-    card.style.display = name.includes(q) ? '' : 'none';
-  });
-});

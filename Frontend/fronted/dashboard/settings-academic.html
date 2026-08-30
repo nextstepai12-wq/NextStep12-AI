@@ -546,7 +546,7 @@
             <button
               type="button"
               class="academic-add-btn"
-              onclick="window.location.href='addcollege.html'"
+              onclick="window.location.href='add-college.html'"
             >
               + إضافة كلية
             </button>
@@ -940,16 +940,15 @@
      ACTIONS
   ========================================================= */
 
-  window.editCollege = function () {
+  window.editCollege = function (collegeId) {
 
     /*
-      TODO: تمرير معرّف الكلية بالرابط لما تكون صفحة
-      addcollege.html جاهزة لوضع التعديل، مثلاً:
-      addcollege.html?edit=<collegeId>
+      تمرير معرّف الكلية بالرابط لصفحة add-college.html
+      حتى تعرف إنها بوضع "تعديل" وتجيب بيانات الكلية المطلوبة.
     */
 
     window.location.href =
-      'addcollege.html';
+      'add-college.html?edit=' + collegeId;
 
   };
 

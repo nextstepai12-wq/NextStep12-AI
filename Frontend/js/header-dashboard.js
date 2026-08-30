@@ -40,7 +40,7 @@
 
                     '<span class="brand-logo-box">' +
 
-                        '<img src="' + root + '../Frontend/assets/images/brand-logo.png" ' +
+                        '<img src="' + root + '../Frontend/assets/logo.png" ' +
                              'alt="NextStep AI" ' +
                              'class="brand-logo">' +
 

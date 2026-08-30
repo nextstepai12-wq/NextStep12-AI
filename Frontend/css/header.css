@@ -180,7 +180,7 @@ header.site-header.scrolled {
 }
 
 .brand-mark .brand-text span {
-    color: #20bfd3 !important;
+  color: var(--cyan);
 
     background: none !important;
 

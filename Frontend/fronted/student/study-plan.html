@@ -6,501 +6,23 @@
 <title>الخطة الدراسية — NextStep AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="../../css/app.css" rel="stylesheet">
 <link href="../../css/header.css" rel="stylesheet">
 <link href="../../css/footer.css" rel="stylesheet">
-<link rel="stylesheet" href="../../css/student-dashboard.css">
+<link rel="stylesheet" href="../../css/app.css">
+<link rel="stylesheet" href="../../css/home.css">
+<link rel="stylesheet" href="../../css/studentdashboard.css">
 <link href="../../css/study-plan.css" rel="stylesheet">
-
-<!--
-  ==========================================================================
-  ملاحظة: الأنماط الخاصة بتبويب "دورات تدريبية مقترحة" ونافذة تفاصيل الدورة
-  مو موجودة بملف study-plan.css الأصلي (ما كان عندي وصول له)، فحطيتها هون
-  بكتلة <style> مستقلة تحت. لو حابب تنقلها لملف study-plan.css بعدين،
-  انسخ كل شي بين "START" و"END" وحطه هناك، واحذف الكتلة من هون.
-  ==========================================================================
--->
-<style>
-/* ===== START: أنماط تبويب الدورات التدريبية + نافذة التفاصيل ===== */
-
-.training-intro {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 18px;
-}
-
-.training-intro h3 {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--ink, #1B2733);
-  margin: 0 0 4px;
-}
-
-.training-intro p {
-  font-size: 13px;
-  color: var(--muted, #6B7A8D);
-  margin: 0;
-  max-width: 560px;
-  line-height: 1.7;
-}
-
-.training-filter {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.training-filter-chip {
-  border: 1px solid var(--border, #E4ECF4);
-  background: var(--white, #fff);
-  color: var(--muted, #6B7A8D);
-  font-family: inherit;
-  font-size: 12.5px;
-  font-weight: 700;
-  padding: 7px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background .15s, border-color .15s, color .15s;
-}
-
-.training-filter-chip:hover {
-  border-color: var(--sky, #2E8FE6);
-  color: var(--navy, #0E2A4A);
-}
-
-.training-filter-chip.active {
-  background: var(--navy, #0E2A4A);
-  border-color: var(--navy, #0E2A4A);
-  color: #fff;
-}
-
-.training-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 14px;
-}
-
-.training-card {
-  border: 1px solid var(--border, #E4ECF4);
-  border-radius: 14px;
-  padding: 16px;
-  background: var(--white, #fff);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: box-shadow .15s, border-color .15s, transform .15s;
-}
-
-.training-card:hover {
-  box-shadow: var(--shadow-lg, 0 12px 32px rgba(14,42,74,0.10));
-  border-color: var(--sky, #2E8FE6);
-  transform: translateY(-2px);
-}
-
-.training-card-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.training-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #fff;
-}
-.training-icon svg { width: 19px; height: 19px; }
-
-.training-icon.blue   { background: linear-gradient(145deg, var(--sky, #2E8FE6), #4FA6F5); }
-.training-icon.mint   { background: linear-gradient(145deg, var(--teal, #16BFA8), #34D6C0); }
-.training-icon.navy   { background: linear-gradient(145deg, var(--navy, #0E2A4A), #1E4A78); }
-.training-icon.amber  { background: linear-gradient(145deg, #E7A93C, #F2C368); }
-
-.training-price {
-  font-size: 11px;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-.training-price.free { background: rgba(22,191,168,0.12); color: var(--teal, #16BFA8); }
-.training-price.paid { background: rgba(46,143,230,0.10); color: var(--sky, #2E8FE6); }
-
-.training-card h4 {
-  font-size: 14.5px;
-  font-weight: 800;
-  color: var(--ink, #1B2733);
-  margin: 0;
-  line-height: 1.4;
-}
-
-.training-provider {
-  font-size: 12px;
-  color: var(--muted, #6B7A8D);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: -4px;
-}
-
-.training-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 2px;
-}
-
-.training-meta span {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--navy, #0E2A4A);
-  background: var(--light-2, #F7FAFD);
-  border: 1px solid var(--border, #E4ECF4);
-  padding: 3px 9px;
-  border-radius: 7px;
-}
-
-.training-desc {
-  font-size: 12.5px;
-  color: var(--muted, #6B7A8D);
-  line-height: 1.7;
-  margin: 0;
-}
-
-.training-match {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--teal, #16BFA8);
-  margin-top: -2px;
-}
-.training-match svg { width: 14px; height: 14px; }
-
-.btn-training-details {
-  margin-top: auto;
-  border: none;
-  background: var(--navy, #0E2A4A);
-  color: #fff;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 10px 14px;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: background .15s;
-}
-.btn-training-details:hover { background: var(--sky, #2E8FE6); }
-.btn-training-details svg { width: 15px; height: 15px; }
-
-/* ===== نافذة تفاصيل الدورة (Modal) ===== */
-
-.course-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(14, 42, 74, 0.45);
-  backdrop-filter: blur(2px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 500;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .18s ease, visibility .18s;
-}
-
-.course-modal-overlay.open {
-  opacity: 1;
-  visibility: visible;
-}
-
-.course-modal {
-  width: 100%;
-  max-width: 460px;
-  max-height: 88vh;
-  overflow-y: auto;
-  background: var(--white, #fff);
-  border-radius: 18px;
-  box-shadow: 0 24px 60px rgba(14,42,74,0.25);
-  transform: translateY(14px) scale(0.98);
-  transition: transform .18s ease;
-}
-
-.course-modal-overlay.open .course-modal {
-  transform: translateY(0) scale(1);
-}
-
-.course-modal-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 20px 20px 14px;
-  border-bottom: 1px solid var(--border, #E4ECF4);
-}
-
-.course-modal-head-left {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.course-modal-head h3 {
-  font-size: 16.5px;
-  font-weight: 800;
-  color: var(--ink, #1B2733);
-  margin: 0 0 4px;
-  line-height: 1.4;
-}
-
-.course-modal-head .training-provider { margin-top: 2px; }
-
-.course-modal-close {
-  border: none;
-  background: var(--light-2, #F7FAFD);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted, #6B7A8D);
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background .15s, color .15s;
-}
-.course-modal-close:hover { background: var(--border, #E4ECF4); color: var(--ink, #1B2733); }
-.course-modal-close svg { width: 16px; height: 16px; }
-
-.course-modal-body {
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.course-modal-meta-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.course-modal-meta-box {
-  border: 1px solid var(--border, #E4ECF4);
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-}
-.course-modal-meta-box .k {
-  display: block;
-  font-size: 10.5px;
-  color: var(--muted, #6B7A8D);
-  margin-bottom: 3px;
-}
-.course-modal-meta-box .v {
-  display: block;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--navy, #0E2A4A);
-}
-
-.course-modal-section h5 {
-  font-size: 12.5px;
-  font-weight: 800;
-  color: var(--ink, #1B2733);
-  margin: 0 0 6px;
-}
-
-.course-modal-section p {
-  font-size: 13px;
-  color: var(--muted, #6B7A8D);
-  line-height: 1.8;
-  margin: 0;
-}
-
-.course-modal-why {
-  display: flex;
-  gap: 10px;
-  background: rgba(22,191,168,0.08);
-  border: 1px solid rgba(22,191,168,0.25);
-  border-radius: 12px;
-  padding: 12px;
-}
-.course-modal-why svg {
-  width: 18px;
-  height: 18px;
-  color: var(--teal, #16BFA8);
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.course-modal-why p {
-  font-size: 12.5px;
-  color: var(--ink, #1B2733);
-  line-height: 1.75;
-  margin: 0;
-}
-
-.course-modal-foot {
-  padding: 16px 20px 20px;
-  display: flex;
-  gap: 10px;
-}
-
-.btn-modal-enroll,
-.btn-modal-cancel {
-  flex: 1;
-  border-radius: 10px;
-  padding: 11px 14px;
-  font-family: inherit;
-  font-size: 13.5px;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.btn-modal-enroll {
-  border: none;
-  background: var(--navy, #0E2A4A);
-  color: #fff;
-  transition: background .15s;
-}
-.btn-modal-enroll:hover { background: var(--sky, #2E8FE6); }
-.btn-modal-enroll svg { width: 15px; height: 15px; }
-
-.btn-modal-cancel {
-  border: 1px solid var(--border, #E4ECF4);
-  background: #fff;
-  color: var(--muted, #6B7A8D);
-}
-.btn-modal-cancel:hover { background: var(--light-2, #F7FAFD); }
-
-@media (max-width: 520px) {
-  .course-modal-meta-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* ===== END: أنماط تبويب الدورات التدريبية + نافذة التفاصيل ===== */
-</style>
-
+<link rel="stylesheet" href="../../css/student-settings.css">
 </head>
 <body>
 
-<!-- ======================= HEADER ======================= -->
+   <script src="../../js/header-dashboard.js"></script>
 
 <!-- ======================= LAYOUT (Sidebar + Content) ======================= -->
 <div class="student-layout">
 
-  <aside class="student-sidebar">
-    <div class="student-sidebar-head">
-      <h3>بوابة الطالب</h3>
-      <p>مرحباً، أحمد 👋</p>
-    </div>
-
-    <nav class="student-sidebar-nav">
-      <a href="student-dashboard.html" class="student-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
-          </svg>
-          نظرة عامة
-        </span>
-      </a>
-      <a href="../profile.html" class="student-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-          ملفي الشخصي
-        </span>
-      </a>
-      <a href="../quiz.html" class="student-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <path d="M14 2v6h6"/>
-            <path d="M9 13h6"/>
-            <path d="M9 17h4"/>
-          </svg>
-          الاختبارات الذكية
-        </span>
-      </a>
-      <a href="recommendations.html" class="student-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="M9 12l2 2 4-4"/>
-          </svg>
-          التوصيات
-        </span>
-      </a>
-      <a href="universities.html" class="student-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 3L2 9l10 6 10-6-10-6z"/>
-            <path d="M2 15l10 6 10-6"/>
-            <path d="M2 21l10-6 10 6"/>
-          </svg>
-          الجامعات
-        </span>
-      </a>
-      <a href="study-plan.html" class="student-sidebar-link active">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 11l3 3L22 4"/>
-            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-          </svg>
-          الخطة الدراسية
-        </span>
-      </a>
-      <a href="ai-assistant.html" class="student-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.27A7.01 7.01 0 0 1 14 23h-4a7.01 7.01 0 0 1-5.73-3H3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
-            <circle cx="9" cy="15" r="1"/>
-            <circle cx="15" cy="15" r="1"/>
-            <path d="M9 19c.83.6 2 1 3 1s2.17-.4 3-1"/>
-          </svg>
-          المساعد الذكي
-        </span>
-      </a>
-      <a href="../student-settings.html" class="student-sidebar-link">
-        <span class="link-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-          </svg>
-          الإعدادات
-        </span>
-      </a>
-    </nav>
-
-    <button type="button" class="student-sidebar-cta" onclick="window.location.href='tests.html'">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-        <path d="M12 5v14M5 12h14"/>
-      </svg>
-      ابدأ الاختبار الآن
-    </button>
-  </aside>
+  <!-- ======================= SITE NAV SIDEBAR ======================= -->
+  
 
   <!-- ======================= STUDY PLAN (CONTENT) ======================= -->
   <div class="plan-wrap">
@@ -557,7 +79,7 @@
         <!-- Center: table -->
         <div class="plan-table-wrap">
 
-          <!-- الخطة الدراسية (required courses) -->
+          <!-- الخطة الدراسية -->
           <div class="tab-panel" data-panel="required">
             <div class="semesters-grid">
               <div class="semester-block">
@@ -577,7 +99,7 @@
             </div>
           </div>
 
-          <!-- المواد الاختيارية (elective courses) -->
+          <!-- المواد الاختيارية -->
           <div class="tab-panel" data-panel="elective" style="display:none;">
             <div class="semesters-grid">
               <div class="semester-block">
@@ -595,7 +117,7 @@
             </div>
           </div>
 
-          <!-- المواد التخصصية (major-specific courses) -->
+          <!-- المواد التخصصية -->
           <div class="tab-panel" data-panel="major" style="display:none;">
             <div class="semesters-grid">
               <div class="semester-block">
@@ -613,9 +135,8 @@
             </div>
           </div>
 
-          <!-- ============ دورات تدريبية مقترحة (NEW TAB) ============ -->
+          <!-- دورات تدريبية مقترحة -->
           <div class="tab-panel" data-panel="training" style="display:none;">
-
             <div class="training-intro">
               <div>
                 <h3>دورات تدريبية مقترحة لك</h3>
@@ -628,11 +149,7 @@
                 <button class="training-filter-chip" data-level="متقدم" type="button">متقدم</button>
               </div>
             </div>
-
-            <div class="training-grid" id="trainingGrid">
-              <!-- الكروت بتتولّد تلقائياً من JS تحت -->
-            </div>
-
+            <div class="training-grid" id="trainingGrid"></div>
           </div>
 
         </div>
@@ -713,20 +230,15 @@
 
     </div>
   </div>
-  <!-- ======================= END STUDY PLAN ======================= -->
 
 </div>
-<!-- ======================= END PAGE LAYOUT ======================= -->
 
 <!-- ======================= نافذة تفاصيل الدورة (Modal) ======================= -->
 <div class="course-modal-overlay" id="courseModalOverlay">
   <div class="course-modal" id="courseModal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
-
     <div class="course-modal-head">
       <div class="course-modal-head-left">
-        <span class="training-icon" id="modalIcon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
-        </span>
+        <span class="training-icon" id="modalIcon"></span>
         <div>
           <h3 id="courseModalTitle">—</h3>
           <div class="training-provider" id="modalProvider"></div>
@@ -736,9 +248,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
-
     <div class="course-modal-body">
-
       <div class="course-modal-meta-grid">
         <div class="course-modal-meta-box">
           <span class="k">المدة</span>
@@ -753,19 +263,15 @@
           <span class="v" id="modalPrice">—</span>
         </div>
       </div>
-
       <div class="course-modal-section">
         <h5>عن الدورة</h5>
         <p id="modalDesc">—</p>
       </div>
-
       <div class="course-modal-why">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.27A7.01 7.01 0 0 1 14 23h-4a7.01 7.01 0 0 1-5.73-3H3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
         <p id="modalWhy">—</p>
       </div>
-
     </div>
-
     <div class="course-modal-foot">
       <button class="btn-modal-cancel" id="courseModalCancel" type="button">إغلاق</button>
       <a class="btn-modal-enroll" id="modalEnrollBtn" href="#" target="_blank" rel="noopener">
@@ -773,15 +279,70 @@
         سجّل بالدورة
       </a>
     </div>
-
   </div>
 </div>
+<aside class="sidebar">
+      <div class="group-label">القائمة الرئيسية</div>
+      <nav>
+          <a href="../student/student-dashboard.html" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+              لوحة الطالب
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              النتائج والتوصيات
+          </a>
+          <a href="../../fronted/quiz.html" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+              الاختيار الذكي
+          </a>
+          <a href="../universities.html" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l4 8H8l4-8z"/><rect x="4" y="14" width="16" height="7" rx="1.5"/></svg>
+              الجامعات
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M4 9h5"/></svg>
+              التخصصات
+          </a>
+          <a href="../chatbot.html" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.8 8.4 8.5 8.5 0 0 1-4-1L3 20l1.1-4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+              المساعد الذكي
+          </a>
+      </nav>
 
-<!-- ======================= FOOTER ======================= -->
+      <div class="group-label">أدواتي</div>
+      <nav>
+          <a href="../../fronted/student/favorites.html" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-6.2 3.6 1.6-7L2 9.2l7.1-.6L12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7z"/></svg>
+              المفضلة
+          </a>
+          <a href="#" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+              المقارنات
+          </a>
+      </nav>
+
+      <div class="group-label">حسابي</div>
+      <nav>
+          <a href="../../fronted/student/student-profile.html" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
+              ملفي الشخصي
+          </a>
+          <a href="../../fronted/student/student-settings.html" class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>
+              الإعدادات
+          </a>
+          <hr>
+          <a href="../../index.html" class="nav-item logout">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+              تسجيل الخروج
+          </a>
+      </nav>
+  </aside>
 <div id="footer-placeholder"></div>
 
 <script>
-/* Tabs switching (شغالة متل ما هي، بتدعم أي تبويب/لوحة جديدة تلقائياً) */
+/* Tabs switching */
 const tabs = document.querySelectorAll('.plan-tab');
 const panels = document.querySelectorAll('.tab-panel');
 tabs.forEach(tab => {
@@ -795,104 +356,18 @@ tabs.forEach(tab => {
   });
 });
 
-/* Download PDF (placeholder — uses browser print dialog) */
-document.getElementById('btnDownloadPdf').addEventListener('click', () => {
-  window.print();
-});
+/* Download PDF & Compare */
+document.getElementById('btnDownloadPdf').addEventListener('click', () => window.print());
+document.getElementById('btnCompare').addEventListener('click', () => alert('ميزة المقارنة بين التخصصات قريباً!'));
 
-/* Compare button (placeholder) */
-document.getElementById('btnCompare').addEventListener('click', () => {
-  alert('ميزة المقارنة بين التخصصات قريباً!');
-});
-
-/* ==========================================================
-   دورات تدريبية مقترحة — البيانات + العرض + نافذة التفاصيل
-   ========================================================== */
+/* Training Courses Data & Logic */
 const trainingCourses = [
-  {
-    id: 't1',
-    title: 'أساسيات الذكاء الاصطناعي',
-    provider: 'Coursera',
-    icon: 'blue',
-    duration: '6 أسابيع',
-    level: 'مبتدئ',
-    price: 'free',
-    priceLabel: 'مجانية',
-    match: 92,
-    desc: 'مقدمة شاملة لمفاهيم الذكاء الاصطناعي والتعلم الآلي، مع أمثلة عملية بسيطة ومشاريع تطبيقية صغيرة.',
-    why: 'مرتبطة مباشرة بتخصص علوم الحاسوب اللي اخترته، وبتقوّي فهمك للمواد التخصصية الجاية بالفصل السادس.',
-    link: '#'
-  },
-  {
-    id: 't2',
-    title: 'تطوير الويب الشامل',
-    provider: 'Udemy',
-    icon: 'navy',
-    duration: '10 أسابيع',
-    level: 'متوسط',
-    price: 'paid',
-    priceLabel: '49$',
-    match: 85,
-    desc: 'دورة متكاملة تغطي HTML وCSS وJavaScript، وصولاً لبناء مشروع ويب كامل من الصفر.',
-    why: 'مهارة عملية عالية الطلب بسوق العمل التقني، وبتفيدك تبني مشاريع جانبية لسيرتك الذاتية.',
-    link: '#'
-  },
-  {
-    id: 't3',
-    title: 'تحليل البيانات بلغة Python',
-    provider: 'edX',
-    icon: 'mint',
-    duration: '8 أسابيع',
-    level: 'مبتدئ',
-    price: 'free',
-    priceLabel: 'مجانية',
-    match: 88,
-    desc: 'تعلم أساسيات تحليل البيانات باستخدام Python ومكتبات مثل Pandas وMatplotlib.',
-    why: 'بتكمّل مادة "هياكل البيانات" بخطتك، وبتفتحلك باب تخصص علم البيانات كخيار مستقبلي.',
-    link: '#'
-  },
-  {
-    id: 't4',
-    title: 'أساسيات الأمن السيبراني',
-    provider: 'Google',
-    icon: 'amber',
-    duration: '4 أسابيع',
-    level: 'مبتدئ',
-    price: 'free',
-    priceLabel: 'مجانية',
-    match: 74,
-    desc: 'مقدمة عملية لمبادئ حماية الأنظمة والشبكات من التهديدات الشائعة.',
-    why: 'موضوع مكمّل لمادة "أمن المعلومات" بخطتك، ومفيد لأي مسار تقني مستقبلاً.',
-    link: '#'
-  },
-  {
-    id: 't5',
-    title: 'إدارة المشاريع بمنهجية Agile',
-    provider: 'LinkedIn Learning',
-    icon: 'blue',
-    duration: '3 أسابيع',
-    level: 'متوسط',
-    price: 'paid',
-    priceLabel: '29$',
-    match: 68,
-    desc: 'كيف تدير مشروع تقني بمرونة باستخدام Scrum، من التخطيط للتسليم.',
-    why: 'مهارة تنظيمية بتفيدك بمشروع التخرج وبأي عمل جماعي جاي بمشوارك الدراسي.',
-    link: '#'
-  },
-  {
-    id: 't6',
-    title: 'هياكل البيانات والخوارزميات المتقدمة',
-    provider: 'freeCodeCamp',
-    icon: 'navy',
-    duration: '12 أسبوع',
-    level: 'متقدم',
-    price: 'free',
-    priceLabel: 'مجانية',
-    match: 90,
-    desc: 'تعمّق أكبر بالخوارزميات وتعقيد الوقت، بالتحضير لمقابلات الشركات التقنية الكبرى.',
-    why: 'امتداد طبيعي لمادة "هياكل البيانات" (CS201) اللي خلّصتها بالفصل الثاني.',
-    link: '#'
-  }
+  { id: 't1', title: 'أساسيات الذكاء الاصطناعي', provider: 'Coursera', icon: 'blue', duration: '6 أسابيع', level: 'مبتدئ', price: 'free', priceLabel: 'مجانية', match: 92, desc: 'مقدمة شاملة لمفاهيم الذكاء الاصطناعي والتعلم الآلي، مع أمثلة عملية بسيطة ومشاريع تطبيقية صغيرة.', why: 'مرتبطة مباشرة بتخصص علوم الحاسوب اللي اخترته، وبتقوّي فهمك للمواد التخصصية.', link: '#' },
+  { id: 't2', title: 'تطوير الويب الشامل', provider: 'Udemy', icon: 'navy', duration: '10 أسابيع', level: 'متوسط', price: 'paid', priceLabel: '49$', match: 85, desc: 'دورة متكاملة تغطي HTML وCSS وJavaScript، وصولاً لبناء مشروع ويب كامل من الصفر.', why: 'مهارة عملية عالية الطلب بسوق العمل التقني، وبتفيدك تبني مشاريع جانبية.', link: '#' },
+  { id: 't3', title: 'تحليل البيانات بلغة Python', provider: 'edX', icon: 'mint', duration: '8 أسابيع', level: 'مبتدئ', price: 'free', priceLabel: 'مجانية', match: 88, desc: 'تعلم أساسيات تحليل البيانات باستخدام Python ومكتبات مثل Pandas وMatplotlib.', why: 'بتكمّل مادة هياكل البيانات بخطتك، وبتفتحلك باب تخصص علم البيانات.', link: '#' },
+  { id: 't4', title: 'أساسيات الأمن السيبراني', provider: 'Google', icon: 'amber', duration: '4 أسابيع', level: 'مبتدئ', price: 'free', priceLabel: 'مجانية', match: 74, desc: 'مقدمة عملية لمبادئ حماية الأنظمة والشبكات من التهديدات الشائعة.', why: 'موضوع مكمّل لمادة أمن المعلومات بخطتك، ومفيد لأي مسار تقني مستقبلاً.', link: '#' },
+  { id: 't5', title: 'إدارة المشاريع بمنهجية Agile', provider: 'LinkedIn Learning', icon: 'blue', duration: '3 أسابيع', level: 'متوسط', price: 'paid', priceLabel: '29$', match: 68, desc: 'كيف تدير مشروع تقني بمرونة باستخدام Scrum، من التخطيط للتسليم.', why: 'مهارة تنظيمية بتفيدك بمشروع التخرج وبأي عمل جماعي جاي.', link: '#' },
+  { id: 't6', title: 'هياكل البيانات والخوارزميات', provider: 'freeCodeCamp', icon: 'navy', duration: '12 أسبوع', level: 'متقدم', price: 'free', priceLabel: 'مجانية', match: 90, desc: 'تعمّق أكبر بالخوارزميات وتعقيد الوقت، بالتحضير لمقابلات الشركات التقنية الكبرى.', why: 'امتداد طبيعي لمادة هياكل البيانات (CS201).', link: '#' }
 ];
 
 const iconSvgMap = {
@@ -908,7 +383,6 @@ let currentLevel = 'all';
 
 function renderTrainingCourses() {
   const list = trainingCourses.filter(c => currentLevel === 'all' || c.level === currentLevel);
-
   trainingGrid.innerHTML = list.map(c => `
     <div class="training-card">
       <div class="training-card-top">
@@ -952,9 +426,8 @@ trainingFilter.querySelectorAll('.training-filter-chip').forEach(chip => {
 
 renderTrainingCourses();
 
-/* ===== فتح/إغلاق نافذة تفاصيل الدورة ===== */
+/* Modal Logic */
 const courseModalOverlay = document.getElementById('courseModalOverlay');
-const courseModal = document.getElementById('courseModal');
 
 function openCourseModal(courseId) {
   const c = trainingCourses.find(x => x.id === courseId);
@@ -963,8 +436,7 @@ function openCourseModal(courseId) {
   document.getElementById('modalIcon').className = 'training-icon ' + c.icon;
   document.getElementById('modalIcon').innerHTML = iconSvgMap[c.icon];
   document.getElementById('courseModalTitle').textContent = c.title;
-  document.getElementById('modalProvider').innerHTML =
-    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> ' + c.provider;
+  document.getElementById('modalProvider').innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> ' + c.provider;
   document.getElementById('modalDuration').textContent = c.duration;
   document.getElementById('modalLevel').textContent = c.level;
   document.getElementById('modalPrice').textContent = c.priceLabel;
@@ -983,16 +455,9 @@ function closeCourseModal() {
 
 document.getElementById('courseModalClose').addEventListener('click', closeCourseModal);
 document.getElementById('courseModalCancel').addEventListener('click', closeCourseModal);
-
-courseModalOverlay.addEventListener('click', (e) => {
-  if (e.target === courseModalOverlay) closeCourseModal();
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && courseModalOverlay.classList.contains('open')) closeCourseModal();
-});
+courseModalOverlay.addEventListener('click', (e) => { if (e.target === courseModalOverlay) closeCourseModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && courseModalOverlay.classList.contains('open')) closeCourseModal(); });
 </script>
 
-<script src="footer.js"></script>
 </body>
 </html>

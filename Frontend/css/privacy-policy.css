@@ -72,20 +72,7 @@ body {
   text-decoration: none;
 }
 
-.brand-logo {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, var(--navy-blue), var(--blue));
-  color: #fff;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 1.3rem;
-  font-family: var(--font-en);
-  box-shadow: 0 4px 15px rgba(47, 107, 255, 0.3);
-}
+
 
 .brand-text {
   font-size: 1.4rem;
@@ -109,8 +96,7 @@ body {
 .main-nav a {
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 600;
+  
   transition: color 0.3s ease;
 }
 
@@ -120,28 +106,7 @@ body {
 }
 
 /* أزرار الهوية (زر أساسي مطابق للدليل) */
-.nav-actions .btn-signin, .btn-primary-brand {
-  background: var(--blue);
-  color: #fff;
-  padding: 10px 24px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(47, 107, 255, 0.35);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: none;
-  cursor: pointer;
-}
 
-.nav-actions .btn-signin:hover, .btn-primary-brand:hover {
-  background: var(--cyan);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(53, 0, 255, 0.4);
-}
 
 /* شريط التقدم العلوي */
 .scroll-progress {

@@ -345,10 +345,12 @@ body {
   border-radius: var(--student-radius);
   box-shadow: var(--student-shadow);
   border: 1px solid rgba(47,107,255,0.04);
-  margin-bottom: 28px;
+
   flex-wrap: wrap;
   gap: 16px;
+ margin-top: 108px;
 }
+
 
 
 .student-welcome h1 {
@@ -901,4 +903,79 @@ body {
   .student-stats-grid {
     page-break-inside: avoid;
   }
+}
+.sidebar {
+    background: var(--white);
+    border-radius: var(--sidebar-radius);
+    border: 1px solid var(--border-gray);
+    box-shadow: var(--sidebar-shadow);
+    padding: 20px 14px;
+    position: sticky;
+    top: 96px;
+    transition: box-shadow 0.3s ease;
+    height: 800px;
+}
+.sidebar:hover {
+    box-shadow: var(--sidebar-shadow-hover);
+}
+.sidebar .group-label {
+    font-size: 16px;
+    color: var(--gray);
+    font-weight: 700;
+    padding: 6px 12px 8px;
+    letter-spacing: 0.3px;
+    padding-bottom: 0px;
+
+}
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.sidebar .nav-item svg {
+    width: 18px;
+    height: 18px;
+    color: var(--gray);
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+}
+.sidebar .nav-item:hover {
+    background: var(--blue-soft);
+    color: var(--navy);
+    transform: translateX(-3px);
+}
+.sidebar .nav-item:hover svg {
+    color: var(--blue);
+}
+.sidebar .nav-item.active {
+    background: linear-gradient(135deg, var(--blue), var(--navy));
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(47, 107, 255, 0.2);
+}
+.sidebar .nav-item.active svg {
+    color: #fff;
+}
+.sidebar hr {
+    border: none;
+    border-top: 1px solid var(--border-gray);
+    margin: 12px 6px;
+}
+.sidebar .nav-item.logout {
+    color: var(--danger);
+}
+.sidebar .nav-item.logout svg {
+    color: var(--danger);
 }

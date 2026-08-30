@@ -36,11 +36,11 @@
                    BRAND
                    ================================================= */
 
-                '<a href="' + root + 'index.html" class="brand-mark">' +
+                '<a href="' + root + '../index.html" class="brand-mark">' +
 
                     '<span class="brand-logo-box">' +
 
-                        '<img src="' + root + 'assets/logo.png" ' +
+                        '<img src="' + root + '../Frontend/assets/images/brand-logo.png" ' +
                              'alt="NextStep AI" ' +
                              'class="brand-logo">' +
 
@@ -62,7 +62,7 @@
                     '<ul>' +
 
                         '<li>' +
-                            '<a href="' + pg + 'about.html">' +
+                            '<a href="' + pg + '../about.html">' +
                                 '<span>عن المنصة</span>' +
                                 '<span class="nav-icon">' +
                                     '<svg viewBox="0 0 24 24" aria-hidden="true">' +
@@ -74,7 +74,7 @@
                         '</li>' +
 
                         '<li>' +
-                            '<a href="' + pg + 'universities.html">' +
+                            '<a href="' + pg + '../universities.html">' +
                                 '<span>الجامعات</span>' +
                                 '<span class="nav-icon">' +
                                     '<svg viewBox="0 0 24 24" aria-hidden="true">' +
@@ -86,7 +86,7 @@
                         '</li>' +
 
                         '<li>' +
-                            '<a href="' + pg + 'quiz.html">' +
+                            '<a href="' + pg + '../quiz.html">' +
                                 '<span>الاختبار الذكي</span>' +
                                 '<span class="nav-icon">' +
                                     '<svg viewBox="0 0 24 24" aria-hidden="true">' +
@@ -100,7 +100,7 @@
                         '</li>' +
 
                         '<li>' +
-                            '<a href="' + root + 'index.html">' +
+                            '<a href="' + root + '../index.html">' +
                                 '<span>الرئيسية</span>' +
                                 '<span class="nav-icon">' +
                                     '<svg viewBox="0 0 24 24" aria-hidden="true">' +
@@ -123,13 +123,14 @@
                 '<div class="nav-actions">' +
 
                     /* زر الإشعارات */
-                    '<button class="icon-btn notif-btn" type="button" aria-label="الإشعارات">' +
+                    /* رابط زر الإشعارات */
+                    '<a href="' + pg + '../student/notifications.html" class="icon-btn notif-btn" aria-label="الإشعارات">' +
                         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
                             '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />' +
                             '<path d="M13.73 21a2 2 0 0 1-3.46 0" />' +
                         '</svg>' +
                         '<span class="notif-badge"></span>' +
-                    '</button>' +
+                    '</a>' +
 
                     /* حساب المستخدم + القائمة المنسدلة */
                     '<div class="account-wrap">' +
@@ -171,19 +172,19 @@
 
                             '<div class="dd-list">' +
 
-                                '<a href="' + pg + 'profile.html" class="dd-item">' +
+                                '<a href="' + pg + '../student/student-profile.html" class="dd-item">' +
                                     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
                                     'ملفي الشخصي' +
                                 '</a>' +
 
-                                '<a href="' + pg + 'settings.html" class="dd-item">' +
+                                '<a href="' + pg + '../student/student-settings.html" class="dd-item">' +
                                     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>' +
                                     'الإعدادات' +
                                 '</a>' +
 
                                 '<div class="dd-divider"></div>' +
 
-                                '<a href="' + root + 'index.html" class="dd-item logout">' +
+                                '<a href="' + root + '../index.html" class="dd-item logout">' +
                                     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>' +
                                     'تسجيل الخروج' +
                                 '</a>' +

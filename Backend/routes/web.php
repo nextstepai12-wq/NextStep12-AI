@@ -12,6 +12,7 @@ use App\Http\Controllers\University\DeanshipFacultyController;
 use App\Http\Controllers\University\MajorController;
 use App\Http\Controllers\University\ScholarshipController;
 use App\Http\Controllers\University\BrowseDeanshipsController;
+use App\Http\Controllers\University\StudyPlanController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -61,6 +62,15 @@ Route::middleware(['auth', 'university'])->prefix('university')->group(function 
 Route::get('/browse-deanships/{deanshipFaculty}/majors', [BrowseDeanshipsController::class, 'majors'])
     ->name('university.browse.majors');
 
+    // ── Study Plans (استيراد وربط AI Service) ──
+    Route::prefix('study-plans')->name('university.study-plans.')->group(function () {
+        Route::get('/', [StudyPlanController::class, 'index'])->name('index');
+        Route::get('/create', [StudyPlanController::class, 'create'])->name('create');
+        Route::post('/', [StudyPlanController::class, 'store'])->name('store');
+        Route::get('/{studyPlan}/review', [StudyPlanController::class, 'review'])->name('review');
+        Route::post('/{studyPlan}/validate', [StudyPlanController::class, 'validateData'])->name('validate');
+        Route::post('/{studyPlan}/confirm', [StudyPlanController::class, 'confirm'])->name('confirm');
+    });
 
 });
 

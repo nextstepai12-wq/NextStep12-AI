@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Major extends Model
 {
     protected $fillable = [
-        'deanship_faculty_id',
+        'deanship_faculty_id', // keeping as requested for old code
+        'faculty_id',
+        'deanship_id',
         'title',
         'cover_image',
         'video_url',
@@ -31,10 +33,22 @@ class Major extends Model
         'total_credit_hours' => 'integer',
     ];
 
-    // علاقة التبعية للكلية / العمادة[cite: 2]
+    // علاقة التبعية للكلية
+    public function faculty(): BelongsTo
+    {
+        return $this->belongsTo(Faculty::class, 'faculty_id');
+    }
+
+    // علاقة التبعية للعمادة
+    public function deanship(): BelongsTo
+    {
+        return $this->belongsTo(Deanship::class, 'deanship_id');
+    }
+
+    // علاقة التبعية للكلية / العمادة (القديمة، تم الإبقاء عليها كما طلبت)
     public function deanshipFaculty(): BelongsTo
     {
-        return $this->belongsTo(DeanshipFaculty::class);
+        return $this->belongsTo(DeanshipFaculty::class, 'deanship_faculty_id');
     }
 
     // علاقة (واحد لمتعدد) مع المنح المتاحة لهذا التخصص[cite: 2]

@@ -34,7 +34,10 @@ class Faculty extends Model
     {
         return $this->belongsTo(University::class);
     }
-
+public function majors(): HasMany
+{
+    return $this->hasMany(Major::class);
+}
     /**
      * علاقة: الكلية "لديها" عدة أقسام
      * هذي جداول مرح (الأقسام تتبع الكليات)

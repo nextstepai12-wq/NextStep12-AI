@@ -6,31 +6,55 @@ use Illuminate\Support\Facades\Schema;
 
 /**
  * ==============================================================================
- * جدول المنح الدراسية (scholarships)[cite: 2]
+ * جدول المنح الدراسية (scholarships) - NextStep AI
  * ==============================================================================
- * الوظيفة: تخزين خصومات الشرائح للجامعات والكليات والتخصصات بناءً على معدل الطالب[cite: 2].
- * الربط التكاملي[cite: 2]:
- * - مرح: جمع وتغذية شروط ونسب المنح[cite: 1, 2].
- * - مريم: إظهار المنح المستحقة للطالب في نتائج التوجيه والتوصية[cite: 1, 2].
+ * إعداد: عمر حمدية (Backend Engineer)
+ * الوظيفة: تخزين خصومات الشرائح للجامعات والكليات والتخصصات بناءً على معدل الطالب.
+ * 
+ * الربط التكاملي:
+ * - مرح: جمع وتغذية شروط ونسب المنح.
+ * - مريم: إظهار المنح المستحقة للطالب في نتائج التوجيه والتوصية.
  */
 return new class extends Migration
 {
     public function up(): void
     {
+        // 1. إنشاء الجدول والأعمدة الأساسية
         Schema::create('scholarships', function (Blueprint $table) {
-            $table->id(); // رقم المنحة التعريفي[cite: 2]
-            $table->foreignId('university_id')->nullable()->constrained('universities')->onDelete('cascade'); // مربوط بالجامعة (اختياري)[cite: 2]
-            $table->foreignId('deanship_faculty_id')->nullable()->constrained('deanships_faculties')->onDelete('cascade'); // مربوط بالكلية (اختياري)[cite: 2]
-            $table->foreignId('major_id')->nullable()->constrained('majors')->onDelete('cascade'); // مربوط بالتخصص (اختياري)[cite: 2]
-            $table->string('title'); // عنوان المنحة (مثل: منحة التفوق 90% فما فوق)[cite: 2]
-            $table->text('description')->nullable(); // تفاصيل وشروط المنحة[cite: 2]
-            $table->decimal('min_score', 5, 2); // أدنى معدل مستحق (مثلاً 90.00)[cite: 2]
-            $table->decimal('max_score', 5, 2); // أعلى معدل للشريحة (مثلاً 100.00)[cite: 2]
-            $table->decimal('discount_percentage', 5, 2); // نسبة الخصم الممنوحة (مثلاً 100%)[cite: 2]
-            $table->string('type', 100); // نوع المنحة (تفوق، رياضية...)[cite: 2]
-            $table->string('cover_image')->nullable(); // صورة غلاف المنحة[cite: 2]
-            $table->boolean('is_active')->default(true); // حالة تفعيل المنحة[cite: 2]
-            $table->timestamps(); // طوابع زمنية[cite: 2]
+            $table->id(); // رقم المنحة التعريفي
+            
+            // المفاتيح الأجنبية المرجعية
+            $table->unsignedBigInteger('university_id')->nullable();
+            $table->unsignedBigInteger('faculty_id')->nullable();
+            $table->unsignedBigInteger('deanship_id')->nullable();
+            $table->unsignedBigInteger('major_id')->nullable();
+            
+            $table->string('title'); // عنوان المنحة (مثل: منحة التفوق 90% فما فوق)
+            $table->text('description')->nullable(); // تفاصيل وشروط المنحة
+            $table->decimal('min_score', 5, 2); // أدنى معدل مستحق (مثلاً 90.00)
+            $table->decimal('max_score', 5, 2); // أعلى معدل للشريحة (مثلاً 100.00)
+            $table->decimal('discount_percentage', 5, 2); // نسبة الخصم الممنوحة (مثلاً 100%)
+            $table->string('type', 100); // نوع المنحة (تفوق، رياضية...)
+            $table->string('cover_image')->nullable(); // صورة غلاف المنحة
+            $table->boolean('is_active')->default(true); // حالة تفعيل المنحة
+            
+            $table->timestamps(); // طوابع زمنية
+        });
+
+        // 2. ربط قيود المفاتيح الأجنبية بأمان (Foreign Keys Constraint Protection)
+        Schema::table('scholarships', function (Blueprint $table) {
+            if (Schema::hasTable('universities')) {
+                $table->foreign('university_id')->references('id')->on('universities')->onDelete('cascade');
+            }
+            if (Schema::hasTable('faculties')) {
+                $table->foreign('faculty_id')->references('id')->on('faculties')->onDelete('cascade');
+            }
+            if (Schema::hasTable('deanships')) {
+                $table->foreign('deanship_id')->references('id')->on('deanships')->onDelete('cascade');
+            }
+            if (Schema::hasTable('majors')) {
+                $table->foreign('major_id')->references('id')->on('majors')->onDelete('cascade');
+            }
         });
     }
 

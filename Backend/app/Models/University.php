@@ -24,10 +24,7 @@ class University extends Model
     ];
 
     // علاقة (واحد لمتعدد) مع العمادات والكليات التابعة للجامعة[cite: 2]
-    public function deanshipsFaculties(): HasMany
-    {
-        return $this->hasMany(DeanshipFaculty::class);
-    }
+
 
     // علاقة (واحد لمتعدد) مع المنح المقدمة من الجامعة[cite: 2]
     public function scholarships(): HasMany
@@ -62,4 +59,13 @@ class University extends Model
     {
         return $this->type === 'college';
     }
+    public function courses(): HasMany
+{
+    return $this->hasMany(Course::class);
+}
+
+public function studyPlans(): HasMany
+{
+    return $this->hasMany(StudyPlan::class);
+}
 }

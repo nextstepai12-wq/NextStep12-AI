@@ -50,6 +50,10 @@ class Deanship extends Model
     {
         return $this->hasMany(Department::class);
     }
+    public function majors(): HasMany
+{
+    return $this->hasMany(Major::class);
+}
 
     /**
      * دالة مساعدة (Helper): هل هذي عمادة عامة؟

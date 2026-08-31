@@ -1,223 +1,207 @@
 /* =========================================================
    NEXTSTEP AI — UNIVERSITIES JS
+   Database + Original Design Version (Merged)
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const universities = [
-        {
-            name: "جامعة النجاح الوطنية",
-            city: "نابلس",
-            type: "حكومية",
-            image: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=900&q=80",
-            logo: "🎓"
-        },
-
-        {
-            name: "جامعة بيرزيت",
-            city: "رام الله",
-            type: "خاصة",
-            image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=900&q=80",
-            logo: "🌿"
-        },
-
-        {
-            name: "جامعة الخليل",
-            city: "الخليل",
-            type: "خاصة",
-            image: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?auto=format&fit=crop&w=900&q=80",
-            logo: "U"
-        },
-
-        {
-            name: "الجامعة العربية الأمريكية",
-            city: "رام الله",
-            type: "خاصة",
-            image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=900&q=80",
-            logo: "AA"
-        },
-
-        {
-            name: "جامعة بوليتكنك فلسطين",
-            city: "الخليل",
-            type: "تقنية",
-            image: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=900&q=80",
-            logo: "P"
-        },
-
-        {
-            name: "جامعة القدس",
-            city: "القدس",
-            type: "حكومية",
-            image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=900&q=80",
-            logo: "Q"
-        },
-
-        {
-            name: "جامعة فلسطين التقنية",
-            city: "طولكرم",
-            type: "تقنية",
-            image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=900&q=80",
-            logo: "PT"
-        },
-
-        {
-            name: "جامعة الاستقلال",
-            city: "أريحا",
-            type: "حكومية",
-            image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80",
-            logo: "I"
-        }
-    ];
-
+    /* =====================================================
+       ELEMENTS
+       ===================================================== */
 
     const grid = document.getElementById("uniGrid");
     const count = document.getElementById("resultsCount");
 
-    const searchInput =
-        document.getElementById("uniSearchInput");
+    const searchInput = document.getElementById("uniSearchInput");
+    const searchButton = document.getElementById("uniSearchBtn");
 
-    const searchButton =
-        document.getElementById("uniSearchBtn");
+    const filterContainer = document.getElementById("uniFilterChips");
 
-    const filterContainer =
-        document.getElementById("uniFilterChips");
+    const prevButton = document.getElementById("carouselPrev");
+    const nextButton = document.getElementById("carouselNext");
 
-    const prevButton =
-        document.getElementById("carouselPrev");
+    const dots = document.getElementById("carouselDots");
 
-    const nextButton =
-        document.getElementById("carouselNext");
+    const filterPrev = document.getElementById("filterPrev");
+    const filterNext = document.getElementById("filterNext");
 
-    const dots =
-        document.getElementById("carouselDots");
+    const ASSETS_BASE = "../assets/universities"; // Or whatever base is appropriate
 
+    /* =====================================================
+       CHECK ELEMENTS
+       ===================================================== */
 
-    let currentFilter = "all";
-    let currentData = [...universities];
+    if (!grid) {
+        console.error("uniGrid غير موجود في الصفحة");
+        return;
+    }
 
 
     /* =====================================================
-       RENDER
+       QUICK VIEW MODAL
        ===================================================== */
 
-    function renderUniversities(data) {
+    const modalOverlay = document.getElementById("uniModalOverlay");
+    const modalClose = document.getElementById("uniModalClose");
+    const modalImage = document.getElementById("uniModalImage");
+    const modalLogoImg = document.getElementById("uniModalLogoImg");
+    const modalLogoFallback = document.getElementById("uniModalLogoFallback");
+    const modalName = document.getElementById("uniModalName");
+    const modalLocation = document.getElementById("uniModalLocation");
+    const modalStudents = document.getElementById("uniModalStudents");
+    const modalMajors = document.getElementById("uniModalMajors");
+    const modalDeanships = document.getElementById("uniModalDeanships");
+    const modalDesc = document.getElementById("uniModalDesc");
+    const modalMoreBtn = document.getElementById("uniModalMoreBtn");
 
-        currentData = data;
+    function formatModalCount(n) {
+        if (n === null || n === undefined || n === "") return "—";
+        const num = Number(n);
+        if (isNaN(num)) return String(n);
+        if (num >= 1000) return Math.round(num / 1000) + "K+";
+        return String(num);
+    }
 
-        grid.innerHTML = "";
+    function openUniModal(card) {
+        if (!modalOverlay) return;
 
-        count.textContent = data.length;
+        const id = card.dataset.id;
+        const name = card.dataset.name;
+        const city = card.dataset.city;
+        const students = card.dataset.students;
+        const majors = card.dataset.majors;
+        const deanships = card.dataset.deanships;
+        const desc = card.dataset.desc;
+        const coverImgSrc = card.querySelector('.uni-card-cover')?.src || "";
+        const logoImgSrc = card.querySelector('.uni-logo-img')?.src || "";
+        const fallbackText = card.querySelector('.uni-logo-fallback')?.textContent || "??";
 
+        modalImage.onerror = null;
+        modalImage.src = coverImgSrc;
+        modalImage.alt = name;
 
-        if (!data.length) {
+        modalLogoFallback.textContent = fallbackText.trim();
+        modalLogoImg.style.display = "none";
+        modalLogoFallback.style.display = "flex";
 
-            grid.innerHTML = `
-                <div class="empty-state">
-                    <div>⌕</div>
-                    <h3>ما لقينا جامعة بهذا الاسم</h3>
-                    <p>جربي البحث باسم مختلف.</p>
-                </div>
-            `;
+        modalLogoImg.onload = () => {
+            modalLogoImg.style.display = "block";
+            modalLogoFallback.style.display = "none";
+        };
 
-            dots.innerHTML = "";
+        modalLogoImg.onerror = () => {
+            modalLogoImg.style.display = "none";
+            modalLogoFallback.style.display = "flex";
+        };
 
-            return;
-        }
+        modalLogoImg.src = logoImgSrc;
 
+        modalName.textContent = name;
+        modalLocation.textContent = city;
 
-        data.forEach((uni, index) => {
+        modalStudents.textContent = formatModalCount(students);
+        modalMajors.textContent = majors ? majors : "—";
+        modalDeanships.textContent = deanships ? deanships : "—";
 
-            const card = document.createElement("article");
+        modalDesc.textContent = desc || "ما في نبذة متوفرة حالياً عن هاي الجامعة.";
 
-            card.className = "uni-card";
+        modalMoreBtn.href = `/universities/${id}`;
 
-            card.style.animationDelay =
-                `${index * 70}ms`;
+        modalOverlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
 
+    function closeUniModal() {
+        if (!modalOverlay) return;
+        modalOverlay.classList.remove("open");
+        document.body.style.overflow = "";
+    }
 
-            card.innerHTML = `
+    if (modalClose) {
+        modalClose.addEventListener("click", closeUniModal);
+    }
 
-                <div class="uni-image">
-
-                    <img
-                        src="${uni.image}"
-                        alt="${uni.name}"
-                        loading="lazy">
-
-                    <button
-                        class="uni-heart"
-                        type="button"
-                        aria-label="إضافة للمفضلة">
-                        ♡
-                    </button>
-
-                    <div class="uni-logo">
-                        ${uni.logo}
-                    </div>
-
-                </div>
-
-
-                <div class="uni-card-body">
-
-                    <h3>${uni.name}</h3>
-
-                    <span class="uni-location">
-                        ${uni.city}
-                    </span>
-
-                    <button
-                        class="uni-card-btn"
-                        type="button">
-                        عرض الجامعة ←
-                    </button>
-
-                </div>
-            `;
-
-
-            const heart =
-                card.querySelector(".uni-heart");
-
-
-            heart.addEventListener("click", (event) => {
-
-                event.stopPropagation();
-
-                heart.classList.toggle("liked");
-
-                heart.textContent =
-                    heart.classList.contains("liked")
-                        ? "♥"
-                        : "♡";
-
-            });
-
-
-            const detailsButton =
-                card.querySelector(".uni-card-btn");
-
-
-            detailsButton.addEventListener("click", () => {
-
-                /*
-                    غيّر الرابط هنا لاحقاً
-                    حسب صفحة تفاصيل الجامعة
-                */
-
-                window.location.href =
-                    `university-details.html?name=${encodeURIComponent(uni.name)}`;
-
-            });
-
-
-            grid.appendChild(card);
-
+    if (modalOverlay) {
+        modalOverlay.addEventListener("click", (event) => {
+            if (event.target === modalOverlay) closeUniModal();
         });
+    }
 
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeUniModal();
+    });
 
-        updateDots();
+    /* =====================================================
+       CARD EVENT LISTENERS
+       ===================================================== */
+       
+    function attachCardEvents() {
+        const cards = grid.querySelectorAll(".uni-card");
+        
+        cards.forEach(card => {
+            const coverImg = card.querySelector(".uni-card-cover");
+            if (coverImg) {
+                coverImg.addEventListener("error", function onCoverError() {
+                    coverImg.removeEventListener("error", onCoverError);
+                    coverImg.src = coverImg.dataset.fallback || "";
+                });
+            }
+
+            const logoImg = card.querySelector(".uni-logo-img");
+            const logoFallback = card.querySelector(".uni-logo-fallback");
+            if (logoImg && logoFallback) {
+                logoImg.addEventListener("load", () => {
+                    logoImg.style.display = "block";
+                    logoFallback.style.display = "none";
+                });
+                logoImg.addEventListener("error", function onLogoError() {
+                    logoImg.removeEventListener("error", onLogoError);
+                    logoImg.style.display = "none";
+                    logoFallback.style.display = "flex";
+                });
+                // Trigger load/error check manually if image is already cached
+                if (logoImg.complete) {
+                    if (logoImg.naturalHeight === 0) {
+                        logoImg.dispatchEvent(new Event('error'));
+                    } else {
+                        logoImg.dispatchEvent(new Event('load'));
+                    }
+                }
+            }
+
+            const heart = card.querySelector(".uni-heart");
+            if (heart) {
+                heart.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    heart.classList.toggle("liked");
+                    heart.textContent = heart.classList.contains("liked") ? "♥" : "♡";
+                });
+            }
+
+            const quickViewBtn = card.querySelector(".uni-quickview-btn");
+            if (quickViewBtn) {
+                quickViewBtn.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    openUniModal(card);
+                });
+            }
+            
+            const detailsButton = card.querySelector(".uni-card-btn");
+            if (detailsButton) {
+                detailsButton.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    window.location.href = `/universities/${card.dataset.id}`;
+                });
+            }
+            
+            const imageBox = card.querySelector(".uni-image");
+            if (imageBox) {
+                imageBox.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    window.location.href = `/universities/${card.dataset.id}`;
+                });
+            }
+        });
     }
 
 
@@ -225,386 +209,313 @@ document.addEventListener("DOMContentLoaded", () => {
        FILTER
        ===================================================== */
 
-    filterContainer
-        .querySelectorAll(".filter-chip")
-        .forEach(button => {
+    let currentFilter = "all";
 
-            button.addEventListener("click", () => {
+    if (filterContainer) {
+        filterContainer
+            .querySelectorAll(".filter-chip")
+            .forEach(button => {
+                button.addEventListener("click", () => {
+                    filterContainer
+                        .querySelectorAll(".filter-chip")
+                        .forEach(btn => {
+                            btn.classList.remove("active");
+                        });
 
-                filterContainer
-                    .querySelectorAll(".filter-chip")
-                    .forEach(btn =>
-                        btn.classList.remove("active")
-                    );
-
-                button.classList.add("active");
-
-                currentFilter =
-                    button.dataset.filter;
-
-                applyFilters();
-
+                    button.classList.add("active");
+                    currentFilter = button.dataset.filter || "all";
+                    applyFilters();
+                });
             });
+    }
 
-        });
-
+    /* =====================================================
+       SEARCH + FILTER
+       ===================================================== */
 
     function applyFilters() {
+        const search = searchInput
+            ? searchInput.value.trim().toLowerCase()
+            : "";
 
-        const search =
-            searchInput.value
-                .trim()
-                .toLowerCase();
+        const cards = Array.from(grid.querySelectorAll(".uni-card"));
+        let visibleCount = 0;
 
-
-        let filtered = universities.filter(uni => {
+        cards.forEach(card => {
+            const name = (card.dataset.name || "").toLowerCase();
+            const city = (card.dataset.city || "").toLowerCase();
+            const type = (card.dataset.type || "").toLowerCase();
 
             const filterMatch =
                 currentFilter === "all" ||
-                uni.type === currentFilter;
+                type === currentFilter.toLowerCase();
 
             const searchMatch =
                 !search ||
-                uni.name.toLowerCase().includes(search) ||
-                uni.city.toLowerCase().includes(search);
+                name.includes(search) ||
+                city.includes(search);
 
-            return filterMatch && searchMatch;
-
+            if (filterMatch && searchMatch) {
+                card.style.display = "";
+                card.style.animationDelay = `${visibleCount * 70}ms`;
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
         });
 
+        if (count) {
+            count.textContent = visibleCount;
+        }
 
-        renderUniversities(filtered);
+        updateDots();
+        handleEmptyState(visibleCount);
     }
 
 
     /* =====================================================
-       SEARCH
+       EMPTY STATE
        ===================================================== */
 
-    searchButton.addEventListener(
-        "click",
-        applyFilters
-    );
+    function handleEmptyState(visibleCount) {
+        let emptyDiv = grid.querySelector(".empty-state-search");
 
-
-    searchInput.addEventListener(
-        "input",
-        () => {
-
-            clearTimeout(searchInput.searchTimer);
-
-            searchInput.searchTimer =
-                setTimeout(applyFilters, 250);
-
+        if (visibleCount === 0) {
+            if (!emptyDiv) {
+                emptyDiv = document.createElement("div");
+                emptyDiv.className = "empty-state empty-state-search";
+                emptyDiv.innerHTML = `
+                    <div>⌕</div>
+                    <h3>ما لقينا جامعة بهذا الاسم</h3>
+                    <p>جربي البحث باسم مختلف.</p>
+                `;
+                grid.appendChild(emptyDiv);
+            }
+        } else {
+            if (emptyDiv) {
+                emptyDiv.remove();
+            }
         }
-    );
+    }
 
 
-    searchInput.addEventListener(
-        "keydown",
-        event => {
+    /* =====================================================
+       SEARCH BUTTON
+       ===================================================== */
 
+    if (searchButton) {
+        searchButton.addEventListener("click", applyFilters);
+    }
+
+
+    /* =====================================================
+       LIVE SEARCH
+       ===================================================== */
+
+    if (searchInput) {
+        searchInput.addEventListener("input", () => {
+            clearTimeout(searchInput.searchTimer);
+            searchInput.searchTimer = setTimeout(applyFilters, 250);
+        });
+
+        searchInput.addEventListener("keydown", event => {
             if (event.key === "Enter") {
                 applyFilters();
             }
-
-        }
-    );
+        });
+    }
 
 
     /* =====================================================
        CAROUSEL
        ===================================================== */
 
-    function getScrollAmount() {
-
-        const firstCard =
-            grid.querySelector(".uni-card");
-
-        if (!firstCard) return 300;
-
-        const gap = 16;
-
-        return firstCard.offsetWidth + gap;
-
+    function getVisibleCards() {
+        const width = window.innerWidth;
+        if (width <= 600) return 1;
+        if (width <= 850) return 2;
+        if (width <= 1100) return 3;
+        return 4;
     }
 
 
-    nextButton.addEventListener("click", () => {
+    function getScrollAmount() {
+        const firstCard = grid.querySelector(".uni-card");
+        if (!firstCard) return 300;
 
-        grid.scrollBy({
-            left: -getScrollAmount(),
-            behavior: "smooth"
+        const style = window.getComputedStyle(grid);
+        const gap = parseFloat(style.gap) || 16;
+        return firstCard.offsetWidth + gap;
+    }
+
+
+    /* =====================================================
+       NEXT
+       ===================================================== */
+
+    if (nextButton) {
+        nextButton.addEventListener("click", () => {
+            grid.scrollBy({
+                left: -getScrollAmount(),
+                behavior: "smooth"
+            });
         });
+    }
 
-    });
+    /* =====================================================
+       PREVIOUS
+       ===================================================== */
 
-
-    prevButton.addEventListener("click", () => {
-
-        grid.scrollBy({
-            left: getScrollAmount(),
-            behavior: "smooth"
+    if (prevButton) {
+        prevButton.addEventListener("click", () => {
+            grid.scrollBy({
+                left: getScrollAmount(),
+                behavior: "smooth"
+            });
         });
-
-    });
-
+    }
 
     /* =====================================================
        DOTS
        ===================================================== */
 
     function updateDots() {
+        if (!dots) return;
 
         dots.innerHTML = "";
 
-        const cards =
-            grid.querySelectorAll(".uni-card");
+        const cards = Array.from(grid.querySelectorAll(".uni-card"))
+            .filter(card => card.style.display !== "none");
 
         if (!cards.length) return;
 
-
-        const amount =
-            Math.max(
-                1,
-                Math.ceil(
-                    cards.length /
-                    getVisibleCards()
-                )
-            );
-
+        const visibleCards = getVisibleCards();
+        const amount = Math.max(1, Math.ceil(cards.length / visibleCards));
 
         for (let i = 0; i < amount; i++) {
-
-            const dot =
-                document.createElement("span");
-
-            dot.className =
-                "carousel-dot";
-
-            if (i === 0) {
-                dot.classList.add("active");
-            }
+            const dot = document.createElement("span");
+            dot.className = "carousel-dot";
+            if (i === 0) dot.classList.add("active");
 
             dot.addEventListener("click", () => {
-
+                const scrollPosition = i * getScrollAmount() * visibleCards;
                 grid.scrollTo({
-                    left:
-                        i *
-                        getScrollAmount() *
-                        getVisibleCards(),
-
+                    left: -scrollPosition,
                     behavior: "smooth"
                 });
-
             });
-
             dots.appendChild(dot);
         }
-
     }
 
+    /* =====================================================
+       UPDATE ACTIVE DOT
+       ===================================================== */
 
-    function getVisibleCards() {
+    grid.addEventListener("scroll", () => {
+        if (!dots || !dots.children.length) return;
 
-        const width =
-            window.innerWidth;
+        const max = Math.abs(grid.scrollWidth - grid.clientWidth);
+        if (max <= 0) return;
 
-        if (width <= 600) return 1;
+        const current = Math.abs(grid.scrollLeft);
+        const progress = current / max;
+        const dotCount = dots.children.length;
+        const activeIndex = Math.min(
+            dotCount - 1,
+            Math.round(progress * (dotCount - 1))
+        );
 
-        if (width <= 850) return 2;
-
-        if (width <= 1100) return 3;
-
-        return 4;
-    }
-
-
-    grid.addEventListener(
-        "scroll",
-        () => {
-
-            const max =
-                grid.scrollWidth -
-                grid.clientWidth;
-
-            if (max <= 0) return;
-
-            const progress =
-                Math.abs(grid.scrollLeft) / max;
-
-            const dotCount =
-                dots.children.length;
-
-            const activeIndex =
-                Math.min(
-                    dotCount - 1,
-                    Math.round(
-                        progress *
-                        (dotCount - 1)
-                    )
-                );
-
-
-            [...dots.children]
-                .forEach((dot, index) => {
-
-                    dot.classList.toggle(
-                        "active",
-                        index === activeIndex
-                    );
-
-                });
-
-        }
-    );
-
+        Array.from(dots.children).forEach((dot, index) => {
+            dot.classList.toggle("active", index === activeIndex);
+        });
+    });
 
     /* =====================================================
        FAQ
        ===================================================== */
 
-    document
-        .querySelectorAll(".faq-question")
-        .forEach(button => {
+    document.querySelectorAll(".faq-question").forEach(button => {
+        button.addEventListener("click", () => {
+            const item = button.closest(".faq-item");
+            const answer = item.querySelector(".faq-answer");
 
-            button.addEventListener("click", () => {
-
-                const item =
-                    button.closest(".faq-item");
-
-                const answer =
-                    item.querySelector(".faq-answer");
-
-
-                document
-                    .querySelectorAll(".faq-item.active")
-                    .forEach(openItem => {
-
-                        if (openItem !== item) {
-
-                            openItem.classList.remove("active");
-
-                            openItem
-                                .querySelector(".faq-answer")
-                                .style.maxHeight = null;
-
-                        }
-
-                    });
-
-
-                item.classList.toggle("active");
-
-
-                if (item.classList.contains("active")) {
-
-                    answer.style.maxHeight =
-                        answer.scrollHeight + "px";
-
-                } else {
-
-                    answer.style.maxHeight = null;
-
+            document.querySelectorAll(".faq-item.active").forEach(openItem => {
+                if (openItem !== item) {
+                    openItem.classList.remove("active");
+                    const openAnswer = openItem.querySelector(".faq-answer");
+                    if (openAnswer) openAnswer.style.maxHeight = null;
                 }
-
             });
 
+            item.classList.toggle("active");
+            if (item.classList.contains("active")) {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            } else {
+                answer.style.maxHeight = null;
+            }
         });
-
+    });
 
     /* =====================================================
        FILTER ARROWS
        ===================================================== */
 
-    document
-        .getElementById("filterPrev")
-        .addEventListener("click", () => {
-
-            filterContainer.scrollBy({
-                left: 220,
-                behavior: "smooth"
-            });
-
+    if (filterPrev && filterContainer) {
+        filterPrev.addEventListener("click", () => {
+            filterContainer.scrollBy({ left: 220, behavior: "smooth" });
         });
+    }
 
-
-    document
-        .getElementById("filterNext")
-        .addEventListener("click", () => {
-
-            filterContainer.scrollBy({
-                left: -220,
-                behavior: "smooth"
-            });
-
+    if (filterNext && filterContainer) {
+        filterNext.addEventListener("click", () => {
+            filterContainer.scrollBy({ left: -220, behavior: "smooth" });
         });
-
+    }
 
     /* =====================================================
        AUTO CAROUSEL
        ===================================================== */
 
-    let autoScroll;
+    let autoScroll = null;
 
     function startAutoScroll() {
+        stopAutoScroll();
+        autoScroll = setInterval(() => {
+            const max = Math.abs(grid.scrollWidth - grid.clientWidth);
+            if (max <= 0) return;
 
-        autoScroll =
-            setInterval(() => {
-
-                const max =
-                    grid.scrollWidth -
-                    grid.clientWidth;
-
-                if (Math.abs(grid.scrollLeft) >= max - 10) {
-
-                    grid.scrollTo({
-                        left: 0,
-                        behavior: "smooth"
-                    });
-
-                } else {
-
-                    grid.scrollBy({
-                        left: -getScrollAmount(),
-                        behavior: "smooth"
-                    });
-
-                }
-
-            }, 4500);
-
+            const current = Math.abs(grid.scrollLeft);
+            if (current >= max - 10) {
+                grid.scrollTo({ left: 0, behavior: "smooth" });
+            } else {
+                grid.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+            }
+        }, 4500);
     }
-
 
     function stopAutoScroll() {
-        clearInterval(autoScroll);
+        if (autoScroll) {
+            clearInterval(autoScroll);
+            autoScroll = null;
+        }
     }
 
-
-    grid.addEventListener(
-        "mouseenter",
-        stopAutoScroll
-    );
-
-    grid.addEventListener(
-        "mouseleave",
-        startAutoScroll
-    );
+    grid.addEventListener("mouseenter", stopAutoScroll);
+    grid.addEventListener("mouseleave", startAutoScroll);
 
 
     /* =====================================================
        INITIALIZE
        ===================================================== */
 
-    renderUniversities(universities);
-
+    attachCardEvents();
+    applyFilters();
+    updateDots();
     startAutoScroll();
 
-
-    window.addEventListener(
-        "resize",
-        () => updateDots()
-    );
+    window.addEventListener("resize", () => {
+        updateDots();
+    });
 
 });

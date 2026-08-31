@@ -36,10 +36,16 @@ class Scholarship extends Model
         return $this->belongsTo(University::class);
     }
 
-    public function deanshipFaculty(): BelongsTo
-    {
-        return $this->belongsTo(DeanshipFaculty::class);
-    }
+ // Major.php — بعد التصحيح
+public function faculty(): BelongsTo
+{
+    return $this->belongsTo(Faculty::class);
+}
+
+public function deanship(): BelongsTo
+{
+    return $this->belongsTo(Deanship::class);
+}
 
     public function major(): BelongsTo
     {

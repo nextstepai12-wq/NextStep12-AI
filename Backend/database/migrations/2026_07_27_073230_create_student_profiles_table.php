@@ -38,21 +38,21 @@ return new class extends Migration
             $table->decimal('high_school_score', 5, 2)->nullable(); // معدل الثانوية العامة[cite: 2]
             $table->unsignedBigInteger('high_school_branch_id')->nullable(); // الفرع الدراسي[cite: 2]
             $table->integer('graduation_year')->nullable(); // سنة التخرج من الثانوية[cite: 2]
-            
+            $table->string('phone', 50)->nullable(); // رقم جوال الطالب
+            $table->string('city', 100)->nullable(); // مكان سكن الطالب
             // ==================================================================
             // 2. البيانات الخاصة بالطالب الجامعي (University Student)
-            // ==================================================================
+            // ===========================================================
             $table->unsignedBigInteger('current_university_id')->nullable(); // الجامعة الحالية
             $table->unsignedBigInteger('current_major_id')->nullable(); // التخصص الحالي
-                  
+    
             $table->string('academic_level', 50)->nullable(); // السنة الدراسية / المستوى
             $table->decimal('gpa', 4, 2)->nullable(); // المعدل التراكمي الجامعي (GPA)
 
             // ==================================================================
             // 3. بيانات مشتركة وإضافية[cite: 2]
             // ==================================================================
-            $table->string('phone', 50)->nullable(); // رقم جوال الطالب[cite: 2]
-            $table->string('city', 100)->nullable(); // مكان سكن الطالب[cite: 2]
+
             
             $table->timestamps(); // created_at & updated_at[cite: 2]
         });

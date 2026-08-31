@@ -3,7 +3,7 @@
 @section('title', 'إنشاء حساب طالب — NextStep AI')
 
 @section('css')
-<link href="{{ asset('Front_end/css/signup.css') }}" rel="stylesheet">
+<link href="{{ asset('Front_end/css/auth.css') }}" rel="stylesheet">
 <style>
   .text-danger { color: #e3342f; font-size: 12px; margin-top: 5px; }
   .alert-danger { background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 14px; }

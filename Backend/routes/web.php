@@ -11,6 +11,9 @@ use App\Http\Controllers\University\UniversitydashboardController;
 use App\Http\Controllers\University\DeanshipFacultyController;
 use App\Http\Controllers\University\MajorController;
 use App\Http\Controllers\University\ScholarshipController;
+use App\Http\Controllers\University\BrowseDeanshipsController;
+use App\Http\Controllers\University\StudyPlanController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -23,7 +26,8 @@ Route::post('/logout', function () { Auth::logout(); return redirect('/'); })->n
 Route::get('/quiz', function () { return view('pages.quiz'); })->name('pages.quiz');
 Route::get('/results', function () { return view('pages.results'); })->name('pages.results');
 Route::get('/study-plan', function () { return view('pages.study-plan'); })->name('pages.study-plan');
-
+Route::get('/universities', [HomeController::class, 'universities'])->name('universities.index');
+Route::get('/universities/{university}', [HomeController::class, 'showUniversity'])->name('universities.show');
 Route::middleware('auth')->group(function () {
     Route::get('/student/questionnaire', function () { return view('pages.quiz'); });
     Route::get('/profile', function () { return view('pages.profile'); })->name('pages.profile');
@@ -52,7 +56,21 @@ Route::middleware(['auth', 'university'])->prefix('university')->group(function 
     Route::get('/Scholarships/{scholarship}/edit', [ScholarshipController::class, 'edit'])->name('university.Scholarships.edit');
     Route::put('/Scholarships/{scholarship}', [ScholarshipController::class, 'update'])->name('university.Scholarships.update');
     Route::delete('/Scholarships/{scholarship}', [ScholarshipController::class, 'destroy'])->name('university.Scholarships.destroy');
+    Route::get('/browse-deanships', [BrowseDeanshipsController::class, 'index'])
+    ->name('university.browse-deanships');
 
+Route::get('/browse-deanships/{deanshipFaculty}/majors', [BrowseDeanshipsController::class, 'majors'])
+    ->name('university.browse.majors');
+
+    // ── Study Plans (استيراد وربط AI Service) ──
+    Route::prefix('study-plans')->name('university.study-plans.')->group(function () {
+        Route::get('/', [StudyPlanController::class, 'index'])->name('index');
+        Route::get('/create', [StudyPlanController::class, 'create'])->name('create');
+        Route::post('/', [StudyPlanController::class, 'store'])->name('store');
+        Route::get('/{studyPlan}/review', [StudyPlanController::class, 'review'])->name('review');
+        Route::post('/{studyPlan}/validate', [StudyPlanController::class, 'validateData'])->name('validate');
+        Route::post('/{studyPlan}/confirm', [StudyPlanController::class, 'confirm'])->name('confirm');
+    });
 
 });
 

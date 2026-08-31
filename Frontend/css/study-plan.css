@@ -1,12 +1,12 @@
 /* =====================================================================
    study-plan.css — NextStep AI
    ==================================================================== */
-
 body {
-  background: var(--light, #F7FAFD);
-  font-family: 'Cairo', 'Poppins', sans-serif;
-  margin: 0;
-  box-sizing: border-box;
+    background-color: var(--light-gray);
+    font-family: 'Cairo', sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* التخطيط العام للصفحة */
@@ -22,7 +22,7 @@ body {
 }
 .plan-inner {
   max-width: 1180px;
-  margin: 0 auto;
+margin: 93px auto;
 }
 
 .plan-head {
@@ -1159,4 +1159,14 @@ body {
 }
 .sidebar .nav-item.logout svg {
     color: var(--danger);
+}
+/* جعل عناصر مسار التقدم تفاعلية */
+.progress-track .level-item {
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.progress-track .level-item:hover {
+  transform: translateX(-4px);
+  opacity: 0.85;
 }

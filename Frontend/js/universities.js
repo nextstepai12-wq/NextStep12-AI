@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         {
             id: 2,
-            name: "جامعة بيرزيت",
-            city: "رام الله",
+            name: " جامعة الأزهر الشريف ",
+            city: " غزة",
             type: "خاصة",
             image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=900&q=80",
             logo: "🌿",
-            description: "جامعة بيرزيت من الجامعات الفلسطينية الرائدة بالبحث العلمي، وبتقدم برامج متنوعة بالعلوم والآداب والهندسة وإدارة الأعمال.",
+            description: "جامعة الأزهر من الجامعات الفلسطينية الرائدة بالبحث العلمي، وبتقدم برامج متنوعة بالعلوم والآداب والهندسة وإدارة الأعمال.",
             students_count: 13000,
             majors_count: 58,
             deanships_count: 9
@@ -33,12 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         {
             id: 3,
-            name: "جامعة الخليل",
-            city: "الخليل",
+            name: "الجامعة الإسلامية ",
+            city: "غزة",
             type: "خاصة",
             image: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?auto=format&fit=crop&w=900&q=80",
             logo: "U",
-            description: "جامعة الخليل بتخدم منطقة جنوب الضفة الغربية، وبتقدم برامج أكاديمية بمجالات العلوم الإنسانية والتطبيقية والتربوية.",
+            description: "الجامعة الإسلامية  بتخدم منطقة جنوب الضفة الغربية، وبتقدم برامج أكاديمية بمجالات العلوم الإنسانية والتطبيقية والتربوية.",
             students_count: 9500,
             majors_count: 42,
             deanships_count: 8
@@ -46,12 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         {
             id: 4,
-            name: "الجامعة العربية الأمريكية",
+            name: "جامعة الأقصى",
             city: "رام الله",
             type: "خاصة",
             image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=900&q=80",
             logo: "AA",
-            description: "الجامعة العربية الأمريكية جامعة خاصة حديثة، معروفة ببرامج الطب والهندسة وإدارة الأعمال وشراكاتها الدولية.",
+            description: "جامعة الأقصى جامعة خاصة حديثة، معروفة ببرامج الطب والهندسة وإدارة الأعمال وشراكاتها الدولية.",
             students_count: 11000,
             majors_count: 51,
             deanships_count: 10

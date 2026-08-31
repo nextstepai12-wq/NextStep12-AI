@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الخطة الدراسية — NextStep AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="../css/app.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
+<link href="../css/footer.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/student-dashboard.css">
+<link href="../css/study-plan.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/footer.css">
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<script src="header.js?v=2"></script>
+
+<!-- ======================= LAYOUT (Sidebar + Content) ======================= -->
+<div class="student-layout">
+
+ <!-- ===== SIDEBAR ===== -->
+<aside class="student-sidebar">
+  <div class="student-sidebar-head">
+    <h3>بوابة الطالب</h3>
+    <p>مرحباً، أحمد 👋</p>
+  </div>
+
+  <nav class="student-sidebar-nav">
+    <!-- نظرة عامة -->
+    <a href="student/student-dashboard.html" class="student-sidebar-link">
+      <span class="link-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+        </svg>
+        نظرة عامة
+      </span>
+    </a>
+
+    <!-- ملفي الشخصي (نشط) -->
+    <a href="profile.html" class="student-sidebar-link active">
+      <span class="link-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        ملفي الشخصي
+      </span>
+    </a>
+
+    <!-- الاختبارات الذكية -->
+    <a href="quiz.html" class="student-sidebar-link">
+      <span class="link-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <path d="M14 2v6h6"/>
+          <path d="M9 13h6"/>
+          <path d="M9 17h4"/>
+        </svg>
+        الاختبارات الذكية
+      </span>
+    </a>
+
+    <!-- التوصيات -->
+    <a href="student/recommendations.html" class="student-sidebar-link">
+      <span class="link-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+        التوصيات
+      </span>
+    </a>
+
+    <!-- الجامعات -->
+    <a href="student/universities.html" class="student-sidebar-link">
+      <span class="link-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3L2 9l10 6 10-6-10-6z"/>
+          <path d="M2 15l10 6 10-6"/>
+          <path d="M2 21l10-6 10 6"/>
+        </svg>
+        الجامعات
+      </span>
+    </a>
+
+    <!-- المفضلة -->
+    <a href="student/favorites.html" class="student-sidebar-link">
+      <span class="link-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+        </svg>
+        المفضلة
+      </span>
+    </a>
+
+    <!-- الإنجازات -->
+    <a href="student/achievements.html" class="student-sidebar-link">
+      <span class="link-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="8" r="6"/>
+          <path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/>
+        </svg>
+        الإنجازات
+      </span>
+    </a>
+
+    <!-- المساعد الذكي -->
+    <a href="student/ai-assistant.html" class="student-sidebar-link">
+      <span class="link-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.27A7.01 7.01 0 0 1 14 23h-4a7.01 7.01 0 0 1-5.73-3H3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+          <circle cx="9" cy="15" r="1"/>
+          <circle cx="15" cy="15" r="1"/>
+          <path d="M9 19c.83.6 2 1 3 1s2.17-.4 3-1"/>
+        </svg>
+        المساعد الذكي
+      </span>
+    </a>
+
+    <!-- الإعدادات -->
+    <a href="student-settings.html" class="student-sidebar-link">
+      <span class="link-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        الإعدادات
+      </span>
+    </a>
+  </nav>
+
+  <!-- زر البدء -->
+  <button type="button" class="student-sidebar-cta" onclick="window.location.href='quiz.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+    ابدأ الاختبار الآن
+  </button>
+</aside>
+
+  <!-- ======================= STUDY PLAN (CONTENT) ======================= -->
+  <div class="plan-wrap">
+    <div class="plan-inner">
+
+      <div class="plan-head">
+        <span class="plan-eyebrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          خطتك الدراسية
+        </span>
+        <h1>الخطة الدراسية المقترحة لك</h1>
+        <p>خطة مبنية على التخصص اللي اخترته، موزّعة على الفصول الدراسية عشان تخلّصي المتطلبات براحتك</p>
+      </div>
+
+      <!-- Major selector -->
+      <div class="major-select-row">
+        <label for="majorSelect">التخصص:</label>
+        <select class="major-select" id="majorSelect">
+          <option>علوم الحاسوب</option>
+          <option>هندسة البرمجيات</option>
+          <option>نظم المعلومات</option>
+          <option>الأمن السيبراني</option>
+        </select>
+      </div>
+
+      <!-- Tabs -->
+      <div class="plan-tabs" role="tablist">
+        <button class="plan-tab active" data-tab="required" type="button">الخطة الدراسية</button>
+        <button class="plan-tab" data-tab="elective" type="button">المواد الاختيارية</button>
+        <button class="plan-tab" data-tab="major" type="button">المواد التخصصية</button>
+      </div>
+
+      <!-- Main layout -->
+      <div class="plan-layout">
+
+        <!-- Left: stats -->
+        <div class="plan-stats">
+          <div class="stat-card">
+            <div class="stat-value">45<span>/140</span></div>
+            <div class="stat-label">ساعة معتمدة مكتملة</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width:32%;"></div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">3.2</div>
+            <div class="stat-label">المعدل التراكمي المتوقع</div>
+          </div>
+          <button class="btn-download-pdf" id="btnDownloadPdf" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+            تحميل الخطة PDF
+          </button>
+        </div>
+
+        <!-- Center: table -->
+        <div class="plan-table-wrap">
+
+          <!-- الخطة الدراسية (required courses) -->
+          <div class="tab-panel" data-panel="required">
+            <div class="semesters-grid">
+              <div class="semester-block">
+                <h3>الفصل الأول</h3>
+                <div class="course-row"><span class="course-name">مقدمة في البرمجة</span><span class="course-meta"><span class="course-code">CS101</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">رياضيات متقطعة</span><span class="course-meta"><span class="course-code">MTH110</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">مهارات اتصال</span><span class="course-meta"><span class="course-code">GEN101</span><span class="course-hours">2 س</span></span></div>
+                <div class="course-row"><span class="course-name">لغة إنجليزية 1</span><span class="course-meta"><span class="course-code">ENG101</span><span class="course-hours">3 س</span></span></div>
+              </div>
+              <div class="semester-block">
+                <h3>الفصل الثاني</h3>
+                <div class="course-row"><span class="course-name">برمجة كائنية التوجه</span><span class="course-meta"><span class="course-code">CS102</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">هياكل البيانات</span><span class="course-meta"><span class="course-code">CS201</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">جبر خطي</span><span class="course-meta"><span class="course-code">MTH120</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">لغة إنجليزية 2</span><span class="course-meta"><span class="course-code">ENG102</span><span class="course-hours">3 س</span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- المواد الاختيارية (elective courses) -->
+          <div class="tab-panel" data-panel="elective" style="display:none;">
+            <div class="semesters-grid">
+              <div class="semester-block">
+                <h3>اختياري عام</h3>
+                <div class="course-row"><span class="course-name">مبادئ ريادة الأعمال</span><span class="course-meta"><span class="course-code">GEN210</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">مدخل إلى علم النفس</span><span class="course-meta"><span class="course-code">GEN220</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">تاريخ فلسطين الحديث</span><span class="course-meta"><span class="course-code">GEN230</span><span class="course-hours">3 س</span></span></div>
+              </div>
+              <div class="semester-block">
+                <h3>اختياري كلية</h3>
+                <div class="course-row"><span class="course-name">تصميم واجهات المستخدم</span><span class="course-meta"><span class="course-code">CS310</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">إدارة المشاريع التقنية</span><span class="course-meta"><span class="course-code">CS320</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">مقدمة في ريادة الأعمال التقنية</span><span class="course-meta"><span class="course-code">CS330</span><span class="course-hours">3 س</span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- المواد التخصصية (major-specific courses) -->
+          <div class="tab-panel" data-panel="major" style="display:none;">
+            <div class="semesters-grid">
+              <div class="semester-block">
+                <h3>الفصل الخامس</h3>
+                <div class="course-row"><span class="course-name">قواعد البيانات</span><span class="course-meta"><span class="course-code">CS301</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">أنظمة التشغيل</span><span class="course-meta"><span class="course-code">CS302</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">هندسة البرمجيات</span><span class="course-meta"><span class="course-code">CS303</span><span class="course-hours">3 س</span></span></div>
+              </div>
+              <div class="semester-block">
+                <h3>الفصل السادس</h3>
+                <div class="course-row"><span class="course-name">شبكات الحاسوب</span><span class="course-meta"><span class="course-code">CS304</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">الذكاء الاصطناعي</span><span class="course-meta"><span class="course-code">CS305</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row"><span class="course-name">أمن المعلومات</span><span class="course-meta"><span class="course-code">CS306</span><span class="course-hours">3 س</span></span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: vertical progress track -->
+        <div class="progress-track">
+          <h4>مسار تقدّمك</h4>
+          <div class="level-item done">
+            <div class="level-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="level-info">
+              <div class="level-name">المستوى الأول</div>
+              <div class="level-sub">مكتمل بالكامل</div>
+            </div>
+          </div>
+          <div class="level-item active">
+            <div class="level-dot">2</div>
+            <div class="level-info">
+              <div class="level-name">المستوى الثاني</div>
+              <div class="level-sub">قيد الدراسة الآن</div>
+            </div>
+          </div>
+          <div class="level-item">
+            <div class="level-dot">3</div>
+            <div class="level-info">
+              <div class="level-name">المستوى الثالث</div>
+              <div class="level-sub">لسا ما بدأ</div>
+            </div>
+          </div>
+          <div class="level-item">
+            <div class="level-dot">4</div>
+            <div class="level-info">
+              <div class="level-name">المستوى الرابع</div>
+              <div class="level-sub">لسا ما بدأ</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Weekly schedule -->
+      <div class="schedule-section">
+        <div class="section-title"><span class="dot"></span>الجدول الزمني الأسبوعي</div>
+        <div class="schedule-row">
+          <div class="day-card">
+            <div class="day-name">الأحد</div>
+            <div class="day-slot">مقدمة في البرمجة</div>
+            <div class="day-slot">رياضيات متقطعة</div>
+          </div>
+          <div class="day-card">
+            <div class="day-name">الاثنين</div>
+            <div class="day-slot">هياكل البيانات</div>
+            <div class="day-empty">—</div>
+          </div>
+          <div class="day-card">
+            <div class="day-name">الثلاثاء</div>
+            <div class="day-slot">مهارات اتصال</div>
+            <div class="day-slot">لغة إنجليزية 1</div>
+          </div>
+          <div class="day-card">
+            <div class="day-name">الأربعاء</div>
+            <div class="day-slot">مقدمة في البرمجة</div>
+            <div class="day-empty">—</div>
+          </div>
+          <div class="day-card">
+            <div class="day-name">الخميس</div>
+            <div class="day-empty">يوم راحة</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compare button -->
+      <div class="plan-compare-wrap">
+        <button class="btn-compare" id="btnCompare" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+          أضف تخصص للمقارنة
+        </button>
+      </div>
+
+    </div>
+  </div>
+  <!-- ======================= END STUDY PLAN ======================= -->
+
+</div>
+<!-- ======================= END PAGE LAYOUT ======================= -->
+
+<!-- ======================= FOOTER ======================= -->
+<div id="footer-placeholder"></div>
+
+<script>
+/* Tabs switching */
+const tabs = document.querySelectorAll('.plan-tab');
+const panels = document.querySelectorAll('.tab-panel');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.dataset.tab;
+    panels.forEach(p => {
+      p.style.display = (p.dataset.panel === target) ? 'block' : 'none';
+    });
+  });
+});
+
+/* Download PDF (placeholder — uses browser print dialog) */
+document.getElementById('btnDownloadPdf').addEventListener('click', () => {
+  window.print();
+});
+
+/* Compare button (placeholder) */
+document.getElementById('btnCompare').addEventListener('click', () => {
+  alert('ميزة المقارنة بين التخصصات قريباً!');
+});
+</script>
+
+<script src="footer.js"></script>
+</body>
+</html>

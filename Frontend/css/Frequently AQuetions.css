@@ -1,0 +1,470 @@
+/* تنسيقات عامة وخلفية الصفحة */
+body {
+    background-color: #0d1b3d;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(53, 208, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(72, 230, 128, 0.1) 0%, transparent 40%);
+    min-height: 100vh;
+}
+/* 1. جعل الحاوية الرئيسية (body والـ html) تأخذ الارتفاع كاملاً بدون هوامش افتراضية */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* 2. تحويل الـ body إلى Flexbox مرتب عمودياً لضمان توزيع العناصر على كامل الشاشة */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 3. جعل قسم الـ main يتمدد ليملأ الفراغ بالكامل بين الهيدر والفوتر */
+main {
+    flex: 1 0 auto;
+}
+/* هيدر الصفحة */
+header.site-header{
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent;
+  border-bottom: none;
+  direction: ltr;
+  padding-block: 0.25rem;
+  backdrop-filter: none;
+  box-shadow: none;
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity .35s ease, transform .35s ease;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+header.site-header.scrolled{
+  position: static !important;
+  transform: none;
+  box-shadow: none;
+  background: transparent;
+  padding-block: 0.35rem;
+  border-color: transparent;
+}
+
+header.site-header.ready{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-inner{
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0.85rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  direction: ltr;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-mark{
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding-inline-start: 0.25rem;
+  flex-shrink: 0;
+}
+
+.brand-mark .brand-logo{
+  width: 5.125rem;
+  height: 5.125rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-mark .brand-text{
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: #1E4FD1;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.28);
+}
+
+.brand-mark .brand-text span {
+  color: #35D0FF;
+}
+
+.brand-mark .brand-text:hover {
+  transform: translateY(-0.35rem);
+}
+
+/* القائمة الرئيسية */
+nav.main-nav ul {
+  display: flex;
+  gap: 2.25rem;
+  font-size: 21px;
+  font-weight: 800;
+  color: #f7fbff;
+  list-style: none;
+}
+
+nav.main-nav a {
+  position: relative;
+  transition: color .25s ease, transform .25s ease, text-shadow .25s ease;
+  padding-block: 0.2rem;
+  text-decoration: none;
+  color: #f7fbff;
+}
+
+.main-nav ul li a:hover {
+  color: #35D0FF;
+  transform: translateY(-2px);
+}
+
+.main-nav ul li a:active {
+  transform: translateY(0);
+  opacity: 0.8;
+}
+
+.main-nav ul li a.active {
+  color: #35D0FF;
+  font-weight: 700;
+}
+
+/* أزرار التنقل وتسجيل الدخول */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.btn-signin {
+  padding: 14px 16px;
+  border-radius: 999px;
+  border: none;
+  background-color: #48E680;
+  color: #173873;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(72, 230, 128, 0.3);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+.btn-signin:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(72, 230, 128, 0.4);
+  filter: brightness(1.04);
+}
+
+.btn-signin:active {
+  transform: translateY(0) scale(0.98);
+  filter: brightness(0.96);
+}
+
+/* تفاعلات عناصر القوائم المنسدلة (Accordion) */
+.faq-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+    opacity: 0;
+}
+
+.faq-accordion.active .faq-accordion-content {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.faq-accordion.active .icon-expand {
+    transform: rotate(180deg);
+    color: #35D0FF;
+}
+
+/* تأثيرات حركية لبطاقات الأسئلة والشاشات */
+.faq-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.faq-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(53, 208, 255, 0.4);
+    box-shadow: 0 10px 25px -5px rgba(47, 107, 255, 0.15);
+}
+.popover-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.soon-popover {
+  position: absolute;
+  bottom: 125%; /* تظهر فوق الأيقونة */
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  background-color: #173873;
+  color: #35D0FF;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: 'Poppins', 'Cairo', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* سهم صغير أسفل القائمة */
+.soon-popover::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #173873 transparent transparent transparent;
+}
+
+/* إظهار القائمة المنبثقة */
+.popover-wrapper.active .soon-popover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+html, body {
+            height: auto; /* السماح للصفحة بالطول الطبيعي حسب المحتوى */
+            margin: 0;
+        }
+
+        body {
+            background-color: #0d1b3d;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(53, 208, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(72, 230, 128, 0.1) 0%, transparent 40%);
+            /* أزلنا الـ display: flex والـ flex-direction هنا تماماً */
+            min-height: 100vh;
+        }
+
+        /* 2. جعل الـ main يأخذ مساحة كافية مع مسافة من الأسفل (Padding) لضمان نزول الفوتر للأسفل واحتياج Scroll */
+        main {
+            min-height: 85vh; /* تضمن أن المحتوى يغطي معظم الشاشة الأولى */
+            padding-bottom: 100px; /* مسافة إضافية تدفع الفوتر للأسفل أكثر ليظهر بالسكرول */
+        }
+
+        .faq-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+            opacity: 0;
+        }
+        .faq-accordion.active .faq-accordion-content {
+            max-height: 500px;
+            opacity: 1;
+        }
+        .faq-accordion.active .icon-expand {
+            transform: rotate(180deg);
+            color: #35D0FF;
+        }
+        
+        .faq-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .faq-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(53, 208, 255, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(47, 107, 255, 0.15);
+        }
+
+        /* تنسيق النافذة المنبثة لليوتيوب */
+        .popover-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .soon-popover {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            background-color: #1F2937;
+            color: #35D0FF;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 1px solid rgba(53, 208, 255, 0.3);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+            z-index: 10;
+        }
+
+        .soon-popover.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+       
+        html, body {
+            height: auto;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: #0d1b3d;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(53, 208, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(72, 230, 128, 0.1) 0%, transparent 40%);
+        }
+
+        /* جعل الـ main يأخذ مساحة كافية لكي يظهر الهيدر بالأعلى طبيعياً، بينما ينزل الفوتر للأسفل ولا يظهر إلا بالسكرول */
+        main {
+            min-height: 100vh; /* يضمن تغطية الشاشة للمحتوى الرئيسي */
+            padding-top: 40px;  /* مسافة مريحة تحت الهيدر الطبيعي */
+            padding-bottom: 120px; /* مسافة كبيرة أسفل المحتوى تدفع الفوتر للأسفل خارج الشاشة الأولى */
+        }
+
+        .faq-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+            opacity: 0;
+        }
+        .faq-accordion.active .faq-accordion-content {
+            max-height: 500px;
+            opacity: 1;
+        }
+        .faq-accordion.active .icon-expand {
+            transform: rotate(180deg);
+            color: #35D0FF;
+        }
+        
+        .faq-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .faq-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(53, 208, 255, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(47, 107, 255, 0.15);
+        }
+
+        /* تنسيق النافذة المنبثة لليوتيوب */
+        .popover-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .soon-popover {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            background-color: #1F2937;
+            color: #35D0FF;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 1px solid rgba(53, 208, 255, 0.3);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+            z-index: 10;
+        }
+
+        .soon-popover.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+    
+    body {
+         direction: rtl; /* يعيد محتويات الصفحة والنصوص للغة العربية من اليمين لليسار */
+    }
+    .popover-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.soon-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* مخفية في البداية */
+.soon-popover {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+
+  background: #173873;
+  color: #ffffff;
+
+  padding: 7px 14px;
+  border-radius: 8px;
+
+  font-family: "Cairo", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+
+  z-index: 1000;
+}
+
+/* السهم */
+.soon-popover::after {
+  content: "";
+
+  position: absolute;
+  top: 100%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #173873;
+}
+
+/* تظهر عند الضغط */
+.popover-wrapper.active .soon-popover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}

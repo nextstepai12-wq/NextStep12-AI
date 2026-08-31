@@ -121,16 +121,7 @@
                 '<div class="nav-actions">' +
 
                     '<a href="' + pg + 'signup.html" class="btn-signin">' +
-
-                        '<span class="btn-icon">' +
-                            '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-                                '<path d="M12 3v10m0-10 4 4m-4-4L8 7" />' +
-                                '<path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" />' +
-                            '</svg>' +
-                        '</span>' +
-
                         '<span>تسجيل دخول</span>' +
-
                     '</a>' +
 
                 '</div>' +

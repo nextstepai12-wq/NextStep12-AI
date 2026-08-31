@@ -1,0 +1,617 @@
+/* =====================================================================
+   support.css
+   ===================================================================== */
+
+.support-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.support-stat-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  border: 1px solid rgba(47,107,255,0.04);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 128px;
+}
+.support-stat-card .stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.support-stat-card .stat-icon svg { width: 22px; height: 22px; }
+.support-stat-card .stat-icon.blue { background: rgba(47,107,255,0.12); color: var(--blue); }
+.support-stat-card .stat-icon.amber { background: rgba(180,121,12,0.12); color: var(--gold); }
+.support-stat-card .stat-icon.mint { background: rgba(22,192,136,0.12); color: var(--green); }
+.support-stat-card .stat-icon.purple { background: rgba(153,102,255,0.12); color: #9966FF; }
+
+.support-stat-card .stat-number {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--navy);
+  display: block;
+  line-height: 1.2;
+}
+.support-stat-card .stat-label {
+  font-size: 0.75rem;
+  color: var(--gray);
+  font-weight: 600;
+}
+
+/* ===== FILTER BAR ===== */
+.support-filter-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  background: #fff;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.support-filter-bar select {
+  padding: 8px 16px;
+  border: 1px solid var(--gray-light);
+  border-radius: 60px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.85rem;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+}
+.support-filter-bar select:focus { border-color: var(--blue); }
+.support-filter-bar input {
+  flex: 1;
+  min-width: 160px;
+  padding: 8px 16px;
+  border: 1px solid var(--gray-light);
+  border-radius: 60px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.85rem;
+  outline: none;
+  transition: var(--transition);
+}
+.support-filter-bar input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(47,107,255,0.08); }
+.support-filter-bar .btn-save-primary {
+  padding: 8px 20px;
+  border: none;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 60px;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+.support-filter-bar .btn-save-primary:hover { background: var(--navy); }
+.support-filter-bar .btn-save-primary svg { width: 18px; height: 18px; }
+
+/* زر "التذاكر المحفوظة" داخل شريط الفلترة (نفس شكل زر outline العام،
+   بس بإضافة الأيقونة + العداد جنب بعض بمسافة مضبوطة) */
+.support-filter-bar .btn-cancel-outline {
+  padding: 8px 20px;
+  border: 1px solid rgba(47,107,255,0.18);
+  background: #fff;
+  color: var(--navy);
+  border-radius: 60px;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.support-filter-bar .btn-cancel-outline:hover {
+  background: rgba(47,107,255,0.08);
+  color: var(--navy);
+}
+.support-filter-bar .btn-cancel-outline svg { width: 18px; height: 18px; flex-shrink: 0; }
+.support-filter-bar .btn-cancel-outline #savedTicketsCount {
+  font-weight: 800;
+  color: var(--blue);
+}
+
+  /* ===== MODAL + FORM ===== */
+  .app-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(10, 25, 40, 0.48);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .app-modal-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .app-modal {
+    width: min(520px, 100%);
+    padding: 28px;
+    border-radius: 18px;
+    background: #fff;
+    text-align: right;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.18);
+  }
+
+  .filter-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-bg);
+  }
+
+  .filter-modal-header h3 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .filter-modal-body .field-group {
+    margin-bottom: 18px;
+  }
+
+  .filter-modal-body label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--gray-dark);
+  }
+
+  .filter-modal-body input,
+  .filter-modal-body select,
+  .filter-modal-body textarea {
+    width: 100%;
+    border: 1px solid var(--gray-light);
+    border-radius: 16px;
+    padding: 12px 16px;
+    background: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    color: var(--gray-dark);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .filter-modal-body input:focus,
+  .filter-modal-body select:focus,
+  .filter-modal-body textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(47, 107, 255, 0.08);
+  }
+
+  .filter-modal-body textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  .filter-modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+    margin-top: 20px;
+  }
+
+  .btn-save-primary,
+  .btn-cancel-outline {
+    padding: 10px 20px;
+    border-radius: 60px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .btn-save-primary {
+    border: none;
+    background: var(--blue);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-save-primary:hover {
+    background: var(--navy);
+  }
+
+  .btn-cancel-outline {
+    border: 1px solid rgba(47, 107, 255, 0.18);
+    background: #fff;
+    color: var(--navy);
+  }
+
+  .btn-cancel-outline:hover {
+    background: rgba(47, 107, 255, 0.08);
+    color: var(--navy);
+  }
+
+/* زر "حفظ تذكرة" داخل فوتر المودال — نفس شكل outline بس بلون مميّز
+   (أصفر/ذهبي) عشان يبين إنه إجراء "حفظ مؤقت" مختلف عن "إلغاء" */
+.filter-modal-footer #saveDraftBtn {
+  border-color: rgba(180,121,12,0.30);
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.filter-modal-footer #saveDraftBtn:hover {
+  background: rgba(180,121,12,0.10);
+  color: var(--gold);
+}
+
+.ticket-item {
+  background: var(--white);
+  border: 1px solid rgba(47,107,255,0.04);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.ticket-item:hover { border-color: rgba(47,107,255,0.12); transform: translateY(-1px); }
+.ticket-item.expanded { border-color: var(--blue); }
+
+.ticket-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.ticket-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ticket-priority {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 60px;
+}
+.ticket-priority.low { background: var(--gray-bg); color: var(--gray); }
+.ticket-priority.medium { background: rgba(180,121,12,0.12); color: var(--gold); }
+.ticket-priority.high { background: rgba(198,40,40,0.08); color: var(--red); }
+.ticket-priority.critical { background: #FDEDEE; color: #B71C1C; }
+
+.ticket-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 60px;
+}
+.ticket-status.open { background: rgba(47,107,255,0.10); color: var(--blue); }
+.ticket-status.in-progress { background: rgba(180,121,12,0.10); color: var(--gold); }
+.ticket-status.closed { background: rgba(22,192,136,0.10); color: var(--green); }
+
+.ticket-title { font-size: 0.9rem; color: var(--navy); }
+.ticket-meta {
+  display: flex;
+  gap: 14px;
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+.ticket-meta .ticket-user { font-weight: 600; color: var(--gray-dark); }
+
+.ticket-details {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 18px;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  background: rgba(47,107,255,0.02);
+}
+.ticket-item.expanded .ticket-details {
+  max-height: 320px;
+  padding: 0 18px 16px;
+}
+.ticket-details p {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  color: var(--gray-dark);
+  line-height: 1.7;
+}
+.ticket-actions {
+  display: flex;
+  gap: 8px;
+}
+.ticket-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.ticket-close-btn {
+  background: rgba(47,107,255,0.10);
+  color: var(--blue);
+}
+.ticket-close-btn:hover { background: var(--blue); color: #fff; }
+.ticket-delete-btn {
+  background: #FDEDEE;
+  color: var(--red);
+}
+.ticket-delete-btn:hover { background: var(--red); color: #fff; }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--gray);
+  background: var(--white);
+  border: 1px solid rgba(47,107,255,0.04);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.empty-state svg {
+  width: 64px;
+  height: 64px;
+  color: var(--gray-light);
+  margin-bottom: 16px;
+}
+.empty-state h4 { font-size: 1.1rem; color: var(--gray-dark); margin: 0 0 6px; }
+.empty-state p { margin: 0; font-size: 0.9rem; }
+
+@media (max-width: 992px) {
+  .support-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
+  .support-stats-grid { grid-template-columns: 1fr 1fr; }
+  .support-filter-bar { flex-direction: column; align-items: stretch; }
+  .support-filter-bar input { min-width: auto; }
+  .ticket-main { flex-direction: column; align-items: stretch; }
+  .ticket-meta { justify-content: space-between; }
+}
+
+@media (max-width: 480px) {
+  .support-stats-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== ADDITIONS TO students.css ===== */
+/* ... (الكود السابق) ... */
+
+/* ===== STATUS PILLS ===== */
+.students-table .status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 60px;
+}
+.students-table .status-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.students-table .status-pill.done {
+  background: rgba(22,192,136,0.14);
+  color: #0F9D6F;
+}
+.students-table .status-pill.done .dot { background: #0F9D6F; }
+.students-table .status-pill.review {
+  background: rgba(47,107,255,0.10);
+  color: var(--blue);
+}
+.students-table .status-pill.review .dot { background: var(--blue); }
+.students-table .status-pill.rejected {
+  background: #FDEDEE;
+  color: var(--red);
+}
+.students-table .status-pill.rejected .dot { background: var(--red); }
+
+/* =====================================================================
+   ADDITIONS — جدول تذاكر الدعم (support.html الحالي بيستخدم <table> مش
+   .ticket-item القديمة). الكلاسات تحت ناقصة بالكامل من الملف الأصلي،
+   وهاد سبب ظهور زر "إلغاء الطلب" بدون أي تنسيق.
+   ===================================================================== */
+
+.tickets-table-wrap {
+  overflow-x: auto;
+}
+
+.tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tickets-table thead th {
+  text-align: right;
+  padding: 12px 16px;
+  font-weight: 700;
+  color: var(--gray);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-bottom: 2px solid var(--gray-bg);
+}
+
+.tickets-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--gray-bg);
+  color: var(--gray-dark);
+  vertical-align: middle;
+}
+
+.tickets-table tbody tr:hover {
+  background: var(--gray-bg);
+}
+
+.ticket-title-cell strong {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+/* شارة الأولوية داخل الجدول (اسم مختلف عن .ticket-priority القديمة) */
+.priority-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 60px;
+}
+.priority-badge.medium { background: rgba(180,121,12,0.12); color: var(--gold); }
+.priority-badge.urgent { background: rgba(198,40,40,0.10); color: var(--red); }
+
+/* status-pill بس كانت معرّفة جوا .students-table — هلق بتشتغل جوا .tickets-table كمان */
+.tickets-table .status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 60px;
+}
+.tickets-table .status-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.tickets-table .status-pill.done { background: rgba(22,192,136,0.14); color: #0F9D6F; }
+.tickets-table .status-pill.done .dot { background: #0F9D6F; }
+.tickets-table .status-pill.review { background: rgba(47,107,255,0.10); color: var(--blue); }
+.tickets-table .status-pill.review .dot { background: var(--blue); }
+.tickets-table .status-pill.rejected { background: #FDEDEE; color: var(--red); }
+.tickets-table .status-pill.rejected .dot { background: var(--red); }
+
+/* الأب الفعلي بالجدول اسمه .ticket-actions-cell مش .ticket-actions —
+   عشان هيك .ticket-close-btn كان بياخد اللون بس بدون شكل الزر */
+.ticket-actions-cell {
+  display: flex;
+  gap: 8px;
+}
+.ticket-actions-cell button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* =====================================================================
+   ADDITIONS — مودال ولستة "التذاكر المحفوظة" (المسودات)
+   ناقصة بالكامل من الملف الأصلي، هاد سبب ظهور زر "اختيار"/"حذف"
+   بدون أي شكل جوا savedTicketsList
+   ===================================================================== */
+
+.saved-ticket-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--gray-bg);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: #fff;
+  transition: var(--transition);
+}
+.saved-ticket-item:hover {
+  border-color: rgba(47,107,255,0.18);
+  background: rgba(47,107,255,0.02);
+}
+.saved-ticket-item:last-child {
+  margin-bottom: 0;
+}
+
+.saved-ticket-info {
+  min-width: 0;
+}
+.saved-ticket-info strong {
+  display: block;
+  color: var(--navy);
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.saved-ticket-info span {
+  font-size: 0.78rem;
+  color: var(--gray);
+  font-weight: 600;
+}
+
+.saved-ticket-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.saved-ticket-actions button {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 999px;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.saved-ticket-select-btn {
+  background: rgba(47,107,255,0.10);
+  color: var(--blue);
+}
+.saved-ticket-select-btn:hover {
+  background: var(--blue);
+  color: #fff;
+}
+.saved-ticket-delete-btn {
+  background: #FDEDEE;
+  color: var(--red);
+}
+.saved-ticket-delete-btn:hover {
+  background: var(--red);
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .saved-ticket-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .saved-ticket-actions {
+    justify-content: flex-end;
+  }
+}

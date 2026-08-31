@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NextStep AI - الشروط والأحكام</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="css/app.css" rel="stylesheet">
+
+<link href="css/home.css" rel="stylesheet">
+<link href="../css/footer.css" rel="stylesheet"/>
+
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#F5F7FA",
+                      "surface": "#1E293B",
+                      "surface-container": "#1E293B",
+                      "surface-container-low": "#111827",
+                      "surface-container-lowest": "#1E293B",
+                      "surface-container-highest": "#334155",
+                      "primary-container": "#173873",
+                      "secondary": "#2F6BFF",
+                      "secondary-container": "#35D0FF",
+                      "cyan": "#35D0FF",
+                      "mint": "#48E680",
+                      "navy": "#173873",
+                      "on-background": "#F7FAFC",
+                      "on-surface": "#F7FAFC",
+                      "on-surface-variant": "#94A3B8",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "rgba(53, 208, 255, 0.2)"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.75rem",
+                      "xl": "1rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sidebar-width": "280px",
+                      "container-padding": "32px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "body-md": ["Poppins", "Cairo", "sans-serif"],
+                      "headline-md": ["Cairo", "sans-serif"],
+                      "display-lg": ["Cairo", "sans-serif"]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        :root {
+            --cyan: #35D0FF;
+            --mint: #48E680;
+            --blue: #2F6BFF;
+            --navy: #173873;
+            --header-height: 6rem;
+        }
+
+        body {
+            font-family: 'Poppins', 'Cairo', sans-serif;
+           
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(53, 208, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(72, 230, 128, 0.1) 0%, transparent 40%);
+            color: #F7FAFC;
+            margin: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        h1, h2, h3, h4, h5, h6, .cairo-font {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        /* تنسيقات الهيدر الثابت */
+        header.site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            
+            direction: ltr;
+            padding-block: 0.25rem;
+        
+            opacity: 0;
+            transform: translateY(-14px);
+            transition: opacity .35s ease, transform .35s ease;
+        }
+
+        header.site-header.ready {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header-spacer {
+            height: var(--header-height);
+            flex-shrink: 0;
+        }
+
+        .nav-inner {
+            max-width: 1520px;
+            margin: 0 auto;
+            padding: 0.85rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            direction: ltr;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-mark-header {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            padding-inline-start: 0.25rem;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+        .brand-mark-header .brand-logo {
+            width: 5.125rem;
+            height: 5.125rem;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .brand-mark-header .brand-text {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: #1E4FD1;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .brand-mark-header .brand-text span { color: var(--cyan); }
+
+        nav.main-nav ul {
+            display: flex;
+            gap: 2.25rem;
+            font-size: 21px;
+            font-weight: 800;
+            color: #2F6BFF;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav.main-nav a {
+            position: relative;
+            transition: color .25s ease;
+            text-decoration: none;
+            color: #f7fbff;
+        }
+        .main-nav ul li a:hover,
+        .main-nav ul li a.active {
+            color: var(--cyan);
+        }
+
+        .btn-signin {
+            border-radius: 999px;
+            border: none;
+            background-color: #48E680;
+            color: #173873;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 16px;
+        }
+
+        /* تنسيقات حاوية المحتوى الرئيسي والقائمة الجانبية */
+        .viewport-layout {
+            display: flex;
+            min-height: calc(100vh - var(--header-height));
+            position: relative;
+            width: 100%;
+        }
+
+        aside.sidebar-fixed {
+            width: 280px;
+           
+            border-left: 1px solid rgba(53, 208, 255, 0.2);
+            position: sticky;
+            top: var(--header-height);
+            height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        main.main-content {
+            flex: 1;
+            padding: 32px;
+            min-height: 100%;
+        }
+
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: #35D0FF;
+            background-color: rgba(53, 208, 255, 0.1);
+        }
+        .nav-link.active {
+            color: #35D0FF;
+            font-weight: 600;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: #35D0FF;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .tab-button.active {
+            border-bottom: 2px solid #35D0FF;
+            color: #35D0FF;
+            font-weight: 600;
+        }
+
+        /* أنماط القائمة المنسدلة Accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        .accordion-content.open {
+            max-height: 1000px;
+            opacity: 1;
+        }
+        .accordion-arrow {
+            transition: transform 0.3s ease;
+        }
+        .accordion-header.open .accordion-arrow {
+            transform: rotate(180deg);
+        }
+        .popover-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.soon-popover {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1E293B;
+    color: #35D0FF;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    border: 1px solid rgba(53, 208, 255, 0.2);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
+}
+
+/* الكلاس الذي سيتم تفعيله عند الضغط عبر جافاسكريبت */
+.popover-wrapper.active .soon-popover {
+    visibility: visible;
+    opacity: 1;
+}
+    </style>
+</head>
+<body class="bg-background text-on-background">
+
+<!-- 1. الهيدر الثابت في الأعلى -->
+<header class="site-header ready">
+  <div class="nav-inner">
+    <a href="../Frontend/index.html" class="brand-mark-header">
+      <img src="../assets/logo.png" alt="NextStep AI" class="brand-logo">
+      <div class="brand-text">NextStep<span>AI</span></div>
+    </a>
+
+    <nav class="main-nav">
+      <ul>
+        <li><a href="../Frontend/fronted/about.html">عن المنصة</a></li>
+        <li><a href="../Frontend/fronted/universities.html">الجامعات</a></li>
+        <li><a href="../Frontend/fronted/quiz.html">الاختبار الذكي</a></li>
+        <li><a href="../Frontend/index.html" class="active">الرئيسية</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="../Frontend/fronted/auth/login.html" class="btn-signin">تسجيل دخول</a>
+    </div>
+  </div>
+</header>
+<div class="header-spacer"></div>
+
+<!-- 2. حاوية المحتوى الرئيسي والقائمة الجانبية -->
+<div class="viewport-layout">
+  
+  <!-- Sidebar Navigation (Desktop) -->
+ 
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <div class="max-w-4xl mx-auto">
+      <!-- Page Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl md:text-4xl text-white mb-4 font-bold cairo-font">الشروط والأحكام</h1>
+        <p class="text-on-surface-variant text-base max-w-2xl">
+          يرجى قراءة هذه الشروط بعناية قبل استخدام منصة NextStep AI. باستخدامك للمنصة، فإنك توافق على الالتزام بهذه الشروط.
+        </p>
+      </div>
+
+      <!-- Tabs -->
+ 
+
+      <!-- Content Container (Student Terms - Default) -->
+      <div class="space-y-6 pb-12" id="student-terms">
+
+        <!-- Section: Introduction -->
+        <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-lg" id="intro">
+          <div class="accordion-header open flex justify-between items-center cursor-pointer select-none pb-2" onclick="toggleAccordion(this)">
+            <h2 class="text-xl text-white cairo-font font-semibold">1. مقدمة</h2>
+            <span class="material-symbols-outlined accordion-arrow text-cyan">expand_more</span>
+          </div>
+          <div class="accordion-content open">
+            <div class="border-t border-outline-variant pt-4 mt-2 text-on-surface-variant text-sm md:text-base leading-relaxed space-y-4">
+              <p>
+                مرحباً بك في منصة NextStep AI ("المنصة"، "نحن"، "لنا"). تحكم هذه الشروط والأحكام استخدامك للمنصة والخدمات المقدمة من خلالها كطالب ("المستخدم"، "أنت").
+              </p>
+              <p>
+                تهدف المنصة إلى تقديم استشارات وتوجيهات تعليمية باستخدام تقنيات الذكاء الاصطناعي لمساعدتك في اتخاذ قرارات أكاديمية مستنيرة. يجب ألا تعتبر التوصيات بديلاً عن الاستشارة الأكاديمية الرسمية من المؤسسات التعليمية.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Nature of Service -->
+        <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-lg" id="service">
+          <div class="accordion-header flex justify-between items-center cursor-pointer select-none pb-2" onclick="toggleAccordion(this)">
+            <h2 class="text-xl text-white cairo-font font-semibold">2. طبيعة الخدمة</h2>
+            <span class="material-symbols-outlined accordion-arrow text-cyan">expand_more</span>
+          </div>
+          <div class="accordion-content">
+            <div class="border-t border-outline-variant pt-4 mt-2 text-on-surface-variant text-sm md:text-base leading-relaxed space-y-4">
+              <p>
+                توفر المنصة أدوات تعتمد على الذكاء الاصطناعي لتحليل البيانات الأكاديمية والمهنية وتقديم مقترحات للمسارات التعليمية.
+              </p>
+              <ul class="list-disc list-inside space-y-2 mr-4 marker:text-cyan">
+                <li>النتائج تعتمد على دقة البيانات المدخلة من قبلك.</li>
+                <li>المقترحات مبنية على خوارزميات قد لا تغطي جميع الخيارات المتاحة.</li>
+                <li>المنصة لا تضمن القبول في أي مؤسسة تعليمية.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: User Responsibilities -->
+        <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-lg" id="responsibilities">
+          <div class="accordion-header flex justify-between items-center cursor-pointer select-none pb-2" onclick="toggleAccordion(this)">
+            <h2 class="text-xl text-white cairo-font font-semibold">3. مسؤوليات المستخدم</h2>
+            <span class="material-symbols-outlined accordion-arrow text-cyan">expand_more</span>
+          </div>
+          <div class="accordion-content">
+            <div class="border-t border-outline-variant pt-4 mt-2 text-on-surface-variant text-sm md:text-base leading-relaxed space-y-4">
+              <p>
+                بصفتك مستخدماً للمنصة، أنت توافق على:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="bg-surface p-4 rounded-lg border border-outline-variant">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="material-symbols-outlined text-cyan" data-icon="fact_check">fact_check</span>
+                    <h4 class="text-base cairo-font text-white font-semibold">دقة المعلومات</h4>
+                  </div>
+                  <p class="text-xs text-on-surface-variant">تقديم معلومات صحيحة ودقيقة ومحدثة عند إنشاء الحساب واستخدام أدوات التقييم.</p>
+                </div>
+                <div class="bg-surface p-4 rounded-lg border border-outline-variant">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="material-symbols-outlined text-cyan" data-icon="lock">lock</span>
+                    <h4 class="text-base cairo-font text-white font-semibold">حماية الحساب</h4>
+                  </div>
+                  <p class="text-xs text-on-surface-variant">الحفاظ على سرية بيانات تسجيل الدخول الخاصة بك وتحمل مسؤولية جميع الأنشطة التي تحدث تحت حسابك.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- 3. الفوتر (Footer) بالهيكل المطابق لملف footer.css -->
+    <script src="../../Frontend/js/footer-student.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const trigger = document.querySelector(".soon-trigger");
+    const wrapper = document.querySelector(".popover-wrapper");
+
+    trigger.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      wrapper.classList.toggle("active");
+    });
+
+    // إغلاق القائمة عند الضغط خارجها
+    document.addEventListener("click", function (e) {
+      if (!wrapper.contains(e.target)) {
+        wrapper.classList.remove("active");
+      }
+    });
+  });
+</script>
+<script>
+    function toggleAccordion(header) {
+        header.classList.toggle('open');
+        const content = header.nextElementSibling;
+        content.classList.toggle('open');
+    }
+
+    function switchTab(tabId) {
+        const buttons = document.querySelectorAll('.tab-button');
+        buttons.forEach(btn => btn.classList.remove('active', 'text-cyan', 'font-bold'));
+        event.target.classList.add('active', 'text-cyan', 'font-bold');
+    }
+</script>
+<script>
+    function togglePopover(event) {
+        event.preventDefault();
+        const wrapper = document.getElementById('youtubePopover');
+        wrapper.classList.toggle('active');
+    }
+
+    // إغلاق القائمة تلقائياً إذا ضغط المستخدم في أي مكان آخر بالصفحة
+    window.addEventListener('click', function(e) {
+        const wrapper = document.getElementById('youtubePopover');
+        if (!wrapper.contains(e.target)) {
+            wrapper.classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>

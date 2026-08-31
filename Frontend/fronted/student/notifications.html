@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإشعارات — NextStep AI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/header.css">
+<link rel="stylesheet" href="../../css/header-dashboard-account.css">
+  <link rel="stylesheet" href="../../css/student-profile.css">
+<link rel="stylesheet" href="../../css/app.css">
+<link rel="stylesheet" href="../../css/home.css">
+<link rel="stylesheet" href="../../css/favorites.css">
+  <link rel="stylesheet" href="../../css/notifications.css">
+  <link rel="stylesheet" href="../../css/app.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="notificationsApp()" x-init="init()">
+
+ <script src="../../js/header-dashboard.js"></script>
+
+
+<div class="page">
+
+<!-- ================= CONTENT ================= -->
+<main class="content">
+
+    <!-- Heading -->
+   
+
+    <!-- ================= SUMMARY ================= -->
+    <section class="notification-summary">
+        <div class="summary-main">
+            <div class="summary-icon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(47, 107, 255)" d="M320 64C306.7 64 296 74.7 296 88L296 97.7C214.6 109.3 152 179.4 152 264L152 278.5C152 316.2 142 353.2 123 385.8L101.1 423.2C97.8 429 96 435.5 96 442.2C96 463.1 112.9 480 133.8 480L506.2 480C527.1 480 544 463.1 544 442.2C544 435.5 542.2 428.9 538.9 423.2L517 385.7C498 353.1 488 316.1 488 278.4L488 263.9C488 179.3 425.4 109.2 344 97.6L344 87.9C344 74.6 333.3 63.9 320 63.9zM488.4 432L151.5 432L164.4 409.9C187.7 370 200 324.6 200 278.5L200 264C200 197.7 253.7 144 320 144C386.3 144 440 197.7 440 264L440 278.5C440 324.7 452.3 370 475.5 409.9L488.4 432zM252.1 528C262 556 288.7 576 320 576C351.3 576 378 556 387.9 528L252.1 528z"/></svg>
+
+            </i></div>
+            <div>
+                <span>لديك</span>
+                <strong x-text="'‏' + unreadCount() + ' إشعارات جديدة'"></strong>
+                <p>هناك بعض التحديثات التي تستحق انتباهك</p>
+            </div>
+        </div>
+
+        <div class="summary-stats">
+            <div>
+                <strong x-text="unreadCount()"></strong>
+                <span>جديد</span>
+            </div>
+            <div>
+                <strong x-text="notifications.length"></strong>
+                <span>الإجمالي</span>
+            </div>
+            <div>
+                <strong x-text="typeCount('admission')"></strong>
+                <span>قبول</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FILTERS ================= -->
+    <div class="filters">
+        <button class="filter" :class="current_filter === 'all' ? 'active' : ''" @click="current_filter = 'all'">
+            الكل <span x-text="notifications.length"></span>
+        </button>
+        <button class="filter" :class="current_filter === 'unread' ? 'active' : ''" @click="current_filter = 'unread'">
+            غير المقروءة <span x-text="unreadCount()"></span>
+        </button>
+        <button class="filter" :class="current_filter === 'admission' ? 'active' : ''" @click="current_filter = 'admission'">
+            القبول <span x-text="typeCount('admission')"></span>
+        </button>
+        <button class="filter" :class="current_filter === 'ai_recommendation' ? 'active' : ''" @click="current_filter = 'ai_recommendation'">
+            توصيات AI <span x-text="typeCount('ai_recommendation')"></span>
+        </button>
+        <button class="filter" :class="current_filter === 'reminder' ? 'active' : ''" @click="current_filter = 'reminder'">
+            تذكيرات <span x-text="typeCount('reminder')"></span>
+        </button>
+        <button class="filter" :class="current_filter === 'document' ? 'active' : ''" @click="current_filter = 'document'">
+            مستندات <span x-text="typeCount('document')"></span>
+        </button>
+        <button class="filter" :class="current_filter === 'article' ? 'active' : ''" @click="current_filter = 'article'">
+            مقالات <span x-text="typeCount('article')"></span>
+        </button>
+    </div>
+
+    <!-- ================= NOTIFICATIONS ================= -->
+    <template x-for="group in groups" :key="group.key">
+        <section class="notif-group" x-show="groupCount(group.key) > 0">
+            <h2 class="group-heading" x-text="group.label"></h2>
+
+            <div class="notifications">
+                <template x-for="item in visibleItems(group.key)" :key="item.id">
+                    <article class="notification" :class="item.unread ? 'unread' : ''" @click="markAsRead(item.id)">
+
+                        <div class="notification-icon" :class="item.color">
+                            <i :class="'fa-solid ' + item.icon"></i>
+                        </div>
+
+                        <div class="notification-content">
+                            <div class="notification-top">
+                                <div>
+                                    <h3 x-text="item.title"></h3>
+                                    <span class="badge" :class="item.color + '-badge'" x-text="item.badge"></span>
+                                </div>
+                                <span class="dot" x-show="item.unread"></span>
+                            </div>
+
+                            <p x-text="item.excerpt"></p>
+
+                            <template x-if="item.progress !== null">
+                                <div class="match-wrap">
+                                    <div class="match-row">
+                                        <span>نسبة التوافق</span>
+                                        <b x-text="item.progress + '%'"></b>
+                                    </div>
+                                    <div class="match-bar">
+                                        <div class="match-fill" :style="'width:' + item.progress + '%'"></div>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <div class="notification-footer">
+                                <span><i class="fa-regular fa-clock"></i> <span x-text="item.time"></span></span>
+                                <button x-show="item.action" x-text="item.action" @click.stop="handleAction(item)"></button>
+                            </div>
+                        </div>
+                    </article>
+                </template>
+            </div>
+        </section>
+    </template>
+
+    <!-- EMPTY STATE -->
+    <div class="empty-state" x-show="filteredCount() === 0">
+        <i class="fa-regular fa-bell-slash"></i>
+        <h3>لا توجد إشعارات هنا</h3>
+        <p>لا يوجد لديك أي إشعارات ضمن هذا التصنيف حاليًا.</p>
+    </div>
+
+    <!-- ================= END ================= -->
+    <div class="notifications-end" x-show="filteredCount() > 0">
+        <span></span>
+        <p>لقد وصلت إلى نهاية الإشعارات</p>
+        <span></span>
+    </div>
+
+</main>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar">
+    <div class="group-label">القائمة الرئيسية</div>
+    <nav>
+        <a href="../" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+            لوحة الطالب
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            النتائج والتوصيات
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+            الاختيار الذكي
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l4 8H8l4-8z"/><rect x="4" y="14" width="16" height="7" rx="1.5"/></svg>
+            الجامعات
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M4 9h5"/></svg>
+            التخصصات
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.8 8.4 8.5 8.5 0 0 1-4-1L3 20l1.1-4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+            المساعد الذكي
+        </a>
+    </nav>
+
+    <div class="group-label">أدواتي</div>
+    <nav>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-6.2 3.6 1.6-7L2 9.2l7.1-.6L12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7z"/></svg>
+            المفضلة
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            المقارنات
+        </a>
+    </nav>
+
+    <div class="group-label">حسابي</div>
+    <nav>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
+            ملفي الشخصي
+        </a>
+        <a href="#" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            الإشعارات
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>
+            الإعدادات
+        </a>
+        <hr>
+        <a href="#" class="nav-item logout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+            تسجيل الخروج
+        </a>
+    </nav>
+</aside>
+</div>
+
+<!-- Toast -->
+<div class="toast" x-show="toastVisible" x-transition:enter="toast-enter" x-transition:enter-start="toast-enter-start" x-transition:enter-end="toast-enter-end" x-transition:leave="toast-leave" x-transition:leave-start="toast-leave-start" x-transition:leave-end="toast-leave-end">
+    <i class="fa-solid fa-bell"></i>
+    <span x-text="toastMessage"></span>
+</div>
+<div class="floating-widgets">
+  <!-- أيقونة المرشد الذكي -->
+  <a href="../Frontend/fronted/auth/login.html" class="float-btn ai-guide-btn" aria-label="المرشد الذكي">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2a10 10 0 0 1 7.54 16.6l1.46 3.4-3.4-1.46A10 10 0 1 1 12 2z"/>
+      <path d="M8 12h8M12 8v8"/>
+    </svg>
+    <span class="tooltip">المرشد الذكي</span>
+  </a>
+
+  <!-- أيقونة واتساب -->
+  <a href="https://wa.me/970597967157" target="_blank" rel="noopener noreferrer" class="float-btn whatsapp-btn" aria-label="تواصل عبر واتساب">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </svg>
+    <span class="tooltip">تواصل عبر واتساب</span>
+  </a>
+</div>
+
+<script>
+function notificationsApp() {
+    return {
+        current_filter: 'all',
+        toastVisible: false,
+        toastMessage: '',
+        nextId: 100,
+
+        groups: [
+            { key: 'today', label: 'اليوم' },
+            { key: 'yesterday', label: 'أمس' },
+            { key: 'week', label: 'الأسبوع الماضي' },
+        ],
+
+        notifications: [
+            {
+                id: 1, type: 'admission', group: 'today', unread: true, color: 'mint',
+                icon: 'fa-award', badge: 'القبول', time: 'منذ 15 دقيقة',
+                title: 'تم قبولك في جامعة النجاح الوطنية 🎉',
+                excerpt: 'تمت الموافقة على طلبك في تخصص هندسة الحاسوب بناءً على معدلك ومعايير القبول الحالية.',
+                progress: null, action: 'عرض التفاصيل'
+            },
+            {
+                id: 2, type: 'ai_recommendation', group: 'today', unread: true, color: 'blue',
+                icon: 'fa-wand-magic-sparkles', badge: 'توصيات الذكاء الاصطناعي', time: 'منذ 40 دقيقة',
+                title: 'اكتشفنا تخصصًا قد يناسب شخصيتك',
+                excerpt: 'بناءً على نتائج اختبارك الذكي، تخصص "هندسة البرمجيات" يتوافق مع مهاراتك ونمط تفكيرك.',
+                progress: 88, action: 'لماذا هذا التخصص؟'
+            },
+            {
+                id: 3, type: 'reminder', group: 'today', unread: true, color: 'cyan',
+                icon: 'fa-hourglass-half', badge: 'تذكير', time: 'منذ 3 ساعات',
+                title: 'آخر موعد للتسجيل يقترب',
+                excerpt: 'تبقّت 3 أيام فقط على إغلاق باب التسجيل في جامعة النجاح الوطنية.',
+                progress: null, action: 'أكمل التسجيل'
+            },
+            {
+                id: 4, type: 'ai_recommendation', group: 'today', unread: false, color: 'navy',
+                icon: 'fa-user-pen', badge: 'المنصة', time: 'اليوم، 10:30 ص',
+                title: 'لديك تحديث جديد في حسابك',
+                excerpt: 'تم تحديث بعض المعلومات في ملفك الشخصي لتحسين دقة توصيات NextStep AI الخاصة بك.',
+                progress: null, action: 'فتح الملف'
+            },
+            {
+                id: 5, type: 'ai_recommendation', group: 'yesterday', unread: false, color: 'blue',
+                icon: 'fa-wand-magic-sparkles', badge: 'توصيات الذكاء الاصطناعي', time: 'أمس، 6:20 م',
+                title: 'تخصص "علم البيانات" قد يهمك',
+                excerpt: 'مهاراتك التحليلية في الاختبار الذكي تتماشى بشكل جيد مع متطلبات هذا التخصص.',
+                progress: 76, action: 'لماذا هذا التخصص؟'
+            },
+            {
+                id: 6, type: 'document', group: 'yesterday', unread: true, color: 'navy',
+                icon: 'fa-file-circle-exclamation', badge: 'مستندات', time: 'أمس، 11:05 ص',
+                title: 'مستندات ناقصة في ملفك',
+                excerpt: 'يرجى رفع كشف العلامات الرسمي لإتمام إجراءات القبول في جامعة النجاح.',
+                progress: null, action: 'رفع المستند'
+            },
+            {
+                id: 7, type: 'article', group: 'yesterday', unread: false, color: 'gray',
+                icon: 'fa-newspaper', badge: 'مقالات', time: 'أمس، 03:20 م',
+                title: 'تمت إضافة مقال جديد إلى المنصة',
+                excerpt: 'مقال جديد حول كيفية اختيار التخصص الجامعي المناسب لمهاراتك وطموحاتك.',
+                progress: null, action: 'قراءة المقال'
+            },
+            {
+                id: 8, type: 'admission', group: 'week', unread: false, color: 'mint',
+                icon: 'fa-circle-check', badge: 'القبول', time: 'منذ 4 أيام',
+                title: 'تحديث حالة طلبك في جامعة بيرزيت',
+                excerpt: 'طلبك الآن قيد المراجعة النهائية من قِبل لجنة القبول، سنعلمك فور صدور القرار.',
+                progress: null, action: 'عرض التفاصيل'
+            },
+        ],
+
+        init() {},
+
+        filteredList() {
+            if (this.current_filter === 'all') return this.notifications;
+            if (this.current_filter === 'unread') return this.notifications.filter(n => n.unread);
+            return this.notifications.filter(n => n.type === this.current_filter);
+        },
+        visibleItems(groupKey) {
+            return this.filteredList().filter(n => n.group === groupKey);
+        },
+        groupCount(groupKey) {
+            return this.visibleItems(groupKey).length;
+        },
+        filteredCount() {
+            return this.filteredList().length;
+        },
+        unreadCount() {
+            return this.notifications.filter(n => n.unread).length;
+        },
+        typeCount(type) {
+            return this.notifications.filter(n => n.type === type).length;
+        },
+        markAsRead(id) {
+            const item = this.notifications.find(n => n.id === id);
+            if (item) item.unread = false;
+        },
+        markAllRead() {
+            this.notifications.forEach(n => n.unread = false);
+        },
+        handleAction(item) {
+            item.unread = false;
+        }
+    }
+}
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const trigger = document.getElementById('accountDropdownBtn');
+      const dropdown = document.getElementById('accountDropdown');
+
+      if(trigger && dropdown) {
+        trigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const expanded = trigger.getAttribute('aria-expanded') === 'true';
+          trigger.setAttribute('aria-expanded', !expanded);
+          dropdown.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function() {
+          trigger.setAttribute('aria-expanded', 'false');
+          dropdown.classList.remove('open');
+        });
+      }
+    });
+    document.getElementById('avatarInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // استبدلي '.avatar-wrap img' بالـ selector الخاص بصورة الملف الشخصي لديكِ
+      const profileImg = document.querySelector('.avatar-wrap img');
+      if (profileImg) {
+        profileImg.src = e.target.result;
+      }
+    }
+    reader.readAsDataURL(file);
+  }
+});
+  </script>
+</body>
+</html>

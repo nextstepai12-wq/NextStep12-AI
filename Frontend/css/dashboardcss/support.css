@@ -100,34 +100,6 @@
 .support-filter-bar .btn-save-primary:hover { background: var(--navy); }
 .support-filter-bar .btn-save-primary svg { width: 18px; height: 18px; }
 
-/* زر "التذاكر المحفوظة" داخل شريط الفلترة (نفس شكل زر outline العام،
-   بس بإضافة الأيقونة + العداد جنب بعض بمسافة مضبوطة) */
-.support-filter-bar .btn-cancel-outline {
-  padding: 8px 20px;
-  border: 1px solid rgba(47,107,255,0.18);
-  background: #fff;
-  color: var(--navy);
-  border-radius: 60px;
-  font-family: 'Cairo', sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: var(--transition);
-  white-space: nowrap;
-}
-.support-filter-bar .btn-cancel-outline:hover {
-  background: rgba(47,107,255,0.08);
-  color: var(--navy);
-}
-.support-filter-bar .btn-cancel-outline svg { width: 18px; height: 18px; flex-shrink: 0; }
-.support-filter-bar .btn-cancel-outline #savedTicketsCount {
-  font-weight: 800;
-  color: var(--blue);
-}
-
   /* ===== MODAL + FORM ===== */
   .app-modal-overlay {
     position: fixed;
@@ -255,20 +227,6 @@
     background: rgba(47, 107, 255, 0.08);
     color: var(--navy);
   }
-
-/* زر "حفظ تذكرة" داخل فوتر المودال — نفس شكل outline بس بلون مميّز
-   (أصفر/ذهبي) عشان يبين إنه إجراء "حفظ مؤقت" مختلف عن "إلغاء" */
-.filter-modal-footer #saveDraftBtn {
-  border-color: rgba(180,121,12,0.30);
-  color: var(--gold);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.filter-modal-footer #saveDraftBtn:hover {
-  background: rgba(180,121,12,0.10);
-  color: var(--gold);
-}
 
 .ticket-item {
   background: var(--white);
@@ -527,91 +485,4 @@
   font-size: 0.8rem;
   cursor: pointer;
   transition: var(--transition);
-}
-
-/* =====================================================================
-   ADDITIONS — مودال ولستة "التذاكر المحفوظة" (المسودات)
-   ناقصة بالكامل من الملف الأصلي، هاد سبب ظهور زر "اختيار"/"حذف"
-   بدون أي شكل جوا savedTicketsList
-   ===================================================================== */
-
-.saved-ticket-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 1px solid var(--gray-bg);
-  border-radius: 14px;
-  margin-bottom: 10px;
-  background: #fff;
-  transition: var(--transition);
-}
-.saved-ticket-item:hover {
-  border-color: rgba(47,107,255,0.18);
-  background: rgba(47,107,255,0.02);
-}
-.saved-ticket-item:last-child {
-  margin-bottom: 0;
-}
-
-.saved-ticket-info {
-  min-width: 0;
-}
-.saved-ticket-info strong {
-  display: block;
-  color: var(--navy);
-  font-size: 0.92rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.saved-ticket-info span {
-  font-size: 0.78rem;
-  color: var(--gray);
-  font-weight: 600;
-}
-
-.saved-ticket-actions {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
-}
-.saved-ticket-actions button {
-  padding: 7px 14px;
-  border: none;
-  border-radius: 999px;
-  font-family: 'Cairo', sans-serif;
-  font-weight: 600;
-  font-size: 0.78rem;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.saved-ticket-select-btn {
-  background: rgba(47,107,255,0.10);
-  color: var(--blue);
-}
-.saved-ticket-select-btn:hover {
-  background: var(--blue);
-  color: #fff;
-}
-.saved-ticket-delete-btn {
-  background: #FDEDEE;
-  color: var(--red);
-}
-.saved-ticket-delete-btn:hover {
-  background: var(--red);
-  color: #fff;
-}
-
-@media (max-width: 480px) {
-  .saved-ticket-item {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .saved-ticket-actions {
-    justify-content: flex-end;
-  }
 }

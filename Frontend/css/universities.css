@@ -96,6 +96,7 @@ body {
 
     border-bottom:
         1px solid var(--uni-border);
+        margin-top: 97px;
 }
 
 
@@ -2607,4 +2608,69 @@ body {
     .faq-section {
         margin-top: 15px;
     }
+}
+.popover-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.soon-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* مخفية في البداية */
+.soon-popover {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+
+  background: #173873;
+  color: #ffffff;
+
+  padding: 7px 14px;
+  border-radius: 8px;
+
+  font-family: "Cairo", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+
+  z-index: 1000;
+}
+
+/* السهم */
+.soon-popover::after {
+  content: "";
+
+  position: absolute;
+  top: 100%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #173873;
+}
+
+/* تظهر عند الضغط */
+.popover-wrapper.active .soon-popover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
 }

@@ -78,21 +78,6 @@ header.site-header.scrolled {
 
     padding: 4px 17px 4px 7px;
 
-    border-radius: 17px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.58),
-            rgba(235,247,255,.38)
-        );
-
-    border:
-        1px solid rgba(91,174,230,.20);
-
-    box-shadow:
-        0 8px 22px rgba(24,87,145,.07),
-        inset 0 1px 0 rgba(255,255,255,.90);
 
     transform:
         translateZ(0);
@@ -107,31 +92,7 @@ header.site-header.scrolled {
 
 /* لمعة خفيفة */
 
-.brand-mark::before {
-    content: "";
 
-    position: absolute;
-
-    inset: 0;
-
-    border-radius: inherit;
-
-    background:
-        linear-gradient(
-            110deg,
-            transparent 20%,
-            rgba(255,255,255,.55) 48%,
-            transparent 72%
-        );
-
-    transform:
-        translateX(-120%);
-
-    transition:
-        transform .7s ease;
-
-    pointer-events: none;
-}
 
 .brand-mark:hover::before {
     transform:
@@ -139,26 +100,7 @@ header.site-header.scrolled {
 }
 
 
-.brand-mark:hover {
-    transform:
-        translateY(-4px)
-        rotateX(2deg);
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.82),
-            rgba(230,247,255,.58)
-        );
-
-    border-color:
-        rgba(54,159,221,.32);
-
-    box-shadow:
-        0 16px 30px rgba(24,87,145,.12),
-        0 0 0 4px rgba(53,191,225,.045),
-        inset 0 1px 0 rgba(255,255,255,1);
-}
 
 
 /* =========================================================
@@ -238,20 +180,12 @@ header.site-header.scrolled {
 }
 
 .brand-mark .brand-text span {
-    color: #20bfd3 !important;
+  color: var(--cyan);
 
     background: none !important;
 
     -webkit-text-fill-color: initial !important;
 
-    text-shadow:
-        0 2px 0 rgba(255,255,255,.9),
-        0 5px 12px rgba(32,191,211,.13);
-}
-
-.brand-mark:hover .brand-text {
-    transform:
-        translateY(-2px);
 }
 
 
@@ -300,7 +234,7 @@ nav.main-nav ul {
 
 nav.main-nav a {
     position: relative;
-
+color: #16233D;
     display: inline-flex;
 
     align-items: center;
@@ -1095,25 +1029,6 @@ nav.main-nav a.active .nav-icon {
     align-items: center;
     justify-content: center;
 
-    border-radius: 13px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.88),
-            rgba(235,247,255,.62)
-        );
-
-    border:
-        1px solid rgba(39,191,213,.13);
-
-    box-shadow:
-        0 7px 18px rgba(23,56,115,.08),
-        inset 0 1px 0 rgba(255,255,255,.95);
-
-    transition:
-        transform .35s cubic-bezier(.2,.8,.2,1),
-        box-shadow .35s ease;
 }
 
 

@@ -345,10 +345,13 @@ body {
   border-radius: var(--student-radius);
   box-shadow: var(--student-shadow);
   border: 1px solid rgba(47,107,255,0.04);
-  margin-bottom: 28px;
+
   flex-wrap: wrap;
   gap: 16px;
+ margin-top: 108px;
 }
+
+
 
 .student-welcome h1 {
   font-size: 1.8rem;
@@ -900,4 +903,257 @@ body {
   .student-stats-grid {
     page-break-inside: avoid;
   }
+}
+.sidebar {
+    background: var(--white);
+    border-radius: var(--sidebar-radius);
+    border: 1px solid var(--border-gray);
+    box-shadow: var(--sidebar-shadow);
+    padding: 20px 14px;
+    position: sticky;
+    top: 96px;
+    transition: box-shadow 0.3s ease;
+    height: 800px;
+}
+.sidebar:hover {
+    box-shadow: var(--sidebar-shadow-hover);
+}
+.sidebar .group-label {
+    font-size: 16px;
+    color: var(--gray);
+    font-weight: 700;
+    padding: 6px 12px 8px;
+    letter-spacing: 0.3px;
+    padding-bottom: 0px;
+
+}
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.sidebar .nav-item svg {
+    width: 18px;
+    height: 18px;
+    color: var(--gray);
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+}
+.sidebar .nav-item:hover {
+    background: var(--blue-soft);
+    color: var(--navy);
+    transform: translateX(-3px);
+}
+.sidebar .nav-item:hover svg {
+    color: var(--blue);
+}
+.sidebar .nav-item.active {
+    background: linear-gradient(135deg, var(--blue), var(--navy));
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(47, 107, 255, 0.2);
+}
+.sidebar .nav-item.active svg {
+    color: #fff;
+}
+.sidebar hr {
+    border: none;
+    border-top: 1px solid var(--border-gray);
+    margin: 12px 6px;
+}
+.sidebar .nav-item.logout {
+    color: var(--danger);
+}
+.sidebar .nav-item.logout svg {
+    color: var(--danger);
+}
+/* ===== تنسيق هيكل الصفحة والقائمة الجانبية (يمين) ===== */
+.layout {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 28px 32px 40px;
+  display: grid;
+  grid-template-columns: 1fr 260px; /* المحتوى يسار والقائمة يمين */
+  gap: 32px;
+  min-height: calc(100vh - 72px);
+  direction: rtl;
+}
+
+.main {
+  min-width: 0;
+  order: 1;
+}
+
+.sidebar {
+  background: var(--white, #FFFFFF);
+  border-radius: 20px;
+  border: 1px solid var(--border-gray, #E4ECF4);
+  box-shadow: 0 4px 20px rgba(23, 56, 115, 0.06);
+  padding: 20px 14px;
+  position: sticky;
+  top: 96px;
+  transition: box-shadow 0.3s ease;
+  height: fit-content;
+  order: 2;
+}
+
+.sidebar:hover {
+  box-shadow: 0 8px 40px rgba(23, 56, 115, 0.10);
+}
+
+.sidebar .group-label {
+  font-size: 14px;
+  color: var(--gray, #5B6B79);
+  font-weight: 700;
+  padding: 6px 12px 8px;
+  letter-spacing: 0.3px;
+  text-align: right;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.sidebar .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark, #0b1a33);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  text-align: right;
+}
+
+.sidebar .nav-item svg {
+  width: 18px;
+  height: 18px;
+  color: var(--gray, #5B6B79);
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.sidebar .nav-item:hover {
+  background: rgba(47, 107, 255, 0.08);
+  color: var(--navy, #173873);
+  transform: translateX(3px); /* حركة خفيفة لجهة اليمين كون الاتجاه RTL */
+}
+
+.sidebar .nav-item:hover svg {
+  color: var(--blue, #2F6BFF);
+}
+
+.sidebar .nav-item.active {
+  background: linear-gradient(135deg, var(--blue, #2F6BFF), var(--navy, #173873));
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(47, 107, 255, 0.2);
+}
+
+.sidebar .nav-item.active svg {
+  color: #fff;
+}
+
+.sidebar hr {
+  border: none;
+  border-top: 1px solid var(--border-gray, #E4ECF4);
+  margin: 12px 6px;
+}
+
+.sidebar .nav-item.logout {
+  color: #C62828;
+}
+
+.sidebar .nav-item.logout svg {
+  color: #C62828;
+}
+
+.sidebar .nav-item.logout:hover {
+  background-color: rgba(198, 40, 40, 0.08);
+  color: #B71C1C;
+}
+
+/* التجاوب مع الشاشات الصغيرة */
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: relative;
+    top: 0;
+    height: auto;
+  }
+}
+/* إصلاح اتجاه شبكة الخطوات لتصبح من اليمين لليساّر */
+.steps-grid {
+  display: flex;
+  flex-direction: row-reverse; /* قلب ترتيب العناصر ليظهر الأول يميناً */
+  gap: 20px;
+}
+
+/* في حال كانت تستخدم Grid، استخدم هذا التنسيق بدلاً من الـ Flex */
+/*
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  direction: rtl;
+}
+*//* إصلاح احتواء العناصر داخل الحاوية الكبيرة */
+.card {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden; /* لمنع خروج أي عنصر داخلي عن حدود الكارد */
+}
+
+/* إصلاح شبكة الخطوات لتتجاوب تلقائياً مع عرض الحاوية */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.step-card {
+  min-width: 0; /* يمنع تمدد العناصر بشكل خاطئ خارج الحاوية */
+  box-sizing: border-box;
+}
+/* إصلاح شامل لمشكلة خروج العناصر من الكارد الرئيسي */
+.card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  display: block !important;
+}
+
+.steps-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  gap: 20px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.step-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
 }

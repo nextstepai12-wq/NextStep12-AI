@@ -1,194 +1,577 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>المساعد الذكي — NextStep AI</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="../css/app.css" rel="stylesheet">
-<link href="../css/header.css" rel="stylesheet">
-<link href="../css/chatbot.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="المساعد الذكي NextStep AI - مساعدك لاكتشاف التخصص والجامعة والمسار الجامعي المناسب">
+  <title>المساعد الذكي | NextStep AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="../css/app.css" rel="stylesheet">
+  <link href="../css/header.css" rel="stylesheet">
+
+  <link href="../css/chatbot.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/home.css">
 </head>
+
 <body>
 
-<!-- ======================= HEADER ======================= -->
+  <!-- ======================= HEADER ======================= -->
+  <script src="../js/header-index.js"></script>
 
-<script src="../js/header-index.js"></script>
+  <!-- ======================= PAGE ======================= -->
+  <main class="ai-page">
 
-<!-- ======================= CHAT TOP BAR ======================= -->
-<div class="chat-topbar">
-  <div class="chat-topbar-inner">
-    <div class="chat-bot-avatar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="3"/><path d="M12 8V4M8 4h8"/><circle cx="8.5" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg>
-    </div>
-    <div>
-      <h1>المساعد الذكي</h1>
-      <p><span class="status-dot"></span> متصل الآن — جاهز يساعدك</p>
-    </div>
-  </div>
-</div>
+    <!-- Ambient brand background -->
+    <div class="ai-bg-orb ai-bg-orb-1" aria-hidden="true"></div>
+    <div class="ai-bg-orb ai-bg-orb-2" aria-hidden="true"></div>
+    <div class="ai-grid" aria-hidden="true"></div>
 
-<!-- ======================= CHAT AREA ======================= -->
-<div class="chat-wrap">
+    <!-- ======================= HERO ======================= -->
+    <section class="ai-hero">
+      <div class="ai-container ai-hero-grid">
 
-  <div class="chat-messages" id="chatMessages">
-    <div class="msg-row bot">
-      <div class="msg-avatar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="3"/><path d="M12 8V4M8 4h8"/><circle cx="8.5" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg>
+        <div class="ai-hero-content">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            مساعدك الجامعي الذكي
+          </div>
+
+          <h1>
+            اسأل، اكتشف،
+            <span>وخُذ خطوتك التالية بثقة.</span>
+          </h1>
+
+          <p>
+            تحدث مع مساعد NextStep AI لمعرفة التخصصات المناسبة لك،
+            الجامعات، نسبة التوافق، والاستبيان الذكي — كل ذلك في مكان واحد.
+          </p>
+
+          <div class="hero-actions">
+            <a class="hero-action primary" href="#chat">
+              ابدأ المحادثة
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(252, 250, 255)" d="M41.4 297.4C28.9 309.9 28.9 330.2 41.4 342.7L169.4 470.7C181.9 483.2 202.2 483.2 214.7 470.7C227.2 458.2 227.2 437.9 214.7 425.4L141.3 352L576 352C593.7 352 608 337.7 608 320C608 302.3 593.7 288 576 288L141.3 288L214.7 214.6C227.2 202.1 227.2 181.8 214.7 169.3C202.2 156.8 181.9 156.8 169.4 169.3L41.4 297.3z"/></svg>
+
+            </a>
+
+          </div>
+
+          <div class="hero-trust">
+            <div class="trust-item">
+              <span class="trust-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 3 5 6v5c0 4.6 2.8 8.3 7 10 4.2-1.7 7-5.4 7-10V6l-7-3Z"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+              </span>
+              <span>إرشاد واضح</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M12 7v5l3 2"/>
+                </svg>
+              </span>
+              <span>متاح في أي وقت</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 3v18M3 12h18"/>
+                  <circle cx="12" cy="12" r="8"/>
+                </svg>
+              </span>
+              <span>مصمم للطلاب</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating assistant preview -->
+        <div class="ai-hero-visual" aria-hidden="true">
+          <div class="visual-glow"></div>
+
+          
+
+        
+
       </div>
-      <div class="msg-bubble">أهلاً فيك! 👋 أنا المساعد الذكي تبع NextStep AI. اسألني عن اختيار التخصص، الجامعات، أو أي شي متعلق برحلتك الجامعية.</div>
-    </div>
-  </div>
+    </section>
 
-  <div class="suggestions-wrap" id="suggestionsWrap">
-    <div class="suggestions-title">أسئلة مقترحة تقدر تبدأ فيها:</div>
-    <div class="suggestions-grid">
-      <button class="suggestion-chip" data-q="كيف بختار التخصص المناسب؟">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
-        كيف بختار التخصص المناسب؟
-      </button>
-      <button class="suggestion-chip" data-q="وش أفضل جامعة قريبة مني؟">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
-        وش أفضل جامعة قريبة مني؟
-      </button>
-      <button class="suggestion-chip" data-q="كيف أعرف نسبة توافقي مع تخصص معين؟">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/></svg>
-        كيف أعرف نسبة التوافق؟
-      </button>
-      <button class="suggestion-chip" data-q="كيف أبدأ الاستبيان الذكي؟">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
-        كيف أبدأ الاستبيان الذكي؟
-      </button>
-    </div>
-  </div>
+    <!-- ======================= CHAT EXPERIENCE ======================= -->
+    <section class="chat-section" id="chat">
+      <div class="ai-container">
 
-  <div class="chat-input-bar">
-    <input type="text" id="chatInput" placeholder="اكتب سؤالك هون...">
-    <button class="chat-send-btn" id="sendBtn" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-    </button>
-  </div>
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">SMART GUIDANCE</span>
+            <h2>مساعدك في <span>الخطوة التالية</span></h2>
+          </div>
+          <p>اكتب سؤالك أو اختر أحد الاقتراحات، وسنبدأ معك مباشرة.</p>
+        </div>
 
-</div>
-<script src="../js/footer-index.js"></script>
+        <div class="chat-layout">
 
-<!-- ======================= FOOTER ======================= -->
+          <!-- Side information -->
+          <aside class="chat-side">
+            <div class="side-card side-card-main">
+              <div class="side-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="3" y="7" width="18" height="13" rx="3"/>
+                  <path d="M8 7V4h8v3M8 13h.01M16 13h.01M10 17h4"/>
+                </svg>
+              </div>
+              <h3>كيف أساعدك؟</h3>
+              <p>
+                اسألني عن التخصص المناسب، الجامعات، نسبة التوافق،
+                أو كيفية البدء في الاستبيان الذكي.
+              </p>
+
+              <div class="side-stat-list">
+                <div>
+                  <span class="stat-number">01</span>
+                  <span>اكتب سؤالك</span>
+                </div>
+                <div>
+                  <span class="stat-number">02</span>
+                  <span>احصل على إرشاد</span>
+                </div>
+                <div>
+                  <span class="stat-number">03</span>
+                  <span>اتخذ خطوتك</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="side-card side-card-gradient">
+              <span class="gradient-label">نصيحة اليوم</span>
+              <strong>لا تختار تخصصك بناءً على المعدل فقط.</strong>
+              <p>ميولك ومهاراتك وأهدافك جزء مهم من الصورة.</p>
+              <div class="gradient-line"></div>
+            </div>
+          </aside>
+
+          <!-- Main chatbot -->
+          <div class="chat-shell">
+
+            <div class="chat-shell-header">
+              <div class="chat-profile">
+                <div class="chat-avatar-large">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="3" y="8" width="18" height="12" rx="3"/>
+                    <path d="M12 8V4M8 4h8"/>
+                    <circle cx="8.5" cy="14" r="1.1" fill="currentColor" stroke="none"/>
+                    <circle cx="15.5" cy="14" r="1.1" fill="currentColor" stroke="none"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3>المساعد الذكي</h3>
+                  <p><span class="status-dot"></span> متواجد لمساعدتك الآن</p>
+                </div>
+              </div>
+
+              <div class="chat-header-actions">
+                <span class="secure-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 3 5 6v5c0 4.6 2.8 8.3 7 10 4.2-1.7 7-5.4 7-10V6l-7-3Z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                  </svg>
+                  آمن
+                </span>
+                <button class="chat-reset" id="resetChat" type="button" aria-label="إعادة المحادثة">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/>
+                    <path d="M21 4v4h-4"/>
+                    <path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/>
+                    <path d="M3 20v-4h4"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages" aria-live="polite">
+              <div class="welcome-message">
+                <div class="welcome-mark">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <h4>مرحباً بك في NextStep AI 👋</h4>
+                <p>أنا هنا لأساعدك في فهم خياراتك الجامعية والوصول إلى الخطوة الأنسب لك.</p>
+              </div>
+
+              <div class="msg-row bot">
+                <div class="msg-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="8" width="18" height="12" rx="3"/>
+                    <path d="M12 8V4M8 4h8"/>
+                    <circle cx="8.5" cy="14" r="1.2" fill="currentColor" stroke="none"/>
+                    <circle cx="15.5" cy="14" r="1.2" fill="currentColor" stroke="none"/>
+                  </svg>
+                </div>
+                <div class="msg-content">
+                  <span class="msg-name">NextStep AI</span>
+                  <div class="msg-bubble">
+                    أهلاً فيك! 🌟 شو حابب تعرف اليوم؟ أقدر أساعدك في اختيار التخصص، الجامعات، نسبة التوافق أو الاستبيان الذكي.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="suggestions-wrap" id="suggestionsWrap">
+              <div class="suggestions-title">
+                <span>ابدأ بسؤال</span>
+                <small>أو اكتب سؤالك بنفسك</small>
+              </div>
+
+              <div class="suggestions-grid">
+                <button class="suggestion-chip" data-q="كيف بختار التخصص المناسب؟" type="button">
+                  <span class="chip-icon blue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/>
+                    </svg>
+                  </span>
+                  <span>
+                    <b>اختيار التخصص</b>
+                    <small>ساعدني أعرف المجال المناسب</small>
+                  </span>
+                  <svg class="chip-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                  </svg>
+                </button>
+
+                <button class="suggestion-chip" data-q="وش أفضل جامعة قريبة مني؟" type="button">
+                  <span class="chip-icon cyan">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M3 21h18M5 21V7l7-4 7 4v14"/>
+                      <path d="M9 10h1M14 10h1M9 14h1M14 14h1"/>
+                    </svg>
+                  </span>
+                  <span>
+                    <b>الجامعات</b>
+                    <small>أين يمكنني الدراسة؟</small>
+                  </span>
+                  <svg class="chip-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                  </svg>
+                </button>
+
+                <button class="suggestion-chip" data-q="كيف أعرف نسبة توافقي مع تخصص معين؟" type="button">
+                  <span class="chip-icon mint">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <circle cx="12" cy="12" r="9"/>
+                      <path d="M12 3a9 9 0 0 1 9 9"/>
+                      <path d="M12 12 17 9"/>
+                    </svg>
+                  </span>
+                  <span>
+                    <b>نسبة التوافق</b>
+                    <small>هل يناسبني هذا التخصص؟</small>
+                  </span>
+                  <svg class="chip-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                  </svg>
+                </button>
+
+                <button class="suggestion-chip" data-q="كيف أبدأ الاستبيان الذكي؟" type="button">
+                  <span class="chip-icon navy">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="3" y="4" width="18" height="16" rx="2"/>
+                      <path d="M8 2v4M16 2v4M3 10h18"/>
+                      <path d="M8 14h3M8 17h7"/>
+                    </svg>
+                  </span>
+                  <span>
+                    <b>الاستبيان الذكي</b>
+                    <small>ابدأ رحلة اكتشاف نفسك</small>
+                  </span>
+                  <svg class="chip-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="chat-input-area">
+              <div class="input-wrapper">
+                <button class="input-tool" type="button" aria-label="اقتراح سؤال" title="اقتراح سؤال">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/>
+                    <path d="M9 21h6"/>
+                  </svg>
+                </button>
+
+                <input
+                  type="text"
+                  id="chatInput"
+                  autocomplete="off"
+                  placeholder="اكتب سؤالك هنا..."
+                  aria-label="اكتب سؤالك"
+                >
+
+                <button class="chat-send-btn" id="sendBtn" type="button" aria-label="إرسال السؤال">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M22 2 11 13"/>
+                    <path d="m22 2-7 20-4-9-9-4 20-7Z"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="input-hint">
+                <span>اضغط Enter للإرسال</span>
+                <span>NextStep AI • خطوتك الذكية نحو مستقبلك</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= FEATURES ======================= -->
+    <section class="ai-features">
+      <div class="ai-container">
+        <div class="section-heading centered">
+          <span class="section-kicker">NEXTSTEP EXPERIENCE</span>
+          <h2>أكثر من مجرد <span>محادثة</span></h2>
+          <p>المساعد جزء من تجربة متكاملة تساعدك على اتخاذ قرار جامعي أوضح.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-number">01</div>
+            <div class="feature-icon blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 3a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V17h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/>
+                <path d="M9 21h6"/>
+              </svg>
+            </div>
+            <h3>اكتشاف التخصص</h3>
+            <p>ابدأ من ميولك وقدراتك لفهم المسارات التي تستحق الاستكشاف.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-number">02</div>
+            <div class="feature-icon cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 21h18M5 21V7l7-4 7 4v14"/>
+                <path d="M9 10h1M14 10h1M9 14h1M14 14h1"/>
+              </svg>
+            </div>
+            <h3>استكشاف الجامعات</h3>
+            <p>تعرف على الخيارات الجامعية بطريقة أبسط وأكثر تنظيمًا.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-number">03</div>
+            <div class="feature-icon mint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 12 17 9"/>
+                <path d="M12 3v3M21 12h-3"/>
+              </svg>
+            </div>
+            <h3>نسبة التوافق</h3>
+            <p>افهم مدى توافقك مع التخصصات والخيارات المقترحة لك.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================= FOOTER ======================= -->
+<!-- Footer -->
+    <script src="../../Frontend/js/footer-student.js"></script>
 
 
+  <script>
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const suggestionsWrap = document.getElementById('suggestionsWrap');
+    const resetChat = document.getElementById('resetChat');
+
+    const initialChatHTML = chatMessages.innerHTML;
+
+    const botIconSvg = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="8" width="18" height="12" rx="3"/>
+        <path d="M12 8V4M8 4h8"/>
+        <circle cx="8.5" cy="14" r="1.2" fill="currentColor" stroke="none"/>
+        <circle cx="15.5" cy="14" r="1.2" fill="currentColor" stroke="none"/>
+      </svg>`;
+
+    function scrollToBottom() {
+      chatMessages.scrollTo({
+        top: chatMessages.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+
+    function addUserMessage(text) {
+      const row = document.createElement('div');
+      row.className = 'msg-row user';
+      row.innerHTML = `
+        <div class="msg-avatar">أنت</div>
+        <div class="msg-content">
+          <span class="msg-name">أنت</span>
+          <div class="msg-bubble"></div>
+        </div>
+      `;
+      row.querySelector('.msg-bubble').textContent = text;
+      chatMessages.appendChild(row);
+      scrollToBottom();
+    }
+
+    function addBotMessage(text) {
+      const row = document.createElement('div');
+      row.className = 'msg-row bot';
+      row.innerHTML = `
+        <div class="msg-avatar">${botIconSvg}</div>
+        <div class="msg-content">
+          <span class="msg-name">NextStep AI</span>
+          <div class="msg-bubble"></div>
+        </div>
+      `;
+      row.querySelector('.msg-bubble').textContent = text;
+      chatMessages.appendChild(row);
+      scrollToBottom();
+    }
+
+    function showTyping() {
+      const row = document.createElement('div');
+      row.className = 'msg-row bot';
+      row.id = 'typingRow';
+      row.innerHTML = `
+        <div class="msg-avatar">${botIconSvg}</div>
+        <div class="msg-content">
+          <span class="msg-name">NextStep AI</span>
+          <div class="msg-bubble typing-bubble">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+          </div>
+        </div>
+      `;
+      chatMessages.appendChild(row);
+      scrollToBottom();
+    }
+
+    function removeTyping() {
+      const row = document.getElementById('typingRow');
+      if (row) row.remove();
+    }
+
+    function getBotReply(message) {
+      const msg = message.toLowerCase();
+
+      if (msg.includes('تخصص')) {
+        return 'اختيار التخصص يعتمد على ميولك ومهاراتك ومعدلك وأهدافك. أنصحك تبدأي بالاستبيان الذكي حتى نقدر نكوّن صورة أوضح عن المجالات المناسبة لك.';
+      }
+
+      if (msg.includes('جامع')) {
+        return 'تقدري تستكشفي الجامعات من صفحة الجامعات، وتستخدمي الفلاتر لمعرفة الخيارات الأقرب والأنسب لك حسب المدينة ونوع الجامعة.';
+      }
+
+      if (msg.includes('توافق') || msg.includes('نسبة')) {
+        return 'نسبة التوافق تساعدك على فهم مدى قرب ملفك من متطلبات التخصص. بعد إكمال الاستبيان، تظهر لك النتائج ونسب التوافق مع الخيارات المقترحة.';
+      }
+
+      if (msg.includes('استبيان') || msg.includes('اختبار')) {
+        return 'الاستبيان الذكي هو أفضل نقطة بداية. اضغطي على "ابدأ الاستبيان" بالأعلى، وأجيبي عن الأسئلة بصراحة لتحصلي على توصيات أكثر فائدة.';
+      }
+
+      if (msg.includes('معدل')) {
+        return 'المعدل عامل مهم، لكنه ليس العامل الوحيد. من الأفضل النظر أيضًا إلى ميولك ومهاراتك والمواد التي تستمتعين بها والأهداف التي تريدين الوصول إليها.';
+      }
+
+      if (msg.includes('مرحبا') || msg.includes('اهلا') || msg.includes('هاي') || msg.includes('أهلا')) {
+        return 'أهلاً فيك! 🌟 أنا جاهز أساعدك. هل تريدين نبدأ بالتخصص، الجامعات، نسبة التوافق، أو الاستبيان الذكي؟';
+      }
+
+      if (msg.includes('شكر')) {
+        return 'العفو! 💙 أنا هنا لمساعدتك في كل خطوة.';
+      }
+
+      return 'سؤالك ممتاز 🌟 حالياً أقدر أساعدك بشكل مباشر في التخصصات، الجامعات، نسبة التوافق، والمعلومات المتعلقة بالاستبيان الذكي. جرّبي واحدًا منها وسأرشدك.';
+    }
+
+    function handleSend() {
+      const text = chatInput.value.trim();
+      if (!text || sendBtn.disabled) return;
+
+      suggestionsWrap.classList.add('is-hidden');
+      addUserMessage(text);
+      chatInput.value = '';
+      sendBtn.disabled = true;
+
+      showTyping();
+
+      setTimeout(() => {
+        removeTyping();
+        addBotMessage(getBotReply(text));
+        sendBtn.disabled = false;
+        chatInput.focus();
+      }, 700 + Math.random() * 500);
+    }
+
+    function resetConversation() {
+      chatMessages.innerHTML = initialChatHTML;
+      suggestionsWrap.classList.remove('is-hidden');
+      chatInput.value = '';
+      sendBtn.disabled = false;
+      chatInput.focus();
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+
+    chatInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        handleSend();
+      }
+    });
+
+    resetChat.addEventListener('click', resetConversation);
+
+    document.querySelectorAll('.suggestion-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chatInput.value = chip.dataset.q;
+        handleSend();
+      });
+    });
+
+    document.querySelector('.input-tool').addEventListener('click', () => {
+      const firstSuggestion = document.querySelector('.suggestion-chip');
+      if (firstSuggestion) {
+        chatInput.value = firstSuggestion.dataset.q;
+        chatInput.focus();
+      }
+    });
+  </script>
 <script>
-const chatMessages = document.getElementById('chatMessages');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendBtn');
-const suggestionsWrap = document.getElementById('suggestionsWrap');
+  document.addEventListener("DOMContentLoaded", function () {
+    const trigger = document.querySelector(".soon-trigger");
+    const wrapper = document.querySelector(".popover-wrapper");
 
-const botIconSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="3"/><path d="M12 8V4M8 4h8"/><circle cx="8.5" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg>`;
+    trigger.addEventListener("click", function (e) {
+      e.preventDefault();
 
-function addUserMessage(text){
-  const row = document.createElement('div');
-  row.className = 'msg-row user';
-  row.innerHTML = `
-    <div class="msg-avatar">أنا</div>
-    <div class="msg-bubble"></div>
-  `;
-  row.querySelector('.msg-bubble').textContent = text;
-  chatMessages.appendChild(row);
-  scrollToBottom();
-}
+      wrapper.classList.toggle("active");
+    });
 
-function addBotMessage(text){
-  const row = document.createElement('div');
-  row.className = 'msg-row bot';
-  row.innerHTML = `
-    <div class="msg-avatar">${botIconSvg}</div>
-    <div class="msg-bubble"></div>
-  `;
-  row.querySelector('.msg-bubble').textContent = text;
-  chatMessages.appendChild(row);
-  scrollToBottom();
-}
-
-function showTyping(){
-  const row = document.createElement('div');
-  row.className = 'msg-row bot';
-  row.id = 'typingRow';
-  row.innerHTML = `
-    <div class="msg-avatar">${botIconSvg}</div>
-    <div class="msg-bubble typing-bubble">
-      <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
-    </div>
-  `;
-  chatMessages.appendChild(row);
-  scrollToBottom();
-}
-
-function removeTyping(){
-  const row = document.getElementById('typingRow');
-  if (row) row.remove();
-}
-
-function scrollToBottom(){
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-/* ردود مبنية على كلمات مفتاحية بسيطة — لاحقاً هتنستبدل بربط حقيقي مع محرك ذكاء اصطناعي عبر API */
-function getBotReply(message){
-  const msg = message.toLowerCase();
-
-  if (msg.includes('تخصص')){
-    return 'اختيار التخصص بيعتمد على ميولك ومهاراتك ومعدلك. أفضل طريقة إنك تبدئي الاستبيان الذكي عندنا، وبطلعلك أقرب التخصصات المناسبة لشخصيتك بدقة.';
-  }
-  if (msg.includes('جامع')){
-    return 'عندنا دليل شامل لأكثر من 50 جامعة تقدري تفلتري فيه حسب المدينة والقطاع (حكومية/خاصة). زوري صفحة "الجامعات" من القائمة فوق.';
-  }
-  if (msg.includes('توافق') || msg.includes('نسبة')){
-    return 'نسبة التوافق بتحسب من إجاباتك بالاستبيان الذكي (ميولك، مهاراتك، معدلك) مقارنة ببيانات كل تخصص وجامعة. بتلاقيها واضحة بصفحة "النتائج" بعد ما تخلصي الاستبيان.';
-  }
-  if (msg.includes('استبيان') || msg.includes('اختبار')){
-    return 'تقدري تبدئي الاستبيان الذكي مباشرة من الصفحة الرئيسية، زر "ابدأ الاختبار الذكي" — بياخد منك بس كم دقيقة!';
-  }
-  if (msg.includes('معدل')){
-    return 'المعدل من أهم العوامل يلي بتأثر على نسبة توافقك مع التخصصات. تقدري تدخليه بحسابك من صفحة "إنشاء الحساب" أو الملف الشخصي.';
-  }
-  if (msg.includes('مرحبا') || msg.includes('اهلا') || msg.includes('هاي')){
-    return 'أهلاً فيك! كيف أقدر أساعدك اليوم؟ 😊';
-  }
-  if (msg.includes('شكر')){
-    return 'العفو! 🌟 إذا في أي سؤال تاني أنا هون.';
-  }
-
-  return 'شكراً لسؤالك! هالميزة (الرد الذكي الكامل) لسا قيد التطوير وبتنربط قريباً بمحرك ذكاء اصطناعي حقيقي. بالوقت الحالي جربي تسألي عن: التخصص، الجامعات، نسبة التوافق، أو الاستبيان الذكي.';
-}
-
-function handleSend(){
-  const text = chatInput.value.trim();
-  if (!text) return;
-
-  suggestionsWrap.style.display = 'none';
-  addUserMessage(text);
-  chatInput.value = '';
-  sendBtn.disabled = true;
-
-  showTyping();
-  setTimeout(() => {
-    removeTyping();
-    addBotMessage(getBotReply(text));
-    sendBtn.disabled = false;
-  }, 800 + Math.random() * 500);
-}
-
-sendBtn.addEventListener('click', handleSend);
-chatInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') handleSend();
-});
-
-document.querySelectorAll('.suggestion-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    chatInput.value = chip.dataset.q;
-    handleSend();
+    // إغلاق القائمة عند الضغط خارجها
+    document.addEventListener("click", function (e) {
+      if (!wrapper.contains(e.target)) {
+        wrapper.classList.remove("active");
+      }
+    });
   });
-});
 </script>
-
 </body>
 </html>

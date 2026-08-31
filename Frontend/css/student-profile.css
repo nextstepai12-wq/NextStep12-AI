@@ -58,6 +58,14 @@ body{
   min-height:100vh;
   transition: background-color .3s ease, color .3s ease;
 }
+
+body {
+    background-color: var(--light-gray);
+    font-family: 'Cairo', sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
 a{ text-decoration:none; color:inherit; }
 button{ font-family:inherit; cursor:pointer; }
 
@@ -185,43 +193,21 @@ header.topbar:hover{ box-shadow: 0 4px 20px rgba(18, 54, 116, .05); }
    ========================================================= */
 .layout{
   display:grid; grid-template-columns: 1fr 250px; max-width: 1400px;
-  margin: 75px auto; gap: 24px; padding: 24px 28px 60px; align-items:start;
+  margin: 75px auto; gap: 193px;  align-items:start;
+  margin-top: 6px;
+  padding: 102px 28px 60px;
 }
 
 /* =========================================================
    5. SIDEBAR (shared)
    ========================================================= */
-.sidebar{
-  background: var(--white); border-radius: var(--radius); border:1px solid var(--border);
-  box-shadow: var(--shadow); padding: 18px 14px; position: sticky; top: 84px;
-  overflow: hidden; transition: box-shadow .25s ease;
-}
-.sidebar:hover{ box-shadow: 0 8px 25px rgba(18, 54, 116, .08); }
-.sidebar .group-label{ font-size: 11px; color: var(--gray); font-weight:700; padding: 6px 10px 8px; }
-.sidebar nav{ display:flex; flex-direction:column; gap:2px; margin-bottom: 14px; }
-.sidebar .nav-item{
-  display:flex; align-items:center; gap:10px; padding: 10px 12px; border-radius: 10px;
-  font-size: 14px; font-weight:600; color: var(--dark);
-  transition: background .2s ease, color .2s ease, transform .2s ease;
-}
-.sidebar .nav-item svg{ width:18px; height:18px; color: var(--gray); flex-shrink:0; transition: color .2s ease; }
-.sidebar .nav-item:hover{ background: var(--light-blue); color: var(--navy); transform: translateX(-3px); }
-.sidebar .nav-item:hover svg{ color: var(--blue); }
-.sidebar .nav-item.active{
-  background: var(--gradient-brand); color:#fff; box-shadow: 0 6px 16px rgba(34, 97, 254, .18);
-}
-.sidebar .nav-item.active svg{ color:#fff; }
-.sidebar hr{ border:none; border-top:1px solid var(--border); margin: 10px 0; }
-.sidebar .nav-item.logout{ color: var(--danger); }
-.sidebar .nav-item.logout svg{ color: var(--danger); }
+
 
 /* =========================================================
    6. MAIN CONTENT
    ========================================================= */
 .main{ display:flex; flex-direction:column; gap:20px; min-width:0; }
 
-.welcome h1{ font-size: 24px; font-weight:800; color: var(--navy); display:flex; align-items:center; gap:8px; }
-.welcome p{ color: var(--gray); font-size: 13.5px; margin-top:4px; }
 
 /* =========================================================
    7. CARD
@@ -403,4 +389,164 @@ header.topbar:hover{ box-shadow: 0 4px 20px rgba(18, 54, 116, .05); }
   .brand{ font-size:17px; }
   .top-actions{ gap:5px; }
   .icon-btn{ width:35px; height:35px; }
+}
+
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--mint, #34D399);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+  animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(52, 211, 153, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+  }
+}
+
+.welcome h1 {
+  font-size: 26px;
+  font-weight: 900;
+  margin: 0 0 10px 0;
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  color: #fff;
+  letter-spacing: 0.3px;
+  order: 2;
+}
+
+.welcome p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  max-width: 700px;
+  font-weight: 400;
+  order: 3;
+}
+
+@media (max-width: 768px) {
+  .welcome {
+    padding: 24px 20px;
+  }
+  .welcome h1 {
+    font-size: 22px;
+  }
+  .welcome p {
+    font-size: 13.5px;
+  }
+}
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-right: 0 !important;
+    padding: 15px;
+  }
+
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+  }
+}
+.sidebar {
+    background: var(--white);
+    border-radius: var(--sidebar-radius);
+    border: 1px solid var(--border-gray);
+    box-shadow: var(--sidebar-shadow);
+    padding: 20px 14px;
+    position: sticky;
+    top: 96px;
+    transition: box-shadow 0.3s ease;
+    height: 800px;
+}
+.sidebar:hover {
+    box-shadow: var(--sidebar-shadow-hover);
+}
+.sidebar .group-label {
+    font-size: 16px;
+    color: var(--gray);
+    font-weight: 700;
+    padding: 6px 12px 8px;
+    letter-spacing: 0.3px;
+    padding-bottom: 0px;
+
+}
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.sidebar .nav-item svg {
+    width: 18px;
+    height: 18px;
+    color: var(--gray);
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+}
+.sidebar .nav-item:hover {
+    background: var(--blue-soft);
+    color: var(--navy);
+    transform: translateX(-3px);
+}
+.sidebar .nav-item:hover svg {
+    color: var(--blue);
+}
+.sidebar .nav-item.active {
+    background: linear-gradient(135deg, var(--blue), var(--navy));
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(47, 107, 255, 0.2);
+}
+.sidebar .nav-item.active svg {
+    color: #fff;
+}
+.sidebar hr {
+    border: none;
+    border-top: 1px solid var(--border-gray);
+    margin: 12px 6px;
+}
+.sidebar .nav-item.logout {
+    color: var(--danger);
+}
+.sidebar .nav-item.logout svg {
+    color: var(--danger);
 }

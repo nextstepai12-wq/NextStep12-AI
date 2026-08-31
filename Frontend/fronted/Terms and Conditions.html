@@ -7,6 +7,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+
 <link href="../css/footer.css" rel="stylesheet"/>
 
 <script id="tailwind-config">
@@ -15,7 +16,7 @@
           theme: {
             extend: {
               "colors": {
-                      "background": "#0F172A",
+                      "background": "#F5F7FA",
                       "surface": "#1E293B",
                       "surface-container": "#1E293B",
                       "surface-container-low": "#111827",
@@ -64,7 +65,7 @@
 
         body {
             font-family: 'Poppins', 'Cairo', sans-serif;
-            background-color: #0F172A;
+           
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(53, 208, 255, 0.15) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(72, 230, 128, 0.1) 0%, transparent 40%);
@@ -84,7 +85,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: #0F172A;
+            
             direction: ltr;
             padding-block: 0.25rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -188,7 +189,7 @@
 
         aside.sidebar-fixed {
             width: 280px;
-            background-color: #111827;
+           
             border-left: 1px solid rgba(53, 208, 255, 0.2);
             position: sticky;
             top: var(--header-height);
@@ -309,25 +310,7 @@
 <div class="viewport-layout">
   
   <!-- Sidebar Navigation (Desktop) -->
-  <aside class="sidebar-hidden md:block sidebar-fixed">
-    <nav class="p-6 flex flex-col gap-2">
-      <div class="mb-4">
-        <h3 class="text-lg text-white font-bold cairo-font">الإعدادات القانونية</h3>
-      </div>
-      <a class="nav-link active flex items-center gap-3 p-3 rounded-lg text-on-surface text-sm" href="#intro">
-        <span class="material-symbols-outlined" data-icon="description">description</span>
-        مقدمة
-      </a>
-      <a class="nav-link flex items-center gap-3 p-3 rounded-lg text-on-surface-variant text-sm hover:text-white" href="#service">
-        <span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-        طبيعة الخدمة
-      </a>
-      <a class="nav-link flex items-center gap-3 p-3 rounded-lg text-on-surface-variant text-sm hover:text-white" href="#responsibilities">
-        <span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
-        مسؤوليات المستخدم
-      </a>
-    </nav>
-  </aside>
+ 
 
   <!-- Main Content Area -->
   <main class="main-content">
@@ -341,12 +324,7 @@
       </div>
 
       <!-- Tabs -->
-      <div class="flex border-b border-outline-variant mb-8">
-        <button class="tab-button active px-6 py-3 text-base cairo-font text-white" onclick="switchTab('student')">
-          شروط الطالب
-        </button>
-       
-      </div>
+ 
 
       <!-- Content Container (Student Terms - Default) -->
       <div class="space-y-6 pb-12" id="student-terms">

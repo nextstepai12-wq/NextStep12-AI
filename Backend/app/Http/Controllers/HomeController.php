@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\University;
 use App\Models\Major;
 use App\Models\User;
-use App\Models\DeanshipFaculty;
 
 class HomeController extends Controller
 {
@@ -29,8 +28,11 @@ class HomeController extends Controller
 
     public function showUniversity(University $university)
     {
-        // تحميل العمادات/الكليات مع التخصصات التابعة لها — eager loading لتجنب N+1
-        $university->load(['deanshipsFaculties.majors', 'scholarships']);
+        // تحميل العمادات والكليات مع التخصصات التابعة لها — eager loading لتجنب N+1
+        $university->load(['deanships.majors', 'faculties.majors', 'scholarships']);
+
+        // دمج العمادات والكليات في collection واحدة كما يتوقع الـ view
+        $university->deanshipsFaculties = $university->deanships->concat($university->faculties);
 
         // حساب الإحصائيات في Controller وليس في Blade
         $deanshipsCount = $university->deanshipsFaculties->count();

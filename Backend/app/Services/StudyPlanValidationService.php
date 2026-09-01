@@ -72,29 +72,29 @@ class StudyPlanValidationService
         $seenCodes = []; // code => ['year' => .., 'semester' => ..]
 
         foreach ($years as $year) {
-            $yearNumber = $year['year_number'] ?? null;
+            $yearNumber = isset($year['year_number']) ? (int) $year['year_number'] : null;
 
-            if (!is_int($yearNumber) || $yearNumber < 1 || $yearNumber > 5) {
-                $errors[] = "رقم سنة دراسية غير صالح: " . json_encode($yearNumber, JSON_UNESCAPED_UNICODE);
+            if ($yearNumber === null || $yearNumber < 1 || $yearNumber > 10) {
+                $errors[] = "رقم سنة دراسية غير صالح: " . json_encode($year['year_number'] ?? null, JSON_UNESCAPED_UNICODE);
                 continue;
             }
 
             $semesters = $year['semesters'] ?? [];
-            if (count($semesters) > 2) {
-                $errors[] = "السنة {$yearNumber}: عدد فصول أكثر من 2 ({$this->count($semesters)}).";
+            if (count($semesters) > 6) {
+                $errors[] = "السنة {$yearNumber}: عدد فصول أكثر من 6 ({$this->count($semesters)}).";
             }
 
             foreach ($semesters as $semester) {
-                $semNumber = $semester['semester_number'] ?? null;
+                $semNumber = isset($semester['semester_number']) ? (int) $semester['semester_number'] : null;
 
-                if (!in_array($semNumber, [1, 2], true)) {
-                    $errors[] = "السنة {$yearNumber}: رقم فصل دراسي غير صالح (" . json_encode($semNumber, JSON_UNESCAPED_UNICODE) . ").";
+                if ($semNumber === null || $semNumber < 1 || $semNumber > 6) {
+                    $errors[] = "السنة {$yearNumber}: رقم فصل دراسي غير صالح (" . json_encode($semester['semester_number'] ?? null, JSON_UNESCAPED_UNICODE) . ").";
                     continue;
                 }
 
                 $courses = $semester['courses'] ?? [];
                 if (empty($courses)) {
-                    $errors[] = "السنة {$yearNumber} - الفصل {$semNumber}: لا يوجد مقررات.";
+                    $warnings[] = "السنة {$yearNumber} - الفصل {$semNumber}: لا يوجد مقررات.";
                     continue;
                 }
 
@@ -120,8 +120,8 @@ class StudyPlanValidationService
         array &$warnings
     ): void {
         $rawCode = $courseData['course_code'] ?? '';
-        $code = strtoupper(str_replace(' ', '', trim($rawCode)));
-        $name = trim($courseData['course_name_ar'] ?? '');
+        $code = strtoupper(str_replace(' ', '', trim((string)$rawCode)));
+        $name = trim((string)($courseData['course_name_ar'] ?? ''));
         $location = "السنة {$yearNumber} - الفصل {$semNumber}";
 
         if ($code === '') {
@@ -140,29 +140,36 @@ class StudyPlanValidationService
             $seenCodes[$code] = ['year' => $yearNumber, 'semester' => $semNumber];
         }
 
-        $hours = $courseData['credit_hours'] ?? [];
-        $total = (int) ($hours['total'] ?? 0);
-        $theory = (int) ($hours['theory'] ?? 0);
-        $practical = (int) ($hours['practical'] ?? 0);
+        $hours = $courseData['credit_hours'] ?? 0;
+        if (is_numeric($hours)) {
+            $total = (int) $hours;
+        } else {
+            $total = (int) ($hours['total'] ?? 0);
+        }
 
-        if ($total < 0 || $theory < 0 || $practical < 0) {
+        if ($total < 0) {
             $errors[] = "{$code}: ساعات معتمدة سالبة غير مسموحة.";
         }
 
-        if ($total === 0 && $theory === 0 && $practical === 0) {
-            $warnings[] = "{$code}: كل الساعات المعتمدة صفر — يُنصح بمراجعتها يدويًا قبل التأكيد.";
+        if ($total === 0) {
+            $warnings[] = "{$code}: الساعات المعتمدة صفر — يُنصح بمراجعتها يدويًا قبل التأكيد.";
         }
 
-        $type = $courseData['course_type'] ?? null;
+        $type = $courseData['course_type'] ?? 'specialization';
         if (!in_array($type, self::VALID_COURSE_TYPES, true)) {
             $errors[] = "{$code}: نوع مقرر غير معروف (" . json_encode($type, JSON_UNESCAPED_UNICODE) . ") — يجب أن يكون أحد: " . implode('، ', array_slice(self::VALID_COURSE_TYPES, 0, 3)) . ".";
+        }
+
+        $prereqs = $courseData['prerequisites'] ?? [];
+        if (is_string($prereqs)) {
+            $prereqs = array_filter(array_map('trim', explode(',', $prereqs)));
         }
 
         $allCourses[] = [
             'code' => $code,
             'year' => $yearNumber,
             'semester' => $semNumber,
-            'prerequisites' => $courseData['prerequisites'] ?? [],
+            'prerequisites' => $prereqs,
         ];
     }
 

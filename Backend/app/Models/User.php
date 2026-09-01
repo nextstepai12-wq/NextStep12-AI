@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * نموذج المستخدم (User Model)
- * يمثل الحساب الأساسي ونظام التوثيق (Sanctum Tokens)[cite: 1, 2].
+ * يمثل الحساب الأساسي ونظام التوثيق (Sanctum Tokens).
  */
 class User extends Authenticatable
 {
@@ -48,7 +48,7 @@ class User extends Authenticatable
         return $this->belongsToMany(AcademicInterest::class, 'student_academic_interests', 'user_id', 'interest_id');
     }
 
-    // علاقة (واحد لمتعدد) مع إجابات الاستبيان الخاصة بالنعطي
+    // علاقة (واحد لمتعدد) مع إجابات الاستبيان الخاص بالمستجيب
     public function surveyResponses(): HasMany
     {
         return $this->hasMany(StudentSurveyResponse::class);
@@ -59,8 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(RecommendationResult::class);
     }
+
     public function university(): HasOne
-{
-    return $this->hasOne(University::class, 'id', 'university_id');
-}
+    {
+        return $this->hasOne(University::class, 'id', 'university_id');
+    }
 }

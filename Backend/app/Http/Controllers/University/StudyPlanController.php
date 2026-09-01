@@ -87,6 +87,8 @@ class StudyPlanController extends Controller
     {
         $this->authorize('view', $studyPlan);
 
+        $studyPlan->load(['major', 'studyPlanCourses.course', 'studyPlanCourses.prerequisites']);
+
         $validation = $this->importService->validate($studyPlan);
 
         return view('university.study-plans.review', compact('studyPlan', 'validation'));
@@ -112,6 +114,7 @@ class StudyPlanController extends Controller
      */
     public function confirm(Request $request, StudyPlan $studyPlan)
     {
+        @set_time_limit(300);
         $this->authorize('confirm', $studyPlan);
 
         $editedYears = $request->input('years'); // null لو ما عدّل المستخدم شي
@@ -121,11 +124,12 @@ class StudyPlanController extends Controller
         if (!$result['validation']['ok']) {
             return back()
                 ->withErrors(['validation' => $result['validation']['errors']])
-                ->with('warnings', $result['validation']['warnings']);
+                ->with('warnings', $result['validation']['warnings'])
+                ->withInput();
         }
 
         return redirect()
-            ->route('university.study-plans.index')
-            ->with('status', 'تم تأكيد الخطة الدراسية وحفظ المقررات بنجاح.');
+            ->route('university.study-plans.review', $studyPlan)
+            ->with('status', 'تم حفظ وتأكيد الخطة الدراسية والمقررات بنجاح.');
     }
 }

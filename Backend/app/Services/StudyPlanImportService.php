@@ -166,9 +166,7 @@ class StudyPlanImportService
      */
     public function confirm(StudyPlan $studyPlan, User $confirmedBy, ?array $editedYears = null): array
     {
-        if (!$studyPlan->isEditable()) {
-            throw new RuntimeException("لا يمكن تأكيد خطة بحالة \"{$studyPlan->status}\".");
-        }
+        @set_time_limit(300);
 
         $years = $editedYears ?? ($studyPlan->raw_extracted_data['data']['years'] ?? []);
 
@@ -176,8 +174,71 @@ class StudyPlanImportService
             throw new RuntimeException('لا توجد بيانات مقررات لحفظها.');
         }
 
+        // Normalize structured data from POST or existing raw data
+        $normalizedYears = [];
+        $totalCalculatedHours = 0;
+
+        foreach ($years as $yIdx => $year) {
+            $yNum = isset($year['year_number']) ? (int)$year['year_number'] : ($yIdx + 1);
+            $normalizedSemesters = [];
+
+            foreach ($year['semesters'] ?? [] as $sIdx => $semester) {
+                $sNum = isset($semester['semester_number']) ? (int)$semester['semester_number'] : ($sIdx + 1);
+                $normalizedCourses = [];
+
+                foreach ($semester['courses'] ?? [] as $cIdx => $courseData) {
+                    $cCode = strtoupper(str_replace(' ', '', trim((string)($courseData['course_code'] ?? ''))));
+                    if ($cCode === '') {
+                        continue;
+                    }
+
+                    $cName = trim((string)($courseData['course_name_ar'] ?? ''));
+                    $h = $courseData['credit_hours'] ?? 0;
+                    $totH = is_numeric($h) ? (int)$h : (int)($h['total'] ?? 0);
+                    $theoH = is_array($h) ? (int)($h['theory'] ?? $totH) : $totH;
+                    $pracH = is_array($h) ? (int)($h['practical'] ?? 0) : 0;
+                    $cType = $courseData['course_type'] ?? 'specialization';
+
+                    $prereqs = $courseData['prerequisites'] ?? [];
+                    if (is_string($prereqs)) {
+                        $prereqs = array_filter(array_map('trim', explode(',', $prereqs)));
+                    }
+
+                    $totalCalculatedHours += $totH;
+
+                    $normalizedCourses[] = [
+                        'course_code' => $cCode,
+                        'course_name_ar' => $cName,
+                        'credit_hours' => [
+                            'total' => $totH,
+                            'theory' => $theoH,
+                            'practical' => $pracH,
+                        ],
+                        'course_type' => $cType,
+                        'prerequisites' => array_values((array)$prereqs),
+                        'year_number' => $yNum,
+                        'semester_number' => $sNum,
+                    ];
+                }
+
+                $normalizedSemesters[] = [
+                    'semester_number' => $sNum,
+                    'courses' => $normalizedCourses,
+                ];
+            }
+
+            $normalizedYears[] = [
+                'year_number' => $yNum,
+                'semesters' => $normalizedSemesters,
+            ];
+        }
+
         // ── Step 5: فحص قبل أي حفظ ──
-        $validation = $this->validate($studyPlan, $editedYears);
+        $validation = $this->validator->validate([
+            'data' => [
+                'years' => $normalizedYears,
+            ]
+        ], $studyPlan->major);
 
         if (!$validation['ok']) {
             Log::warning('StudyPlan: confirm blocked by validation errors', [
@@ -192,7 +253,9 @@ class StudyPlanImportService
 
         Log::info('StudyPlan: saving started', ['study_plan_id' => $studyPlan->id]);
 
-        DB::transaction(function () use ($studyPlan, $confirmedBy, $years) {
+        DB::statement("SET statement_timeout = '60s'");
+
+        DB::transaction(function () use ($studyPlan, $confirmedBy, $normalizedYears, $totalCalculatedHours) {
             StudyPlan::where('major_id', $studyPlan->major_id)
                 ->where('id', '!=', $studyPlan->id)
                 ->update(['is_current' => false]);
@@ -201,7 +264,7 @@ class StudyPlanImportService
 
             $prerequisitesQueue = [];
 
-            foreach ($years as $year) {
+            foreach ($normalizedYears as $year) {
                 foreach ($year['semesters'] ?? [] as $semester) {
                     foreach ($semester['courses'] ?? [] as $index => $courseData) {
                         $spCourse = $this->saveCourseRow($studyPlan, $courseData, $index);
@@ -217,12 +280,22 @@ class StudyPlanImportService
 
             $this->linkPrerequisites($studyPlan, $prerequisitesQueue);
 
-            $studyPlan->update([
-                'status'       => 'confirmed',
-                'is_current'   => true,
-                'confirmed_by' => $confirmedBy->id,
-                'confirmed_at' => now(),
-            ]);
+            $raw = $studyPlan->raw_extracted_data ?? [];
+            if (!isset($raw['data']) || !is_array($raw['data'])) {
+                $raw['data'] = [];
+            }
+            $raw['data']['years'] = $normalizedYears;
+
+            $updateData = [
+                'status'              => 'confirmed',
+                'is_current'          => true,
+                'total_credit_hours'  => $totalCalculatedHours,
+                'confirmed_by'        => $confirmedBy->id,
+                'confirmed_at'        => now(),
+                'raw_extracted_data'  => $raw,
+            ];
+
+            $studyPlan->update($updateData);
         });
 
         Log::info('StudyPlan: saving completed', ['study_plan_id' => $studyPlan->id]);
@@ -235,22 +308,27 @@ class StudyPlanImportService
 
     private function saveCourseRow(StudyPlan $studyPlan, array $courseData, int $orderIndex): StudyPlanCourse
     {
-        $code = strtoupper(str_replace(' ', '', trim($courseData['course_code'] ?? '')));
+        $code = strtoupper(str_replace(' ', '', trim((string)($courseData['course_code'] ?? ''))));
 
         if ($code === '' || empty($courseData['course_name_ar'])) {
             throw new RuntimeException("بيانات مقرر ناقصة (رمز أو اسم): " . json_encode($courseData, JSON_UNESCAPED_UNICODE));
         }
 
-        $hours = $courseData['credit_hours'] ?? ['total' => 0, 'theory' => 0, 'practical' => 0];
-        $type  = self::COURSE_TYPE_MAP[$courseData['course_type'] ?? ''] ?? 'specialization';
+        $hours = $courseData['credit_hours'] ?? 0;
+        $totalHours = is_numeric($hours) ? (int)$hours : (int)($hours['total'] ?? 0);
+        $theoryHours = is_array($hours) ? (int)($hours['theory'] ?? $totalHours) : $totalHours;
+        $practicalHours = is_array($hours) ? (int)($hours['practical'] ?? 0) : 0;
 
-        $course = Course::firstOrCreate(
+        $typeRaw = $courseData['course_type'] ?? 'specialization';
+        $type = self::COURSE_TYPE_MAP[$typeRaw] ?? 'specialization';
+
+        $course = Course::updateOrCreate(
             ['university_id' => $studyPlan->university_id, 'code' => $code],
             [
                 'name_ar'                  => $courseData['course_name_ar'],
-                'default_total_hours'      => $hours['total'] ?? 0,
-                'default_theory_hours'     => $hours['theory'] ?? 0,
-                'default_practical_hours'  => $hours['practical'] ?? 0,
+                'default_total_hours'      => $totalHours,
+                'default_theory_hours'     => $theoryHours,
+                'default_practical_hours'  => $practicalHours,
                 'default_type'             => $type,
             ]
         );
@@ -258,8 +336,8 @@ class StudyPlanImportService
         return StudyPlanCourse::create([
             'study_plan_id'   => $studyPlan->id,
             'course_id'       => $course->id,
-            'year_number'     => $courseData['year_number'],
-            'semester_number' => $courseData['semester_number'],
+            'year_number'     => (int)($courseData['year_number'] ?? 1),
+            'semester_number' => (int)($courseData['semester_number'] ?? 1),
             'order_index'     => $orderIndex,
         ]);
     }

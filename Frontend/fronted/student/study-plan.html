@@ -6,7 +6,6 @@
 <title>الخطة الدراسية — NextStep AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="../../css/studentdashboard.css">
 <link href="../../css/header.css" rel="stylesheet">
 <link href="../../css/footer.css" rel="stylesheet">
@@ -14,26 +13,181 @@
 <link rel="stylesheet" href="../../css/home.css">
 <link rel="stylesheet" href="../../css/header-dashboard-account.css">
 <link href="../../css/study-plan.css" rel="stylesheet">
+<style>
+  body{
+    background: radial-gradient(circle at top left, rgba(53,208,255,0.18), transparent 28%), radial-gradient(circle at bottom right, rgba(47,107,255,0.16), transparent 30%), linear-gradient(135deg, #f4f8ff 0%, #eef4ff 45%, #f8fbff 100%);
+  }
+  .btn-action {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .btn-action:hover {
+    background: rgba(0,0,0,0.05);
+  }
+  /* تنسيقات السنوات والفصول */
+  .year-item {
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  .year-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .year-header:hover {
+    background: var(--light, #F7FAFD);
+  }
+  .semesters-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 36px;
+    margin-top: 6px;
+  }
+  .semester-btn {
+    background: var(--light, #F7FAFD);
+    border: 1px solid var(--border, #E4ECF4);
+    color: var(--navy, #0E2A4A);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-align: right;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .semester-btn:hover, .semester-btn.active {
+    background: var(--sky, #2E8FE6);
+    color: #fff;
+    border-color: var(--sky, #2E8FE6);
+  }
 
+  /* تنسيق القائمة الجانبية مثل صفحة المفضلة */
+  :root {
+    --sidebar-radius: 16px;
+    --sidebar-shadow: 0 4px 20px rgba(23, 55, 107, 0.05);
+    --sidebar-shadow-hover: 0 10px 30px rgba(23, 55, 107, 0.09);
+    --sidebar-border: #E2E8F0;
+    --sidebar-text: #101E35;
+    --sidebar-muted: #7E8FAC;
+    --sidebar-blue: #2F6BFF;
+    --sidebar-blue-soft: rgba(47, 107, 255, 0.08);
+    --sidebar-danger: #EF4444;
+  }
+  .student-layout {
+    align-items: flex-start;
+  }
+  .plan-wrap {
+    order: 1;
+  }
+  .sidebar {
+    width: 260px;
+    height: 839px;
+    box-sizing: border-box;
+    flex: 0 0 260px;
+    padding: 20px 14px;
+    position: sticky;
+    top: 96px;
+    background: #fff;
+    border: 1px solid var(--sidebar-border);
+    border-radius: var(--sidebar-radius);
+    box-shadow: var(--sidebar-shadow);
+    transition: box-shadow .3s ease;
+    overflow: visible;
+    overflow-y: visible;
+    order: 2;
+    margin-left: 268px;
+  }
+  .sidebar:hover {
+    box-shadow: var(--sidebar-shadow-hover);
+  }
+  .sidebar .group-label {
+    padding: 6px 12px 0;
+    margin: 0 0 8px;
+    color: var(--sidebar-muted);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .3px;
+  }
+  .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+  .sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    color: var(--sidebar-text);
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .2s ease;
+  }
+  .sidebar .nav-item svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--sidebar-muted);
+    transition: color .2s ease;
+  }
+  .sidebar .nav-item:hover {
+    background: var(--sidebar-blue-soft);
+    color: var(--navy, #17376B);
+    transform: translateX(-3px);
+  }
+  .sidebar .nav-item:hover svg {
+    color: var(--sidebar-blue);
+  }
+  .sidebar .nav-item.active {
+    background: linear-gradient(135deg, var(--sidebar-blue), var(--navy, #17376B));
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(47, 107, 255, .2);
+  }
+  .sidebar .nav-item.active svg {
+    color: #fff;
+  }
+  .sidebar hr {
+    margin: 12px 6px;
+    border: none;
+    border-top: 1px solid var(--sidebar-border);
+  }
+  .sidebar .nav-item.logout,
+  .sidebar .nav-item.logout svg {
+    color: var(--sidebar-danger);
+  }
+  .sidebar .nav-item.logout:hover {
+    background: rgba(239, 68, 68, .08);
+    color: #dc2626;
+  }
+</style>
 </head>
 <body>
 
-   <script src="../../js/header-dashboard.js"></script>
+<script src="../../js/header-dashboard.js"></script>
 
 <!-- ======================= LAYOUT (Sidebar + Content) ======================= -->
 <div class="student-layout">
-
-  <!-- ======================= SITE NAV SIDEBAR ======================= -->
-  
 
   <!-- ======================= STUDY PLAN (CONTENT) ======================= -->
   <div class="plan-wrap">
     <div class="plan-inner">
 
       <div class="plan-head">
-        
         <h1>الخطة الدراسية المقترحة لك</h1>
-        <p>خطة مبنية على التخصص اللي اخترته، موزّعة على الفصول الدراسية عشان تخلّصي المتطلبات براحتك</p>
+        <p>خطة مبنية على التخصص اللي اخترته، موزّعة على السنوات والفصول الدراسية عشان تخلّصي المتطلبات براحتك</p>
       </div>
 
       <!-- Major selector -->
@@ -52,13 +206,12 @@
         <button class="plan-tab active" data-tab="required" type="button">الخطة الدراسية</button>
         <button class="plan-tab" data-tab="elective" type="button">المواد الاختيارية</button>
         <button class="plan-tab" data-tab="major" type="button">المواد التخصصية</button>
-        <button class="plan-tab" data-tab="training" type="button">دورات تدريبية مقترحة</button>
       </div>
 
       <!-- Main layout -->
       <div class="plan-layout">
 
-        <!-- Left: stats -->
+        <!-- Left: stats & actions -->
         <div class="plan-stats">
           <div class="stat-card">
             <div class="stat-value">45<span>/140</span></div>
@@ -81,20 +234,128 @@
           <!-- الخطة الدراسية -->
           <div class="tab-panel" data-panel="required">
             <div class="semesters-grid">
-              <div class="semester-block">
+              
+              <!-- الفصل الأول -->
+              <div class="semester-block" data-semester-block="الفصل الأول">
                 <h3>الفصل الأول</h3>
-                <div class="course-row"><span class="course-name">مقدمة في البرمجة</span><span class="course-meta"><span class="course-code">CS101</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">رياضيات متقطعة</span><span class="course-meta"><span class="course-code">MTH110</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">مهارات اتصال</span><span class="course-meta"><span class="course-code">GEN101</span><span class="course-hours">2 س</span></span></div>
-                <div class="course-row"><span class="course-name">لغة إنجليزية 1</span><span class="course-meta"><span class="course-code">ENG101</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row" data-code="CS101" data-name="مقدمة في البرمجة" data-semester="الفصل الأول" data-hours="3 س">
+                  <span class="course-name">مقدمة في البرمجة</span>
+                  <span class="course-meta">
+                    <span class="course-code">CS101</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
+                <div class="course-row" data-code="MTH110" data-name="رياضيات متقطعة" data-semester="الفصل الأول" data-hours="3 س">
+                  <span class="course-name">رياضيات متقطعة</span>
+                  <span class="course-meta">
+                    <span class="course-code">MTH110</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
               </div>
-              <div class="semester-block">
+
+              <!-- الفصل الثاني -->
+              <div class="semester-block" data-semester-block="الفصل الثاني" style="display:none;">
                 <h3>الفصل الثاني</h3>
-                <div class="course-row"><span class="course-name">برمجة كائنية التوجه</span><span class="course-meta"><span class="course-code">CS102</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">هياكل البيانات</span><span class="course-meta"><span class="course-code">CS201</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">جبر خطي</span><span class="course-meta"><span class="course-code">MTH120</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">لغة إنجليزية 2</span><span class="course-meta"><span class="course-code">ENG102</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row" data-code="CS102" data-name="برمجة كائنية التوجه" data-semester="الفصل الثاني" data-hours="3 س">
+                  <span class="course-name">برمجة كائنية التوجه</span>
+                  <span class="course-meta">
+                    <span class="course-code">CS102</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
               </div>
+
+              <!-- الفصل الثالث -->
+              <div class="semester-block" data-semester-block="الفصل الثالث" style="display:none;">
+                <h3>الفصل الثالث</h3>
+                <div class="course-row" data-code="CS201" data-name="هياكل البيانات" data-semester="الفصل الثالث" data-hours="3 س">
+                  <span class="course-name">هياكل البيانات</span>
+                  <span class="course-meta">
+                    <span class="course-code">CS201</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
+              </div>
+
+              <!-- الفصل الرابع -->
+              <div class="semester-block" data-semester-block="الفصل الرابع" style="display:none;">
+                <h3>الفصل الرابع</h3>
+                <div class="course-row" data-code="MTH120" data-name="جبر خطي" data-semester="الفصل الرابع" data-hours="3 س">
+                  <span class="course-name">جبر خطي</span>
+                  <span class="course-meta">
+                    <span class="course-code">MTH120</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
+              </div>
+
+              <!-- الفصل الخامس -->
+              <div class="semester-block" data-semester-block="الفصل الخامس" style="display:none;">
+                <h3>الفصل الخامس</h3>
+                <div class="course-row" data-code="CS301" data-name="قواعد البيانات" data-semester="الفصل الخامس" data-hours="3 س">
+                  <span class="course-name">قواعد البيانات</span>
+                  <span class="course-meta">
+                    <span class="course-code">CS301</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
+              </div>
+
+              <!-- الفصل السادس -->
+              <div class="semester-block" data-semester-block="الفصل السادس" style="display:none;">
+                <h3>الفصل السادس</h3>
+                <div class="course-row" data-code="CS302" data-name="تصميم وتنفيذ البرمجيات" data-semester="الفصل السادس" data-hours="3 س">
+                  <span class="course-name">تصميم وتنفيذ البرمجيات</span>
+                  <span class="course-meta">
+                    <span class="course-code">CS302</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
+              </div>
+
+              <!-- الفصل السابع -->
+              <div class="semester-block" data-semester-block="الفصل السابع" style="display:none;">
+                <h3>الفصل السابع</h3>
+                <div class="course-row" data-code="CS401" data-name="مشروع التخرج 1" data-semester="الفصل السابع" data-hours="3 س">
+                  <span class="course-name">مشروع التخرج 1</span>
+                  <span class="course-meta">
+                    <span class="course-code">CS401</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
+              </div>
+
+              <!-- الفصل الثامن -->
+              <div class="semester-block" data-semester-block="الفصل الثامن" style="display:none;">
+                <h3>الفصل الثامن</h3>
+                <div class="course-row" data-code="CS402" data-name="مشروع التخرج 2" data-semester="الفصل الثامن" data-hours="3 س">
+                  <span class="course-name">مشروع التخرج 2</span>
+                  <span class="course-meta">
+                    <span class="course-code">CS402</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -103,15 +364,15 @@
             <div class="semesters-grid">
               <div class="semester-block">
                 <h3>اختياري عام</h3>
-                <div class="course-row"><span class="course-name">مبادئ ريادة الأعمال</span><span class="course-meta"><span class="course-code">GEN210</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">مدخل إلى علم النفس</span><span class="course-meta"><span class="course-code">GEN220</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">تاريخ فلسطين الحديث</span><span class="course-meta"><span class="course-code">GEN230</span><span class="course-hours">3 س</span></span></div>
-              </div>
-              <div class="semester-block">
-                <h3>اختياري كلية</h3>
-                <div class="course-row"><span class="course-name">تصميم واجهات المستخدم</span><span class="course-meta"><span class="course-code">CS310</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">إدارة المشاريع التقنية</span><span class="course-meta"><span class="course-code">CS320</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">مقدمة في ريادة الأعمال التقنية</span><span class="course-meta"><span class="course-code">CS330</span><span class="course-hours">3 س</span></span></div>
+                <div class="course-row" data-code="GEN210" data-name="مبادئ ريادة الأعمال" data-semester="اختياري عام" data-hours="3 س">
+                  <span class="course-name">مبادئ ريادة الأعمال</span>
+                  <span class="course-meta">
+                    <span class="course-code">GEN210</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -120,167 +381,104 @@
           <div class="tab-panel" data-panel="major" style="display:none;">
             <div class="semesters-grid">
               <div class="semester-block">
-                <h3>الفصل الخامس</h3>
-                <div class="course-row"><span class="course-name">قواعد البيانات</span><span class="course-meta"><span class="course-code">CS301</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">أنظمة التشغيل</span><span class="course-meta"><span class="course-code">CS302</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">هندسة البرمجيات</span><span class="course-meta"><span class="course-code">CS303</span><span class="course-hours">3 س</span></span></div>
-              </div>
-              <div class="semester-block">
-                <h3>الفصل السادس</h3>
-                <div class="course-row"><span class="course-name">شبكات الحاسوب</span><span class="course-meta"><span class="course-code">CS304</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">الذكاء الاصطناعي</span><span class="course-meta"><span class="course-code">CS305</span><span class="course-hours">3 س</span></span></div>
-                <div class="course-row"><span class="course-name">أمن المعلومات</span><span class="course-meta"><span class="course-code">CS306</span><span class="course-hours">3 س</span></span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- دورات تدريبية مقترحة -->
-          <div class="tab-panel" data-panel="training" style="display:none;">
-            <div class="training-intro">
-              <div>
-                <h3>دورات تدريبية مقترحة لك</h3>
-                <p>دورات إضافية خارج الخطة الرسمية، بتقوّي سيرتك الذاتية وتساعدك تكتسب مهارات عملية يطلبها سوق العمل بتخصصك.</p>
-              </div>
-              <div class="training-filter" id="trainingFilter">
-                <button class="training-filter-chip active" data-level="all" type="button">الكل</button>
-                <button class="training-filter-chip" data-level="مبتدئ" type="button">مبتدئ</button>
-                <button class="training-filter-chip" data-level="متوسط" type="button">متوسط</button>
-                <button class="training-filter-chip" data-level="متقدم" type="button">متقدم</button>
+                <h3>المواد التخصصية المتقدمة</h3>
+                <div class="course-row" data-code="CS501" data-name="الذكاء الاصطناعي" data-semester="تخصصي" data-hours="3 س">
+                  <span class="course-name">الذكاء الاصطناعي</span>
+                  <span class="course-meta">
+                    <span class="course-code">CS501</span>
+                    <span class="course-hours">3 س</span>
+                    <button class="btn-action btn-add-course" type="button" title="إضافة">➕</button>
+                    <button class="btn-action btn-remove-course" type="button" title="حذف" style="display:none;">❌</button>
+                  </span>
+                </div>
               </div>
             </div>
-            <div class="training-grid" id="trainingGrid"></div>
           </div>
 
         </div>
 
-        <!-- Right: vertical progress track -->
-<div class="progress-track" id="progressTrack">
-  <h4>مسار تقدّمك</h4>
-  <div class="level-item" data-lvl-target="1">
-    <div class="level-dot">1</div>
-    <div class="level-info">
-      <div class="level-name">المستوى الأول</div>
-      <div class="level-sub">مكتمل بالكامل</div>
-    </div>
-  </div>
-  <div class="level-item active" data-lvl-target="2">
-    <div class="level-dot">2</div>
-    <div class="level-info">
-      <div class="level-name">المستوى الثاني</div>
-      <div class="level-sub">قيد الدراسة الآن</div>
-    </div>
-  </div>
-  <div class="level-item" data-lvl-target="3">
-    <div class="level-dot">3</div>
-    <div class="level-info">
-      <div class="level-name">المستوى الثالث</div>
-      <div class="level-sub">لسا ما بدأ</div>
-    </div>
-  </div>
-  <div class="level-item" data-lvl-target="4">
-    <div class="level-dot">4</div>
-    <div class="level-info">
-      <div class="level-name">المستوى الرابع</div>
-      <div class="level-sub">لسا ما بدأ</div>
-    </div>
-  </div>
-</div>
+        <!-- Right: Academic Years & Semesters Track -->
+        <div class="progress-track" id="progressTrack">
+          <h4>السنوات الدراسية</h4>
+          
+          <!-- السنة الأولى -->
+          <div class="year-item" data-year="1">
+            <div class="year-header" onclick="toggleSemesters(1)">
+              <div class="level-dot">1</div>
+              <div class="level-info">
+                <div class="level-name">السنة الأولى</div>
+                <div class="level-sub">اختر الفصل</div>
+              </div>
+            </div>
+            <div class="semesters-dropdown" id="semesters-1" style="display: none;">
+              <button class="semester-btn active" onclick="selectSemester('الفصل الأول', this)">الفصل الأول</button>
+              <button class="semester-btn" onclick="selectSemester('الفصل الثاني', this)">الفصل الثاني</button>
+            </div>
+          </div>
 
-      </div>
+          <!-- السنة الثانية -->
+          <div class="year-item" data-year="2">
+            <div class="year-header" onclick="toggleSemesters(2)">
+              <div class="level-dot">2</div>
+              <div class="level-info">
+                <div class="level-name">السنة الثانية</div>
+                <div class="level-sub">اختر الفصل</div>
+              </div>
+            </div>
+            <div class="semesters-dropdown" id="semesters-2" style="display: none;">
+              <button class="semester-btn" onclick="selectSemester('الفصل الثالث', this)">الفصل الثالث</button>
+              <button class="semester-btn" onclick="selectSemester('الفصل الرابع', this)">الفصل الرابع</button>
+            </div>
+          </div>
 
-      <!-- Weekly schedule -->
-      <div class="schedule-section">
-        <div class="section-title"><span class="dot"></span>الجدول الزمني الأسبوعي</div>
-        <div class="schedule-row">
-          <div class="day-card">
-            <div class="day-name">الأحد</div>
-            <div class="day-slot">مقدمة في البرمجة</div>
-            <div class="day-slot">رياضيات متقطعة</div>
+          <!-- السنة الثالثة -->
+          <div class="year-item" data-year="3">
+            <div class="year-header" onclick="toggleSemesters(3)">
+              <div class="level-dot">3</div>
+              <div class="level-info">
+                <div class="level-name">السنة الثالثة</div>
+                <div class="level-sub">اختر الفصل</div>
+              </div>
+            </div>
+            <div class="semesters-dropdown" id="semesters-3" style="display: none;">
+              <button class="semester-btn" onclick="selectSemester('الفصل الخامس', this)">الفصل الخامس</button>
+              <button class="semester-btn" onclick="selectSemester('الفصل السادس', this)">الفصل السادس</button>
+            </div>
           </div>
-          <div class="day-card">
-            <div class="day-name">الاثنين</div>
-            <div class="day-slot">هياكل البيانات</div>
-            <div class="day-empty">—</div>
+
+          <!-- السنة الرابعة -->
+          <div class="year-item" data-year="4">
+            <div class="year-header" onclick="toggleSemesters(4)">
+              <div class="level-dot">4</div>
+              <div class="level-info">
+                <div class="level-name">السنة الرابعة</div>
+                <div class="level-sub">اختر الفصل</div>
+              </div>
+            </div>
+            <div class="semesters-dropdown" id="semesters-4" style="display: none;">
+              <button class="semester-btn" onclick="selectSemester('الفصل السابع', this)">الفصل السابع</button>
+              <button class="semester-btn" onclick="selectSemester('الفصل الثامن', this)">الفصل الثامن</button>
+            </div>
           </div>
-          <div class="day-card">
-            <div class="day-name">الثلاثاء</div>
-            <div class="day-slot">مهارات اتصال</div>
-            <div class="day-slot">لغة إنجليزية 1</div>
-          </div>
-          <div class="day-card">
-            <div class="day-name">الأربعاء</div>
-            <div class="day-slot">مقدمة في البرمجة</div>
-            <div class="day-empty">—</div>
-          </div>
-          <div class="day-card">
-            <div class="day-name">الخميس</div>
-            <div class="day-empty">يوم راحة</div>
-          </div>
+
         </div>
+
       </div>
 
-      <!-- Compare button -->
+      <!-- Compare button / Enrolled courses link -->
       <div class="plan-compare-wrap">
-        <button class="btn-compare" id="btnCompare" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
-          أضف تخصص للمقارنة
-        </button>
+        <a href="../student/study-plan2.html" class="btn-compare" id="btnViewEnrolled">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          عرض المواد المسجلة بالفصول
+        </a>
       </div>
 
     </div>
   </div>
 
-</div>
-
-<!-- ======================= نافذة تفاصيل الدورة (Modal) ======================= -->
-<div class="course-modal-overlay" id="courseModalOverlay">
-  <div class="course-modal" id="courseModal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
-    <div class="course-modal-head">
-      <div class="course-modal-head-left">
-        <span class="training-icon" id="modalIcon"></span>
-        <div>
-          <h3 id="courseModalTitle">—</h3>
-          <div class="training-provider" id="modalProvider"></div>
-        </div>
-      </div>
-      <button class="course-modal-close" id="courseModalClose" type="button" aria-label="إغلاق">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="course-modal-body">
-      <div class="course-modal-meta-grid">
-        <div class="course-modal-meta-box">
-          <span class="k">المدة</span>
-          <span class="v" id="modalDuration">—</span>
-        </div>
-        <div class="course-modal-meta-box">
-          <span class="k">المستوى</span>
-          <span class="v" id="modalLevel">—</span>
-        </div>
-        <div class="course-modal-meta-box">
-          <span class="k">التكلفة</span>
-          <span class="v" id="modalPrice">—</span>
-        </div>
-      </div>
-      <div class="course-modal-section">
-        <h5>عن الدورة</h5>
-        <p id="modalDesc">—</p>
-      </div>
-      <div class="course-modal-why">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.27A7.01 7.01 0 0 1 14 23h-4a7.01 7.01 0 0 1-5.73-3H3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
-        <p id="modalWhy">—</p>
-      </div>
-    </div>
-    <div class="course-modal-foot">
-      <button class="btn-modal-cancel" id="courseModalCancel" type="button">إغلاق</button>
-      <a class="btn-modal-enroll" id="modalEnrollBtn" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-        سجّل بالدورة
-      </a>
-    </div>
-  </div>
-</div>
- <aside class="sidebar">
+<!-- Sidebar -->
+<!-- القائمة الجانبية (Sidebar) -->
+<aside class="sidebar">
     <div class="group-label">القائمة الرئيسية</div>
     <nav>
         <a href="../student/student-dashboard.html" class="nav-item">
@@ -299,17 +497,13 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l4 8H8l4-8z"/><rect x="4" y="14" width="16" height="7" rx="1.5"/></svg>
             الجامعات
         </a>
-        <a href="#" class="nav-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M4 9h5"/></svg>
-            التخصصات
-        </a>
         <a href="../chatbot.html" class="nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.8 8.4 8.5 8.5 0 0 1-4-1L3 20l1.1-4A8.4 8.4 0 1 1 21 11.5z"/></svg>
             المساعد الذكي
         </a>
-         <a href="../student/scholarships.html" class="nav-item">
+        <a href="../student/scholarships.html" class="nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-     المنح
+            المنح
         </a>
     </nav>
 
@@ -331,7 +525,6 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
             ملفي الشخصي
         </a>
-       
         <a href="../../fronted/student/student-settings.html" class="nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>
             الإعدادات
@@ -343,6 +536,9 @@
         </a>
     </nav>
 </aside>
+
+  </div>
+
 <div id="footer-placeholder"></div>
 
 <script>
@@ -360,141 +556,86 @@ tabs.forEach(tab => {
   });
 });
 
-/* Download PDF & Compare */
+/* Download PDF */
 document.getElementById('btnDownloadPdf').addEventListener('click', () => window.print());
-document.getElementById('btnCompare').addEventListener('click', () => alert('ميزة المقارنة بين التخصصات قريباً!'));
 
-/* Training Courses Data & Logic */
-const trainingCourses = [
-  { id: 't1', title: 'أساسيات الذكاء الاصطناعي', provider: 'Coursera', icon: 'blue', duration: '6 أسابيع', level: 'مبتدئ', price: 'free', priceLabel: 'مجانية', match: 92, desc: 'مقدمة شاملة لمفاهيم الذكاء الاصطناعي والتعلم الآلي، مع أمثلة عملية بسيطة ومشاريع تطبيقية صغيرة.', why: 'مرتبطة مباشرة بتخصص علوم الحاسوب اللي اخترته، وبتقوّي فهمك للمواد التخصصية.', link: '#' },
-  { id: 't2', title: 'تطوير الويب الشامل', provider: 'Udemy', icon: 'navy', duration: '10 أسابيع', level: 'متوسط', price: 'paid', priceLabel: '49$', match: 85, desc: 'دورة متكاملة تغطي HTML وCSS وJavaScript، وصولاً لبناء مشروع ويب كامل من الصفر.', why: 'مهارة عملية عالية الطلب بسوق العمل التقني، وبتفيدك تبني مشاريع جانبية.', link: '#' },
-  { id: 't3', title: 'تحليل البيانات بلغة Python', provider: 'edX', icon: 'mint', duration: '8 أسابيع', level: 'مبتدئ', price: 'free', priceLabel: 'مجانية', match: 88, desc: 'تعلم أساسيات تحليل البيانات باستخدام Python ومكتبات مثل Pandas وMatplotlib.', why: 'بتكمّل مادة هياكل البيانات بخطتك، وبتفتحلك باب تخصص علم البيانات.', link: '#' },
-  { id: 't4', title: 'أساسيات الأمن السيبراني', provider: 'Google', icon: 'amber', duration: '4 أسابيع', level: 'مبتدئ', price: 'free', priceLabel: 'مجانية', match: 74, desc: 'مقدمة عملية لمبادئ حماية الأنظمة والشبكات من التهديدات الشائعة.', why: 'موضوع مكمّل لمادة أمن المعلومات بخطتك، ومفيد لأي مسار تقني مستقبلاً.', link: '#' },
-  { id: 't5', title: 'إدارة المشاريع بمنهجية Agile', provider: 'LinkedIn Learning', icon: 'blue', duration: '3 أسابيع', level: 'متوسط', price: 'paid', priceLabel: '29$', match: 68, desc: 'كيف تدير مشروع تقني بمرونة باستخدام Scrum، من التخطيط للتسليم.', why: 'مهارة تنظيمية بتفيدك بمشروع التخرج وبأي عمل جماعي جاي.', link: '#' },
-  { id: 't6', title: 'هياكل البيانات والخوارزميات', provider: 'freeCodeCamp', icon: 'navy', duration: '12 أسبوع', level: 'متقدم', price: 'free', priceLabel: 'مجانية', match: 90, desc: 'تعمّق أكبر بالخوارزميات وتعقيد الوقت، بالتحضير لمقابلات الشركات التقنية الكبرى.', why: 'امتداد طبيعي لمادة هياكل البيانات (CS201).', link: '#' }
-];
-
-const iconSvgMap = {
-  blue: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>',
-  mint:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>',
-  navy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>',
-  amber: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>'
-};
-
-const trainingGrid = document.getElementById('trainingGrid');
-const trainingFilter = document.getElementById('trainingFilter');
-let currentLevel = 'all';
-
-function renderTrainingCourses() {
-  const list = trainingCourses.filter(c => currentLevel === 'all' || c.level === currentLevel);
-  trainingGrid.innerHTML = list.map(c => `
-    <div class="training-card">
-      <div class="training-card-top">
-        <span class="training-icon ${c.icon}">${iconSvgMap[c.icon]}</span>
-        <span class="training-price ${c.price}">${c.priceLabel}</span>
-      </div>
-      <h4>${c.title}</h4>
-      <span class="training-provider">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        ${c.provider}
-      </span>
-      <div class="training-meta">
-        <span>${c.duration}</span>
-        <span>مستوى ${c.level}</span>
-      </div>
-      <p class="training-desc">${c.desc}</p>
-      <span class="training-match">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        نسبة توافق ${c.match}%
-      </span>
-      <button class="btn-training-details" data-course-id="${c.id}" type="button">
-        عرض التفاصيل
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
-    </div>
-  `).join('');
-
-  trainingGrid.querySelectorAll('.btn-training-details').forEach(btn => {
-    btn.addEventListener('click', () => openCourseModal(btn.dataset.courseId));
+/* Toggle Year Semesters Dropdown */
+function toggleSemesters(yearNum) {
+  const dropdown = document.getElementById(`semesters-${yearNum}`);
+  document.querySelectorAll('.semesters-dropdown').forEach(el => {
+    if (el.id !== `semesters-${yearNum}`) el.style.display = 'none';
   });
+  dropdown.style.display = (dropdown.style.display === 'none') ? 'flex' : 'none';
 }
 
-trainingFilter.querySelectorAll('.training-filter-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    trainingFilter.querySelectorAll('.training-filter-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    currentLevel = chip.dataset.level;
-    renderTrainingCourses();
-  });
-});
+/* Select Semester and Filter Courses */
+function selectSemester(semesterName, btnElement) {
+  document.querySelectorAll('.semester-btn').forEach(b => b.classList.remove('active'));
+  btnElement.classList.add('active');
 
-renderTrainingCourses();
-
-/* Modal Logic */
-const courseModalOverlay = document.getElementById('courseModalOverlay');
-
-function openCourseModal(courseId) {
-  const c = trainingCourses.find(x => x.id === courseId);
-  if (!c) return;
-
-  document.getElementById('modalIcon').className = 'training-icon ' + c.icon;
-  document.getElementById('modalIcon').innerHTML = iconSvgMap[c.icon];
-  document.getElementById('courseModalTitle').textContent = c.title;
-  document.getElementById('modalProvider').innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> ' + c.provider;
-  document.getElementById('modalDuration').textContent = c.duration;
-  document.getElementById('modalLevel').textContent = c.level;
-  document.getElementById('modalPrice').textContent = c.priceLabel;
-  document.getElementById('modalDesc').textContent = c.desc;
-  document.getElementById('modalWhy').textContent = c.why;
-  document.getElementById('modalEnrollBtn').href = c.link;
-
-  courseModalOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeCourseModal() {
-  courseModalOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-document.getElementById('courseModalClose').addEventListener('click', closeCourseModal);
-document.getElementById('courseModalCancel').addEventListener('click', closeCourseModal);
-courseModalOverlay.addEventListener('click', (e) => { if (e.target === courseModalOverlay) closeCourseModal(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && courseModalOverlay.classList.contains('open')) closeCourseModal(); });
-</script>
-
-<script>
-  /* تفاعل عناصر مسار التقدم الجانبي للتنقل بين المستويات */
-document.querySelectorAll('.progress-track .level-item').forEach(item => {
-  item.style.cursor = 'pointer'; // جعل المظهر يشير إلى أنه قابل للضغط
-  item.addEventListener('click', () => {
-    const lvl = item.dataset.lvlTarget;
-    if (!lvl) return;
-
-    // محاكاة الضغط على زر المستوى المعادل في الأعلى لتحديث الجدول
-    const targetNavBtn = document.querySelector(`.level-nav-btn[data-level="${lvl}"]`);
-    if (targetNavBtn) {
-      targetNavBtn.click();
+  const semesterBlocks = document.querySelectorAll('.semester-block[data-semester-block]');
+  semesterBlocks.forEach(block => {
+    if (block.dataset.semesterBlock === semesterName) {
+      block.style.display = 'block';
+    } else {
+      block.style.display = 'none';
     }
   });
-});
-/* ربط مسار التقدم الجانبي بتغيير محتوى الفصول والمواد للمستوى المحدد */
-const progressItems = document.querySelectorAll('.progress-track .level-item');
+}
 
-progressItems.forEach(item => {
-  item.style.cursor = 'pointer'; // جعل المؤشر يشير إلى أنها قابلة للنقر
-  item.addEventListener('click', () => {
-    const lvl = item.dataset.lvlTarget;
-    if (!lvl) return;
+/* Add & Remove Courses Logic */
+document.addEventListener('DOMContentLoaded', () => {
+  updateButtonsState();
 
-    // 1. تحديث شكل "مسار تقدّمك" (إزالة active وإضافتها للعنصر المختار)
-    progressItems.forEach(p => p.classList.remove('active'));
-    item.classList.add('active');
+  document.querySelectorAll('.btn-add-course').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const row = e.target.closest('.course-row');
+      const courseData = {
+        code: row.dataset.code,
+        name: row.dataset.name,
+        semester: row.dataset.semester,
+        hours: row.dataset.hours
+      };
+      
+      let enrolled = JSON.parse(localStorage.getItem('enrolledCourses')) || [];
+      if (!enrolled.some(c => c.code === courseData.code)) {
+        enrolled.push(courseData);
+        localStorage.setItem('enrolledCourses', JSON.stringify(enrolled));
+      }
+      updateButtonsState();
+    });
+  });
 
-    // 2. تحديث وعرض فصول المواد الخاصة بالمستوى المختار في الجدول
-    renderLevel(lvl);
+  document.querySelectorAll('.btn-remove-course').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const row = e.target.closest('.course-row');
+      const code = row.dataset.code;
+      
+      let enrolled = JSON.parse(localStorage.getItem('enrolledCourses')) || [];
+      enrolled = enrolled.filter(c => c.code !== code);
+      localStorage.setItem('enrolledCourses', JSON.stringify(enrolled));
+      updateButtonsState();
+    });
   });
 });
+
+function updateButtonsState() {
+  const enrolled = JSON.parse(localStorage.getItem('enrolledCourses')) || [];
+  document.querySelectorAll('.course-row').forEach(row => {
+    const code = row.dataset.code;
+    const addBtn = row.querySelector('.btn-add-course');
+    const removeBtn = row.querySelector('.btn-remove-course');
+    const isEnrolled = enrolled.some(c => c.code === code);
+
+    if (isEnrolled) {
+      if(addBtn) addBtn.style.display = 'none';
+      if(removeBtn) removeBtn.style.display = 'inline-block';
+    } else {
+      if(addBtn) addBtn.style.display = 'inline-block';
+      if(removeBtn) removeBtn.style.display = 'none';
+    }
+  });
+}
 </script>
 </body>
 </html>

@@ -1,0 +1,370 @@
+/* ==========================================
+   متغيرات الهوية البصرية (NextStep AI Theme)
+   ================================---------- */
+:root {
+  --navy: #0E2A4A;
+  --sky: #2E8FE6;
+  --cyan: #3500FF;
+  --mint: #10B981;
+  --ink: #1B2733;
+  --muted: #6B7A8D;
+  --border: #E4ECF4;
+  --bg-light: #F8FAFC;
+  --font-arabic: 'Cairo', sans-serif;
+  --font-english: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: var(--font-arabic);
+  background-color: var(--bg-light);
+  color: var(--ink);
+  margin: 0;
+  direction: rtl;
+}
+
+/* ==========================================
+   تنسيق القائمة الجانبية (Sidebar)
+   ================================---------- */
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-left: 1px solid var(--border);
+  box-shadow: 2px 0 12px rgba(14, 42, 74, 0.02);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.sidebar .group-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 18px 16px 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: right;
+  font-family: var(--font-arabic);
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 12px;
+  margin-bottom: 12px;
+}
+
+.sidebar .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  text-align: right;
+}
+
+.sidebar .nav-item svg {
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.sidebar .nav-item:hover {
+  background-color: rgba(46, 143, 230, 0.08);
+  color: var(--sky);
+  transform: translateX(-3px);
+}
+
+.sidebar .nav-item:hover svg {
+  color: var(--sky);
+}
+
+.sidebar .nav-item.active {
+  background: linear-gradient(135deg, var(--sky), var(--navy));
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(46, 143, 230, 0.25);
+}
+
+.sidebar .nav-item.active svg {
+  color: #fff;
+}
+
+.sidebar hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 12px 6px;
+}
+
+.sidebar .nav-item.logout {
+  color: #ef4444;
+}
+
+.sidebar .nav-item.logout svg {
+  color: #ef4444;
+}
+
+.sidebar .nav-item.logout:hover {
+  background-color: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+}
+
+/* ==========================================
+   التجاوب مع الشاشات الصغيرة (Responsive)
+   ================================---------- */
+@media (max-width: 960px) {
+  .sidebar {
+    display: none; 
+  }
+}
+
+/* ==========================================
+   تنسيق النافذة المنبثقة (Course Modal)
+   ================================---------- */
+.course-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(14, 42, 74, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.course-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.course-modal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 580px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(14, 42, 74, 0.15);
+  transform: translateY(20px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.course-modal-overlay.open .course-modal {
+  transform: translateY(0);
+}
+
+.course-modal-head {
+  padding: 20px 24px;
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.course-modal-head-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.course-modal-head h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 4px 0;
+}
+
+.training-provider {
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.training-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.training-icon.blue { background: rgba(46, 143, 230, 0.12); color: var(--sky); }
+.training-icon.navy { background: rgba(14, 42, 74, 0.12); color: var(--navy); }
+.training-icon.mint { background: rgba(16, 185, 129, 0.12); color: var(--mint); }
+.training-icon.amber { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
+
+.training-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.course-modal-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 6px;
+  border-radius: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.course-modal-close:hover {
+  background: var(--border);
+  color: var(--navy);
+}
+
+.course-modal-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.course-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.course-modal-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.course-modal-meta-box {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.course-modal-meta-box .k {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.course-modal-meta-box .v {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.course-modal-section {
+  margin-bottom: 20px;
+}
+
+.course-modal-section h5 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 8px 0;
+}
+
+.course-modal-section p {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.course-modal-why {
+  background: rgba(46, 143, 230, 0.05);
+  border: 1px solid rgba(46, 143, 230, 0.2);
+  padding: 14px 16px;
+  border-radius: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.course-modal-why svg {
+  width: 20px;
+  height: 20px;
+  color: var(--sky);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.course-modal-why p {
+  font-size: 14px;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.course-modal-foot {
+  padding: 16px 24px;
+  background: var(--bg-light);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-modal-cancel {
+  background: var(--border);
+  color: var(--muted);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-family: var(--font-arabic);
+}
+
+.btn-modal-cancel:hover {
+  background: #cbd5e1;
+  color: var(--navy);
+}
+
+.btn-modal-enroll {
+  background: var(--sky);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+  font-family: var(--font-arabic);
+}
+
+.btn-modal-enroll:hover {
+  background: #2076c7;
+}
+
+.btn-modal-enroll svg {
+  width: 18px;
+  height: 18px;
+}

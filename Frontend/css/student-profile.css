@@ -550,3 +550,6 @@ header.topbar:hover{ box-shadow: 0 4px 20px rgba(18, 54, 116, .05); }
 .sidebar .nav-item.logout svg {
     color: var(--danger);
 }
+.sidebar{
+  height: 861px;
+}

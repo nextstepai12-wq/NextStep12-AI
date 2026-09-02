@@ -915,12 +915,12 @@ header.topbar:hover {
 
   top:
     84px;
+height: 861px;
 
-  overflow:
-    hidden;
 
   transition:
     box-shadow .25s ease;
+    height: 861px;
 }
 
 .sidebar:hover {
@@ -2791,4 +2791,7 @@ header.topbar:hover {
   .next-steps-grid {
     grid-template-columns: 1fr !important;
   }
+}
+.sidebar{
+  height: 861px;
 }

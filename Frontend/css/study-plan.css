@@ -97,7 +97,7 @@ margin: 93px auto;
   gap: 6px;
   border-bottom: 2px solid var(--border, #E4ECF4);
   margin-bottom: 24px;
-  overflow-x: auto;
+ 
 }
 .plan-tab {
   padding: 12px 20px;

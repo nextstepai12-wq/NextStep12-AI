@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المواد المسجلة بالفصول — NextStep AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/studentdashboard.css">
+<link href="../../css/header.css" rel="stylesheet">
+<link href="../../css/footer.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/app.css">
+<link rel="stylesheet" href="../../css/home.css">
+<link rel="stylesheet" href="../../css/header-dashboard-account.css">
+<link href="../../css/study-plan.css" rel="stylesheet">
+<style>
+  
+
+/* الاستجابة للشاشات الصغيرة */
+@media (max-width: 960px) {
+  .plan-layout { grid-template-columns: 1fr; }
+  .plan-stats { flex-direction: row; flex-wrap: wrap; }
+  .plan-stats .stat-card { flex: 1; min-width: 140px; }
+  .progress-track { order: 3; }
+  .sidebar { display: none; } /* يمكن تخصيص قائمة مجهزة للهواتف لاحقاً */
+}
+@media (max-width: 640px) {
+  .semesters-grid { grid-template-columns: 1fr; }
+  .schedule-row { grid-template-columns: repeat(2, 1fr); }
+  .plan-stats { flex-direction: column; }
+  .course-modal-meta-grid { grid-template-columns: repeat(2, 1fr); }
+}
+/* الحاضن الرئيسي لترتيب الشريط والمحتوى أفقياً */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  direction: rtl; /* لضمان ظهور الشريط في اليمين أو اليسار حسب التصميم */
+}
+
+/* تنسيق الشريط الجانبي */
+.sidebar {
+  width: 260px;
+  background-color: #ffffff;
+  border-left: 1px solid #eaeaea;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.sidebar-title {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: background 0.2s;
+  margin-bottom: 5px;
+}
+
+/* العنصر النشط (المحدد) مثل "ملفي الشخصي" في الصورة */
+.sidebar-item.active {
+  background-color: #1e3a8a; /* لون أزرق غامق */
+  color: #ffffff;
+}
+
+.sidebar-item:hover:not(.active) {
+  background-color: #f1f5f9;
+}
+
+.sidebar-item.logout {
+  color: #ef4444;
+}
+
+/* منطقة المحتوى بجانب الشريط */
+.main-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-right: 0 !important;
+    padding: 15px;
+  }
+
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+  }
+}
+.sidebar:hover {
+    box-shadow: var(--sidebar-shadow-hover);
+}
+.sidebar .group-label {
+    font-size: 16px;
+    color: var(--gray);
+    font-weight: 700;
+    padding: 6px 12px 8px;
+    letter-spacing: 0.3px;
+    padding-bottom: 0px;
+
+}
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.sidebar .nav-item svg {
+    width: 18px;
+    height: 18px;
+    color: var(--gray);
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+}
+.sidebar .nav-item:hover {
+    background: var(--blue-soft);
+    color: var(--navy);
+    transform: translateX(-3px);
+}
+.sidebar .nav-item:hover svg {
+    color: var(--blue);
+}
+.sidebar .nav-item.active {
+    background: linear-gradient(135deg, var(--blue), var(--navy));
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(47, 107, 255, 0.2);
+}
+.sidebar .nav-item.active svg {
+    color: #fff;
+}
+.sidebar hr {
+    border: none;
+    border-top: 1px solid var(--border-gray);
+    margin: 12px 6px;
+}
+.sidebar .nav-item.logout {
+    color: var(--danger);
+}
+.sidebar .nav-item.logout svg {
+    color: var(--danger);
+}
+/* =====================================================================
+   تنسيقات الهيكل والشريط الجانبي (على اليمين)
+   ==================================================================== */
+
+.student-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--light, #F7FAFD);
+  direction: rtl; /* ضمان اتجاه الصفحة من اليمين لليسار */
+}
+
+/* الشريط الجانبي مثبت على اليمين */
+.sidebar {
+  width: 260px;
+  background-color: #ffffff;
+  /* تم تغيير الحد من اليسار إلى اليمين ليفصل الشريط الجانبي عن المحتوى */
+  border-left: none;
+  border-right: 1px solid var(--border, #E4ECF4);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow-y: auto;
+  order: 1; /* لضمان ظهوره كأول عنصر من اليمين في الـ Flexbox */
+}
+
+/* محتوى الصفحة الرئيسي بجانب الشريط الجانبي */
+.plan-wrap {
+  flex: 1;
+  box-sizing: border-box;
+  overflow-x: hidden;
+
+}
+
+
+/* جعل عناصر مسار التقدم تفاعلية */
+.progress-track .level-item {
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.progress-track .level-item:hover {
+  transform: translateX(-4px);
+  opacity: 0.85;
+}
+
+.floating-widgets {
+  position: fixed;
+  bottom: 30px;
+  left: 30px; /* تم التغيير من right إلى left لتصبح في الجهة اليسار */
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  direction: ltr;
+}
+
+.float-btn {
+  width: 65px;  /* تم تكبير الحجم من 55px إلى 65px */
+  height: 65px; /* تم تكبير الحجم من 55px إلى 65px */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  animation: floatWidget 3s ease-in-out infinite;
+}
+
+.ai-guide-btn {
+  background: linear-gradient(135deg, #2F6BFF 0%, #35D0FF 100%);
+  color: #ffffff;
+  animation-delay: 0s;
+}
+
+.whatsapp-btn {
+  background-color: #25D366;
+  color: #ffffff;
+  animation-delay: 1.5s;
+}
+
+.float-btn svg {
+  width: 34px;  /* تم تكبير أيقونة الداخله ل تتناسب مع الحجم الجديد */
+  height: 34px;
+}
+
+.float-btn:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 12px 25px rgba(53, 208, 255, 0.4);
+  animation-play-state: paused;
+}
+
+@keyframes floatWidget {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float-btn .tooltip {
+  position: absolute;
+  left: 75px; /* تم تغييرها لتظهر إلى اليمين من الأيقونة بما أنها أصبحت على اليسار */
+  background-color: #173873;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Cairo', sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  pointer-events: none;
+}
+
+.float-btn:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-right: 0 !important;
+    padding: 15px;
+  }
+
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+  }
+}
+/* تعديل حاوية الصفحة الرئيسية لتكون من اليسار لليمين */
+.page-container {
+  display: flex;
+  flex-direction: row-reverse; /* لضمان تمركز المحتوى بجانب الشريط الجانبي الأيسر */
+  min-height: 100vh;
+  direction: rtl; /* الحفاظ على اتجاه النصوص العربية بشكل صحيح */
+}
+
+/* تخصيص الشريط الجانبي ليصطف على اليسار */
+.student-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 28px;
+  align-items: start;
+  direction: rtl;
+  padding: 24px 28px 60px;
+  box-sizing: border-box;
+}
+
+.plan-wrap {
+  grid-column: 1;
+  width: 100%;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 24px 0 60px;
+  box-sizing: border-box;
+  direction: rtl;
+  grid-column: 1;
+  width: 75%;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 126px 241px 103px;
+  box-sizing: border-box;
+  direction: rtl;
+}
+
+.sidebar {
+  grid-column: 2;
+  grid-row: 1;
+  width: 260px;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  position: sticky;
+  top: 96px;
+  overflow: visible !important;
+  overflow-y: visible !important;
+  box-sizing: border-box;
+  direction: rtl;
+  margin: 76px -301px;
+  padding: 1px 12px;
+}
+
+</style>
+</head>
+
+<body>
+<script src="../../js/header-dashboard.js"></script>
+
+<div class="student-layout">
+  <div class="plan-wrap">
+    <div class="plan-head">
+      <h1>المواد الدراسية المنزلة بالفصول</h1>
+      <p>قائمة المواد التي قمت بإضافتها من خطتك الدراسية مصنفة حسب الفصل</p>
+    </div>
+
+    <div class="plan-table-wrap">
+      <div id="enrolledContainer" class="semesters-grid">
+        <!-- سيتم تعبئة المواد هنا ديناميكياً عبر الجافاسكريبت -->
+      </div>
+    </div>
+    
+    <div style="margin-top: 20px;">
+      <a href="study-plan.html" class="btn-compare">العودة للخطة الدراسية</a>
+    </div>
+  </div>
+<aside class="sidebar">
+    <div class="group-label">القائمة الرئيسية</div>
+    <nav>
+        <a href="../student/student-dashboard.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+            لوحة الطالب
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            النتائج والتوصيات
+        </a>
+        <a href="../../fronted/quiz.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+            الاختيار الذكي
+        </a>
+        <a href="../universities.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l4 8H8l4-8z"/><rect x="4" y="14" width="16" height="7" rx="1.5"/></svg>
+            الجامعات
+        </a>
+        <a href="../chatbot.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.8 8.4 8.5 8.5 0 0 1-4-1L3 20l1.1-4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+            المساعد الذكي
+        </a>
+        <a href="../student/scholarships.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+            المنح
+        </a>
+    </nav>
+
+    <div class="group-label">أدواتي</div>
+    <nav>
+        <a href="../../fronted/student/favorites.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-6.2 3.6 1.6-7L2 9.2l7.1-.6L12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7z"/></svg>
+            المفضلة
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            المقارنات
+        </a>
+    </nav>
+
+    <div class="group-label">حسابي</div>
+    <nav>
+        <a href="../../fronted/student/student-profile.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6"/></svg>
+            ملفي الشخصي
+        </a>
+        <a href="../../fronted/student/student-settings.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87M4.6 9a1.7 1.7 0 0 0-.34-1.87"/><path d="M12 3v.09M12 20.9V21M3 12h.09M20.9 12H21"/></svg>
+            الإعدادات
+        </a>
+        <hr>
+        <a href="../../index.html" class="nav-item logout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+            تسجيل الخروج
+        </a>
+    </nav>
+</aside>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('enrolledContainer');
+  const enrolled = JSON.parse(localStorage.getItem('enrolledCourses')) || [];
+
+  if (enrolled.length === 0) {
+    container.innerHTML = '<p style="color: var(--muted); grid-column: span 2; text-align: center;">لم تقم بإضافة أي مادة بعد.</p>';
+    return;
+  }
+
+  // تجميع المواد حسب الفصل
+  const grouped = enrolled.reduce((acc, course) => {
+    acc[course.semester] = acc[course.semester] || [];
+    acc[course.semester].push(course);
+    return acc;
+  }, {});
+
+  let html = '';
+  for (const [semester, courses] of Object.entries(grouped)) {
+    html += `
+      <div class="semester-block">
+        <h3>${semester}</h3>
+        ${courses.map(c => `
+          <div class="course-row">
+            <span class="course-name">${c.name}</span>
+            <span class="course-meta">
+              <span class="course-code">${c.code}</span>
+              <span class="course-hours">${c.hours}</span>
+            </span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+  container.innerHTML = html;
+});
+</script>
+
+</body>
+</html>

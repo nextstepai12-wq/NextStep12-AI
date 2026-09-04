@@ -1161,3 +1161,6 @@ header.topbar:hover{ box-shadow: 0 4px 20px rgba(18, 54, 116, .05); }
 background: var(--white);
   border-radius: var(--radius);
 }
+.sidebar{
+  height: 861px;
+}

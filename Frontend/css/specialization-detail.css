@@ -98,3 +98,6 @@ body { background: var(--light, #f8fafc); }
   .skills-grid { grid-template-columns: 1fr; }
   .spec-hero-top { flex-direction: column; text-align: center; }
 }
+.sidebar{
+  height: 861px;
+}

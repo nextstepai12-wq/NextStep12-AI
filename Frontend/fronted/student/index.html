@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الرئيسية - NextStep AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="../../css/header.css">
+  <link rel="stylesheet" href="../../css/header-dashboard-account.css">
+  <link rel="stylesheet" href="../../css/student-profile.css">
+  <link rel="stylesheet" href="../../css/home.css">
+  <link rel="stylesheet" href="../../css/favorites.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <link href="../../css/scholarships.css" rel="stylesheet">
+<!-- CSS الخاص بشعار الحساب + القائمة المنسدلة داخل الهيدر -->
+
+ <style>
+  body{
+    background: radial-gradient(circle at 8% 0%, rgba(53, 208, 255, 0.16), transparent 28rem), radial-gradient(circle at 92% 100%, rgba(47, 107, 255, 0.1), transparent 30rem), linear-gradient(135deg, #f4f8ff 0%, #eef4ff 45%, #f8fbff 100%);
+  }
+ </style>
+</head>
+<body class="font-body-md bg-surface min-h-screen relative overflow-x-hidden">
+   <script src="../../js/header-dashboard.js"></script>
+
+<div class="nav-container">
+    <a href="destination.html" class="back-btn" aria-label="الرجوع">
+        <span class="arrow">&#10095;</span> <!-- سهم متجه للاتجاه المعاكس -->
+    </a>
+    <span class="back-text">الرجوع</span>
+</div>
+   
+  <main class="page-content">
+    <section class="hero-panel">
+      <div>
+        <span class="eyebrow eyebrow-on-dark">
+          <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+          مستقبلك يبدأ بخطوة
+        </span>
+        <h1>خطوتك الذكية نحو الجامعة المناسبة</h1>
+        <p>اكتشف المنح، خطط لمسارك الجامعي، واحصل على إرشاد واضح يساعدك على اتخاذ قرارك بثقة.</p>
+        <div class="hero-actions">
+          <a class="brand-button" href="../student/scholarships.html">استكشف المنح</a>
+          <a class="brand-button secondary" href="consultations.html">احجز استشارة</a>
+        </div>
+      </div>
+      <span class="hero-orbit" aria-hidden="true"></span>
+    </section>
+
+    <div class="stats-grid">
+      <div class="mini-stat"><strong>240+</strong><span>منحة متاحة</span></div>
+      <div class="mini-stat"><strong>85%</strong><span>مطابقة ذكية</span></div>
+      <div class="mini-stat"><strong>24</strong><span>مساعدة وإرشاد</span></div>
+      <div class="mini-stat"><strong>4.9</strong><span>تقييم المستخدمين</span></div>
+    </div>
+
+    <div class="page-header">
+      <div>
+        <span class="eyebrow">اكتشف NextStep AI</span>
+        <h1>كل ما تحتاجه في مكان واحد</h1>
+        <p>أدوات بسيطة ومركزة تساعدك من لحظة البحث حتى اتخاذ القرار.</p>
+      </div>
+    </div>
+
+    <section class="feature-grid">
+      <a class="feature-card" href="../student/scholarships.html">
+        <span class="feature-icon"><span class="material-symbols-outlined">school</span></span>
+        <h2>المنح الدراسية</h2>
+        <p>تصفح منح الجامعات والمنح الخارجية حسب المرحلة والتخصص.</p>
+        <span class="text-link">عرض المنح <span class="material-symbols-outlined text-[16px]">arrow_back</span></span>
+      </a>
+      <a class="feature-card" href="consultations.html">
+        <span class="feature-icon"><span class="material-symbols-outlined">psychology</span></span>
+        <h2>الاستشارات</h2>
+        <p>تحدث مع مرشد يساعدك في اختيار المسار والخطوة التالية.</p>
+        <span class="text-link">ابدأ استشارتك <span class="material-symbols-outlined text-[16px]">arrow_back</span></span>
+      </a>
+      <a class="feature-card" href="faq.html">
+        <span class="feature-icon"><span class="material-symbols-outlined">quiz</span></span>
+        <h2>الأسئلة الشائعة</h2>
+        <p>إجابات سريعة وواضحة عن التقديم، القبول، والمنح.</p>
+        <span class="text-link">تصفح الإجابات <span class="material-symbols-outlined text-[16px]">arrow_back</span></span>
+      </a>
+    </section>
+  </main>
+
+  <nav aria-label="التنقل الرئيسي" class="fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant flex flex-row-reverse justify-around items-center h-16 px-4 md:hidden">
+    <a class="nav-item flex flex-col items-center justify-center text-secondary pt-1 w-16" href="index.html">
+      <span class="material-symbols-outlined text-[24px]">home</span><span class="font-label-sm text-label-sm mt-1">الرئيسية</span>
+    </a>
+    <a class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary pt-1 w-16" href="consultations.html">
+      <span class="material-symbols-outlined text-[24px]">psychology</span><span class="font-label-sm text-label-sm mt-1">الاستشارات</span>
+    </a>
+    <a class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary pt-1 w-16" href="faq.html">
+      <span class="material-symbols-outlined text-[24px]">quiz</span><span class="font-label-sm text-label-sm mt-1">الأسئلة الشائعة</span>
+    </a>
+    <a class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary pt-1 w-16" href="account.html">
+      <span class="material-symbols-outlined text-[24px]">person</span><span class="font-label-sm text-label-sm mt-1">الحساب</span>
+    </a>
+  </nav>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const stats = document.querySelectorAll(".mini-stat strong");
+  
+  const animateCounter = (el) => {
+    const text = el.innerText;
+    // استخراج الرقم فقط من النص (مثال: "240+" تصبح 240، و "4.9" تصبح 4.9)
+    const target = parseFloat(text.replace(/[^\d.]/g, ''));
+    const isDecimal = text.includes('.');
+    const suffix = text.replace(/[\d.]/g, ''); // الاحتفاظ بالرموز مثل + أو %
+    
+    let current = 0;
+    const duration = 2000; // مدة التعديل بالمللي ثانية (2 ثانية)
+    const steps = 60;
+    const increment = target / steps;
+    const stepTime = duration / steps;
+    
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      
+      // تنسيق الرقم (إذا كان عشرياً مثل 4.9 أو صحيحاً)
+      el.innerText = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+    }, stepTime);
+  };
+
+  // استخدام Intersection Observer لبدء العد عندما يظهر العنصر على الشاشة
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target); // تشغيل الحركة مرة واحدة فقط
+      }
+    });
+  }, { threshold: 0.5 });
+
+  stats.forEach(stat => {
+    observer.observe(stat);
+  });
+});
+  </script>
+</body>
+</html>

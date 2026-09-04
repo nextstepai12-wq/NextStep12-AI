@@ -2,7 +2,7 @@
    study-plan.css — NextStep AI
    ==================================================================== */
 body {
-    background-color: var(--light-gray);
+   background: radial-gradient(circle at top left, rgba(53,208,255,0.18), transparent 28%), radial-gradient(circle at bottom right, rgba(47,107,255,0.16), transparent 30%), linear-gradient(135deg, #f4f8ff 0%, #eef4ff 45%, #f8fbff 100%);
     font-family: 'Cairo', sans-serif;
     color: var(--text-dark);
     margin: 0;
@@ -19,14 +19,20 @@ body {
   flex: 1;
   min-width: 0;
   padding: 24px 32px 90px;
+  max-width: 900px;
+  margin: 96px 243px;
 }
 .plan-inner {
-  max-width: 1180px;
-margin: 93px auto;
+ max-width: 871px;
+  margin: 93px 215px;
 }
 
 .plan-head {
-  margin-bottom: 24px;
+ margin-bottom: 24px;
+  background: var(--white);
+  padding: 24px 28px;
+  border-radius: 20px;
+
 }
 .plan-eyebrow {
   display: inline-flex;
@@ -97,7 +103,7 @@ margin: 93px auto;
   gap: 6px;
   border-bottom: 2px solid var(--border, #E4ECF4);
   margin-bottom: 24px;
-  overflow-x: auto;
+ 
 }
 .plan-tab {
   padding: 12px 20px;
@@ -841,7 +847,7 @@ margin: 93px auto;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+
 }
 
 .sidebar-title {
@@ -1007,94 +1013,214 @@ margin: 93px auto;
 /* محتوى الصفحة الرئيسي بجانب الشريط الجانبي */
 .plan-wrap {
   flex: 1;
-  order: 2;
+ 
   box-sizing: border-box;
   overflow-x: hidden;
 }
 
-.sidebar .group-label {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--muted, #6B7A8D);
-  margin: 18px 10px 8px 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  text-align: right;
+
+/* جعل عناصر مسار التقدم تفاعلية */
+.progress-track .level-item {
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.sidebar nav {
+.progress-track .level-item:hover {
+  transform: translateX(-4px);
+  opacity: 0.85;
+}
+
+.floating-widgets {
+  position: fixed;
+  bottom: 30px;
+  left: 30px; /* تم التغيير من right إلى left لتصبح في الجهة اليسار */
+  z-index: 9999;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 15px;
+  direction: ltr;
 }
 
-.sidebar .nav-item {
+.float-btn {
+  width: 65px;  /* تم تكبير الحجم من 55px إلى 65px */
+  height: 65px; /* تم تكبير الحجم من 55px إلى 65px */
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 11px 14px;
-  color: var(--ink, #1B2733);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 10px;
-  transition: all 0.2s ease;
-  text-align: right;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  animation: floatWidget 3s ease-in-out infinite;
 }
 
-.sidebar .nav-item svg {
-  width: 18px;
-  height: 18px;
-  color: var(--muted, #6B7A8D);
+.ai-guide-btn {
+  background: linear-gradient(135deg, #2F6BFF 0%, #35D0FF 100%);
+  color: #ffffff;
+  animation-delay: 0s;
+}
+
+.whatsapp-btn {
+  background-color: #25D366;
+  color: #ffffff;
+  animation-delay: 1.5s;
+}
+
+.float-btn svg {
+  width: 34px;  /* تم تكبير أيقونة الداخله ل تتناسب مع الحجم الجديد */
+  height: 34px;
+}
+
+.float-btn:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 12px 25px rgba(53, 208, 255, 0.4);
+  animation-play-state: paused;
+}
+
+@keyframes floatWidget {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float-btn .tooltip {
+  position: absolute;
+  left: 75px; /* تم تغييرها لتظهر إلى اليمين من الأيقونة بما أنها أصبحت على اليسار */
+  background-color: #173873;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Cairo', sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  pointer-events: none;
+}
+
+.float-btn:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-right: 0 !important;
+    padding: 15px;
+  }
+
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+  }
+}
+/* تعديل حاوية الصفحة الرئيسية لتكون من اليسار لليمين */
+.page-container {
+  display: flex;
+  flex-direction: row-reverse; /* لضمان تمركز المحتوى بجانب الشريط الجانبي الأيسر */
+  min-height: 100vh;
+  direction: rtl; /* الحفاظ على اتجاه النصوص العربية بشكل صحيح */
+}
+
+/* تخصيص الشريط الجانبي ليصطف على اليسار */
+.sidebar {
+  width: 260px;
+  background-color: #ffffff;
+  border-left: 1px solid var(--border, #E4ECF4); /* نقل خط الفاصل للجانب الأيسر إن وجد */
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
   flex-shrink: 0;
-  transition: color 0.2s ease;
+  overflow-y: auto;
+  direction: rtl;
 }
 
+/* تعديل حركة الأيقونات عند التمرير لتتطابق مع الاتجاه الجديد */
 .sidebar .nav-item:hover {
   background-color: rgba(46, 143, 230, 0.08);
   color: var(--sky, #2E8FE6);
-  /* تعديل حركة ال hover لتتناسب مع جهة اليمين */
-  transform: translateX(3px);
+  transform: translateX(-3px); /* عكس اتجاه الحركة البسيطة عند الهوفر */
+}
+/* تنسيقات عامة لصفحة الخطة الدراسية متوافقة مع favorites.css */
+.dashboard-container {
+    display: flex;
+    min-height: calc(100vh - 70px);
+    background-color: #f8f9fa;
+    font-family: 'Poppins', 'Cairo', sans-serif;
 }
 
-.sidebar .nav-item:hover svg {
-  color: var(--sky, #2E8FE6);
+.main-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
 }
 
-.sidebar .nav-item.active {
-  background: linear-gradient(135deg, var(--sky, #2E8FE6), var(--navy, #0E2A4A));
-  color: #fff;
-  box-shadow: 0 6px 18px rgba(46, 143, 230, 0.2);
+.page-header h1 {
+    font-size: 24px;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-weight: 700;
 }
 
-.sidebar .nav-item.active svg {
-  color: #fff;
+.page-header p {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 24px;
 }
 
-.sidebar hr {
-  border: none;
-  border-top: 1px solid var(--border, #E4ECF4);
-  margin: 12px 6px;
+/* تنسيق حاويات الخطة الدراسية لتطابق بطاقات المفضلة */
+.study-plan-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 1px 6px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
 }
 
-.sidebar .nav-item.logout {
-  color: #ef4444;
+.study-plan-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
 }
-
-.sidebar .nav-item.logout svg {
-  color: #ef4444;
-}
-
-.sidebar .nav-item.logout:hover {
-  background-color: rgba(239, 68, 68, 0.08);
-  color: #dc2626;
-}
-
-/* الاستجابة للشاشات الصغيرة */
-@media (max-width: 960px) {
-  .sidebar {
-    display: none; 
-  }
+/* تنسيق القائمة الجانبية (Sidebar) */
+.sidebar {
+    background: var(--white);
+    border-radius: var(--sidebar-radius);
+    border: 1px solid var(--border-gray);
+    box-shadow: var(--sidebar-shadow);
+    padding: 20px 14px;
+    position: sticky;
+    top: 96px;
+    transition: box-shadow 0.3s ease;
+    height: 800px;
 }
 .sidebar:hover {
     box-shadow: var(--sidebar-shadow-hover);
@@ -1160,13 +1286,108 @@ margin: 93px auto;
 .sidebar .nav-item.logout svg {
     color: var(--danger);
 }
-/* جعل عناصر مسار التقدم تفاعلية */
-.progress-track .level-item {
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+.sidebar:hover {
+    box-shadow: var(--sidebar-shadow-hover);
+}
+.sidebar .group-label {
+    font-size: 16px;
+    color: var(--gray);
+    font-weight: 700;
+    padding: 6px 12px 8px;
+    letter-spacing: 0.3px;
+    padding-bottom: 0px;
+
+}
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.sidebar .nav-item svg {
+    width: 18px;
+    height: 18px;
+    color: var(--gray);
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+}
+.sidebar .nav-item:hover {
+    background: var(--blue-soft);
+    color: var(--navy);
+    transform: translateX(-3px);
+}
+.sidebar .nav-item:hover svg {
+    color: var(--blue);
+}
+.sidebar .nav-item.active {
+    background: linear-gradient(135deg, var(--blue), var(--navy));
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(47, 107, 255, 0.2);
+}
+.sidebar .nav-item.active svg {
+    color: #fff;
+}
+.sidebar hr {
+    border: none;
+    border-top: 1px solid var(--border-gray);
+    margin: 12px 6px;
+}
+.sidebar .nav-item.logout {
+    color: var(--danger);
+}
+.sidebar .nav-item.logout svg {
+    color: var(--danger);
+}
+.sidebar{
+background: var(--white);
+  border-radius: var(--radius);
+}
+.sidebar{
+  height: 861px;
 }
 
-.progress-track .level-item:hover {
-  transform: translateX(-4px);
-  opacity: 0.85;
+/* ربط القائمة الجانبية مع الصفحة داخل Grid مثل صفحة favorites */
+.student-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 28px;
+  align-items: start;
+  direction: rtl;
+  padding: 24px 28px 60px;
+  box-sizing: border-box;
+}
+
+.plan-wrap {
+  grid-column: 1;
+  width: 100%;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 24px 0 60px;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  grid-column: 2;
+  grid-row: 1;
+  width: 260px;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  position: sticky;
+  top: 96px;
+  overflow: visible !important;
+  overflow-y: visible !important;
+  box-sizing: border-box;
 }

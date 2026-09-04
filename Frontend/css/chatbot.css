@@ -479,8 +479,8 @@ a {
 
 .chat-section {
   position: relative;
-  padding: 70px 0 95px;
-  margin-top: 212px;
+  padding: 1px 0 95px;
+  margin-top: 132px;
 }
 
 .section-heading {
@@ -604,7 +604,7 @@ a {
   padding: 11px 0;
   border-bottom: 1px solid #EDF1F5;
   color: #5C6A80;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -710,7 +710,7 @@ a {
 .chat-profile h3 {
   margin: 0;
   color: var(--ns-navy);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
 }
 
@@ -840,14 +840,14 @@ a {
 .welcome-message h4 {
   margin: 0;
   color: var(--ns-navy);
-  font-size: 14px;
+  font-size: 22px;
 }
 
 .welcome-message p {
   margin: 4px auto 0;
   max-width: 460px;
   color: #8490A2;
-  font-size: 10px;
+  font-size: 15px;
   line-height: 1.8;
 }
 
@@ -914,7 +914,7 @@ a {
   display: block;
   margin: 0 0 5px 3px;
   color: #8A95A6;
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -926,7 +926,7 @@ a {
 .msg-bubble {
   padding: 11px 14px;
   border-radius: 15px;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.9;
   box-shadow: 0 3px 12px rgba(23, 56, 115, .045);
 }
@@ -1078,7 +1078,7 @@ a {
   display: block;
   overflow: hidden;
   color: var(--ns-navy);
-  font-size: 10px;
+  font-size: 16px;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -1220,7 +1220,7 @@ a {
   margin-top: 7px;
   padding-inline: 3px;
   color: #A2ADBC;
-  font-size: 8px;
+  font-size: 13px;
 }
 
 /* ======================= FEATURES ======================= */

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>المنح الدراسية - NextStep AI</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<!-- CSS الخاص بشعار الحساب + القائمة المنسدلة داخل الهيدر -->
+ <link rel="stylesheet" href="../../css/header.css">
+  <link rel="stylesheet" href="../../css/header-dashboard-account.css">
+  <link rel="stylesheet" href="../../css/student-profile.css">
+  <link rel="stylesheet" href="../../css/home.css">
+  <link rel="stylesheet" href="../../css/favorites.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <link href="../../css/scholarships.css" rel="stylesheet">
+</head>
+
+<body class="font-body-md bg-surface min-h-screen pb-24 relative overflow-x-hidden app-page has-sidebar">
+<!-- TOP APP BAR (Shared Component) -->
+   <script src="../../js/header-dashboard.js"></script>
+
+ <div class="nav-container">
+    <a href="destination.html" class="back-btn" aria-label="الرجوع">
+         <span class="arrow">&#10095;</span> <!-- سهم متجه للاتجاه المعاكس -->
+    </a>
+    <span class="back-text">الرجوع</span>
+  </div>
+
+<div class="dashboard-layout">
+
+
+<!-- MAIN CONTENT AREA -->
+<main class="pt-16 w-full max-w-7xl mx-auto px-4 md:px-8">
+<!-- Page Header & Back Button -->
+<div class="scholarships">
+    <div class="flex items-center mb-6">
+
+<h1 class="font-headline-md text-headline-md text-primary-container">المنح الدراسية</h1>
+</div>
+<!-- TABS (Internal / External) -->
+<div class="flex bg-surface-container-low p-1 rounded-lg mb-6 max-w-md mx-auto md:mx-0 scholarship-tabs" role="tablist" aria-label="نوع المنح">
+<button aria-controls="content-internal" aria-selected="true" class="flex-1 py-2 px-4 rounded-md text-center font-label-md text-label-md transition-all duration-200 bg-surface-container-lowest text-primary-container shadow-sm border border-outline-variant is-active" id="tab-internal" onclick="switchTab('internal')" role="tab" type="button">
+                منح الجامعات
+            </button>
+<button aria-controls="content-external" aria-selected="false" class="flex-1 py-2 px-4 rounded-md text-center font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:text-primary-container" id="tab-external" onclick="switchTab('external')" role="tab" type="button">
+                منح خارجية
+            </button>
+</div>
+</div>
+<!-- FILTERS -->
+<div class="flex overflow-x-auto no-scrollbar gap-3 mb-8 pb-2 scholarship-filters" aria-label="تصفية المنح">
+<button class="filter-chip is-active whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-primary-container text-surface-container-lowest border border-primary-container" data-filter="all" type="button">الكل</button>
+<button class="filter-chip whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant border border-outline-variant hover:border-secondary-container hover:text-primary-container transition-colors" data-filter="bachelor" type="button">بكالوريوس</button>
+<button class="filter-chip whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant border border-outline-variant hover:border-secondary-container hover:text-primary-container transition-colors" data-filter="master" type="button">ماجستير</button>
+<button class="filter-chip whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant border border-outline-variant hover:border-secondary-container hover:text-primary-container transition-colors flex items-center gap-1" data-filter="saudi" type="button">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                المملكة العربية السعودية
+            </button>
+<button class="filter-chip whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant border border-outline-variant hover:border-secondary-container hover:text-primary-container transition-colors flex items-center gap-1" data-filter="all" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                المزيد
+            </button>
+</div>
+<!-- CONTENT: Internal Scholarships (Active) -->
+<div aria-labelledby="tab-internal" class="tab-content active" id="content-internal" role="tabpanel">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Internal Card 1 -->
+<div class="scholarship-card bg-surface-container-lowest border border-outline-variant rounded-xl p-5 card-hover-shadow transition-all duration-300 flex flex-col relative overflow-hidden group" data-scholarship-id="academic-excellence" data-level="bachelor master" data-country="saudi">
+<!-- Accent Top Line -->
+<div class="absolute top-0 left-0 w-full h-1 bg-secondary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-start justify-between mb-4">
+<div class="w-16 h-16 rounded-lg border border-outline-variant p-1 bg-surface-container-lowest shrink-0">
+<img alt="University Logo" class="w-full h-full object-contain rounded-md" data-alt="A clean, minimalist vector logo of a modern Middle Eastern university, featuring abstract geometric Islamic patterns in navy blue and teal, centered on a white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-Zrp0YRTIKLlz-bdTzKEKGmWqrYytvd8tXG8iC7xv_E5FkHdBXIadpK4-cL4XurdT8dJM4D2_tK7fmSsNHgoXArEhSCXob_tLwGjVBfe_96BgXp1SG7AS1Zrc-k2O7Q8m3CfDvVjiFlk6BtHYUc84NmvKg3eLXzrxFarxCz2ox2abwOQrGs4QiURKIf1nAEJafQSbj0dwq-7VhMsZqPpgW999TdQazI7oxPILcRrOpBTHAExL-W1u"/>
+</div>
+<span class="bg-[rgba(53,208,255,0.14)] text-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                            فرصة مميزة
+                        </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary-container mb-1">منحة التفوق الأكاديمي</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">جامعة الملك سعود</p>
+<div class="mt-auto space-y-3">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">menu_book</span>
+<span>التخصص: علوم الحاسب، هندسة</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">payments</span>
+<span class="font-bold text-primary-container">100% تغطية للرسوم</span>
+</div>
+</div>
+<button class="mt-5 w-full py-2.5 rounded-lg border border-primary-container text-primary-container font-label-md text-label-md hover:bg-primary-container hover:text-surface-container-lowest transition-colors" data-action="details" type="button">
+                        عرض التفاصيل
+                    </button>
+</div>
+<!-- Internal Card 2 -->
+<div class="scholarship-card bg-surface-container-lowest border border-outline-variant rounded-xl p-5 card-hover-shadow transition-all duration-300 flex flex-col relative overflow-hidden group" data-scholarship-id="talent" data-level="bachelor" data-country="international">
+<div class="absolute top-0 left-0 w-full h-1 bg-secondary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-start justify-between mb-4">
+<div class="w-16 h-16 rounded-lg border border-outline-variant p-1 bg-surface-container-lowest shrink-0">
+<img alt="University Logo" class="w-full h-full object-contain rounded-md" data-alt="A sleek, modern crest logo of a technology institute, utilizing navy blue and silver colors, clean lines, professional corporate aesthetic, white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb4m6xKaIHootF2vu0OfQQKAmHL1YWPhqCi4Q9CueGfR307PDndG2KcNJ2HbVTay8zHwdJ_KsmNZPFrInaN_XZ0JLB-YwA8ArcUI_P2tuyi0ZVe_YNyU1dzR_z6qAGB0Mk-pYLNMWDkEkTNCRCWXBuHPSp8ShjNLggs6c2RXB3PLWACTNT_VN47gt9Mg7Td1i4v-zwNCnHyv1GlCR-MsQ81xerFHBGiYm2w_DqvYetu6svnSON8EeA"/>
+</div>
+<span class="bg-surface-container-low text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm">
+                            بكالوريوس
+                        </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary-container mb-1">منحة الموهوبين</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">جامعة زايد</p>
+<div class="mt-auto space-y-3">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">menu_book</span>
+<span>التخصص: إدارة الأعمال، مالية</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">payments</span>
+<span class="font-bold text-primary-container">50% تغطية للرسوم</span>
+</div>
+</div>
+<button class="mt-5 w-full py-2.5 rounded-lg border border-primary-container text-primary-container font-label-md text-label-md hover:bg-primary-container hover:text-surface-container-lowest transition-colors" data-action="details" type="button">
+                        عرض التفاصيل
+                    </button>
+</div>
+<!-- Internal Card 3 -->
+<div class="scholarship-card bg-surface-container-lowest border border-outline-variant rounded-xl p-5 card-hover-shadow transition-all duration-300 flex flex-col relative overflow-hidden group" data-scholarship-id="research" data-level="master" data-country="saudi">
+<div class="absolute top-0 left-0 w-full h-1 bg-secondary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-start justify-between mb-4">
+<div class="w-16 h-16 rounded-lg border border-outline-variant p-1 bg-surface-container-lowest shrink-0 flex items-center justify-center bg-surface-container">
+<span class="material-symbols-outlined text-primary-container text-[32px]">account_balance</span>
+</div>
+<span class="bg-surface-container-low text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm">
+                            ماجستير
+                        </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary-container mb-1">منحة البحث العلمي</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">جامعة الملك عبدالله</p>
+<div class="mt-auto space-y-3">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">menu_book</span>
+<span>التخصص: الذكاء الاصطناعي</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">payments</span>
+<span class="font-bold text-primary-container">تمويل كامل + راتب شهري</span>
+</div>
+</div>
+<button class="mt-5 w-full py-2.5 rounded-lg border border-primary-container text-primary-container font-label-md text-label-md hover:bg-primary-container hover:text-surface-container-lowest transition-colors" data-action="details" type="button">
+                        عرض التفاصيل
+                    </button>
+</div>
+</div>
+</div>
+<!-- CONTENT: External Scholarships (Hidden initially) -->
+<div aria-labelledby="tab-external" class="tab-content" id="content-external" role="tabpanel">
+<div class="flex flex-col gap-4">
+<!-- External Card 1 -->
+<div class="scholarship-card bg-surface-container-lowest border border-outline-variant rounded-xl p-4 card-hover-shadow transition-all duration-300 flex flex-col md:flex-row gap-4 items-start md:items-center" data-scholarship-id="chevening" data-level="master" data-country="uk">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant shrink-0 relative">
+<img alt="UK Flag" class="w-full h-full object-cover" data-alt="A highly detailed, flat design icon of the United Kingdom flag, vivid red, white, and blue colors, enclosed in a perfect circle with a subtle inner shadow, white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHMrJ8xt0t3D1UsjcLbglikrphOf5x1SAHecC7fIJrhcmXthJqJ00Uq1cpNrBVvni06OwWnIsYLz6A-7fc7zRp4nYqxMeRDMlkyCcA6jKh2wGEc-vTPcLRK3QIHxQemEA7gNr9_vnpfbglTaGXRivtc5Ow2fvH0w9tYhYabBJcEcKixJF6m1ULkS5WX4OlSwYp3nkK02T_j-rJp4OfHuVDwrq0-5aYCQcu9G-cWWT6JCONYwA5rZap"/>
+</div>
+<div class="flex-1">
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<h3 class="font-headline-sm text-headline-sm text-primary-container">برنامج تشيفنينغ (Chevening)</h3>
+<span class="bg-[rgba(72,230,176,0.16)] text-[#0f9169] px-2 py-0.5 rounded text-[10px] font-bold tracking-wide border border-[rgba(72,230,176,0.5)]">ممولة بالكامل</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">المملكة المتحدة • ماجستير</p>
+<div class="flex items-center gap-4 text-on-surface-variant font-body-sm text-[13px]">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                                ينتهي التقديم: 07 نوفمبر
+                            </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">work</span>
+                                يتطلب خبرة عمل
+                            </div>
+</div>
+</div>
+<button class="w-full md:w-auto mt-2 md:mt-0 px-6 py-2 rounded-lg bg-primary-container text-surface-container-lowest font-label-md text-label-md hover:opacity-90 transition-opacity whitespace-nowrap" data-action="details" data-primary-action="apply" type="button">
+                        التقديم الآن
+                    </button>
+</div>
+<!-- External Card 2 -->
+<div class="scholarship-card bg-surface-container-lowest border border-outline-variant rounded-xl p-4 card-hover-shadow transition-all duration-300 flex flex-col md:flex-row gap-4 items-start md:items-center" data-scholarship-id="fulbright" data-level="master" data-country="usa">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant shrink-0 relative">
+<img alt="USA Flag" class="w-full h-full object-cover" data-alt="A highly detailed, flat design icon of the United States flag, vivid stars and stripes, enclosed in a perfect circle with a subtle inner shadow, white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYEKEV7eUsqEtrCHSP924_eoyI3qP14ykoCiANPEXSuB5Cx_RlH17KuloxB1OYtS_onv40leHL7PGhFbEE8Qdfa822akHpKmi6od_0wi1Ob_YV7UplapFkIDVh78AusEum2OutacGfcYR-nhwEd-7MzR4vMw8JFZimjwFIP2tv-uWACIR_-xtMkWB3LAnElSqCTZO_qq6msV3IlQhO5Z9sBmOnAskHDZ5mtdLJm0c0-zJI10irYewK"/>
+</div>
+<div class="flex-1">
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<h3 class="font-headline-sm text-headline-sm text-primary-container">منحة فولبرايت (Fulbright)</h3>
+<span class="bg-[rgba(72,230,176,0.16)] text-[#0f9169] px-2 py-0.5 rounded text-[10px] font-bold tracking-wide border border-[rgba(72,230,176,0.5)]">ممولة بالكامل</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">الولايات المتحدة الأمريكية • ماجستير / دكتوراة</p>
+<div class="flex items-center gap-4 text-on-surface-variant font-body-sm text-[13px]">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                                ينتهي التقديم: 15 أكتوبر
+                            </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">translate</span>
+                                يتطلب TOEFL / IELTS
+                            </div>
+</div>
+</div>
+<button class="w-full md:w-auto mt-2 md:mt-0 px-6 py-2 rounded-lg bg-primary-container text-surface-container-lowest font-label-md text-label-md hover:opacity-90 transition-opacity whitespace-nowrap" data-action="details" data-primary-action="apply" type="button">
+                        التقديم الآن
+                    </button>
+</div>
+<!-- External Card 3 -->
+<div class="scholarship-card bg-surface-container-lowest border border-outline-variant rounded-xl p-4 card-hover-shadow transition-all duration-300 flex flex-col md:flex-row gap-4 items-start md:items-center" data-scholarship-id="erasmus" data-level="bachelor" data-country="europe">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant shrink-0 relative">
+<div class="w-full h-full bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">public</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<h3 class="font-headline-sm text-headline-sm text-primary-container">منحة اراسموس موندوس</h3>
+<span class="bg-[rgba(107,114,128,0.12)] text-[#4B5563] px-2 py-0.5 rounded text-[10px] font-bold tracking-wide border border-[rgba(107,114,128,0.35)]">تمويل جزئي</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">أوروبا (دول متعددة) • بكالوريوس</p>
+<div class="flex items-center gap-4 text-on-surface-variant font-body-sm text-[13px]">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                                التقديم مفتوح طوال العام
+                            </div>
+</div>
+</div>
+<button class="w-full md:w-auto mt-2 md:mt-0 px-6 py-2 rounded-lg border border-primary-container text-primary-container font-label-md text-label-md hover:bg-primary-container hover:text-surface-container-lowest transition-colors whitespace-nowrap" data-action="details" data-primary-action="apply" type="button">
+                        المزيد من التفاصيل
+                    </button>
+</div>
+</div>
+</div>
+</main>
+ </div>
+<!-- Scholarship details dialog: the previous/next controls keep the user inside the scholarships flow. -->
+<div class="scholarship-modal" id="scholarship-modal" aria-hidden="true">
+<div class="scholarship-modal__backdrop" data-modal-close></div>
+<section class="scholarship-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+<button class="scholarship-modal__close" type="button" aria-label="إغلاق التفاصيل" data-modal-close>
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="scholarship-modal__eyebrow">
+<span class="material-symbols-outlined">auto_awesome</span>
+تفاصيل المنحة
+</div>
+<h2 id="modal-title"></h2>
+<p class="scholarship-modal__institution" id="modal-institution"></p>
+<div class="scholarship-modal__meta" id="modal-meta"></div>
+<div class="scholarship-modal__info">
+<div>
+<span class="material-symbols-outlined">school</span>
+<span id="modal-level"></span>
+</div>
+<div>
+<span class="material-symbols-outlined">payments</span>
+<span id="modal-funding"></span>
+</div>
+</div>
+<p class="scholarship-modal__note" id="modal-note"></p>
+<div class="scholarship-modal__footer">
+<button class="modal-nav-button" id="modal-prev" type="button">
+<span class="material-symbols-outlined">arrow_forward</span>
+السابق
+</button>
+<button class="brand-primary-button" id="modal-primary-action" type="button">عرض خطوات التقديم</button>
+<button class="modal-nav-button" id="modal-next" type="button">
+التالي
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+</div>
+</section>
+</div>
+<!-- BOTTOM NAV BAR (Shared Component) -->
+<!-- Suppressed active states as this is a sub-page, acting as a structural anchor for mobile -->
+<nav aria-label="التنقل الرئيسي" class="fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant flex flex-row-reverse justify-around items-center h-16 px-4 md:hidden">
+<a class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-colors active:opacity-80 pt-1 w-16" href="index.html">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="font-label-sm text-label-sm mt-1">الرئيسية</span>
+</a>
+<a class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-colors active:opacity-80 pt-1 w-16" href="consultations.html">
+<span class="material-symbols-outlined text-[24px]">psychology</span>
+<span class="font-label-sm text-label-sm mt-1">الاستشارات</span>
+</a>
+<a class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-colors active:opacity-80 pt-1 w-16" href="faq.html">
+<span class="material-symbols-outlined text-[24px]">quiz</span>
+<span class="font-label-sm text-label-sm mt-1">الأسئلة الشائعة</span>
+</a>
+<a class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-colors active:opacity-80 pt-1 w-16" href="account.html">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="font-label-sm text-label-sm mt-1">الحساب</span>
+</a>
+</nav>
+<!-- Tabs, filters and scholarship-to-scholarship navigation -->
+<script>
+const scholarshipDetails = {
+    'academic-excellence': {
+        level: 'بكالوريوس / ماجستير',
+        funding: '100% تغطية للرسوم',
+        meta: 'جامعة الملك سعود • علوم الحاسب وهندسة',
+        note: 'منحة للطلاب ذوي الأداء الأكاديمي المتميز، مع أولوية للتخصصات التقنية والهندسية.'
+    },
+    talent: {
+        level: 'بكالوريوس',
+        funding: '50% تغطية للرسوم',
+        meta: 'جامعة زايد • إدارة الأعمال ومالية',
+        note: 'فرصة مناسبة للطلاب الموهوبين الراغبين في تطوير مسارهم الأكاديمي والمهني.'
+    },
+    research: {
+        level: 'ماجستير',
+        funding: 'تمويل كامل + راتب شهري',
+        meta: 'جامعة الملك عبدالله • الذكاء الاصطناعي',
+        note: 'تمويل بحثي متقدم للمهتمين ببناء أبحاث تطبيقية في الذكاء الاصطناعي.'
+    },
+    chevening: {
+        level: 'ماجستير',
+        funding: 'ممولة بالكامل',
+        meta: 'المملكة المتحدة • ينتهي التقديم: 07 نوفمبر',
+        note: 'برنامج تشيفنينغ مخصص للقادة الطموحين، ويتطلب خبرة عمل وإثبات إجادة اللغة.'
+    },
+    fulbright: {
+        level: 'ماجستير / دكتوراة',
+        funding: 'ممولة بالكامل',
+        meta: 'الولايات المتحدة الأمريكية • ينتهي التقديم: 15 أكتوبر',
+        note: 'منحة فولبرايت للدراسة والبحث في الولايات المتحدة، مع متطلبات TOEFL أو IELTS.'
+    },
+    erasmus: {
+        level: 'بكالوريوس',
+        funding: 'تمويل جزئي',
+        meta: 'أوروبا (دول متعددة) • التقديم مفتوح طوال العام',
+        note: 'مسار مرن للدراسة في جامعات أوروبية متعددة، ويختلف التمويل حسب البرنامج.'
+    }
+};
+
+const modal = document.getElementById('scholarship-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalInstitution = document.getElementById('modal-institution');
+const modalMeta = document.getElementById('modal-meta');
+const modalLevel = document.getElementById('modal-level');
+const modalFunding = document.getElementById('modal-funding');
+const modalNote = document.getElementById('modal-note');
+const visibleCards = () => [...document.querySelectorAll('.tab-content.active .scholarship-card:not(.is-filtered)')];
+let currentCardIndex = 0;
+let lastFocusedElement = null;
+
+function switchTab(tabId) {
+    document.querySelectorAll('[role="tab"]').forEach((tab) => {
+        const isActive = tab.id === 'tab-' + tabId;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', String(isActive));
+    });
+    document.querySelectorAll('.tab-content').forEach((content) => {
+        content.classList.toggle('active', content.id === 'content-' + tabId);
+    });
+    applyFilter(document.querySelector('.filter-chip.is-active')?.dataset.filter || 'all');
+}
+
+function openScholarship(card, index = 0) {
+    const id = card.dataset.scholarshipId;
+    const detail = scholarshipDetails[id];
+    if (!detail) return;
+    currentCardIndex = index;
+    lastFocusedElement = document.activeElement;
+    modalTitle.textContent = card.querySelector('h3')?.textContent.trim() || 'تفاصيل المنحة';
+    modalInstitution.textContent = card.querySelector('p')?.textContent.trim() || '';
+    modalMeta.textContent = detail.meta;
+    modalLevel.textContent = detail.level;
+    modalFunding.textContent = detail.funding;
+    modalNote.textContent = detail.note;
+    document.getElementById('modal-primary-action').textContent =
+        card.dataset.primaryAction === 'apply' ? 'متابعة التقديم' : 'عرض خطوات التقديم';
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    updateModalNavigation();
+    document.body.classList.add('modal-open');
+    document.querySelector('.scholarship-modal__close').focus();
+}
+
+function updateModalNavigation() {
+    const cards = visibleCards();
+    document.getElementById('modal-prev').disabled = cards.length < 2;
+    document.getElementById('modal-next').disabled = cards.length < 2;
+    document.getElementById('modal-prev').setAttribute('aria-label', cards.length > 1 ? 'الانتقال إلى المنحة السابقة' : 'لا توجد منح سابقة');
+    document.getElementById('modal-next').setAttribute('aria-label', cards.length > 1 ? 'الانتقال إلى المنحة التالية' : 'لا توجد منح تالية');
+}
+
+function moveScholarship(direction) {
+    const cards = visibleCards();
+    if (cards.length < 2) return;
+    currentCardIndex = (currentCardIndex + direction + cards.length) % cards.length;
+    openScholarship(cards[currentCardIndex], currentCardIndex);
+}
+
+function closeScholarshipModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    lastFocusedElement?.focus();
+}
+
+function applyFilter(filter) {
+    document.querySelectorAll('.filter-chip').forEach((chip) => {
+        const isActive = chip.dataset.filter === filter;
+        chip.classList.toggle('is-active', isActive);
+        chip.setAttribute('aria-pressed', String(isActive));
+    });
+    document.querySelectorAll('.scholarship-card').forEach((card) => {
+        const matches = filter === 'all' || card.dataset.level.includes(filter) || card.dataset.country === filter;
+        card.classList.toggle('is-filtered', !matches);
+    });
+}
+
+document.querySelectorAll('[role="tab"]').forEach((tab) => {
+    tab.setAttribute('aria-selected', tab.classList.contains('is-active') ? 'true' : 'false');
+});
+
+document.querySelectorAll('[data-action="details"]').forEach((button) => {
+    button.addEventListener('click', () => {
+        const card = button.closest('.scholarship-card');
+        openScholarship(card, visibleCards().indexOf(card));
+    });
+});
+
+document.querySelectorAll('.filter-chip').forEach((chip) => {
+    chip.addEventListener('click', () => applyFilter(chip.dataset.filter));
+});
+
+document.getElementById('modal-prev').addEventListener('click', () => moveScholarship(-1));
+document.getElementById('modal-next').addEventListener('click', () => moveScholarship(1));
+document.querySelectorAll('[data-modal-close]').forEach((element) => {
+    element.addEventListener('click', closeScholarshipModal);
+});
+document.addEventListener('keydown', (event) => {
+    if (!modal.classList.contains('is-open')) return;
+    if (event.key === 'Escape') closeScholarshipModal();
+    if (event.key === 'ArrowLeft') moveScholarship(1);
+    if (event.key === 'ArrowRight') moveScholarship(-1);
+});
+
+applyFilter('all');
+    </script>
+    
+</body></html>

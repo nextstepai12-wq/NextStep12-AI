@@ -810,3 +810,6 @@ margin-left: 416px;}
 .sidebar .nav-item.logout svg {
     color: var(--danger);
 }
+.sidebar{
+  height: 861px;
+}

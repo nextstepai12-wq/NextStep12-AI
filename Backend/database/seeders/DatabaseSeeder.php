@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
         UniversitySeeder::class,
         DeanshipSeeder::class,
+        UcasMajorsSeeder::class,
+        MajorsFamilyCodeSeeder::class,
+        SurveyQuestionsSeeder::class,
     ]);
     }
 }

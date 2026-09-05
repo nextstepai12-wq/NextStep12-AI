@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="nav-inner">
     <a href="{{ route('home') }}" class="brand-mark">
-      <img src="{{ asset('Front_end/assets/logo.png') }}" alt="NextStep AI" class="brand-logo">
+      <img src="{{ asset('assets/logo.png') }}" alt="NextStep AI" class="brand-logo">
       <div class="brand-text">NextStep <span>AI</span></div>
     </a>
     <nav class="main-nav">

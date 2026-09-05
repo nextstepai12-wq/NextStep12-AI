@@ -5,8 +5,8 @@
 @section('content')
 
   <div class="hero-media" aria-hidden="true">
-    <video autoplay muted loop playsinline poster="{{ asset('Front_end/assets/5.jpg') }}">
-      <source src="{{ asset('Front_end/assets/vedio-hero.mp4') }}" type="video/mp4">
+    <video autoplay muted loop playsinline poster="{{ asset('assets/5.jpg') }}">
+      <source src="{{ asset('assets/vedio-hero.mp4') }}" type="video/mp4">
     </video>
   </div>
 

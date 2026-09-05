@@ -5,7 +5,7 @@
       <!-- Brand -->
       <div class="footer-col footer-brand">
         <div class="brand-mark">
-          <img src="{{ asset('Front_end/assets/logo.png') }}" alt="NextStep AI" class="brand-logo">
+          <img src="{{ asset('assets/logo.png') }}" alt="NextStep AI" class="brand-logo">
           <div class="brand-text">NextStep <span>AI</span></div>
         </div>
         <p class="tagline">خطوتك الذكية لمستقبلك الجامعي. منصة ذكية تساعد الطلاب على اكتشاف التخصص الجامعي الأنسب لهم.</p>

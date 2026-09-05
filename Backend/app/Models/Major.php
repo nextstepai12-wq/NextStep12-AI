@@ -15,6 +15,7 @@ class Major extends Model
         'deanship_faculty_id', // keeping as requested for old code
         'faculty_id',
         'deanship_id',
+        'family_code',
         'title',
         'cover_image',
         'video_url',

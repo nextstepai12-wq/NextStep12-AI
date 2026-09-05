@@ -3,7 +3,7 @@
 @section('title', 'المفضلة — NextStep AI')
 
 @section('css')
-<link href="{{ asset('Front_end/css/favorites.css') }}" rel="stylesheet">
+<link href="{{ asset('css/favorites.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         الرجوع
       </a>
-      <img src="{{ asset('Front_end/assets/5.jpg') }}" alt="صورة الطالب" class="user-avatar">
+      <img src="{{ asset('assets/5.jpg') }}" alt="صورة الطالب" class="user-avatar">
     </div>
   </div>
 </div>

@@ -13,10 +13,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
-<link href="{{ asset("Front_end/css/app.css") }}" rel="stylesheet">
+<link href="{{ asset("css/app.css") }}" rel="stylesheet">
 
-<link href="{{ asset("Front_end/css/home.css") }}" rel="stylesheet">
-<link href="{{ asset("Front_end/css/footer.css") }}" rel="stylesheet">
+<link href="{{ asset("css/home.css") }}" rel="stylesheet">
+<link href="{{ asset("css/footer.css") }}" rel="stylesheet">
 </head>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -57,14 +57,14 @@
 
  <div class="hero-media" aria-hidden="true">
     <video autoplay muted loop playsinline poster="assets/5.jpg">
-      <source src="{{ asset("Front_end/assets/vedio-hero.mp4") }}" type="video/mp4">
+      <source src="{{ asset("assets/vedio-hero.mp4") }}" type="video/mp4">
     </video>
   </div>
 <!-- ======================= HEADER ======================= -->
 <header class="site-header">
   <div class="nav-inner">
     <a href="index.html" class="brand-mark">
-      <img src="{{ asset("/Front_end/assets/logo.png")}}" alt="NextStep AI" class="brand-logo">
+      <img src="{{ asset("/assets/logo.png")}}" alt="NextStep AI" class="brand-logo">
       <div class="brand-text">NextStep<span>AI</span> </div>
     </a>
 

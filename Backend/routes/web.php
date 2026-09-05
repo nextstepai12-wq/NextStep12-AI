@@ -15,6 +15,10 @@ use App\Http\Controllers\University\BrowseDeanshipsController;
 use App\Http\Controllers\University\StudyPlanController;
 
 
+use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\RecommendationController;
+
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', [WebAuthController::class, 'showLogin'])->name('login');
@@ -28,8 +32,13 @@ Route::get('/results', function () { return view('pages.results'); })->name('pag
 Route::get('/study-plan', function () { return view('pages.study-plan'); })->name('pages.study-plan');
 Route::get('/universities', [HomeController::class, 'universities'])->name('universities.index');
 Route::get('/universities/{university}', [HomeController::class, 'showUniversity'])->name('universities.show');
+
 Route::middleware('auth')->group(function () {
     Route::get('/student/questionnaire', function () { return view('pages.quiz'); });
+    Route::get('/quiz/questions', [SurveyController::class, 'getQuestions']);
+    Route::post('/quiz/responses', [SurveyController::class, 'submitResponses']);
+    Route::post('/quiz/generate-recommendations', [RecommendationController::class, 'generate']);
+    Route::get('/results/data', [RecommendationController::class, 'show']);
     Route::get('/profile', function () { return view('pages.profile'); })->name('pages.profile');
     Route::get('/settings', function () { return view('pages.student-settings'); })->name('pages.settings');
     Route::get('/favorites', function () { return view('pages.favorites'); })->name('pages.favorites');

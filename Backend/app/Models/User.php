@@ -64,4 +64,16 @@ class User extends Authenticatable
     {
         return $this->hasOne(University::class, 'id', 'university_id');
     }
+    public function aiUsageTracking(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(AiUsageTracking::class, 'user_id');
+    }
+
+    /**
+     * علاقة الطالب بسجلات أحداث الذكاء الاصطناعي (HasMany)
+     */
+    public function aiEvents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(AiEvent::class, 'user_id');
+    }
 }

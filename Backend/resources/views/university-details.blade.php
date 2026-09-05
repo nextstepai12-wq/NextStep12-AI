@@ -3,7 +3,7 @@
 @section('title', $university->name . ' — NextStep AI')
 
 @section('css')
-<link href="{{ asset('Front_end/css/university-details.css') }}" rel="stylesheet">
+<link href="{{ asset('css/university-details.css') }}" rel="stylesheet">
 
 <style>
 /* =========================================================
@@ -192,7 +192,7 @@
 
 <!-- ======================= HERO / COVER & HERO CARD ======================= -->
 <div class="uni-hero-wrapper">
-  
+
   <!-- BACK LINK BUTTON (Top Left Overlay) -->
   <div class="back-link-overlay">
     <a href="{{ route('universities.index') }}" class="back-link-btn">
@@ -208,7 +208,7 @@
         <img src="{{ $university->cover_image }}" alt="غلاف {{ $university->name }}" class="cover-img-real"
              onerror="this.style.display='none';">
       @else
-        <img src="{{ asset('Front_end/assets/universities/' . $university->id . '/cover.jpg') }}" 
+        <img src="{{ asset('assets/universities/' . $university->id . '/cover.jpg') }}"
              alt="غلاف {{ $university->name }}" class="cover-img-real"
              onerror="this.style.display='none';">
       @endif
@@ -218,7 +218,7 @@
   <!-- HERO INFO CARD (LOGO + TITLE + STATS) -->
   <div class="hero-card-container">
     <div class="hero-card">
-      
+
       <!-- LOGO -->
       <div class="uni-logo-box">
         @if($university->logo)
@@ -226,7 +226,7 @@
                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
           <svg style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
         @else
-          <img src="{{ asset('Front_end/assets/universities/' . $university->id . '/logo.png') }}" 
+          <img src="{{ asset('assets/universities/' . $university->id . '/logo.png') }}"
                alt="شعار {{ $university->name }}" class="uni-logo-img"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
           <svg style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
@@ -288,7 +288,7 @@
     </button>
     <button class="uni-tab" data-tab="deanships" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"/></svg>
-      العمادات 
+      العمادات
     </button>
     <button class="uni-tab" data-tab="majors" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/></svg>
@@ -311,7 +311,7 @@
   <!-- ---- نبذة عن الجامعة ---- -->
   <div class="uni-panel" data-panel="about">
     <div class="about-layout">
-      
+
       <!-- العمود الأيمن (الرئيسي) -->
       <div class="about-main-card">
         <h3 class="section-title">نبذة عن الجامعة</h3>
@@ -354,7 +354,7 @@
             </div>
             <span class="fact-value">عربي / إنجليزي</span>
           </div>
-          
+
           <div class="fact-item">
             <div class="fact-label-group">
               <span class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"/></svg></span>
@@ -609,7 +609,7 @@ if (majorSearchInput && majorsGrid) {
     const query = this.value.trim().toLowerCase();
     const cards = majorsGrid.querySelectorAll('.major-card');
     let visibleCount = 0;
-    
+
     cards.forEach(card => {
       const name = (card.dataset.name || '').toLowerCase();
       const college = card.querySelector('.major-college');
@@ -618,7 +618,7 @@ if (majorSearchInput && majorsGrid) {
       card.style.display = match ? '' : 'none';
       if (match) visibleCount++;
     });
-    
+
     if (majorsCountEl) {
       majorsCountEl.textContent = visibleCount + ' تخصصات';
     }

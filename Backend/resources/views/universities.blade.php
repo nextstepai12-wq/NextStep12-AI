@@ -10,15 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('Front_end/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('Front_end/css/header.css') }}">
-    <link rel="stylesheet" href="{{ asset('Front_end/css/universities.css') }}">
-    <link rel="stylesheet" href="{{ asset('Front_end/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/universities.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 </head>
 
 <body>
 
-    <script src="{{ asset('Front_end/js/header-index.js') }}" defer></script>
+    <script src="{{ asset('js/header-index.js') }}" defer></script>
 
     <!-- ================= HERO ================= -->
     <section class="uni-hero">
@@ -140,8 +140,8 @@
             <div class="uni-image">
                 <img
                     class="uni-card-cover"
-                    src="{{ !empty($uni->cover_image) ? $uni->cover_image : asset('Front_end/assets/universities/'.$uni->id.'/cover.jpg') }}"
-                    data-fallback="{{ asset('Front_end/assets/default-cover.jpg') }}"
+                    src="{{ !empty($uni->cover_image) ? $uni->cover_image : asset('assets/universities/'.$uni->id.'/cover.jpg') }}"
+                    data-fallback="{{ asset('assets/default-cover.jpg') }}"
                     alt="{{ $uni->name }}"
                     loading="lazy">
 
@@ -167,7 +167,7 @@
             <div class="uni-logo">
                 <img
                     class="uni-logo-img"
-                    src="{{ !empty($uni->logo) ? $uni->logo : asset('Front_end/assets/universities/'.$uni->id.'/logo.png') }}"
+                    src="{{ !empty($uni->logo) ? $uni->logo : asset('assets/universities/'.$uni->id.'/logo.png') }}"
                     alt=""
                     style="display:none;">
                 <span class="uni-logo-fallback">
@@ -367,9 +367,9 @@
         </div>
     </div>
 
-    <script src="{{ asset('Front_end/js/footer-index.js') }}" defer></script>
+    <script src="{{ asset('js/footer-index.js') }}" defer></script>
     <!-- ملف الـ JS الآن سيعمل على البطاقات التي تم إنشاؤها من قاعدة البيانات -->
-    <script src="{{ asset('Front_end/js/universities.js') }}" defer></script>
+    <script src="{{ asset('js/universities.js') }}" defer></script>
 
 </body>
 </html>
